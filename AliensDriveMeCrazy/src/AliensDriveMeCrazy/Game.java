@@ -58,9 +58,11 @@ public class Game extends BasicGame
         Character c = new Hero(i);
         c.setHealthCurrent(10);
         HUD hud = new HUD (100,100,c);
+        Bullets b = new Bullets(1, 5, "./src/img/BULLET.jpg", 500, 500);
         
         scenes.add(hud);
         scenes.add(w);
+        scenes.add(b);
         for( int x = 0 ; x < scenes.size() ; x++ )
         {
             scenes.get(x).init(gc);

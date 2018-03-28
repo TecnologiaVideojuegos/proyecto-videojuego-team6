@@ -21,8 +21,14 @@ public abstract class Character extends Scene
     private final Inventory inventory;
     protected int healthMax;
     protected int healthCurrent;
+    protected int x;
+    protected int y;
+    protected int xVel;
+    protected int yVel;
+    protected final int gravity;
+    protected boolean jump;
     
-    public Character (String [] img, Inventory inventory, int healthMax)
+    public Character (String [] img, Inventory inventory, int healthMax, int x, int y)
     {
         this.img = new ArrayList<>();
         for (String s : img)
@@ -36,6 +42,13 @@ public abstract class Character extends Scene
                 System.out.println("ERROR LOADING CHARACTER WEARPONS");
             }
         }
+        this.x = x;
+        this.y = y;
+        this.xVel = 0;
+        this.yVel = 0;
+        this.gravity = 1;
+        this.jump = false;
+        
         this.inventory = inventory;
         this.healthMax = healthMax;
         this.healthCurrent = healthMax;
@@ -51,6 +64,7 @@ public abstract class Character extends Scene
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
+        
     }
 
     @Override

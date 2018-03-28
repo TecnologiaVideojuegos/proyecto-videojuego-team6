@@ -5,16 +5,31 @@
  */
 package AliensDriveMeCrazy;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.command.BasicCommand;
+import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.InputProvider;
+import org.newdawn.slick.command.InputProviderListener;
+import org.newdawn.slick.command.KeyControl;
+
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Character
+public class Hero extends Character implements InputProviderListener
 {
-
+    private InputProvider provider;
+    private final Command UP = new BasicCommand("UP");
+    private final Command DOWN = new BasicCommand("DOWN");
+    private final Command LEFT = new BasicCommand("LEFT");
+    private final Command RIGHT = new BasicCommand("RIGHT");
+    private final Command SHOT = new BasicCommand("SHOT");
+    
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 20);
+        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 20, 100,100);
     }
 
     @Override
@@ -28,4 +43,45 @@ public class Hero extends Character
     {
         
     }
+    
+     @Override
+    public void init(GameContainer gc) throws SlickException
+    {  
+        provider = new InputProvider(gc.getInput());
+        provider.addListener(this);
+
+        provider.bindCommand(new KeyControl(Input.KEY_UP), UP);
+        provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
+        provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
+        provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
+        provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
+    }
+    
+    @Override
+    public void controlPressed(Command command) 
+    {
+        if (command.equals(UP))
+        {
+            
+        }
+        else if (command.equals(DOWN))
+        {
+            
+        }
+        else if (command.equals(LEFT))
+        {
+            
+        }
+        else if (command.equals(RIGHT))
+        {
+            
+        }
+        else if (command.equals(SHOT))
+        {
+            
+        }
+    }
+    
+    @Override
+    public void controlReleased(Command command) {}
 }
