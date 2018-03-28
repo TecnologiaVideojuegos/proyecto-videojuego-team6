@@ -15,9 +15,9 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public abstract class Wearpon extends Scene
+public abstract class Wearpon extends Scene implements WearponInterface
 {
-
+    private final int identifer;
     private Image img;
     private Image bullet;
     private final int damage;
@@ -26,16 +26,19 @@ public abstract class Wearpon extends Scene
     private final int y;
     private final int w;
     private final int h;
+    private final boolean infiniteBullets;
 
-    public Wearpon(String source, int damage, int bullets, String bullet)
+    public Wearpon(String source, int damage, int bullets, String bullet, boolean infiniteBullets, int identifer)
     {
         this.x = 1560;
         this.y = 20;
         this.w = 100;
         this.h = 100;
         
+        this.identifer = identifer;
         this.damage = damage;
         this.bullets = bullets;
+        this.infiniteBullets = infiniteBullets;
         try
         {
             this.img = new Image(source);
@@ -68,14 +71,16 @@ public abstract class Wearpon extends Scene
         
     }
     
+    @Override
     public boolean isShotable()
     {
-        return bullets > 0;
+        return (bullets > 0)||infiniteBullets;
     }
     
+    @Override
     public int shot()
     {
         bullets --;
-        return (bullets > 0)? damage:0;
+        return ((bullets > 0)||infiniteBullets)? damage:0;
     }
 }

@@ -18,14 +18,12 @@ import org.newdawn.slick.geom.Circle;
  */
 public class HUD extends Scene
 {
-    private int livesMax;
-    private int livesCurrent;
+    private final Character character;
     private final ArrayList <Circle> lives;
     
-    public HUD(int x, int y, int livesMax)
+    public HUD(int x, int y, Character character)
     {
-        this.livesMax = livesMax;
-        this.livesCurrent = livesMax;
+        this.character = character;
         this.lives = new ArrayList <>();
         generateLives();
     }
@@ -34,9 +32,9 @@ public class HUD extends Scene
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         g.setColor(Color.red);
-        for (int x = 0; x < livesMax; x++)
+        for (int x = 0; x < character.healthMax; x++)
         {
-            if (x < livesCurrent)
+            if (x < character.healthCurrent)
             {
                 g.fill(lives.get(x));
             }
@@ -58,36 +56,13 @@ public class HUD extends Scene
     {
     } 
     
-    public void setLivesCurrent (int lives)
-    {
-        livesCurrent = lives;
-        trunkLives();
-    }
-    
-    public void setLivesMax (int lives)
-    {
-        livesMax = lives;
-        generateLives();
-    }
     
     private void generateLives ()
     {
         this.lives.clear();
-        for (int i = 0; i < livesMax; i++)
+        for (int i = 0; i < character.healthMax; i++)
         {
             lives.add(new Circle(20+ 40*i, 20 , 11));
-        }
-    }
-     
-    private void trunkLives()
-    {
-        if (livesCurrent > livesMax)
-        {
-            livesCurrent = livesMax;
-        }
-        else if (livesCurrent < 0)
-        {
-            livesCurrent = 0;
         }
     }
 }

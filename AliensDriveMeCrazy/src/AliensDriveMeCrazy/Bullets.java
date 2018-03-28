@@ -9,10 +9,11 @@ package AliensDriveMeCrazy;
  *
  * @author mr.blissfulgrin
  */
-public class Wearpon1 extends Wearpon
+public class Bullets
 {
-    public Wearpon1 ()
+    private final int identifer;
+    public Bullets (int identifer)
     {
-        super ("/src/img/WEARPON.jpg", 1, 10,"/src/img/BULLET.jpg",false, 0);
+        this.identifer = identifer;
     }
 }

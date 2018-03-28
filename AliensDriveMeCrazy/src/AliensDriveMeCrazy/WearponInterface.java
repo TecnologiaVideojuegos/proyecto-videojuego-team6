@@ -9,10 +9,8 @@ package AliensDriveMeCrazy;
  *
  * @author mr.blissfulgrin
  */
-public class Wearpon1 extends Wearpon
+public interface WearponInterface
 {
-    public Wearpon1 ()
-    {
-        super ("/src/img/WEARPON.jpg", 1, 10,"/src/img/BULLET.jpg",false, 0);
-    }
+    public boolean isShotable();
+    public int shot();
 }
