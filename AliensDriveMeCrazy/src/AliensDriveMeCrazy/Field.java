@@ -28,12 +28,15 @@ public class Field extends Scene implements InputProviderListener
     private final Command LEFT = new BasicCommand("LEFT");
     private final Command RIGHT = new BasicCommand("RIGHT");
     private final Command SHOT = new BasicCommand("SHOT");
+    private final float step;
     
     private final Hero hero;
     private final ArrayList <BadGuy> badGuy;
     
     public Field (Hero hero, ArrayList <BadGuy> badGuy)
     {
+        this.step = 130;
+        
         this.hero = hero;
         this.badGuy = new ArrayList <>();
     }
@@ -69,11 +72,11 @@ public class Field extends Scene implements InputProviderListener
     {
         if (command.equals(UP))
         {
-            hero.UP();
+            hero.UP(step);
         }
         else if (command.equals(DOWN))
-        {
-            hero.DOWN();
+        { 
+            hero.DOWN(step);
         }
         else if (command.equals(LEFT))
         {

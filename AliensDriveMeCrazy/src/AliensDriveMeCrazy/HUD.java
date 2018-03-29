@@ -54,9 +54,9 @@ public class HUD extends Scene
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         g.setColor(Color.red);
-        for (int x = 0; x < character.healthMax; x++)
+        for (int x = 0; x < character.getHealthMax(); x++)
         {
-            if (x < character.healthCurrent)
+            if (x < character.getHealthCurrent())
             {
                 g.fill(lives.get(x));
             }
@@ -86,7 +86,7 @@ public class HUD extends Scene
     private void generateLives ()
     {
         this.lives.clear();
-        for (int i = 0; i < character.healthMax; i++)
+        for (int i = 0; i < character.getHealthMax(); i++)
         {
             lives.add(new Circle(20+ 40*i, 20 , 11));
         }

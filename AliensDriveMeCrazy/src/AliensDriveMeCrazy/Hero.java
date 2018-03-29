@@ -17,40 +17,4 @@ public class Hero extends Character
     {
         super(new String [] {"./src/img/CHARACTER.png"}, inventory, 1, 100,100);
     }
-
-    @Override
-    public void move(int control)
-    {
-        x += xVel*control;
-        y += (yVel - gravity)*control;
-    }
-
-    @Override
-    public void shot(int control)
-    {
-        
-    }
-    
-    public void UP ()
-    {
-        yVel = -10;
-    }
-    public void DOWN ()
-    {
-        yVel = -4;
-        jump = true;
-    }
-    public void LEFT ()
-    {
-        xVel = -1;
-    }
-    public void RIGHT ()
-    {
-        xVel = 1;
-    }
-    
-    public void SHOT()
-    {
-        inventory.shot();
-    }
 }
