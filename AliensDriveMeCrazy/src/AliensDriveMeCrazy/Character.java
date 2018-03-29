@@ -6,8 +6,6 @@
 package AliensDriveMeCrazy;
 
 import java.util.ArrayList;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -15,17 +13,17 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public abstract class Character extends Scene
+public abstract class Character
 {
     private final ArrayList <Image> img;
-    private final Inventory inventory;
+    protected final Inventory inventory;
     protected int healthMax;
     protected int healthCurrent;
-    protected int x;
-    protected int y;
-    protected int xVel;
-    protected int yVel;
-    protected final int gravity;
+    protected float x;
+    protected float y;
+    protected float xVel;
+    protected float yVel;
+    protected final float gravity;
     protected boolean jump;
     
     public Character (String [] img, Inventory inventory, int healthMax, int x, int y)
@@ -46,30 +44,12 @@ public abstract class Character extends Scene
         this.y = y;
         this.xVel = 0;
         this.yVel = 0;
-        this.gravity = 1;
+        this.gravity = -1;
         this.jump = false;
         
         this.inventory = inventory;
         this.healthMax = healthMax;
         this.healthCurrent = healthMax;
-    }
-
-    @Override
-    public void Render(GameContainer gc, Graphics g) throws SlickException
-    {
-        move();
-        shot();
-    }
-
-    @Override
-    public void Update(GameContainer gc, int t) throws SlickException
-    {
-        img.get(inventory.getCurrent()).draw(100, 100, 100,100);
-    }
-
-    @Override
-    public void init(GameContainer gc) throws SlickException
-    {  
     }
     
     public int getHealthMax ()
@@ -107,6 +87,11 @@ public abstract class Character extends Scene
         return inventory.getAmount();
     }
     
-    protected abstract void move();
-    protected abstract void shot();
+    public void draw ()
+    {
+        img.get(inventory.getCurrent()).draw(x,y,100,100);
+    }
+    
+    public abstract void move(int control);
+    public abstract void shot(int control);
 }

@@ -52,18 +52,19 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        Bullets bullets = new Bullets(0,"./src/img/BULLET.jpg",1);
+        Bullets bullets = new Bullets(100,"./src/img/BULLET.jpg",1);
         Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
         Inventory inventory = new Inventory();
         inventory.addWearpon(wearpon);
-        Character hero = new Hero (inventory);
+        Hero hero = new Hero (inventory);
         HUD hud = new HUD (hero);
+        Field fiel = new Field (hero,new ArrayList<>());
         
-        scenes.add(hero);
         scenes.add(hud);
-        for( int x = 0 ; x < scenes.size() ; x++ )
+        scenes.add(fiel);
+        for( int i = 0 ; i < scenes.size() ; i++ )
         {
-            scenes.get(x).init(gc);
+            scenes.get(i).init(gc);
         }
     }
 
