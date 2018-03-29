@@ -21,8 +21,30 @@ public class HUD extends Scene
     private final Character character;
     private final ArrayList <Circle> lives;
     
-    public HUD(int x, int y, Character character)
+    private final float xWearpon;
+    private final float yWearpon;
+    private final float wWearpon;
+    private final float hWearpon;
+    private final float xBullets;
+    private final float yBullets;
+    private final float wBullets;
+    private final float hBullets;
+    private final float xText;
+    private final float yText;
+    
+    public HUD(Character character)
     {
+        this.xWearpon = 1560;
+        this.yWearpon = 20;
+        this.wWearpon = 100;
+        this.hWearpon = 100;
+        this.wBullets = 30;
+        this.hBullets = 30;
+        this.xBullets = 1576;
+        this.yBullets = 20 + hWearpon + 5;
+        this.xText = 1630;
+        this.yText = yBullets + 7;
+                
         this.character = character;
         this.lives = new ArrayList <>();
         generateLives();
@@ -43,6 +65,10 @@ public class HUD extends Scene
                 g.draw(lives.get(x));
             }
         }
+        character.getWearpon().draw(xWearpon,yWearpon,wWearpon,hWearpon);
+        character.getBullets().draw(xBullets,yBullets,wBullets,hBullets);
+        g.setColor(Color.yellow);
+        g.drawString(String.valueOf(character.getBulletsAmount()), xText, yText);
     }
 
     @Override

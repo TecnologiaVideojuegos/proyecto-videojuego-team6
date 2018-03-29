@@ -64,7 +64,7 @@ public abstract class Character extends Scene
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        
+        img.get(inventory.getCurrent()).draw(100, 100, 100,100);
     }
 
     @Override
@@ -90,6 +90,21 @@ public abstract class Character extends Scene
     public void setHealthCurrent(int health)
     {
         healthCurrent = health;
+    }
+    
+    public Image getWearpon ()
+    {
+        return inventory.getWearpon();
+    }
+    
+    public Image getBullets()
+    {
+        return inventory.getBullets();
+    }
+    
+    public int getBulletsAmount ()
+    {
+        return inventory.getAmount();
     }
     
     protected abstract void move();

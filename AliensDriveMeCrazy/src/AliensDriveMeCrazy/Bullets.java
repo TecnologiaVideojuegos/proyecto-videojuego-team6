@@ -5,8 +5,6 @@
  */
 package AliensDriveMeCrazy;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -14,21 +12,19 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public class Bullets extends Scene
+public class Bullets implements WearponInterface
 {
-    private final int identifer;
-    private final int amount;
+    private int amountMax;
+    private int amountCurrent;
     private Image img;
-    private int x;
-    private int y;
+    private final int damage;
     
-    public Bullets (int identifer, int amount, String source, int x, int y)
+    public Bullets (int amountMax, String source, int damage)
     {
-        this.identifer = identifer;
-        this.amount = amount;
-        this.x = x;
-        this.y = y;
-
+        this.amountMax = amountMax;
+        this.amountCurrent = amountMax;
+        this.damage = damage;
+        
         try
         {
             this.img = new Image(source);
@@ -39,24 +35,40 @@ public class Bullets extends Scene
         }
     }
     
-    public int recollect ()
-    {
-        return amount;
-    }
-
     @Override
-    public void Render(GameContainer gc, Graphics g) throws SlickException
+    public int getAmount ()
     {
-        img.draw(x,y,20,20);
+        return amountCurrent;
     }
-
+    
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void setAmountMax (int amount)
     {
+        amountMax = amount;
+        amountCurrent = amount;
     }
-
+      
     @Override
-    public void init(GameContainer gc) throws SlickException
+    public void refill ()
     {
+        amountCurrent = amountMax;
+    }
+    
+    public Image getImage ()
+    {
+        return img;
+    }
+    
+    @Override
+    public boolean isShotable ()
+    {
+        return (amountMax == 0)? true:amountCurrent > 0;
+    }
+    
+    @Override
+    public int shot ()
+    {
+        amountCurrent --;
+        return damage;
     }
 }

@@ -29,13 +29,15 @@ public class Hero extends Character implements InputProviderListener
     
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 20, 100,100);
+        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 1, 100,100);
     }
 
     @Override
     protected void move()
     {
-        
+        x += xVel;
+        //y += yVel - gravity;
+        y = 400;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class Hero extends Character implements InputProviderListener
         
     }
     
-     @Override
+    @Override
     public void init(GameContainer gc) throws SlickException
     {  
         provider = new InputProvider(gc.getInput());
@@ -62,19 +64,20 @@ public class Hero extends Character implements InputProviderListener
     {
         if (command.equals(UP))
         {
-            
+            yVel = 20;
         }
         else if (command.equals(DOWN))
         {
-            
+            yVel = 5;
+            jump = true;
         }
         else if (command.equals(LEFT))
         {
-            
+            xVel = -10;
         }
         else if (command.equals(RIGHT))
         {
-            
+            xVel = 10;
         }
         else if (command.equals(SHOT))
         {

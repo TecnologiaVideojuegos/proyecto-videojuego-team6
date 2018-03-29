@@ -13,4 +13,7 @@ public interface WearponInterface
 {
     public boolean isShotable();
     public int shot();
+    public int getAmount();
+    public void refill ();
+    public void setAmountMax (int amount);
 }

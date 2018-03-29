@@ -5,9 +5,6 @@
  */
 package AliensDriveMeCrazy;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -15,72 +12,63 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public abstract class Wearpon extends Scene implements WearponInterface
+public class Wearpon implements WearponInterface
 {
     private final int identifer;
     private Image img;
-    private Image bullet;
-    private final int damage;
-    private int bullets;
-    private final int x;
-    private final int y;
-    private final int w;
-    private final int h;
-    private final boolean infiniteBullets;
+    private final Bullets bullets;
 
-    public Wearpon(String source, int damage, int bullets, String bullet, boolean infiniteBullets, int identifer)
+    public Wearpon(String source, Bullets bullets, int identifer)
     {
-        this.x = 1560;
-        this.y = 20;
-        this.w = 100;
-        this.h = 100;
-        
         this.identifer = identifer;
-        this.damage = damage;
         this.bullets = bullets;
-        this.infiniteBullets = infiniteBullets;
+
         try
         {
             this.img = new Image(source);
-            this.bullet = new Image(bullet);
         } 
         catch (SlickException e)
         {
             System.out.println("ERROR WEARPON LOADING IMG");
         }
     }
-
-    @Override
-    public void Render(GameContainer gc, Graphics g) throws SlickException
+    
+    public Image getImage ()
     {
-        img.draw(x,y,w,h);
-        bullet.draw(x+(w/6), y+h+3, 30,30);
-        g.setColor(Color.yellow);
-        g.drawString(String.valueOf(bullets), x+(w/6)*4, y+h+10);
+        return img;
     }
-
-    @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public Image getBullets ()
     {
-        
-    }
-
-    @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        
+        return bullets.getImage();
     }
     
     @Override
     public boolean isShotable()
     {
-        return (bullets > 0)||infiniteBullets;
+        return bullets.isShotable();
     }
     
     @Override
     public int shot()
     {
-        bullets --;
-        return ((bullets > 0)||infiniteBullets)? damage:0;
+        return bullets.shot();
+    }
+
+    @Override
+    public int getAmount()
+    {
+        return bullets.getAmount();
+    }
+
+    @Override
+    public void refill()
+    {
+        bullets.refill();
+    }
+
+    @Override
+    public void setAmountMax(int amount)
+    {
+        bullets.setAmountMax(amount);
     }
 }
