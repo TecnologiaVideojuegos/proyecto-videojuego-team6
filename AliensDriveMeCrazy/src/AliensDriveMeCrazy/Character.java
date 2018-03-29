@@ -106,7 +106,7 @@ public abstract class Character
         img.get(inventory.getCurrent()).draw(x,y,w,h);
     }
     
-    protected void move (int control)
+    public void move (int control)
     {
         x += xVel*control;
         if (yVel < 50)

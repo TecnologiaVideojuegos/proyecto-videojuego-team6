@@ -8,6 +8,7 @@ package AliensDriveMeCrazy;
 import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.BasicCommand;
@@ -29,6 +30,7 @@ public class Field extends Scene implements InputProviderListener
     private final Command RIGHT = new BasicCommand("RIGHT");
     private final Command SHOT = new BasicCommand("SHOT");
     private final float step;
+    private Image img;
     
     private final Hero hero;
     private final ArrayList <BadGuy> badGuy;
@@ -36,14 +38,23 @@ public class Field extends Scene implements InputProviderListener
     public Field (Hero hero, ArrayList <BadGuy> badGuy)
     {
         this.step = 130;
-        
         this.hero = hero;
         this.badGuy = new ArrayList <>();
+        
+        try
+        {
+            this.img = new Image("./src/img/BACKGROUND.png");
+        } 
+        catch (SlickException e)
+        {
+            System.out.println("ERROR WEARPON LOADING IMG");
+        }
     }
 
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
-    {
+    {          
+        img.draw(0,0,Game.getX(),Game.getY());
         hero.draw();
     }
 

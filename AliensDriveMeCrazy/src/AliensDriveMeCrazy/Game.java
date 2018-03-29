@@ -60,8 +60,8 @@ public class Game extends BasicGame
         HUD hud = new HUD (hero);
         Field fiel = new Field (hero,new ArrayList<>());
         
-        scenes.add(hud);
         scenes.add(fiel);
+        scenes.add(hud);
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
             scenes.get(i).init(gc);
