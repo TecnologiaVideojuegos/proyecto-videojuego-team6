@@ -14,71 +14,27 @@ import org.newdawn.slick.SlickException;
  * @author mr.blissfulgrin
  */
 public abstract class Character
-{
-    private class Shot
-    {
-        private final Image shot;
-        private float x;
-        private final float y;
-        private final float vel;
-        private final float w;
-        private final float h;
-        
-        public Shot (Image shot,float x, float y, boolean dir)
-        {
-            this.shot = shot;
-            this.x = x;
-            this.y = y;
-            this.vel = dir? 5:-5;
-            this.w = 20;
-            this.h = 20;
-        }
-        protected float getW()
-        {
-            return w;
-        }
-        protected float getH()
-        {
-            return h;
-        }
-        protected Image getImage()
-        {
-            return shot;
-        }
-        protected float getY ()
-        {
-            return y;
-        }
-        protected void update ( float control)
-        {
-            this.x = x + vel*control;
-        }
-        protected float getX()
-        {
-            return x;
-        }
-    }
-    
-    private final ArrayList <Image> img;
-    private final Inventory inventory;
-    private int healthMax;
-    private int healthCurrent;
-    private float x;
-    private float y;
-    private float xVel;
-    private float yVel;
-    private final float gravity;
-    private boolean jumpUP;
-    private boolean jumpDOWN;
-    private final float w;
-    private final float h;
-    private float floor;
-    private boolean over;
-    private boolean shotable;
-    private float left;
-    private float right;
-    private int counter;
-    private final ArrayList <Shot> shots;
+{   
+    protected final ArrayList <Image> img;
+    protected final Inventory inventory;
+    protected int healthMax;
+    protected int healthCurrent;
+    protected float x;
+    protected float y;
+    protected float xVel;
+    protected float yVel;
+    protected final float gravity;
+    protected boolean jumpUP;
+    protected boolean jumpDOWN;
+    protected final float w;
+    protected final float h;
+    protected float floor;
+    protected boolean over;
+    protected boolean shotable;
+    protected float left;
+    protected float right;
+    protected int counter;
+    protected final ArrayList <Shot> shots;
     
     public Character (String [] img, Inventory inventory, int healthMax, int x, int y)
     {
@@ -151,6 +107,11 @@ public abstract class Character
         return inventory.getAmount();
     }
     
+    public int getBulletsMax ()
+    {
+        return inventory.getBulletsMax();
+    }
+    
     public void draw ()
     {
         img.get(inventory.getCurrent()).draw(x,y,w,h);
@@ -177,6 +138,7 @@ public abstract class Character
                     over = false;
                     y = floor;
                     shotable = true;
+                    counter = 0;
                 }  
             }
             else
@@ -191,6 +153,7 @@ public abstract class Character
                 jumpDOWN = false;
                 y = floor;
                 shotable = true;
+                counter = 0;
             }
         }
         else if (y >= floor)
@@ -205,32 +168,6 @@ public abstract class Character
         if (x > right)
         {
             this.LEFT();
-        }
-    }
-    
-    public void shot(int control)
-    {
-        ArrayList <Shot> toRemove = new ArrayList <>();
-        shots.stream().map((s) ->
-        {
-            s.update(control);
-            return s;
-        }).forEachOrdered((s) ->
-        {
-            if (s.getX() > right)
-                toRemove.add(s);
-            else if ((s.getX() < left))
-                toRemove.add(s);
-        });
-        toRemove.forEach((s) ->
-        {
-            shots.remove(s);
-        });
-        counter++;
-        if (counter*control > inventory.getShotSpeed())
-        {
-            shotable = true;
-            counter = 0;
         }
     }
     
@@ -265,19 +202,6 @@ public abstract class Character
         xVel = 2;
     }
     
-    public void SHOT()
-    {
-        if (!(jumpUP||jumpDOWN) && shotable)
-        {
-            inventory.shot();
-            shots.add(new Shot(inventory.getBullets(),x,y+h/4,xVel>0));
-            shotable = false;
-        }
-    }
-    
-    
-    
-    
     public void setFloor (float floor)
     {
         if (!(jumpUP||jumpDOWN))
@@ -295,6 +219,14 @@ public abstract class Character
     {
         return w;
     }
+    public float getX()
+    {
+        return x;
+    }
+    public float getY()
+    {
+        return y;
+    }
     public void setLeft (float left)
     { 
         this.left = left;
@@ -302,5 +234,15 @@ public abstract class Character
     public void setRigth (float right)
     {
         this.right = right;
+    }
+    
+    public void reciveDamage (int damage)
+    {
+        this.healthCurrent -= damage;
+    }
+    
+    public int getDamage ()
+    {
+        return inventory.getDamage();
     }
 }

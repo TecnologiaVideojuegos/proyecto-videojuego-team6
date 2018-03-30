@@ -39,7 +39,13 @@ public class Field extends Scene implements InputProviderListener
     {
         this.step = 130;
         this.hero = hero;
-        this.badGuy = new ArrayList <>();
+        this.badGuy = badGuy;
+        
+        hero.setEnemy(badGuy);
+        badGuy.forEach((b) ->
+        {
+            b.setEnemy(hero);
+        });
         
         try
         {
@@ -54,15 +60,44 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {          
-        img.draw(0,0,Game.getX(),Game.getY());
-        hero.draw();
+        if (!badGuy.isEmpty()&&hero.isAlive())
+        {
+            img.draw(0,0,Game.getX(),Game.getY());
+            hero.draw();
+            badGuy.forEach((b) ->
+            {
+                b.draw();
+            });
+        }
+        else
+        {
+            if (hero.isAlive())
+            {
+                g.drawString("YOU WIN", 830, 500);
+            }
+            else
+            {
+                g.drawString("YOU LOSE", 830, 500);
+            }
+        }
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        hero.move(t);
-        hero.shot(t);
+        if (!badGuy.isEmpty()&&hero.isAlive())
+        {
+            hero.move(t);
+            hero.shot(t);
+            badGuy.forEach((b) ->
+            {
+                b.IA(t,hero.getX(),hero.getY(), step);
+            });
+        }
+        else
+        {
+            badGuy.clear();
+        }
     }
 
     @Override

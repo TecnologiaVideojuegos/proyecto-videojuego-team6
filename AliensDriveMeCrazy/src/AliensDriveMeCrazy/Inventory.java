@@ -52,15 +52,22 @@ public class Inventory implements WearponInterface
     @Override
     public boolean isShotable()
     {
-        boolean state = wearpon.get(wearponCurrent).isShotable();
-        wearponCurrent++;
-        return state;
+        boolean shotable = wearpon.get(wearponCurrent).isShotable();
+        if (!shotable)
+            wearponCurrent++;
+        return shotable;
     }
 
     @Override
     public int getAmount()
     {
         return wearpon.get(wearponCurrent).getAmount();
+    }
+    
+    @Override
+    public int getBulletsMax()
+    {
+        return wearpon.get(wearponCurrent).getBulletsMax();
     }
 
     @Override
@@ -79,5 +86,11 @@ public class Inventory implements WearponInterface
     public int getShotSpeed ()
     {
         return wearpon.get(wearponCurrent).getShotSpeed();
+    }
+    
+    @Override
+    public int getDamage()
+    {
+        return wearpon.get(wearponCurrent).getDamage();
     }
 }

@@ -77,4 +77,16 @@ public class Wearpon implements WearponInterface
     {
         return bullets.getShotSpeed();
     }
+    
+    @Override
+    public int getBulletsMax()
+    {
+        return bullets.getBulletsMax();
+    }
+    
+    @Override
+    public int getDamage()
+    {
+        return bullets.getDamage();
+    }
 }

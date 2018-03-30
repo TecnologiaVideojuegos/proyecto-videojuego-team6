@@ -49,6 +49,12 @@ public class Bullets implements WearponInterface
         amountMax = amount;
         amountCurrent = amount;
     }
+    
+    @Override
+    public int getBulletsMax()
+    {
+        return amountMax;
+    }
       
     @Override
     public void refill ()
@@ -78,5 +84,11 @@ public class Bullets implements WearponInterface
     public int getShotSpeed()
     {
         return shotSpeed;
+    }
+    
+    @Override
+    public int getDamage()
+    {
+        return damage;
     }
 }

@@ -17,4 +17,6 @@ public interface WearponInterface
     public void refill ();
     public void setAmountMax (int amount);
     public int getShotSpeed();
+    public int getBulletsMax();
+    public int getDamage();
 }

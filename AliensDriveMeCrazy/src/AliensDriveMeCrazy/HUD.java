@@ -68,7 +68,7 @@ public class HUD extends Scene
         character.getWearpon().draw(xWearpon,yWearpon,wWearpon,hWearpon);
         character.getBullets().draw(xBullets,yBullets,wBullets,hBullets);
         g.setColor(Color.yellow);
-        g.drawString(String.valueOf(character.getBulletsAmount()), xText, yText);
+        g.drawString((character.getBulletsMax()==0)? "inf":String.valueOf(character.getBulletsAmount()), xText, yText);
     }
 
     @Override
