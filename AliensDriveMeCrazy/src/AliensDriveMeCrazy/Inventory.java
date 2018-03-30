@@ -74,4 +74,10 @@ public class Inventory implements WearponInterface
     {
         wearpon.get(wearponCurrent).setAmountMax(amount);
     }
+    
+    @Override
+    public int getShotSpeed ()
+    {
+        return wearpon.get(wearponCurrent).getShotSpeed();
+    }
 }

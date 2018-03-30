@@ -71,4 +71,10 @@ public class Wearpon implements WearponInterface
     {
         bullets.setAmountMax(amount);
     }
+    
+    @Override
+    public int getShotSpeed()
+    {
+        return bullets.getShotSpeed();
+    }
 }

@@ -18,12 +18,14 @@ public class Bullets implements WearponInterface
     private int amountCurrent;
     private Image img;
     private final int damage;
+    private final int shotSpeed;
     
-    public Bullets (int amountMax, String source, int damage)
+    public Bullets (int amountMax, String source, int damage, int shotSpeed)
     {
         this.amountMax = amountMax;
         this.amountCurrent = amountMax;
         this.damage = damage;
+        this.shotSpeed = shotSpeed;
         
         try
         {
@@ -70,5 +72,11 @@ public class Bullets implements WearponInterface
     {
         amountCurrent --;
         return damage;
+    }
+    
+    @Override
+    public int getShotSpeed()
+    {
+        return shotSpeed;
     }
 }

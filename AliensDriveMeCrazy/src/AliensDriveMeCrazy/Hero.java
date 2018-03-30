@@ -15,6 +15,6 @@ public class Hero extends Character
     
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 1, 100,100);
+        super(new String [] {"./src/img/CHARACTER.png"}, inventory, 3, 100,100);
     }
 }
