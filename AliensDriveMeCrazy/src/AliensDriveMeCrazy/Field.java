@@ -55,6 +55,8 @@ public class Field extends Scene implements InputProviderListener
         {
             System.out.println("ERROR WEARPON LOADING IMG");
         }
+        
+        
     }
 
     @Override
@@ -93,10 +95,6 @@ public class Field extends Scene implements InputProviderListener
             {
                 b.IA(t,hero.getX(),hero.getY(), step);
             });
-        }
-        else
-        {
-            badGuy.clear();
         }
     }
 

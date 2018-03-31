@@ -40,19 +40,13 @@ public class Game extends BasicGame
     // Removes a scene
     public static void removeSence ( Scene sence )
     {
-        for( int i = 0 ; i < scenes.size() ; i++ )
-        {
-            if( scenes.get(i).equals(sence) )
-            {
-                scenes.remove(i);
-            }
-        }
+        scenes.remove(sence);
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
+        /*Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
         Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
         Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
         Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
@@ -80,7 +74,11 @@ public class Game extends BasicGame
         
         Field fiel = new Field (hero,b);
         scenes.add(fiel);
-        scenes.add(hud);
+        scenes.add(hud);*/
+        StartMenu startMenu = new StartMenu();
+        
+        scenes.add(startMenu);
+        
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
             scenes.get(i).init(gc);
