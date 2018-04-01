@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Shots;
 
+import AliensDriveMeCrazy.Characters.BadGuy;
+import AliensDriveMeCrazy.Characters.Hero;
 import org.newdawn.slick.Image;
 
 /**
@@ -13,15 +15,17 @@ import org.newdawn.slick.Image;
  */
 public class ShotBadGuy extends Shot
 {
-    Hero enemy;
-    public ShotBadGuy (Image shot,float x, float y, boolean dir, Hero enemy)
+    private final Hero enemy;
+    private final BadGuy we;
+    public ShotBadGuy (Image shot,float x, float y, boolean dir, Hero enemy, BadGuy we)
     {
         super (shot,x,y,dir);
         this.enemy = enemy;
+        this.we = we;
     }
     
     @Override
-    public boolean hit (Character we)
+    public boolean hit ()
     {
         boolean result;
 

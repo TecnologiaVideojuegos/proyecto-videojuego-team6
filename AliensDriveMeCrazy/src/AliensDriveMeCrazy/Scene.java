@@ -54,11 +54,10 @@ public abstract class Scene implements Comparable<Scene>
             {
                 Render(gc, g );
             }
-            if( state == STATE.FREEZE)
+            else if( state == STATE.FREEZE)
             {
                 sence.getGraphics().clear();
                 Render(gc, sence.getGraphics());
-                freezed = true;
             }
             if(freezed)
             {
@@ -104,8 +103,7 @@ public abstract class Scene implements Comparable<Scene>
     public void setState( STATE s )
     {
         state = s;
-        if (state != STATE.FREEZE)
-            freezed = false;
+        freezed = (state == STATE.FREEZE);
     }
     
     public Boolean isFreezed ()

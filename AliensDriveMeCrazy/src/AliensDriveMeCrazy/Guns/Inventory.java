@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Guns;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import org.newdawn.slick.Image;
 
@@ -12,7 +13,7 @@ import org.newdawn.slick.Image;
  *
  * @author mr.blissfulgrin
  */
-public class Inventory implements WearponInterface
+public class Inventory implements WearponInterface, Serializable
 {
     private final ArrayList <Wearpon> wearpon;
     private int wearponCurrent;

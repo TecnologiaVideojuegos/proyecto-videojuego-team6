@@ -5,7 +5,10 @@
  */
 package AliensDriveMeCrazy;
 
+import AliensDriveMeCrazy.Characters.BadGuy;
+import AliensDriveMeCrazy.Characters.Hero;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -29,17 +32,27 @@ public class Field extends Scene implements InputProviderListener
     private final Command LEFT = new BasicCommand("LEFT");
     private final Command RIGHT = new BasicCommand("RIGHT");
     private final Command SHOT = new BasicCommand("SHOT");
+    private final Command CONTROL = new BasicCommand("CONTROL");
+    private final Command EXIT = new BasicCommand("EXIT");
     private final float step;
     private Image img;
     
     private final Hero hero;
     private final ArrayList <BadGuy> badGuy;
+    private boolean start;
+    private boolean pause;
+    private final HUD hud;
+    private int contador;
     
-    public Field (Hero hero, ArrayList <BadGuy> badGuy)
+    public Field (Hero hero, ArrayList <BadGuy> badGuy, HUD hud)
     {
+        this.hud = hud;
         this.step = 130;
         this.hero = hero;
         this.badGuy = badGuy;
+        start = false;
+        pause = false;
+        contador = 100;
         
         hero.setEnemy(badGuy);
         badGuy.forEach((b) ->
@@ -55,46 +68,79 @@ public class Field extends Scene implements InputProviderListener
         {
             System.out.println("ERROR WEARPON LOADING IMG");
         }
-        
-        
     }
 
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
-    {          
-        if (!badGuy.isEmpty()&&hero.isAlive())
+    {   
+        if (start)
         {
-            img.draw(0,0,Game.getX(),Game.getY());
-            hero.draw();
-            badGuy.forEach((b) ->
+            if (!badGuy.isEmpty()&&hero.isAlive())
             {
-                b.draw();
-            });
-        }
-        else
-        {
-            if (hero.isAlive())
-            {
-                g.drawString("YOU WIN", 830, 500);
+                img.draw(0,0,Game.getX(),Game.getY());
+                hero.draw(g);
+                badGuy.forEach((b) ->
+                {
+                    b.draw(g);
+                });
+                if (this.isFreezed())
+                {
+                    g.drawString("PAUSE, HIT ENTER TO RESUME", 740, 500);
+                }
             }
             else
             {
-                g.drawString("YOU LOSE", 830, 500);
+                g.setColor(Color.yellow);
+                if (hero.isAlive())
+                {
+                    g.drawString("YOU WIN\n<- Para salir", 830, 500);
+                    hero.nextStage();
+                }
+                else
+                {
+                    g.drawString("YOU LOSE\n<- Para salir", 830, 500);
+                }
+                this.setState(STATE.FREEZE);
             }
+        }
+        else
+        {
+
+            if (contador <= 0)
+                start = true;
+            else
+            {
+                g.setColor(Color.white);
+                img.draw(0,0,Game.getX(),Game.getY());
+                g.drawString(String.valueOf(contador), 850, 500);
+            }
+            contador --;
         }
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        if (!badGuy.isEmpty()&&hero.isAlive())
+        if (start)
         {
-            hero.move(t);
-            hero.shot(t);
-            badGuy.forEach((b) ->
+            if (!badGuy.isEmpty()&&hero.isAlive())
             {
-                b.IA(t,hero.getX(),hero.getY(), step);
-            });
+                hero.move(t);
+                hero.shot(t);
+                ArrayList <BadGuy> toRemove = new ArrayList <> ();
+                badGuy.forEach((b) ->
+                {
+                    b.IA(t,hero.getX(),hero.getY(), step);
+                    if (b.isRemovable())
+                    {
+                        toRemove.add(b);
+                    }
+                });
+                toRemove.forEach((b) ->
+                {
+                    badGuy.remove(b);
+                });
+            }
         }
     }
 
@@ -109,6 +155,8 @@ public class Field extends Scene implements InputProviderListener
         provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
         provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
         provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
+        provider.bindCommand(new KeyControl(Input.KEY_ENTER), CONTROL);
+        provider.bindCommand(new KeyControl(Input.KEY_BACK), EXIT);
     }
     
     @Override
@@ -124,16 +172,47 @@ public class Field extends Scene implements InputProviderListener
         }
         else if (command.equals(LEFT))
         {
-            hero.LEFT();
+            hero.LEFT(0);
         }
         else if (command.equals(RIGHT))
         {
-            hero.RIGHT();
+            hero.RIGHT(Game.getX() - hero.getW());
         }
         else if (command.equals(SHOT))
         {
             hero.SHOT();
         }
+        else if (command.equals(CONTROL))
+        {
+            this.control();
+        }
+        else if (command.equals(EXIT))
+        {
+            this.exit();
+        }
+    }
+    
+    private void control ()
+    {
+        if (!badGuy.isEmpty()&&hero.isAlive())
+        {
+            if (start)
+            {
+                if (this.isFreezed())
+                    this.setState(STATE.ON);
+                else
+                    this.setState(STATE.FREEZE);
+                pause = !pause;
+            }
+        }
+    }
+    
+    private void exit ()
+    {
+        Game.removeSence(this);
+        Game.removeSence(hud);
+        Game.addScene(new StartMenu());
+        SavingStation.save(hero);
     }
     
     @Override

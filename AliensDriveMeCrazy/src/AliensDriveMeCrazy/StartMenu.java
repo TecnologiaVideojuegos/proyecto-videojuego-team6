@@ -5,6 +5,11 @@
  */
 package AliensDriveMeCrazy;
 
+import AliensDriveMeCrazy.Guns.Inventory;
+import AliensDriveMeCrazy.Guns.Bullets;
+import AliensDriveMeCrazy.Guns.Wearpon;
+import AliensDriveMeCrazy.Characters.BadGuy;
+import AliensDriveMeCrazy.Characters.Hero;
 import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -69,14 +74,16 @@ public class StartMenu extends Scene implements InputProviderListener
         {
             if (game.contains(xMouse, yMouse))
             {
-                Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
+                /*Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
                 Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
                 Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
                 Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
                 Inventory inventory = new Inventory();
                 inventory.addWearpon(wearpon);
                 inventory.addWearpon(wearpon2);
-                Hero hero = new Hero (inventory);
+                Hero hero = new Hero (inventory);*/
+                Hero hero = SavingStation.load();
+                
                 HUD hud = new HUD (hero);
 
                 Bullets bulletsb = new Bullets(0,"./src/img/BULLET.jpg",2, 500);
@@ -90,12 +97,19 @@ public class StartMenu extends Scene implements InputProviderListener
                 Inventory inventoryb2 = new Inventory();
                 inventoryb2.addWearpon(wearponb2);
                 BadGuy bad2 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb2, 5, 900,400);
+                
+                Bullets bulletsb3 = new Bullets(0,"./src/img/BULLET.jpg",3, 1500);
+                Wearpon wearponb3 = new Wearpon("./src/img/WEARPON.jpg",bulletsb3,0);
+                Inventory inventoryb3 = new Inventory();
+                inventoryb3.addWearpon(wearponb3);
+                BadGuy bad3 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb3, 2, 1200,-89999);
 
                 ArrayList <BadGuy> b = new ArrayList <>();
                 b.add(bad);
                 b.add(bad2);
+                b.add(bad3);
 
-                Field fiel = new Field (hero,b);
+                Field fiel = new Field (hero,b, hud);
 
                 Game.removeSence(this);
                 Game.addScene(fiel);
@@ -112,6 +126,18 @@ public class StartMenu extends Scene implements InputProviderListener
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
         input = gc.getInput();
+        
+        Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
+        Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
+        Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
+        Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
+        Inventory inventory = new Inventory();
+        inventory.addWearpon(wearpon);
+        inventory.addWearpon(wearpon2);
+        SavingStation.save(new Hero (inventory));
+        
+        System.out.println(SavingStation.load().getHealthMax());
+        
     }
 
     @Override

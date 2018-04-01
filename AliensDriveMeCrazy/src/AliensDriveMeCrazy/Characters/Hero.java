@@ -3,22 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Characters;
 
+import AliensDriveMeCrazy.Guns.Inventory;
+import AliensDriveMeCrazy.Shots.Shot;
+import AliensDriveMeCrazy.Shots.ShotHero;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Character
+public class Hero extends Character implements Serializable
 {
-    private boolean alive;
     private ArrayList <BadGuy> enemy;
+    private int kills;
+    private int stage;
+    
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventory, 3, 100,100);
+        super(new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventory, 10, 100,100);
         this.alive = true;
+        this.kills = 0;
+        this.stage = 0;
     }
     
     public void setEnemy (ArrayList <BadGuy> enemy)
@@ -35,7 +43,7 @@ public class Hero extends Character
             return s;
         }).forEachOrdered((s) ->
         {
-            boolean hit = s.hit(this);
+            boolean hit = s.hit();
             if ((s.getX() > right)||hit)
                 toRemove.add(s);
             else if ((s.getX() < left)||hit)
@@ -45,31 +53,48 @@ public class Hero extends Character
         {
             shots.remove(s);
         });
-        counter++;
-        if (counter*control > inventory.getShotSpeed())
+        counterShot++;
+        if (counterShot*control > inventory.getShotSpeed())
         {
             shotable = true;
-            counter = 0;
+            counterShot = 0;
         }
     }
     
+    @Override
     public void SHOT()
     {
         if (!(jumpUP||jumpDOWN) && shotable && inventory.isShotable())
         {
             inventory.shot();
-            shots.add(new ShotHero(inventory.getBullets(),x,y+h/4,xVel>0,enemy));
+            shots.add(new ShotHero(inventory.getBullets(),x,y+h/4,xVel>0,enemy,this));
             shotable = false;
         }
     }
     
+    @Override
     public void die()
     {
         alive = false;
     }
     
-    public boolean isAlive ()
+    public void addKill ()
     {
-        return alive;
+        kills ++;
+    }
+    
+    public int getKills()
+    {
+        return kills;
+    }
+    
+    public int getStage()
+    {
+        return stage;
+    }
+    
+    public void nextStage()
+    {
+        this.stage++;
     }
 }

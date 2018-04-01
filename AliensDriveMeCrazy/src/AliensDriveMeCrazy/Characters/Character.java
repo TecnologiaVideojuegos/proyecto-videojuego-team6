@@ -3,9 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Characters;
 
+import AliensDriveMeCrazy.Game;
+import AliensDriveMeCrazy.Guns.Inventory;
+import AliensDriveMeCrazy.Shots.Shot;
+import java.io.Serializable;
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +19,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public abstract class Character
+public abstract class Character implements Serializable
 {   
     protected final ArrayList <Image> img;
     protected final Inventory inventory;
@@ -33,8 +39,9 @@ public abstract class Character
     protected boolean shotable;
     protected float left;
     protected float right;
-    protected int counter;
+    protected int counterShot;
     protected final ArrayList <Shot> shots;
+    protected boolean alive;
     
     public Character (String [] img, Inventory inventory, int healthMax, int x, int y)
     {
@@ -112,9 +119,12 @@ public abstract class Character
         return inventory.getBulletsMax();
     }
     
-    public void draw ()
+    public void draw (Graphics g)
     {
-        img.get(inventory.getCurrent()).draw(x,y,w,h);
+        if (alive)
+        {
+            img.get(inventory.getCurrent()).draw(x,y,w,h);
+        }
         shots.forEach((s)->
         {
             s.getImage().draw(s.getX(),s.getY(),s.getW(),s.getH());
@@ -138,7 +148,7 @@ public abstract class Character
                     over = false;
                     y = floor;
                     shotable = true;
-                    counter = 0;
+                    counterShot = 0;
                 }  
             }
             else
@@ -153,7 +163,7 @@ public abstract class Character
                 jumpDOWN = false;
                 y = floor;
                 shotable = true;
-                counter = 0;
+                counterShot = 0;
             }
         }
         else if (y >= floor)
@@ -171,8 +181,9 @@ public abstract class Character
         }
     }
     
-    public void UP (float step)
+    public boolean UP (float step)
     {
+        boolean done = false;
         if (!(jumpUP||jumpDOWN))
         {
             if (floor > step)
@@ -180,10 +191,13 @@ public abstract class Character
             yVel = -19;
             y--;
             jumpUP = true;
+            done = true;
         }
+        return done;
     }
-    public void DOWN (float step)
+    public boolean DOWN (float step)
     {
+        boolean done = false;
         if (!(jumpUP||jumpDOWN))
         {
             if (floor < (Game.getY() - h))
@@ -191,7 +205,19 @@ public abstract class Character
             yVel = -8;
             y--;
             jumpDOWN = true;
+            done = true;
         }
+        return done;
+    }
+    public void LEFT (float left)
+    {
+        this.left = left;
+        xVel = -2;
+    }
+    public void RIGHT (float right)
+    {
+        this.right = right;
+        xVel = 2;
     }
     public void LEFT ()
     {
@@ -244,5 +270,12 @@ public abstract class Character
     public int getDamage ()
     {
         return inventory.getDamage();
+    }
+    
+    public abstract void die();
+    public abstract void SHOT();
+    public boolean isAlive()
+    {
+        return alive;
     }
 }

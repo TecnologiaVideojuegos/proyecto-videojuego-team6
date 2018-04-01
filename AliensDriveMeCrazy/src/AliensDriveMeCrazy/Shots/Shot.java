@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Shots;
 
+import java.io.Serializable;
 import org.newdawn.slick.Image;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public abstract class Shot
+public abstract class Shot implements Serializable
 {
     private final Image shot;
     private float x;
@@ -54,5 +55,5 @@ public abstract class Shot
         return x;
     }
 
-    public abstract boolean hit (Character we);
+    public abstract boolean hit ();
 }

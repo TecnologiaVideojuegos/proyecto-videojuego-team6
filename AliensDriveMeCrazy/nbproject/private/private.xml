@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/AliensDriveMeCrazy/Wearpon1.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>15</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Scene.java</file>
-            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Wearpon1.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Guns/WearponInterface.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Characters/Hero.java</file>
             <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/HUD.java</file>
             <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Game.java</file>
-            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Character.java</file>
-            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Wearpon.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Characters/Character.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Shots/Shot.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Guns/Inventory.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Shots/ShotBadGuy.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Field.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Shots/ShotHero.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Guns/Bullets.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Guns/Wearpon.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/StartMenu.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/SavingStation.java</file>
+            <file>file:/Users/mr.blissfulgrin/Documents/UAH_2017_2018/VIDEOJUEGOS/AliensDriveMeCrazy/src/AliensDriveMeCrazy/Characters/BadGuy.java</file>
         </group>
     </open-files>
 </project-private>

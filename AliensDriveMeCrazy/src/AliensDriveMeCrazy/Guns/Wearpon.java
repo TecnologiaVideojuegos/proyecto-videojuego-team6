@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package AliensDriveMeCrazy;
+package AliensDriveMeCrazy.Guns;
 
+import java.io.Serializable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -12,7 +13,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public class Wearpon implements WearponInterface
+public class Wearpon implements WearponInterface, Serializable
 {
     private final int identifer;
     private Image img;
