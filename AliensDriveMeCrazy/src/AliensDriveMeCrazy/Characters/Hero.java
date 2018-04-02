@@ -8,25 +8,34 @@ package AliensDriveMeCrazy.Characters;
 import AliensDriveMeCrazy.Guns.Inventory;
 import AliensDriveMeCrazy.Shots.Shot;
 import AliensDriveMeCrazy.Shots.ShotHero;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Character implements Serializable
+public class Hero extends Character
 {
     private ArrayList <BadGuy> enemy;
     private int kills;
     private int stage;
+    private int money;
     
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventory, 10, 100,100);
+        super(new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventory, 3, 100,100);
         this.alive = true;
         this.kills = 0;
         this.stage = 0;
+        this.money = 0;
+    }
+    public Hero (SavedHero hero)
+    {
+        super(hero.getImg(), new Inventory(hero.getSavedInventory()), hero.getHeathMax(), 100,100);
+        this.alive = true;
+        this.kills = hero.getKills();
+        this.stage = hero.getStage();
+        this.money = hero.getMoney();
     }
     
     public void setEnemy (ArrayList <BadGuy> enemy)
@@ -96,5 +105,23 @@ public class Hero extends Character implements Serializable
     public void nextStage()
     {
         this.stage++;
+    }
+    public void addMoney (int money)
+    {
+        this.money += money;
+    }
+    public int getMoney()
+    {
+        return money;
+    }
+    
+    public SavedHero save ()
+    {
+        String [] savedImg = new String[img.size()];
+        for (int i = 0; i < img.size(); i++)
+        {
+            savedImg[i] = img.get(i).getResourceReference();
+        }
+        return new SavedHero (kills, stage, money, healthMax, inventory.save(), savedImg);
     }
 }

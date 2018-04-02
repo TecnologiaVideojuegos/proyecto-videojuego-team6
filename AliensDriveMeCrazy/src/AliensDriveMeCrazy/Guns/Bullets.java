@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package AliensDriveMeCrazy.Guns;
-
-import java.io.Serializable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +11,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public class Bullets implements WearponInterface, Serializable
+public class Bullets implements WearponInterface
 {
     private int amountMax;
     private int amountCurrent;
@@ -31,6 +29,21 @@ public class Bullets implements WearponInterface, Serializable
         try
         {
             this.img = new Image(source);
+        } 
+        catch (SlickException ex)
+        {
+            System.out.println("ERROR DE IMAGEN BULLETS");
+        }
+    }
+    public Bullets (SavedBullets bullets)
+    {
+        this.amountMax = bullets.getAmountMax();
+        this.amountCurrent = bullets.getAmountMax();
+        this.damage = bullets.getDamage();
+        this.shotSpeed = bullets.getShotSpeed();
+        try
+        {
+            this.img = new Image(bullets.getImg());
         } 
         catch (SlickException ex)
         {
@@ -91,5 +104,10 @@ public class Bullets implements WearponInterface, Serializable
     public int getDamage()
     {
         return damage;
+    }
+    
+    public SavedBullets save()
+    {
+        return new SavedBullets(amountMax, img.getResourceReference(), damage, shotSpeed);
     }
 }

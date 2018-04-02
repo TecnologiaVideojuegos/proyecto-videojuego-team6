@@ -8,9 +8,7 @@ package AliensDriveMeCrazy.Characters;
 import AliensDriveMeCrazy.Game;
 import AliensDriveMeCrazy.Guns.Inventory;
 import AliensDriveMeCrazy.Shots.Shot;
-import java.io.Serializable;
 import java.util.ArrayList;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,7 +17,7 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public abstract class Character implements Serializable
+public abstract class Character
 {   
     protected final ArrayList <Image> img;
     protected final Inventory inventory;

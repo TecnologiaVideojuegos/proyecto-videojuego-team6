@@ -5,7 +5,6 @@
  */
 package AliensDriveMeCrazy.Guns;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import org.newdawn.slick.Image;
 
@@ -13,7 +12,7 @@ import org.newdawn.slick.Image;
  *
  * @author mr.blissfulgrin
  */
-public class Inventory implements WearponInterface, Serializable
+public class Inventory implements WearponInterface
 {
     private final ArrayList <Wearpon> wearpon;
     private int wearponCurrent;
@@ -21,6 +20,15 @@ public class Inventory implements WearponInterface, Serializable
     public Inventory()
     {
         this.wearpon = new ArrayList <>();
+        this.wearponCurrent = 0;
+    }
+    public Inventory (SavedInventory inventory)
+    {
+        this.wearpon = new ArrayList <>();
+        inventory.getWearpon().forEach((w) ->
+        {
+            this.wearpon.add(new Wearpon(w));
+        });
         this.wearponCurrent = 0;
     }
     
@@ -93,5 +101,15 @@ public class Inventory implements WearponInterface, Serializable
     public int getDamage()
     {
         return wearpon.get(wearponCurrent).getDamage();
+    }
+    
+    public SavedInventory save ()
+    {
+        ArrayList <SavedWearpon> wearponSaved = new ArrayList <>();
+        this.wearpon.forEach((w) ->
+        {
+            wearponSaved.add(w.save());
+        });
+        return new SavedInventory(wearponSaved);
     }
 }

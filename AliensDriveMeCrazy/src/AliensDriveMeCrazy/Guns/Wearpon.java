@@ -5,7 +5,6 @@
  */
 package AliensDriveMeCrazy.Guns;
 
-import java.io.Serializable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -13,13 +12,13 @@ import org.newdawn.slick.SlickException;
  *
  * @author mr.blissfulgrin
  */
-public class Wearpon implements WearponInterface, Serializable
+public class Wearpon implements WearponInterface
 {
     private final int identifer;
     private Image img;
     private final Bullets bullets;
 
-    public Wearpon(String source, Bullets bullets, int identifer)
+    public Wearpon (String source, Bullets bullets, int identifer)
     {
         this.identifer = identifer;
         this.bullets = bullets;
@@ -27,6 +26,20 @@ public class Wearpon implements WearponInterface, Serializable
         try
         {
             this.img = new Image(source);
+        } 
+        catch (SlickException e)
+        {
+            System.out.println("ERROR WEARPON LOADING IMG");
+        }
+    }
+    public Wearpon (SavedWearpon wearpon)
+    {
+        this.identifer = wearpon.getIdentifer();
+        this.bullets = new Bullets (wearpon.getBullets());
+
+        try
+        {
+            this.img = new Image(wearpon.getImg());
         } 
         catch (SlickException e)
         {
@@ -89,5 +102,10 @@ public class Wearpon implements WearponInterface, Serializable
     public int getDamage()
     {
         return bullets.getDamage();
+    }
+    
+    public SavedWearpon save ()
+    {
+        return new SavedWearpon (identifer, img.getResourceReference(), bullets.save());
     }
 }

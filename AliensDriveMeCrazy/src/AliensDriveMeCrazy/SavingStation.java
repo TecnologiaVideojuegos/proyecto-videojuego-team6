@@ -6,6 +6,7 @@
 package AliensDriveMeCrazy;
 
 import AliensDriveMeCrazy.Characters.Hero;
+import AliensDriveMeCrazy.Characters.SavedHero;
 import AliensDriveMeCrazy.Guns.Bullets;
 import AliensDriveMeCrazy.Guns.Inventory;
 import AliensDriveMeCrazy.Guns.Wearpon;
@@ -27,13 +28,15 @@ public class SavingStation implements Serializable
     public static Hero load ()
     { 
         Hero hero;
+        SavedHero heroSaved;
         try
         {
             FileInputStream fis;
             ObjectInputStream ois;
             fis = new FileInputStream("./src/saves/Hero.dat");
             ois = new ObjectInputStream(fis);
-            hero = (Hero) ois.readObject();
+            heroSaved = (SavedHero) ois.readObject();
+            hero = new Hero(heroSaved);
             ois.close(); 
             fis.close();
         }
@@ -60,7 +63,7 @@ public class SavingStation implements Serializable
             inventory.addWearpon(wearpon);
             inventory.addWearpon(wearpon2);
             hero = new Hero (inventory);
-        } 
+        }
         return hero;
     }
     
@@ -72,9 +75,10 @@ public class SavingStation implements Serializable
             ObjectOutputStream oos;
             fos = new FileOutputStream("./src/saves/Hero.dat");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(hero);
+            oos.writeObject(hero.save());
             oos.close();
             fos.close();
+            System.out.println("HERO SAVED");
         } 
         catch (FileNotFoundException ex)
         {

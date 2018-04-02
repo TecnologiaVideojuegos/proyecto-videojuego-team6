@@ -7,7 +7,6 @@ package AliensDriveMeCrazy.Shots;
 
 import AliensDriveMeCrazy.Characters.BadGuy;
 import AliensDriveMeCrazy.Characters.Hero;
-import java.io.Serializable;
 import java.util.ArrayList;
 import org.newdawn.slick.Image;
 
@@ -15,7 +14,7 @@ import org.newdawn.slick.Image;
  *
  * @author mr.blissfulgrin
  */
-public class ShotHero extends Shot implements Serializable
+public class ShotHero extends Shot
 {
     private final ArrayList <BadGuy> enemy;
     private final Hero we;
@@ -42,6 +41,7 @@ public class ShotHero extends Shot implements Serializable
                 {
                     we.addKill();
                     enemy.get(counter).die();
+                    we.addMoney(enemy.get(counter).getHealthMax());
                 }
             }
             counter++;

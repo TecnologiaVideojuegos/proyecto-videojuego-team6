@@ -5,14 +5,13 @@
  */
 package AliensDriveMeCrazy.Shots;
 
-import java.io.Serializable;
 import org.newdawn.slick.Image;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public abstract class Shot implements Serializable
+public abstract class Shot
 {
     private final Image shot;
     private float x;

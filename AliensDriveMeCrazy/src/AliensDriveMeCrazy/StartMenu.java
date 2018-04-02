@@ -74,14 +74,6 @@ public class StartMenu extends Scene implements InputProviderListener
         {
             if (game.contains(xMouse, yMouse))
             {
-                /*Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
-                Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
-                Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
-                Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
-                Inventory inventory = new Inventory();
-                inventory.addWearpon(wearpon);
-                inventory.addWearpon(wearpon2);
-                Hero hero = new Hero (inventory);*/
                 Hero hero = SavingStation.load();
                 
                 HUD hud = new HUD (hero);
@@ -125,19 +117,7 @@ public class StartMenu extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
-        input = gc.getInput();
-        
-        Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
-        Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
-        Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
-        Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
-        Inventory inventory = new Inventory();
-        inventory.addWearpon(wearpon);
-        inventory.addWearpon(wearpon2);
-        SavingStation.save(new Hero (inventory));
-        
-        System.out.println(SavingStation.load().getHealthMax());
-        
+        input = gc.getInput();      
     }
 
     @Override
