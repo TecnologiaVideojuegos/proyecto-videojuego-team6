@@ -29,6 +29,8 @@ public class StatisticsMenu extends Scene implements InputProviderListener
     private final float y;
     private final Hero hero;
     private final Rectangle back;
+    private final Rectangle right;
+    private final Rectangle left;
     private boolean clicked;
     private int xMouse;
     private int yMouse;
@@ -46,6 +48,8 @@ public class StatisticsMenu extends Scene implements InputProviderListener
             stage [i] = new Circle(100*i + 400,y,20);
         }
         this.back = new Rectangle (100,100,100,50);
+        this.right = new Rectangle (900,400,50,50);
+        this.left = new Rectangle (1400,400,50,50);
         click = new BasicCommand("click");
         clicked = false;
     }
@@ -64,10 +68,16 @@ public class StatisticsMenu extends Scene implements InputProviderListener
             if (i < stage.length-1)
                 g.drawLine(stage[i].getCenterX()+stage[i].getRadius(), y,stage[i+1].getCenterX()-stage[i+1].getRadius() , y);
         }
+        hero.getBullets().draw(1230, 600,20,20);
+        hero.getWearpon().draw(1020, 280, 300, 300);
+        hero.getImg().draw(500,300,400,400);
+        g.drawString(String.valueOf("Ammo: "+((hero.getBulletsMax()==0)? "inf":hero.getBulletsMax())), 1140, 600);
         g.drawString(String.valueOf("Kills: "+hero.getKills()), 400, 300);
         g.drawString(String.valueOf("HealthMax: "+hero.getHealthMax()), 400, 320);
         g.drawString(String.valueOf("Money: "+hero.getMoney()), 400, 340);
         g.fill(back);
+        g.fill(right);
+        g.fill(left);
     }
     
     @Override
@@ -81,6 +91,10 @@ public class StatisticsMenu extends Scene implements InputProviderListener
                 Game.removeSence(this);
                 Game.addScene(startMenu);
             }
+            else if (right.contains(xMouse, yMouse))
+                hero.goRightWearpon();
+            else if (left.contains(xMouse, yMouse))
+                hero.goLeftWearpon();
         }
     }
 

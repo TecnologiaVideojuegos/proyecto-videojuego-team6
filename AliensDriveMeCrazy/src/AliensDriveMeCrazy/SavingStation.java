@@ -42,7 +42,6 @@ public class SavingStation implements Serializable
         }
         catch (FileNotFoundException ex)
         {
-            System.out.println("NEW HERO CREATED");
             Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
             Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
             Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
@@ -78,7 +77,6 @@ public class SavingStation implements Serializable
             oos.writeObject(hero.save());
             oos.close();
             fos.close();
-            System.out.println("HERO SAVED");
         } 
         catch (FileNotFoundException ex)
         {

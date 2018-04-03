@@ -112,4 +112,26 @@ public class Inventory implements WearponInterface
         });
         return new SavedInventory(wearponSaved);
     }
+    
+    public void goLeft ()
+    {
+        if ((wearponCurrent + 1) < wearpon.size())
+            wearponCurrent ++;
+    }
+    public void goRight ()
+    {
+        if ((wearponCurrent - 1) >= 0)
+            wearponCurrent --;
+    }
+    
+    public void goBest ()
+    {
+        wearponCurrent = 0;
+        boolean error = false;
+        while (!((wearpon.get(wearponCurrent).getAmount() > 0) || (wearpon.get(wearponCurrent).getBulletsMax() == 0) || error))
+            if ((wearponCurrent + 1) < wearpon.size())
+                wearponCurrent ++;
+            else
+                error = true;
+    }
 }

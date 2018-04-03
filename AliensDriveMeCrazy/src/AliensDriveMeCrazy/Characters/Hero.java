@@ -9,6 +9,7 @@ import AliensDriveMeCrazy.Guns.Inventory;
 import AliensDriveMeCrazy.Shots.Shot;
 import AliensDriveMeCrazy.Shots.ShotHero;
 import java.util.ArrayList;
+import org.newdawn.slick.Image;
 
 /**
  *
@@ -123,5 +124,18 @@ public class Hero extends Character
             savedImg[i] = img.get(i).getResourceReference();
         }
         return new SavedHero (kills, stage, money, healthMax, inventory.save(), savedImg);
+    }
+    
+    public void goLeftWearpon ()
+    {
+        inventory.goLeft();
+    }
+    public void goRightWearpon ()
+    {
+        inventory.goRight();
+    }
+    public Image getImg ()
+    {
+        return img.get(inventory.getCurrent());
     }
 }

@@ -40,7 +40,6 @@ public class Field extends Scene implements InputProviderListener
     private final Hero hero;
     private final ArrayList <BadGuy> badGuy;
     private boolean start;
-    private boolean pause;
     private final HUD hud;
     private int contador;
     private boolean done;
@@ -52,7 +51,6 @@ public class Field extends Scene implements InputProviderListener
         this.hero = hero;
         this.badGuy = badGuy;
         start = false;
-        pause = false;
         contador = 100;
         done = false;
         
@@ -170,23 +168,28 @@ public class Field extends Scene implements InputProviderListener
     {
         if (command.equals(UP))
         {
-            hero.UP(step);
+            if (!this.isFreezed())
+                hero.UP(step);
         }
         else if (command.equals(DOWN))
         { 
-            hero.DOWN(step);
+            if (!this.isFreezed())
+                hero.DOWN(step);
         }
         else if (command.equals(LEFT))
         {
-            hero.LEFT(0);
+            if (!this.isFreezed())
+                hero.LEFT(0);
         }
         else if (command.equals(RIGHT))
         {
-            hero.RIGHT(Game.getX() - hero.getW());
+            if (!this.isFreezed())
+                hero.RIGHT(Game.getX() - hero.getW());
         }
         else if (command.equals(SHOT))
         {
-            hero.SHOT();
+            if (!this.isFreezed())
+                hero.SHOT();
         }
         else if (command.equals(CONTROL))
         {
@@ -208,7 +211,6 @@ public class Field extends Scene implements InputProviderListener
                     this.setState(STATE.ON);
                 else
                     this.setState(STATE.FREEZE);
-                pause = !pause;
             }
         }
     }
