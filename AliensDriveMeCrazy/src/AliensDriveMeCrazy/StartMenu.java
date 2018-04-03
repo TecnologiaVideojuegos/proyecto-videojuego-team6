@@ -34,6 +34,7 @@ public class StartMenu extends Scene implements InputProviderListener
     private final Rectangle game;
     private final Rectangle statistics;
     private final Rectangle store;
+    private final Rectangle exit;
     private final int w;
     private final int h;
     private final int x;
@@ -47,9 +48,10 @@ public class StartMenu extends Scene implements InputProviderListener
         this.w = 500;
         this.h = 150;
         this.x = 600;
-        game = new Rectangle (x,300, w, h);
-        statistics = new Rectangle (x,500, w, h);
-        store = new Rectangle (x,700, w, h);
+        game = new Rectangle (x,300, w, h); 
+        store = new Rectangle (x,500, w, h);
+        statistics = new Rectangle (x,700, w, h);
+        exit = new Rectangle (100,100,100,50);
         click = new BasicCommand("click");
         clicked = false;
     }
@@ -61,6 +63,7 @@ public class StartMenu extends Scene implements InputProviderListener
         g.fill(game);
         g.fill(statistics);
         g.fill(store);
+        g.fill(exit);
         g.setColor(Color.lightGray);
         g.drawString("GAME", x+w/7*3+15, 375);
         g.drawString("STORE", x+w/7*3+10, 575);
@@ -75,7 +78,6 @@ public class StartMenu extends Scene implements InputProviderListener
             if (game.contains(xMouse, yMouse))
             {
                 Hero hero = SavingStation.load();
-                
                 HUD hud = new HUD (hero);
 
                 Bullets bulletsb = new Bullets(0,"./src/img/BULLET.jpg",2, 500);
@@ -107,6 +109,15 @@ public class StartMenu extends Scene implements InputProviderListener
                 Game.addScene(fiel);
                 Game.addScene(hud);
             }
+            else if (statistics.contains(xMouse, yMouse))
+            {
+                StatisticsMenu statisticsMenu = new StatisticsMenu(SavingStation.load());
+                
+                Game.removeSence(this);
+                Game.addScene(statisticsMenu);
+            }
+            else if (exit.contains(xMouse, yMouse))
+                System.exit(0);
         }
         clicked = false;
     }

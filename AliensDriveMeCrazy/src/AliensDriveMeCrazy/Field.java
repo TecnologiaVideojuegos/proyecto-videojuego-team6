@@ -43,6 +43,7 @@ public class Field extends Scene implements InputProviderListener
     private boolean pause;
     private final HUD hud;
     private int contador;
+    private boolean done;
     
     public Field (Hero hero, ArrayList <BadGuy> badGuy, HUD hud)
     {
@@ -53,6 +54,7 @@ public class Field extends Scene implements InputProviderListener
         start = false;
         pause = false;
         contador = 100;
+        done = false;
         
         hero.setEnemy(badGuy);
         badGuy.forEach((b) ->
@@ -94,7 +96,11 @@ public class Field extends Scene implements InputProviderListener
                 if (hero.isAlive())
                 {
                     g.drawString("YOU WIN\n<- Para salir", 830, 500);
-                    hero.nextStage();
+                    if (!done)
+                    {
+                        hero.nextStage();
+                        done = true;
+                    }
                 }
                 else
                 {

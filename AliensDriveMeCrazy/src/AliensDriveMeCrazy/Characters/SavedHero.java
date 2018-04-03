@@ -7,7 +7,6 @@ package AliensDriveMeCrazy.Characters;
 
 import AliensDriveMeCrazy.Guns.SavedInventory;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  *

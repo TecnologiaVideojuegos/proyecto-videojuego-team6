@@ -46,37 +46,7 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        /*Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
-        Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
-        Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
-        Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
-        Inventory inventory = new Inventory();
-        inventory.addWearpon(wearpon);
-        inventory.addWearpon(wearpon2);
-        Hero hero = new Hero (inventory);
-        HUD hud = new HUD (hero);
-        
-        Bullets bulletsb = new Bullets(0,"./src/img/BULLET.jpg",2, 500);
-        Wearpon wearponb = new Wearpon("./src/img/WEARPON.jpg",bulletsb,0);
-        Inventory inventoryb = new Inventory();
-        inventoryb.addWearpon(wearponb);
-        BadGuy bad = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb, 5, 1000,100);
-        
-        Bullets bulletsb2 = new Bullets(0,"./src/img/BULLET.jpg",1, 200);
-        Wearpon wearponb2 = new Wearpon("./src/img/WEARPON.jpg",bulletsb2,0);
-        Inventory inventoryb2 = new Inventory();
-        inventoryb2.addWearpon(wearponb2);
-        BadGuy bad2 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb2, 5, 900,400);
-        
-        ArrayList <BadGuy> b = new ArrayList <>();
-        b.add(bad);
-        b.add(bad2);
-        
-        Field fiel = new Field (hero,b);
-        scenes.add(fiel);
-        scenes.add(hud);*/
         StartMenu startMenu = new StartMenu();
-        
         scenes.add(startMenu);
         
         for( int i = 0 ; i < scenes.size() ; i++ )
