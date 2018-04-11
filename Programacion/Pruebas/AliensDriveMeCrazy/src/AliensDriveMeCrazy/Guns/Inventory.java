@@ -84,6 +84,16 @@ public class Inventory implements WearponInterface
     {
         wearpon.get(wearponCurrent).refill();
     }
+    
+    public void refill(int wearpon)
+    {
+        for (int x = 0; x <  this.wearpon.size(); x++)
+        {
+            if (this.wearpon.get(x).getIdentifer() == wearpon)
+                this.wearpon.get(x).refill();
+        }
+        this.goBest();
+    }
 
     @Override
     public void setAmountMax(int amount)
@@ -133,5 +143,25 @@ public class Inventory implements WearponInterface
                 wearponCurrent ++;
             else
                 error = true;
+    }
+    
+    @Override
+    public int getMAX_BULLETS ()
+    {
+        return wearpon.get(wearponCurrent).getMAX_BULLETS();
+    }
+    
+    public int numberWearpons ()
+    {
+        return wearpon.size();
+    }
+    
+    public Image showWearpon (int x)
+    {
+        return wearpon.get(x).getImage();
+    }
+    public Image showBullets (int x)
+    {
+        return wearpon.get(x).getBullets();
     }
 }

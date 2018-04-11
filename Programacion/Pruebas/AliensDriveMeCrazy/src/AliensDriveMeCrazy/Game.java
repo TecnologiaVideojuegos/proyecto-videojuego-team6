@@ -13,8 +13,8 @@ public class Game extends BasicGame
 {
     private static AppGameContainer app;
     private static ArrayList<Scene> scenes ;
-    private static int x;
-    private static int y;
+    private static int X;
+    private static int Y;
     
     public Game (String gamename)
     {
@@ -76,30 +76,29 @@ public class Game extends BasicGame
     
     public static int getX()
     {
-        return x;
+        return X;
     }
     
     public static int getY()
     {
-        return y;
+        return Y;
     }
-    
     public static void setX(int x)
     {
-        Game.x = x;
+        X =x;
     }
     
-    public static void setY(int y)
+    public static void setY( int y)
     {
-        Game.y = y;
+        Y = y;
     }
 
     public static void main(String[] args) throws SlickException
     {
         app = new AppGameContainer(new Game ("Aliens Drive Me Crazy"));
-        Game.setX(app.getScreenWidth());
-        Game.setY(app.getScreenHeight()-100);
-        app.setDisplayMode(app.getScreenWidth(),app.getScreenHeight()-100, false);
+        setX(app.getScreenWidth());
+        setY(app.getScreenHeight()-100);
+        app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();

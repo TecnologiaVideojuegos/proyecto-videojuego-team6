@@ -17,6 +17,7 @@ import org.newdawn.slick.Image;
  */
 public class Hero extends Character
 {
+    private final int MAX_LIFE = 10;
     private ArrayList <BadGuy> enemy;
     private int kills;
     private int stage;
@@ -137,5 +138,43 @@ public class Hero extends Character
     public Image getImg ()
     {
         return img.get(inventory.getCurrent());
+    }
+    public int getMAX_LIVE ()
+    {
+        return MAX_LIFE;
+    }
+
+    public void refill(int wearpon)
+    {
+        inventory.refill(wearpon);
+    }
+
+    public void setAmountMax(int amount)
+    {
+        inventory.setAmountMax(amount);
+    }
+
+    public int getShotSpeed()
+    {
+        return inventory.getShotSpeed();
+    }
+
+    public int getMAX_BULLETS()
+    {
+        return inventory.getMAX_BULLETS();
+    }
+    
+    public int numberWearpons ()
+    {
+        return inventory.numberWearpons();
+    }
+    
+    public Image showWearpon (int x)
+    {
+        return inventory.showWearpon(x);
+    }
+    public Image showBullets (int x)
+    {
+        return inventory.showBullets(x);
     }
 }

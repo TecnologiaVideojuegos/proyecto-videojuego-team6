@@ -114,7 +114,7 @@ public class BadGuy extends Character
     @Override
     public void SHOT()
     {
-        if (!(jumpUP||jumpDOWN) && shotable && inventory.isShotable())
+        if (!(jumpUP||jumpDOWN) && shotable && inventory.isShotable()) 
         {
             inventory.shot();
             shots.add(new ShotBadGuy(inventory.getBullets(),x,y+h/4,xVel>0,enemy,this));

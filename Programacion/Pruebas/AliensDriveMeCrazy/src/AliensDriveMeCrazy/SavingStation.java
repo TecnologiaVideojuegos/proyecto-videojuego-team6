@@ -42,8 +42,8 @@ public class SavingStation implements Serializable
         }
         catch (FileNotFoundException ex)
         {
-            Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
-            Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
+            Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80, 15);
+            Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 500, 0);
             Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
             Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
             Inventory inventory = new Inventory();
@@ -54,8 +54,8 @@ public class SavingStation implements Serializable
         catch (IOException | ClassNotFoundException ex)
         {
             System.out.println("ERROR LOADING" + ex.toString());
-            Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80);
-            Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150);
+            Bullets bullets = new Bullets(10,"./src/img/BULLET.jpg",1, 80, 15);
+            Bullets bullets2 = new Bullets(0,"./src/img/BULLET.jpg",1, 150, 0);
             Wearpon wearpon = new Wearpon("./src/img/WEARPON.jpg",bullets,0);
             Wearpon wearpon2 = new Wearpon("./src/img/WEARPON.jpg",bullets2,1);
             Inventory inventory = new Inventory();

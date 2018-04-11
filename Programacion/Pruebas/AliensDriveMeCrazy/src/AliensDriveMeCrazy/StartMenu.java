@@ -116,6 +116,13 @@ public class StartMenu extends Scene implements InputProviderListener
                 Game.removeSence(this);
                 Game.addScene(statisticsMenu);
             }
+            else if (store.contains(xMouse, yMouse))
+            {
+                StoreMenu storeMenu = new StoreMenu (SavingStation.load());
+                
+                Game.removeSence(this);
+                Game.addScene(storeMenu);
+            }
             else if (exit.contains(xMouse, yMouse))
                 System.exit(0);
         }

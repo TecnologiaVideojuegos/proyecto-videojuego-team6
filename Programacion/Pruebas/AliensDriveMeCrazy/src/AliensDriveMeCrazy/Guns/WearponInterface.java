@@ -19,4 +19,5 @@ public interface WearponInterface
     public int getShotSpeed();
     public int getBulletsMax();
     public int getDamage();
+    public int getMAX_BULLETS ();
 }

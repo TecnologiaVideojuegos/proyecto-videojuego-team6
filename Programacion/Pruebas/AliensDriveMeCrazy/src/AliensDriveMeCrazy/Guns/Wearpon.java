@@ -108,4 +108,15 @@ public class Wearpon implements WearponInterface
     {
         return new SavedWearpon (identifer, img.getResourceReference(), bullets.save());
     }
+    
+    @Override
+    public int getMAX_BULLETS ()
+    {
+        return bullets.getMAX_BULLETS();
+    }
+    
+    public int getIdentifer ()
+    {
+        return identifer;
+    }
 }

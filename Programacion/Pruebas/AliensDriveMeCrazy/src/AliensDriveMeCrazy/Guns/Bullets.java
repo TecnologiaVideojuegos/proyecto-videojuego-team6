@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package AliensDriveMeCrazy.Guns;
+import java.util.ArrayList;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -18,13 +19,34 @@ public class Bullets implements WearponInterface
     private Image img;
     private final int damage;
     private final int shotSpeed;
+    private final int MAX_BULLETS;
+    private ArrayList <Integer> cost;
+    private int level;
     
+    public Bullets (int amountMax, String source, int damage, int shotSpeed, int MAX_BULLETS)
+    {
+        this.amountMax = amountMax>0? amountMax:0;
+        this.amountCurrent = this.amountMax;
+        this.damage = damage>0? damage:0;
+        this.shotSpeed = shotSpeed>0? shotSpeed:0;
+        this.MAX_BULLETS = MAX_BULLETS;
+        
+        try
+        {
+            this.img = new Image(source);
+        } 
+        catch (SlickException ex)
+        {
+            System.out.println("ERROR DE IMAGEN BULLETS");
+        }
+    }
     public Bullets (int amountMax, String source, int damage, int shotSpeed)
     {
-        this.amountMax = amountMax;
-        this.amountCurrent = amountMax;
-        this.damage = damage;
-        this.shotSpeed = shotSpeed;
+        this.amountMax = amountMax>0? amountMax:0;
+        this.amountCurrent = this.amountMax;
+        this.damage = damage>0? damage:0;
+        this.shotSpeed = shotSpeed>0? shotSpeed:0;
+        this.MAX_BULLETS = 0;
         
         try
         {
@@ -41,6 +63,7 @@ public class Bullets implements WearponInterface
         this.amountCurrent = bullets.getAmountMax();
         this.damage = bullets.getDamage();
         this.shotSpeed = bullets.getShotSpeed();
+        this.MAX_BULLETS = bullets.getMAX_BULLETS();
         try
         {
             this.img = new Image(bullets.getImg());
@@ -108,6 +131,12 @@ public class Bullets implements WearponInterface
     
     public SavedBullets save()
     {
-        return new SavedBullets(amountMax, img.getResourceReference(), damage, shotSpeed);
+        return new SavedBullets(amountMax, img.getResourceReference(), damage, shotSpeed, MAX_BULLETS);
+    }
+
+    @Override
+    public int getMAX_BULLETS ()
+    {
+        return MAX_BULLETS;
     }
 }

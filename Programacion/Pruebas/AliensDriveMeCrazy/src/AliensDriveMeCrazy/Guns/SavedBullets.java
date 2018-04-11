@@ -18,13 +18,15 @@ public class SavedBullets implements Serializable
     private final String img;
     private final int damage;
     private final int shotSpeed;
+    private final int MAX_BULLETS;
     
-    public SavedBullets (int amountMax, String img, int damage, int shotSpeed)
+    public SavedBullets (int amountMax, String img, int damage, int shotSpeed, int MAX_BULLETS)
     {
         this.amountMax = amountMax;
         this.img = img;
         this.damage = damage;
         this.shotSpeed = shotSpeed;
+        this.MAX_BULLETS = MAX_BULLETS;
     }
     
     public int getAmountMax()
@@ -42,5 +44,9 @@ public class SavedBullets implements Serializable
     public String getImg()
     {
         return img;
+    }
+    public int getMAX_BULLETS()
+    {
+        return MAX_BULLETS;
     }
 }
