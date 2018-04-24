@@ -5,11 +5,13 @@
  */
 package shutterearth.characters;
 
+import java.io.Serializable;
+
 /**
  *
  * @author mr.blissfulgrin
  */
-public class SavedHero
+public class SavedHero implements Serializable
 {
     private final String user;
     private final String pswd;

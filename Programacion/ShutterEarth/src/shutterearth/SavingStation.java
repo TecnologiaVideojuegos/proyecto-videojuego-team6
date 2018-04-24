@@ -38,6 +38,7 @@ public class SavingStation
         }
         catch (IOException | ClassNotFoundException ex)
         {   
+            System.out.println("CREATING BASE DATA");
             ArrayList <SavedHero> base = new ArrayList <> ();
             SavedHero Juan = new SavedHero ("GS7", "qwerty77", true);
             base.add(Juan);
