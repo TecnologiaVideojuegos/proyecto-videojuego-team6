@@ -18,6 +18,7 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
+import shutterearth.characters.Hero;
 
 /**
  *
@@ -39,6 +40,7 @@ public class Access extends Scene implements InputProviderListener
     private Input input;
     private final Rectangle exit;
     private final Rectangle go;
+    private String pass;
     
     public Access ()
     {
@@ -50,6 +52,7 @@ public class Access extends Scene implements InputProviderListener
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
         clicked = false;
+        this.pass = "";
     }
     
     @Override
@@ -67,6 +70,9 @@ public class Access extends Scene implements InputProviderListener
         pswd.setBackgroundColor(Color.gray);
         pswd.setBorderColor(Color.black);
         pswd.setTextColor(Color.white);
+        g.setColor(Color.yellow);
+        g.drawString("User: ",x-(Game.getX()/6),y+(Game.getY()/14));
+        g.drawString("Password: ",x+(Game.getX()/6),y+(Game.getY()/14));
     }
 
     @Override
@@ -76,13 +82,35 @@ public class Access extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
-                
+                Hero hero = Game.load(user.getText(), pass);
+                if(hero != null)
+                {
+                    StartMenu startMenu = new StartMenu(hero);
+                    Game.removeSence(this);
+                    Game.addScene(startMenu);
+                }
+                else
+                {
+                    user.setText("");
+                    pswd.setText("");
+                }
             }
             else if (exit.contains(xMouse, yMouse))
             {
                 Game.exit();
             }
             clicked = false;
+        }
+
+        if (pass.length() < pswd.getText().length())
+        {
+            pass = pass.concat(pswd.getText().substring(pass.length()));
+            fill ();
+        }
+        else if (pass.length() > pswd.getText().length())
+        {
+            pass = pass.substring(0, pswd.getText().length());
+            fill ();
         }
     }
 
@@ -112,4 +140,14 @@ public class Access extends Scene implements InputProviderListener
 
     @Override
     public void controlReleased(Command cmnd){}
+    
+    private void fill ()
+    {
+        String txt = "";
+        for (int q = 0; q < pass.length(); q++)
+        {
+            txt = txt.concat("*");
+        }
+        pswd.setText(txt);
+    }
 }

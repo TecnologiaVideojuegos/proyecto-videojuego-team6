@@ -111,7 +111,7 @@ public class Game extends BasicGame
         app.start();
     }
 
-    public static SavedHero load(String user, String pswd)
+    public static Hero load(String user, String pswd)
     {
         return savingStation.load(user, pswd);
     }

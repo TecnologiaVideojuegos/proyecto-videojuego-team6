@@ -30,17 +30,16 @@ public class SavingStation
         {
             FileInputStream fis;
             ObjectInputStream ois;
-            fis = new FileInputStream("./src/saves/saves.dat");
+            fis = new FileInputStream("./saves/saves.dat");
             ois = new ObjectInputStream(fis);
             saves = (HashMap <String,SavedHero>) ois.readObject();
             ois.close(); 
             fis.close();
         }
         catch (IOException | ClassNotFoundException ex)
-        {
-            
+        {   
             ArrayList <SavedHero> base = new ArrayList <> ();
-            SavedHero Juan = new SavedHero ("GS7", "qwerty77");
+            SavedHero Juan = new SavedHero ("GS7", "qwerty77", true);
             base.add(Juan);
             
             saves = new HashMap <> ();
@@ -51,13 +50,13 @@ public class SavingStation
         }
     }
     
-    public SavedHero load (String user, String pswd)
+    public Hero load (String user, String pswd)
     { 
-        SavedHero hero = null;
+        Hero hero = null;
         
         if (saves.containsKey(user) && saves.get(user).getPswd().equals(pswd))
         {
-            hero = saves.get(user);
+            hero = new Hero(saves.get(user));
         }
         
         return hero;
@@ -79,19 +78,15 @@ public class SavingStation
         {
             FileOutputStream fos;
             ObjectOutputStream oos;
-            fos = new FileOutputStream("./src/saves/saves.dat");
+            fos = new FileOutputStream("./saves/saves.dat");
             oos = new ObjectOutputStream(fos);
             oos.writeObject(saves);
             oos.close();
             fos.close();
         } 
-        catch (FileNotFoundException ex)
-        {
-            System.out.println("ERROR SAVING1");
-        } 
         catch (IOException ex)
         {
-            System.out.println("ERROR SAVING2");
+            System.out.println("ERROR SAVING");
         }
     }
 }

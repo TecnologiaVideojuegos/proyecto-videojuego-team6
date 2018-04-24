@@ -13,16 +13,19 @@ public class SavedHero
 {
     private final String user;
     private final String pswd;
+    private final Boolean permission;
     
-    public SavedHero(String user, String pswd)
+    public SavedHero(String user, String pswd, Boolean permission)
     {
         this.user = user;
         this.pswd = pswd;
+        this.permission = permission;
     }
     public SavedHero(Hero hero)
     {
         this.user = hero.getUser();
         this.pswd = hero.getPswd();
+        this.permission = hero.getPermission();
     }
     
     public String getUser ()
@@ -33,5 +36,10 @@ public class SavedHero
     public String getPswd ()
     {
         return pswd;
+    }
+    
+    public Boolean getPermission ()
+    {
+        return permission;
     }
 }
