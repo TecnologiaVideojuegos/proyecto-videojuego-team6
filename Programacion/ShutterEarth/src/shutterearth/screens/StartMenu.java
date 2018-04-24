@@ -82,7 +82,9 @@ public class StartMenu extends Scene implements InputProviderListener
                 
             }
             else if (exit.contains(xMouse, yMouse))
-                System.exit(0);
+            {
+                Game.exit();
+            }
         }
         clicked = false;
     }
@@ -106,8 +108,6 @@ public class StartMenu extends Scene implements InputProviderListener
             clicked = true;
         }
     }
-    
-    
 
     @Override
     public void controlReleased(Command cmnd){}

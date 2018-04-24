@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
+import shutterearth.screens.Access;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
 
@@ -52,8 +53,8 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        StartMenu startMenu = new StartMenu();
-        scenes.add(startMenu);
+        Access access = new Access();
+        scenes.add(access);
         
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
@@ -104,7 +105,7 @@ public class Game extends BasicGame
         app = new AppGameContainer(new Game ("Shutter Earth"));
         setX(app.getScreenWidth());
         setY(app.getScreenHeight());
-        app.setDisplayMode(X,Y, true);
+        app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();
@@ -120,8 +121,9 @@ public class Game extends BasicGame
         return savingStation.add(hero);
     }
 
-    public static void save()
+    public static void exit()
     {
         savingStation.save();
+        System.exit(0);
     }
 }
