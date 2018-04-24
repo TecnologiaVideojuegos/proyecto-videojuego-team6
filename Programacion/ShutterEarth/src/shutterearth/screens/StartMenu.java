@@ -16,6 +16,7 @@ import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
+import shutterearth.Game;
 
 /**
  *
@@ -32,6 +33,7 @@ public class StartMenu extends Scene implements InputProviderListener
     private final int w;
     private final int h;
     private final int x;
+    private final int y;
     private boolean clicked;
     private int xMouse;
     private int yMouse;
@@ -39,13 +41,15 @@ public class StartMenu extends Scene implements InputProviderListener
     
     public StartMenu ()
     {
-        this.w = 500;
-        this.h = 150;
-        this.x = 600;
-        game = new Rectangle (x,300, w, h); 
-        store = new Rectangle (x,500, w, h);
-        statistics = new Rectangle (x,700, w, h);
-        exit = new Rectangle (100,100,100,50);
+        int step = Game.getY()/6;
+        this.w = Game.getX()/3;
+        this.h = Game.getY()/7;
+        this.x = Game.getX()/2-w/2;
+        this.y = Game.getY()/5;
+        game = new Rectangle (x,y, w, h); 
+        store = new Rectangle (x,y+step, w, h);
+        statistics = new Rectangle (x,y+step*2, w, h);
+        exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
         clicked = false;
     }
@@ -58,10 +62,6 @@ public class StartMenu extends Scene implements InputProviderListener
         g.fill(statistics);
         g.fill(store);
         g.fill(exit);
-        g.setColor(Color.lightGray);
-        g.drawString("GAME", x+w/7*3+15, 375);
-        g.drawString("STORE", x+w/7*3+10, 575);
-        g.drawString("STATISTICS", x+w/7*3-2, 775);
     }
 
     @Override

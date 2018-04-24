@@ -20,7 +20,7 @@ import shutterearth.characters.SavedHero;
  *
  * @author mr.blissfulgrin
  */
-public class SavingStation implements SavingStationInterface
+public class SavingStation
 {
     private HashMap <String,SavedHero> saves;
     
@@ -51,7 +51,6 @@ public class SavingStation implements SavingStationInterface
         }
     }
     
-    @Override
     public SavedHero load (String user, String pswd)
     { 
         SavedHero hero = null;
@@ -64,7 +63,6 @@ public class SavingStation implements SavingStationInterface
         return hero;
     }
     
-    @Override
     public boolean add (Hero hero)
     {
         if (!saves.containsKey(hero.getUser()))
@@ -75,7 +73,6 @@ public class SavingStation implements SavingStationInterface
         return false;
     }
     
-    @Override
     public void save ()
     {
         try

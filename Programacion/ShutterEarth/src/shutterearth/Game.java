@@ -13,7 +13,7 @@ import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
 
 
-public class Game extends BasicGame implements SavingStationInterface
+public class Game extends BasicGame
 {
     private static AppGameContainer app;
     private static ArrayList<Scene> scenes ;
@@ -110,20 +110,17 @@ public class Game extends BasicGame implements SavingStationInterface
         app.start();
     }
 
-    @Override
-    public SavedHero load(String user, String pswd)
+    public static SavedHero load(String user, String pswd)
     {
         return savingStation.load(user, pswd);
     }
 
-    @Override
-    public boolean add(Hero hero)
+    public static boolean add(Hero hero)
     {
         return savingStation.add(hero);
     }
 
-    @Override
-    public void save()
+    public static void save()
     {
         savingStation.save();
     }
