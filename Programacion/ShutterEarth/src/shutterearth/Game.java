@@ -7,21 +7,25 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import shutterearth.characters.Hero;
+import shutterearth.characters.SavedHero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
 
 
-public class Game extends BasicGame
+public class Game extends BasicGame implements SavingStationInterface
 {
     private static AppGameContainer app;
     private static ArrayList<Scene> scenes ;
     private static int X;
     private static int Y;
+    private static SavingStation savingStation;
     
     public Game (String gamename)
     {
         super(gamename);
         scenes = new ArrayList<>();
+        savingStation = new SavingStation();
     }
     
     // Add a scene to the list and call the init method
@@ -104,5 +108,23 @@ public class Game extends BasicGame
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();
+    }
+
+    @Override
+    public SavedHero load(String user, String pswd)
+    {
+        return savingStation.load(user, pswd);
+    }
+
+    @Override
+    public boolean add(Hero hero)
+    {
+        return savingStation.add(hero);
+    }
+
+    @Override
+    public void save()
+    {
+        savingStation.save();
     }
 }
