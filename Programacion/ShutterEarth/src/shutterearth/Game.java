@@ -8,10 +8,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.characters.Hero;
-import shutterearth.characters.SavedHero;
 import shutterearth.screens.Access;
 import shutterearth.screens.Scene;
-import shutterearth.screens.StartMenu;
 
 
 public class Game extends BasicGame
@@ -103,8 +101,10 @@ public class Game extends BasicGame
     public static void main(String[] args) throws SlickException
     {
         app = new AppGameContainer(new Game ("Shutter Earth"));
-        setX(app.getScreenWidth());
-        setY(app.getScreenHeight());
+        //setX(app.getScreenWidth());
+        //setY(app.getScreenHeight());
+        setX(1000);
+        setY(800);
         app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
