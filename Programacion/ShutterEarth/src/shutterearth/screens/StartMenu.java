@@ -30,6 +30,8 @@ public class StartMenu extends Scene implements InputProviderListener
     private final Rectangle game;
     private final Rectangle statistics;
     private final Rectangle store;
+    private final Rectangle onLine;
+    private final Rectangle developer;
     private final Rectangle exit;
     private final int w;
     private final int h;
@@ -48,9 +50,11 @@ public class StartMenu extends Scene implements InputProviderListener
         this.h = Game.getY()/7;
         this.x = Game.getX()/2-w/2;
         this.y = Game.getY()/5;
-        game = new Rectangle (x,y, w, h); 
-        store = new Rectangle (x,y+step, w, h);
-        statistics = new Rectangle (x,y+step*2, w, h);
+        game = new Rectangle (x,y, w, h);
+        onLine = new Rectangle (x,y+step, w, h);
+        store = new Rectangle (x,y+step*2, w, h);
+        statistics = new Rectangle (x,y+step*3, w, h);
+        developer = new Rectangle (x+w+Game.getX()/50,y+step, w-Game.getX()/15, h);
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
         clicked = false;
@@ -62,9 +66,14 @@ public class StartMenu extends Scene implements InputProviderListener
     {
         g.setColor(Color.yellow);
         g.fill(game);
+        g.fill(onLine);
         g.fill(statistics);
         g.fill(store);
         g.fill(exit);
+        if (hero.getPermission())
+        {
+            g.fill(developer);
+        }
     }
 
     @Override
