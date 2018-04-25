@@ -1,6 +1,8 @@
 
 package shutterearth.screens;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -27,9 +29,9 @@ public abstract class Scene implements Comparable<Scene>
         state = STATE.ON;
         try 
         {
-                // Change to your resolution
-                // Init the buffer
-                sence = new Image(Game.getX(),Game.getY());
+            // Change to your resolution
+            // Init the buffer
+            sence = new Image(Game.getX(),Game.getY());
         } 
         catch (SlickException e) 
         {
@@ -55,10 +57,11 @@ public abstract class Scene implements Comparable<Scene>
             {
                 Render(gc, g );
             }
-            else if( state == STATE.FREEZE)
+            else if( state == STATE.FREEZE && !freezed)
             {
                 sence.getGraphics().clear();
                 Render(gc, sence.getGraphics());
+                freezed = true;
             }
             if(freezed)
             {

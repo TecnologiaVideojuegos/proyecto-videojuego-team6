@@ -8,6 +8,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.characters.Hero;
+import shutterearth.characters.SavedHero;
 import shutterearth.screens.Access;
 import shutterearth.screens.Scene;
 
@@ -43,17 +44,16 @@ public class Game extends BasicGame
     }
 
     // Removes a scene
-    public static void removeSence ( Scene sence )
+    public static void removeSence (Scene scene)
     {
-        scenes.remove(sence);
+        scenes.remove(scene);
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        Access access = new Access();
-        scenes.add(access);
-        
+        scenes.add(new Access());
+
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
             scenes.get(i).init(gc);
@@ -114,9 +114,14 @@ public class Game extends BasicGame
         return savingStation.load(user, pswd);
     }
 
-    public static boolean add(Hero hero)
+    public static boolean add(SavedHero hero)
     {
         return savingStation.add(hero);
+    }
+    
+    public static void add (Hero hero)
+    {
+        savingStation.add(hero);
     }
 
     public static void exit()

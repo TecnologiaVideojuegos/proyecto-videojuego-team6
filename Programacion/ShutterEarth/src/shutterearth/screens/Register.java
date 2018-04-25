@@ -19,16 +19,16 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
-import shutterearth.characters.Hero;
+import shutterearth.characters.SavedHero;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Access extends Scene implements InputProviderListener
+public class Register extends Scene implements InputProviderListener
 {
-    private TextField user;
-    private TextField pswd;
+    private TextField newUser;
+    private TextField newPswd;
     private final int x;
     private final int y;
     private final int w;
@@ -43,27 +43,23 @@ public class Access extends Scene implements InputProviderListener
     private Input input;
     private final Rectangle exit;
     private final Rectangle go;
-    private final Rectangle register;
-    private String pass;
-    private boolean focus;
     private Boolean ok;
+    private boolean focus;
     
-    public Access ()
+    public Register ()
     {
         this.w = Game.getX()/5;
         this.h = Game.getY()/9;
         this.x = Game.getX()/2-w/2;
         this.y = Game.getY()/3;
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
-        register = new Rectangle (Game.getX()-Game.getX()/14-Game.getX()/16,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
         tab = new BasicCommand("tab");
         any = new BasicCommand("any");
         clicked = false;
-        this.pass = "";
-        focus = true;
         ok = null;
+        focus = true;
     }
     
     @Override
@@ -72,22 +68,28 @@ public class Access extends Scene implements InputProviderListener
         g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(go);
-        g.fill(register);
         g.setColor(Color.lightGray);
-        user.render(gc, g);
-        pswd.render(gc, g);
-        user.setBackgroundColor(Color.gray);
-        user.setBorderColor(Color.black);
-        user.setTextColor(Color.white);
-        pswd.setBackgroundColor(Color.gray);
-        pswd.setBorderColor(Color.black);
-        pswd.setTextColor(Color.white);
+        newUser.render(gc, g);
+        newPswd.render(gc, g);
+        newUser.setBackgroundColor(Color.gray);
+        newUser.setBorderColor(Color.black);
+        newUser.setTextColor(Color.white);
+        newPswd.setBackgroundColor(Color.gray);
+        newPswd.setBorderColor(Color.black);
+        newPswd.setTextColor(Color.white);
         g.setColor(Color.yellow);
         g.drawString("User: ",x-(Game.getX()/6),y+(Game.getY()/14));
         g.drawString("Password: ",x+(Game.getX()/6),y+(Game.getY()/14));
         if (ok != null)
         {
-            g.drawString("WRONG INPUT",x+(Game.getX()/20),y+(Game.getY()/5));
+            if (ok)
+            {
+                g.drawString("USER CREATED",x+(Game.getX()/15),y+(Game.getY()/5));
+            }
+            else
+            {
+                g.drawString("USER ALREADY IN USE",x+(Game.getX()/20),y+(Game.getY()/5));
+            }
         }
     }
 
@@ -98,51 +100,34 @@ public class Access extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
-                Hero hero = Game.load(user.getText(), pass);
-                if(hero != null)
+                if (newUser.getText().length()>5 && newPswd.getText().length()>5)
                 {
-                    StartMenu startMenu = new StartMenu(hero);
-                    Game.addScene(startMenu);
-                    Game.removeSence(this);
+                    SavedHero hero = new SavedHero (newUser.getText(),newPswd.getText(),false);
+                    ok = Game.add(hero);
                 }
                 else
                 {
-                    user.setText("");
-                    pswd.setText("");
                     ok = false;
                 }
-            }
-            else if (register.contains(xMouse, yMouse))
-            {
-                Game.addScene(new Register());
-                Game.removeSence(this);
+                newUser.setText("");
+                newPswd.setText("");
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.exit();
-                user.deactivate();
-                pswd.deactivate();
+                Game.addScene(new Access ());
+                Game.removeSence(this);
+                newUser.deactivate();
+                newPswd.deactivate();
             }
             clicked = false;
-        }
-
-        if (pass.length() < pswd.getText().length())
-        {
-            pass = pass.concat(pswd.getText().substring(pass.length()));
-            fill ();
-        }
-        else if (pass.length() > pswd.getText().length())
-        {
-            pass = pass.substring(0, pswd.getText().length());
-            fill ();
         }
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        this.user = new TextField(gc, gc.getDefaultFont(), x, y, w, h);
-        this.pswd = new TextField(gc, gc.getDefaultFont(), x, y+Game.getY()/14, w, h);
+        this.newUser = new TextField(gc, gc.getDefaultFont(), x, y, w, h);
+        this.newPswd = new TextField(gc, gc.getDefaultFont(), x, y+Game.getY()/14, w, h);
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
@@ -152,16 +137,16 @@ public class Access extends Scene implements InputProviderListener
             provider.bindCommand(new KeyControl(x), any);
         }
         input = gc.getInput();  
-        this.user = new TextField(gc, gc.getDefaultFont(), x-(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
-        this.pswd = new TextField(gc, gc.getDefaultFont(), x+(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
-        user.setText("");
-        pswd.setText("");
-        pswd.setAcceptingInput(true);
-        user.setAcceptingInput(true);
-        pswd.setFocus(true);
-        user.setFocus(true);
-        user.setConsumeEvents(true);
-        pswd.setConsumeEvents(true);
+        this.newUser = new TextField(gc, gc.getDefaultFont(), x-(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
+        this.newPswd = new TextField(gc, gc.getDefaultFont(), x+(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
+        newUser.setText("");
+        newPswd.setText("");
+        newPswd.setAcceptingInput(true);
+        newUser.setAcceptingInput(true);
+        newPswd.setFocus(true);
+        newUser.setFocus(true);
+        newUser.setConsumeEvents(true);
+        newPswd.setConsumeEvents(true);
     }
     
     @Override
@@ -177,20 +162,11 @@ public class Access extends Scene implements InputProviderListener
         {
             focus = !focus;
         }
-        user.setFocus(focus);
-        pswd.setFocus(!focus);
+        newUser.setFocus(focus);
+        newPswd.setFocus(!focus);
     }
 
     @Override
     public void controlReleased(Command cmnd){}
     
-    private void fill ()
-    {
-        String txt = "";
-        for (int q = 0; q < pass.length(); q++)
-        {
-            txt = txt.concat("*");
-        }
-        pswd.setText(txt);
-    }
 }

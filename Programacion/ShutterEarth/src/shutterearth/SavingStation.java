@@ -6,7 +6,6 @@
 package shutterearth;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -63,14 +62,19 @@ public class SavingStation
         return hero;
     }
     
-    public boolean add (Hero hero)
+    public boolean add (SavedHero hero)
     {
         if (!saves.containsKey(hero.getUser()))
         {
-            saves.put(hero.getUser(), hero.save());
+            saves.put(hero.getUser(), hero);
             return true;
         }
         return false;
+    }
+    
+    public void add (Hero hero)
+    {
+        saves.put(hero.getUser(), hero.save());
     }
     
     public void save ()

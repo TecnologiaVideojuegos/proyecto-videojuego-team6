@@ -86,7 +86,8 @@ public class StartMenu extends Scene implements InputProviderListener
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.exit();
+                Game.addScene(new Access());
+                Game.removeSence(this);
             }
         }
         clicked = false;
