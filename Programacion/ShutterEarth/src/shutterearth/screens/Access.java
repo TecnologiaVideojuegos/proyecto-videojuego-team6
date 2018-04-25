@@ -19,7 +19,7 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
-import shutterearth.characters.Hero;
+import shutterearth.characters.SavedHero;
 
 /**
  *
@@ -98,7 +98,7 @@ public class Access extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
-                Hero hero = Game.load(user.getText(), pass);
+                SavedHero hero = Game.load(user.getText(), pass);
                 if(hero != null)
                 {
                     StartMenu startMenu = new StartMenu(hero);

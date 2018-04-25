@@ -50,13 +50,13 @@ public class SavingStation
         }
     }
     
-    public Hero load (String user, String pswd)
+    public SavedHero load (String user, String pswd)
     { 
-        Hero hero = null;
+        SavedHero hero = null;
         
         if (saves.containsKey(user) && saves.get(user).getPswd().equals(pswd))
         {
-            hero = new Hero(saves.get(user));
+            hero = saves.get(user);
         }
         
         return hero;

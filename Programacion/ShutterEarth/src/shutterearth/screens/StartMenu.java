@@ -17,7 +17,7 @@ import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
-import shutterearth.characters.Hero;
+import shutterearth.characters.SavedHero;
 
 /**
  *
@@ -41,9 +41,9 @@ public class StartMenu extends Scene implements InputProviderListener
     private int xMouse;
     private int yMouse;
     private Input input;
-    private final Hero hero;
+    private final SavedHero hero;
     
-    public StartMenu (Hero hero)
+    public StartMenu (SavedHero hero)
     {
         int step = Game.getY()/6;
         this.w = Game.getX()/3;
@@ -93,13 +93,21 @@ public class StartMenu extends Scene implements InputProviderListener
             {
                 
             }
+            else if (onLine.contains(xMouse, yMouse))
+            {
+                
+            }
+            else if (developer.contains(xMouse, yMouse) && hero.getPermission())
+            {
+                
+            }   
             else if (exit.contains(xMouse, yMouse))
             {
                 Game.addScene(new Access());
                 Game.removeSence(this);
             }
+            clicked = false;
         }
-        clicked = false;
     }
 
     @Override
