@@ -87,7 +87,7 @@ public class Access extends Scene implements InputProviderListener
         g.drawString("Password: ",x+(Game.getX()/6),y+(Game.getY()/14));
         if (ok != null)
         {
-            g.drawString("WRONG INPUT",x+(Game.getX()/20),y+(Game.getY()/5));
+            g.drawString("WRONG INPUT",x+(Game.getX()/15),y+(Game.getY()/5));
         }
     }
 
