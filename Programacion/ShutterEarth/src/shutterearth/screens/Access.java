@@ -48,8 +48,6 @@ public class Access extends Scene implements InputProviderListener
     private String pass;
     private boolean focus;
     private Boolean ok;
-    private Images images = new Images();
-    int j = 0;
     
     public Access ()
     {
@@ -92,7 +90,6 @@ public class Access extends Scene implements InputProviderListener
         {
             g.drawString("WRONG INPUT",x+(Game.getX()/15),y+(Game.getY()/5));
         }
-        images.getSprit(0).draw(j+=2, 200, 100, 100);
     }
 
     @Override
