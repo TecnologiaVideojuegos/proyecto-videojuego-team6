@@ -37,7 +37,7 @@ public class Images
         {
             try
             {
-                sprites.put(x, new Animation (new SpriteSheet("./images/"+source+".png",310,420,1),150));
+                sprites.put(x, new Animation (new SpriteSheet("./images/"+source+".png",300,420,1),150));
             }
             catch (SlickException e)
             {
