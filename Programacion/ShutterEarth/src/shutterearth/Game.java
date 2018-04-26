@@ -20,12 +20,15 @@ public class Game extends BasicGame
     private static int X;
     private static int Y;
     private static SavingStation savingStation;
+    private static Images images;
+    private static float gravity;
     
     public Game (String gamename)
     {
         super(gamename);
         scenes = new ArrayList<>();
         savingStation = new SavingStation();
+        Game.gravity = 0.1f;
     }
     
     // Add a scene to the list and call the init method
@@ -52,6 +55,7 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
+        images = new Images();
         scenes.add(new Access());
 
         for( int i = 0 ; i < scenes.size() ; i++ )
@@ -122,6 +126,16 @@ public class Game extends BasicGame
     public static void add (Hero hero)
     {
         savingStation.add(hero);
+    }
+    
+    public static Images getImages ()
+    {
+        return images;
+    }
+    
+    public static float getGravity ()
+    {
+        return gravity;
     }
 
     public static void exit()

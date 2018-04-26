@@ -5,6 +5,9 @@
  */
 package shutterearth.characters;
 
+import shutterearth.Game;
+import shutterearth.Images;
+
 /**
  *
  * @author mr.blissfulgrin
@@ -19,6 +22,12 @@ public class Hero
     private int stage;
     private int bullets;
     private int kills;
+    private final Images images;
+    private float xVel;
+    private float yVel;
+    private float xPos;
+    private float yPos;
+    private float gravity;
     
     public Hero(SavedHero hero)
     {
@@ -29,6 +38,8 @@ public class Hero
         this.healthMax = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
+        this.images = Game.getImages();
+        this.gravity = Game.getGravity();
     }
     
     public String getUser ()

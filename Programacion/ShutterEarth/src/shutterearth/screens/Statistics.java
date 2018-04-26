@@ -5,11 +5,33 @@
  */
 package shutterearth.screens;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Statistics
+public class Statistics extends Scene
 {
+
+    @Override
+    public void Render(GameContainer gc, Graphics g) throws SlickException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Update(GameContainer gc, int t) throws SlickException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void init(GameContainer gc) throws SlickException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }
