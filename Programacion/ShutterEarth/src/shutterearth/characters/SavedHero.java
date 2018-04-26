@@ -18,8 +18,9 @@ public class SavedHero implements Serializable
     private final Boolean permission;
     private final int healthMax;
     private final int stage;
-    private final int bullets;
+    private int bullets;
     private final int kills;
+    private int numberOfGuns;
     
     public SavedHero(String user, String pswd, Boolean permission)
     {
@@ -30,6 +31,7 @@ public class SavedHero implements Serializable
         this.stage = 1;
         this.bullets = 50;
         this.kills = 0;
+        this.numberOfGuns = 1;
     }
     public SavedHero(Hero hero)
     {
@@ -40,6 +42,7 @@ public class SavedHero implements Serializable
         this.healthMax = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
+        this.numberOfGuns = 1;
     }
     
     public String getUser ()
@@ -70,6 +73,11 @@ public class SavedHero implements Serializable
     public String getPswd ()
     {
         return pswd;
+    }
+    
+    public int getNumberOfGuns ()
+    {
+        return numberOfGuns;
     }
     
     public Boolean getPermission ()
