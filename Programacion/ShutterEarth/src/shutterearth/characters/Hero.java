@@ -18,12 +18,17 @@ public class Hero
     private int healthCurrent;
     private int stage;
     private int bullets;
+    private int kills;
     
     public Hero(SavedHero hero)
     {
         this.user = hero.getUser();
         this.pswd = hero.getPswd();
         this.permission = hero.getPermission();
+        this.bullets = hero.getBullets();
+        this.healthMax = hero.getHealthMax();
+        this.stage = hero.getStage();
+        this.kills = hero.getKills();
     }
     
     public String getUser ()
@@ -54,6 +59,11 @@ public class Hero
     public int getBullets ()
     {
         return bullets;
+    }
+    
+    public int getKills()
+    {
+        return kills;
     }
     
     public SavedHero save()
