@@ -123,9 +123,14 @@ public class Game extends BasicGame
         return savingStation.add(hero);
     }
     
-    public static void add (Hero hero)
+    public static void save (Hero hero)
     {
-        savingStation.add(hero);
+        savingStation.save(hero);
+    }
+    
+    public static void save (SavedHero hero)
+    {
+        savingStation.save(hero);
     }
     
     public static Images getImages ()

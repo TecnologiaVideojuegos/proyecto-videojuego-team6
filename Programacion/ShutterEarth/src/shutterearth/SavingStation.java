@@ -67,14 +67,24 @@ public class SavingStation
         if (!saves.containsKey(hero.getUser()))
         {
             saves.put(hero.getUser(), hero);
+            this.save();
             return true;
         }
         return false;
     }
     
-    public void add (Hero hero)
+    public void save (Hero hero)
     {
+        saves.remove(hero.getUser());
         saves.put(hero.getUser(), hero.save());
+        this.save();
+    }
+    
+    public void save (SavedHero hero)
+    {
+        saves.remove(hero.getUser());
+        saves.put(hero.getUser(), hero);
+        this.save();
     }
     
     public void save ()

@@ -91,7 +91,8 @@ public class StartMenu extends Scene implements InputProviderListener
             }
             else if (store.contains(xMouse, yMouse))
             {
-                
+                Game.addScene(new Store(hero));
+                Game.removeSence(this);
             }
             else if (onLine.contains(xMouse, yMouse))
             {
