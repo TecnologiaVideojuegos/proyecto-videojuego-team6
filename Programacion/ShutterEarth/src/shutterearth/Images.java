@@ -22,6 +22,11 @@ public class Images
     public static int MENU = 0;
     public static int BASE_DER = 1;
     public static int BASE_IZQ = 2;
+    public static int HERO0 = 3;
+    public static int HERO1 = 4;
+    public static int HERO2 = 5;
+    public static int HERO3 = 6;
+    public static int HERO4 = 7;
     
     public Images ()
     {

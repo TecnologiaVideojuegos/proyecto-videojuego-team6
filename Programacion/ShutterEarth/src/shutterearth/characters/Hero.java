@@ -86,4 +86,21 @@ public class Hero
     {
         return permission;
     }
+    
+    public float getY()
+    {
+        return yPos;
+    }
+    public float getX()
+    {
+        return xPos;
+    }
+    public void doShotAnimation()
+    {
+        
+    }
+    public boolean getFace()
+    {
+        return xVel > 0;
+    }
 }
