@@ -55,7 +55,7 @@ public abstract class Scene implements Comparable<Scene>
         {
             if( state == STATE.ON) 
             {
-                Render(gc, g );
+                Render(gc, g);
             }
             else if( state == STATE.FREEZE && !freezed)
             {

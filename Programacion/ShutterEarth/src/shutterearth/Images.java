@@ -17,39 +17,35 @@ import org.newdawn.slick.SpriteSheet;
  */
 public class Images
 {
-    private final String [] spriteSources;
-    private final String [] imageSources;
     private final HashMap <Integer,Image> images;
     private final HashMap <Integer,Animation> sprites;
+    public static int MENU = 0;
+    public static int BASE_DER = 1;
+    public static int BASE_IZQ = 2;
     
     public Images ()
     {
         sprites = new HashMap <>();
         images = new HashMap <>();
-        imageSources = new String [0]; 
-        spriteSources = new String [] 
+
+        try
         {
-            "BASE_DER","BASE_IZQ"
-        };
-        
-        int x = 0;
-        for (String source : spriteSources)
+            sprites.put(Images.BASE_DER, new Animation (new SpriteSheet("./images/BASE_DER.png",281,300),180));
+            sprites.put(Images.BASE_IZQ, new Animation (new SpriteSheet("./images/BASE_IZQ.png",281,300),180));
+            images.put(Images.MENU, new Image("./images/MENU.png"));
+        }
+        catch (SlickException e)
         {
-            try
-            {
-                sprites.put(x, new Animation (new SpriteSheet("./images/"+source+".png",281,300),180));
-            }
-            catch (SlickException e)
-            {
-                System.out.println("ERROR IN " + source);
-                sprites.put(x, null);
-            }
-            x++;
+            System.out.println("ERROR INLOADING IMAGES");
         }
     }
     
     public Animation getSprit (int n)
     {
         return sprites.get(n);
+    }
+    public Image getImage (int n)
+    {
+        return images.get(n);
     }
 }

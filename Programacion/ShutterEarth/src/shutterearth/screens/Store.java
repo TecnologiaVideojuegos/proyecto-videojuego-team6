@@ -37,7 +37,6 @@ public class Store extends Scene implements InputProviderListener
     private int yMouse;
     private Input input;
     private final SavedHero hero;
-    private final Images images;
     private final int x;
     private final int y;
     private final int w;
@@ -50,7 +49,6 @@ public class Store extends Scene implements InputProviderListener
         click = new BasicCommand("click");
         clicked = false;
         this.hero = hero;
-        this.images = Game.getImages();
         this.x = Game.getX()/3;
         this.y = Game.getY()/3 - Game.getY()/9;
         this.w = Game.getX()/3;
@@ -76,11 +74,12 @@ public class Store extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
+        Game.getImages().getImage(Images.MENU).draw(0,0,Game.getX(),Game.getY());
         g.fill(exit);
         g.fill(left);
         g.fill(right);
         g.fill(upgrade);
-        images.getSprit(0).draw(x,y,w,h);
+        Game.getImages().getSprit(Images.BASE_DER).draw(x,y,w,h);
         for (Rectangle rectangle : status)
         {
             g.fill(rectangle);
