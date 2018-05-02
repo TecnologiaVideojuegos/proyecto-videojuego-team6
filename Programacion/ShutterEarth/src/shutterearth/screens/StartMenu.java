@@ -17,6 +17,7 @@ import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
+import shutterearth.Images;
 import shutterearth.characters.SavedHero;
 
 /**
@@ -49,7 +50,7 @@ public class StartMenu extends Scene implements InputProviderListener
         this.w = Game.getX()/3;
         this.h = Game.getY()/7;
         this.x = Game.getX()/2-w/2;
-        this.y = Game.getY()/5;
+        this.y = Game.getY()/4;
         game = new Rectangle (x,y, w, h);
         onLine = new Rectangle (x,y+step, w, h);
         store = new Rectangle (x,y+step*2, w, h);
@@ -64,6 +65,7 @@ public class StartMenu extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
+        Game.getImages().getImage(Images.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(game);
         g.fill(onLine);
