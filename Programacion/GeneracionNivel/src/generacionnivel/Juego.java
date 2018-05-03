@@ -7,47 +7,65 @@ import org.newdawn.slick.geom.*;
 
 public class Juego extends BasicGame{
     private AppGameContainer g;
+    private Input entrada;
     
     private Rectangle hab;
-    private SpriteSheet s;
-    private Animation ani[] = new Animation[31];
-    private float x=0;
+    private Rectangle[] casillas = new Rectangle[64];
+    private boolean[] colorear = new boolean[64];
     
     public Juego(String t) throws SlickException{
         super(t);
         this.g = new AppGameContainer(this);
-        g.setDisplayMode(1245, 700, false);
+        g.setDisplayMode(1280, 700, false);
         g.start();
     }
 
     @Override
     public void init(GameContainer container) throws SlickException {
+        entrada = new Input(700);
         
         hab = new Rectangle(250,150,300,80);
-        s = new SpriteSheet("imagenes/BOSSJUNTO.png",300,322);
-        for(int j=0;j<31;j++){
-            ani[j] = new Animation();
-            for(int i=0;i<4;i++) ani[j].addFrame(s.getSprite(i, 0), 150);
-        }        
+        for(int i=0;i<casillas.length;i++) casillas[i] = new Rectangle(((i%8)*160),((i/8)*80),160,80);
+        generacion();
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        x+=((float)delta*0.1);
-        x%=1245;
+        if(entrada.isKeyDown(Input.KEY_W)) generacion();
     }
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.draw(hab);
-        //g.draw(borde);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,100,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,150,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,200,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,250,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,300,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,350,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,400,40,50);
-        for(int j=0;j<31;j++) ani[j].draw((x+(float)Math.random()*50+(40*j))%1245,450,40,50);
+        for(int i=0;i<casillas.length;i++){
+            if(colorear[i]) g.fill(casillas[i]);
+            else g.draw(casillas[i]);
+        }
+        
+    }
+    
+    /**
+     * Nada de esto soluciona el problema todavia. Solo estoy probando
+     */
+    public void generacion(){
+        //Aprox 1: pesos.
+        /*int peso=10;
+        colorear[0]=true;
+        for(int i=1;i<colorear.length;i++){
+            if((((int)(Math.random()*100))%peso)!=0) colorear[i] = true;
+            else colorear[i]=false;
+            
+            if(colorear[i-1]) if(peso>2) peso--;
+            else  peso++;
+        }*/
+        
+        //Aprox 2: decidir la celda superior tambien
+        colorear = new boolean[colorear.length];
+        colorear[0]=true;
+        for(int i=1;i<colorear.length;i++){
+            if(!colorear[i]){
+                if((((int)(Math.random()*100))%2)!=0) colorear[i] = true;
+                if((((int)(Math.random()*100))%2)!=0) if((i+8)<colorear.length) colorear[i+8] = true;
+            }
+        }
     }
 }
