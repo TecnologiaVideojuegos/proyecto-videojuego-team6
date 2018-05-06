@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shutterearth;
+package AliensDriveMeCrazy;
 
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
@@ -41,7 +41,7 @@ public class Images
         }
         catch (SlickException e)
         {
-            System.out.println("ERROR LOADING IMAGES");
+            System.out.println("ERROR INLOADING IMAGES");
         }
     }
     
