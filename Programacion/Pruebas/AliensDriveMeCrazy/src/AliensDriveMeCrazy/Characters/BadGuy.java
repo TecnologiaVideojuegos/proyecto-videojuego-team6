@@ -5,7 +5,9 @@
  */
 package AliensDriveMeCrazy.Characters;
 
+import AliensDriveMeCrazy.Game;
 import AliensDriveMeCrazy.Guns.Inventory;
+import AliensDriveMeCrazy.Images;
 import AliensDriveMeCrazy.Shots.Shot;
 import AliensDriveMeCrazy.Shots.ShotBadGuy;
 import java.util.ArrayList;
@@ -28,11 +30,12 @@ public class BadGuy extends Character
         this.hited = new ArrayList<>();
     }
     
+    @Override
     public void draw (Graphics g)
     {
         if (alive)
         {
-            img.get(inventory.getCurrent()).draw(x,y,w,h);
+            Game.getImages().getSprit(xVel>0? Images.BASE_DER:Images.BASE_IZQ).draw(x,y,w,h);
         }
         shots.forEach((s)->
         {

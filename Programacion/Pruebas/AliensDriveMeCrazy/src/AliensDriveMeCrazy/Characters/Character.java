@@ -121,7 +121,7 @@ public abstract class Character
     {
         if (alive)
         {
-            img.get(inventory.getCurrent()).draw(x,y,w,h);
+            img.get(xVel>0? 0:1).draw(x,y,w,h);
         }
         shots.forEach((s)->
         {

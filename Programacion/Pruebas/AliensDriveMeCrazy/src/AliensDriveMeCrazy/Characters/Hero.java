@@ -25,7 +25,7 @@ public class Hero extends Character
     
     public Hero(Inventory inventory)
     {
-        super(new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventory, 3, 100,100);
+        super(new String [] {"./src/img/HERO_DER.png","./src/img/HERO_IZQ.png"}, inventory, 3, 100,100);
         this.alive = true;
         this.kills = 0;
         this.stage = 0;
