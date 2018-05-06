@@ -15,6 +15,7 @@ public class Game extends BasicGame
     private static ArrayList<Scene> scenes ;
     private static int X;
     private static int Y;
+    private static Images images;
     
     public Game (String gamename)
     {
@@ -46,6 +47,7 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
+        images = new Images();
         StartMenu startMenu = new StartMenu();
         scenes.add(startMenu);
         
@@ -102,5 +104,10 @@ public class Game extends BasicGame
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();
+    }
+    
+    public static Images getImages ()
+    {
+        return images;
     }
 }

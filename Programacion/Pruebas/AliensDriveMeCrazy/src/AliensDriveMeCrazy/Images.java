@@ -35,13 +35,13 @@ public class Images
 
         try
         {
-            sprites.put(Images.BASE_DER, new Animation (new SpriteSheet("./images/BASE_DER.png",281,300),180));
-            sprites.put(Images.BASE_IZQ, new Animation (new SpriteSheet("./images/BASE_IZQ.png",281,300),180));
-            images.put(Images.MENU, new Image("./images/MENU.png"));
+            sprites.put(Images.BASE_DER, new Animation (new SpriteSheet("./src/img/BASE_DER.png",281,300),180));
+            sprites.put(Images.BASE_IZQ, new Animation (new SpriteSheet("./src/img/BASE_IZQ.png",281,300),180));
+            images.put(Images.MENU, new Image("./src/img/MENU.png"));
         }
         catch (SlickException e)
         {
-            System.out.println("ERROR INLOADING IMAGES");
+            System.out.println("ERROR LOADING IMAGES");
         }
     }
     
