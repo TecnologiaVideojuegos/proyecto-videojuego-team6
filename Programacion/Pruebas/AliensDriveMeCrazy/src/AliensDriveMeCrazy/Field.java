@@ -66,7 +66,7 @@ public class Field extends Scene implements InputProviderListener
         } 
         catch (SlickException e)
         {
-            System.out.println("ERROR WEARPON LOADING IMG");
+            System.out.println("ERROR BACKGROUND LOADING IMG");
         }
     }
 

@@ -57,6 +57,7 @@ public class StatisticsMenu extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
+        Game.getImages().getImage(Images.MENU).draw(0, 0,Game.getX(),Game.getY());
         g.setColor(Color.yellow);
         for (int i = 0; i < stage.length; i++)
         {
