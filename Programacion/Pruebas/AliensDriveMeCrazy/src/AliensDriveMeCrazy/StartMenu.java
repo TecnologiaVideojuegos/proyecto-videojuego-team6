@@ -81,23 +81,23 @@ public class StartMenu extends Scene implements InputProviderListener
                 Hero hero = SavingStation.load();
                 HUD hud = new HUD (hero);
 
-                Bullets bulletsb = new Bullets(0,"./src/img/BULLET.png",2, 500);
+                Bullets bulletsb = new Bullets(0,"./src/img/BULLET.png",1, 200);
                 Wearpon wearponb = new Wearpon("./src/img/WEARPON.jpg",bulletsb,0);
                 Inventory inventoryb = new Inventory();
                 inventoryb.addWearpon(wearponb);
-                BadGuy bad = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb, 5, 1000,100);
+                BadGuy bad = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb, 4, 1000,100);
 
                 Bullets bulletsb2 = new Bullets(0,"./src/img/BULLET.png",1, 200);
                 Wearpon wearponb2 = new Wearpon("./src/img/WEARPON.jpg",bulletsb2,0);
                 Inventory inventoryb2 = new Inventory();
                 inventoryb2.addWearpon(wearponb2);
-                BadGuy bad2 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb2, 5, 900,400);
+                BadGuy bad2 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb2, 4, 900,400);
                 
                 Bullets bulletsb3 = new Bullets(0,"./src/img/BULLET.png",3, 1500);
                 Wearpon wearponb3 = new Wearpon("./src/img/WEARPON.jpg",bulletsb3,0);
                 Inventory inventoryb3 = new Inventory();
                 inventoryb3.addWearpon(wearponb3);
-                BadGuy bad3 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb3, 2, 1200,-89999);
+                BadGuy bad3 = new BadGuy (new String [] {"./src/img/CHARACTER.png","./src/img/CHARACTER.png"}, inventoryb3, 6, 1200,-89999);
 
                 ArrayList <BadGuy> b = new ArrayList <>();
                 b.add(bad);

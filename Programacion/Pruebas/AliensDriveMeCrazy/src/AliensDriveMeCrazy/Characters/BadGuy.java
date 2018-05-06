@@ -35,7 +35,7 @@ public class BadGuy extends Character
     {
         if (alive)
         {
-            Game.getImages().getSprit(xVel>0? Images.BASE_DER:Images.BASE_IZQ).draw(x,y,w,h);
+            Game.getImages().getSprit(xVel>0? (healthMax==4?Images.BASE_DER:Images.FUERTE_DER):(healthMax==4?Images.BASE_IZQ:Images.FUERTE_IZQ)).draw(x,y,w,h);
         }
         shots.forEach((s)->
         {

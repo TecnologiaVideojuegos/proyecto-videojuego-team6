@@ -27,6 +27,8 @@ public class Images
     public static int HERO2 = 5;
     public static int HERO3 = 6;
     public static int HERO4 = 7;
+    public static int FUERTE_DER = 8;
+    public static int FUERTE_IZQ = 9;
     
     public Images ()
     {
@@ -37,6 +39,8 @@ public class Images
         {
             sprites.put(Images.BASE_DER, new Animation (new SpriteSheet("./src/img/BASE_DER.png",281,300),180));
             sprites.put(Images.BASE_IZQ, new Animation (new SpriteSheet("./src/img/BASE_IZQ.png",281,300),180));
+            sprites.put(Images.FUERTE_DER, new Animation (new SpriteSheet("./src/img/BASE_DER.png",281,300),180));
+            sprites.put(Images.FUERTE_IZQ, new Animation (new SpriteSheet("./src/img/BASE_IZQ.png",281,300),180));
             images.put(Images.MENU, new Image("./src/img/MENU.png"));
         }
         catch (SlickException e)
