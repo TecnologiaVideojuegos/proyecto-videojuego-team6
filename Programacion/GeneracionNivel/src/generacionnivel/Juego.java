@@ -49,9 +49,9 @@ public class Juego extends BasicGame{
     /**
      * Nada de esto soluciona el problema todavia. Solo estoy probando
      */
-    public void generacion(){
+    /*public void generacion(){
         //Aprox 1: pesos.
-        /*int peso=10;
+        int peso=10;
         colorear[0]=true;
         for(int i=1;i<colorear.length;i++){
             if((((int)(Math.random()*100))%peso)!=0) colorear[i] = true;
@@ -59,23 +59,80 @@ public class Juego extends BasicGame{
             
             if(colorear[i-1]) if(peso>2) peso--;
             else  peso++;
-        }*/
+        }
         
         //Aprox 2: decidir la celda superior tambien
-        /*colorear = new boolean[colorear.length];
+        colorear = new boolean[colorear.length];
         colorear[0]=true;
         for(int i=1;i<colorear.length;i++){
             if(!colorear[i]){
                 if((((int)(Math.random()*100))%2)!=0) colorear[i] = true;
                 if((((int)(Math.random()*100))%2)!=0) if((i+8)<colorear.length) colorear[i+8] = true;
             }
-        }*/
+        }
         
         //Aprox 3: decidir la celda superior tambien
-        int contador=1;
+        //int contador=1;
         //colorear = new boolean[colorear.length];
         //colorear[0]=true;
         //if((contador==1))
         for(int i=0;i<colorear.length;i++) colorear[i][0]=true;
+    }*/
+    
+    public void generacion(){
+        int cellCount = 1;
+        int cellNum = 32;
+        int compiCount = 1;
+        int r = 0;
+        int c = 7;
+        int rand;
+        
+        colorear = new boolean[8][8];//reiniciamos
+        colorear[r][c] = true;
+        do{
+            if(compiCount==1) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
+            else if(compiCount==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
+            else rand = ((int)(Math.random()*400))%4;
+            try{
+                switch(rand){
+                    case 0:
+                        if(!colorear[r+1][c]){//derecha
+                            cellCount++;
+                            colorear[r+1][c] = true;
+                        }
+                        r = r+1;
+                        c = c;
+                        compiCount++;
+                        break;
+                    case 1:
+                        if(!colorear[r-1][c]){//izquierda
+                            cellCount++;
+                            colorear[r-1][c] = true;
+                        }
+                        r = r-1;
+                        c = c;
+                        compiCount++;
+                        break;
+                    case 2:
+                        if(!colorear[r][c-1]){//arriba
+                            cellCount++;
+                            colorear[r][c-1] = true;
+                        }
+                        r = r;
+                        c = c-1;
+                        compiCount = 1;
+                        break;
+                    case 3:
+                        if(!colorear[r][c+1]){//abajo
+                            cellCount++;
+                            colorear[r][c+1] = true;
+                        }
+                        r = r;
+                        c = c+1;
+                        compiCount = 1;
+                        break;
+                }
+            } catch (Exception e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
+        }while((cellCount<cellNum)||(compiCount==1));
     }
 }
