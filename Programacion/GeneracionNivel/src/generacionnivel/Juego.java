@@ -12,6 +12,8 @@ public class Juego extends BasicGame{
     private Rectangle hab;
     private Rectangle[][] casillas = new Rectangle[8][8];
     private boolean[][] colorear = new boolean[8][8];
+    private Color[][] colores = new Color[8][8];
+    private Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
     
     public Juego(String t) throws SlickException{
         super(t);
@@ -28,6 +30,9 @@ public class Juego extends BasicGame{
         for(int i=0;i<casillas.length;i++)
             for(int j=0;j<casillas[i].length;j++)
                 casillas[i][j] = new Rectangle(((i%8)*160),((j%8)*80),160,80);
+        for(int i=0;i<colores.length;i++)
+            for(int j=0;j<colores[i].length;j++)
+                colores[i][j]=Color.black;
         generacion();
     }
 
@@ -40,8 +45,10 @@ public class Juego extends BasicGame{
     public void render(GameContainer container, Graphics g) throws SlickException {
         for(int i=0;i<casillas.length;i++){
             for(int j=0;j<casillas[i].length;j++){
-                if(colorear[i][j]) g.fill(casillas[i][j]);
-                else g.draw(casillas[i][j]);
+                //if(colorear[i][j]) g.fill(casillas[i][j]);
+                //else g.draw(casillas[i][j]);
+                g.setColor(colores[i][j]);
+                g.fill(casillas[i][j]);
             }
         }        
     }
@@ -86,9 +93,14 @@ public class Juego extends BasicGame{
         int r = 0;
         int c = 7;
         int rand;
+        int hab = 0;
         
         colorear = new boolean[8][8];//reiniciamos
         colorear[r][c] = true;
+        for(int i=0;i<colores.length;i++)
+            for(int j=0;j<colores[i].length;j++)
+                colores[i][j]=Color.black;
+        colores[r][c] = diccionario[hab];
         do{
             if(compiCount==1) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
             else if(compiCount==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
@@ -99,6 +111,7 @@ public class Juego extends BasicGame{
                         if(!colorear[r+1][c]){//derecha
                             cellCount++;
                             colorear[r+1][c] = true;
+                            colores[r+1][c] = diccionario[hab];
                         }
                         r = r+1;
                         c = c;
@@ -108,6 +121,7 @@ public class Juego extends BasicGame{
                         if(!colorear[r-1][c]){//izquierda
                             cellCount++;
                             colorear[r-1][c] = true;
+                            colores[r-1][c] = diccionario[hab];
                         }
                         r = r-1;
                         c = c;
@@ -115,8 +129,10 @@ public class Juego extends BasicGame{
                         break;
                     case 2:
                         if(!colorear[r][c-1]){//arriba
+                            hab = (hab+1)%diccionario.length;
                             cellCount++;
                             colorear[r][c-1] = true;
+                            colores[r][c-1] = diccionario[hab];
                         }
                         r = r;
                         c = c-1;
@@ -124,8 +140,10 @@ public class Juego extends BasicGame{
                         break;
                     case 3:
                         if(!colorear[r][c+1]){//abajo
+                            hab = (hab+1)%diccionario.length;
                             cellCount++;
                             colorear[r][c+1] = true;
+                            colores[r][c+1] = diccionario[hab];
                         }
                         r = r;
                         c = c+1;
