@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package shutterearth.characters;
 
+import java.util.ArrayList;
 import shutterearth.Game;
 import shutterearth.Images;
 
@@ -28,6 +25,7 @@ public class Hero
     private float xPos;
     private float yPos;
     private float gravity;
+    private final Inventory inventory;
     
     public Hero(SavedHero hero)
     {
@@ -40,6 +38,7 @@ public class Hero
         this.kills = hero.getKills();
         this.images = Game.getImages();
         this.gravity = Game.getGravity();
+        this.inventory = new Inventory (hero.getInventory(),this);
     }
     
     public String getUser ()
@@ -102,5 +101,13 @@ public class Hero
     public boolean getFace()
     {
         return xVel > 0;
+    }
+    public ArrayList<int[]> saveInventory()
+    {
+        return inventory.save();
+    }
+    public int getNumberOfGuns()
+    {
+        return inventory.getNumberOfGuns();
     }
 }

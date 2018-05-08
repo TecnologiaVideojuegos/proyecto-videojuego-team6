@@ -15,18 +15,22 @@ public class Gun
     private final int delay;
     private final int speed;
     private final int consume;
+    private final int id;
+    private final int level;
     
     public Gun (int id, int level, int enemy)
     {
+        this.id = id;
+        this.level = level;
         int [][][][] gun = new int [][][][]
         {
             {
                 {
-                    {5,50,40,2},      //Arma Minima
-                    {7,50,40,2},
-                    {9,50,40,2},
-                    {10,45,40,2},
-                    {10,45,40,1},
+                    {5,50,40,0},      //Arma Minima
+                    {7,50,40,0},
+                    {9,50,40,0},
+                    {10,45,40,0},
+                    {10,45,40,0},
                 },
                 {
                     {10,85,60,4},     //Arma Base
@@ -113,9 +117,16 @@ public class Gun
     {
         return delay;
     }
-    
     public int getConsume()
     {
         return consume;
+    }
+    public int getID()
+    {
+        return id;
+    }
+    public int getLevel()
+    {
+        return level;
     }
 }

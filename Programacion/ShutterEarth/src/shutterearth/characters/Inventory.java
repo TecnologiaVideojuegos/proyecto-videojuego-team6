@@ -29,7 +29,7 @@ public class Inventory extends Scene
         Game.addScene(this);
         this.hero = hero;
         this.shots = new ArrayList <>();
-        maxGun = 4;
+        maxGun = guns.size() -1;
         index = 0;
         this.inventory = new ArrayList<>();
         guns.forEach((gun) ->
@@ -88,5 +88,19 @@ public class Inventory extends Scene
     public void init(GameContainer gc) throws SlickException
     {
         
+    }
+    
+    public ArrayList<int[]> save()
+    {
+        ArrayList <int[]> data = new ArrayList<>();
+        inventory.forEach((gun)->
+        {
+            data.add(new int[]{gun.getID(),gun.getLevel()});
+        });
+        return data;
+    }
+    public int getNumberOfGuns()
+    {
+        return maxGun;
     }
 }
