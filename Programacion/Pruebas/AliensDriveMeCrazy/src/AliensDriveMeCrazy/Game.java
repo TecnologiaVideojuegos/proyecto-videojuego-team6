@@ -98,7 +98,7 @@ public class Game extends BasicGame
     public static void main(String[] args) throws SlickException
     {
         app = new AppGameContainer(new Game ("Aliens Drive Me Crazy"));
-        setX(app.getScreenWidth());
+        setX(app.getScreenWidth()-45);
         setY(app.getScreenHeight()-100);
         app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
