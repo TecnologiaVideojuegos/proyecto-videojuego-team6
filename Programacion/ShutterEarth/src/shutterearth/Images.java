@@ -33,6 +33,10 @@ public class Images
     public static int GUN3 = 11;
     public static int GUN4 = 12;
     public static int BULLETS = 13;
+    public static int FULL_LIVE = 14;
+    public static int TQUARTERS_LIVE = 15;
+    public static int HALF_LIVE = 16;
+    public static int QUARTER_LIVE = 17;
     
     public Images ()
     {
@@ -50,6 +54,10 @@ public class Images
             images.put(Images.GUN3, new Image("./images/BULLET.png"));
             images.put(Images.GUN4, new Image("./images/BULLET.png"));
             images.put(Images.BULLETS, new Image("./images/BULLET.png"));
+            images.put(Images.FULL_LIVE, new Image("./images/FULL_LIVE.png"));
+            images.put(Images.TQUARTERS_LIVE, new Image("./images/TQUARTERS_LIVE.png"));
+            images.put(Images.HALF_LIVE, new Image("./images/HALF_LIVE.png"));
+            images.put(Images.QUARTER_LIVE, new Image("./images/QUARTER_LIVE.png"));
         }
         catch (SlickException e)
         {
@@ -79,6 +87,22 @@ public class Images
                 return GUN0;
             case 4:
                 return GUN0;
+            default:
+                return BULLETS;
+        }
+    }
+    public static int getLive (int id)
+    {
+        switch (id)
+        {
+            case 0:
+                return FULL_LIVE;
+            case 1:
+                return TQUARTERS_LIVE;
+            case 2:
+                return HALF_LIVE;
+            case 3:
+                return QUARTER_LIVE;
             default:
                 return BULLETS;
         }

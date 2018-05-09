@@ -143,6 +143,7 @@ public class Access extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
+        Game.resetDeveloper();
         this.user = new TextField(gc, gc.getDefaultFont(), x, y, w, h);
         this.pswd = new TextField(gc, gc.getDefaultFont(), x, y+Game.getY()/14, w, h);
         provider = new InputProvider(gc.getInput());

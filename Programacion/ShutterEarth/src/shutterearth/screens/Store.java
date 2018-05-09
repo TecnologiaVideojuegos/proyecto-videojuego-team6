@@ -5,6 +5,7 @@
  */
 package shutterearth.screens;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -97,10 +98,10 @@ public class Store extends Scene implements InputProviderListener
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         Game.getImages().getImage(Images.MENU).draw(0,0,Game.getX(),Game.getY());
+        g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(left);
         g.fill(right);
-        g.fill(upgrade);
         if (index == 0)
         {
             Game.getImages().getSprit(Images.BASE_DER).draw(x,y,w,h);
@@ -109,6 +110,16 @@ public class Store extends Scene implements InputProviderListener
         {
             Game.getImages().getImage(Images.getGun(index-1)).draw(x,y,w,h);
         }
+        
+        g.drawString("Kills: "+hero.getKills(), x, y-15);
+        if ((hero.getStage()/2)>=index-1)
+        {
+            g.setColor(Color.yellow);
+            g.drawString("Cost: "+prices[index][index>0?hero.getInventory().get(index-1)[1]:hero.getHealthMax()/20], upgrade.getX(), upgrade.getMaxY()+15);
+        }
+        else
+            g.setColor(Color.red);
+        
         if (index > 0)
         {
             for (int j = 0; j < status.length; j++)
@@ -130,7 +141,7 @@ public class Store extends Scene implements InputProviderListener
             }
         }
         g.drawString("Bullets: "+hero.getBullets(), upgrade.getX(), upgrade.getMaxY()+1);
-        g.drawString("Cost: "+prices[index][index>0?hero.getInventory().get(index-1)[1]:hero.getHealthMax()/20], upgrade.getX(), upgrade.getMaxY()+15);
+        g.fill(upgrade);
     }
 
     @Override
@@ -162,7 +173,7 @@ public class Store extends Scene implements InputProviderListener
             {
                 if (index > 0)
                 {
-                    if (hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]])
+                    if ((hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]]) && ((hero.getStage()/2)>=(index-1)))
                     {
                         hero.sold(prices[index][hero.getInventory().get(index-1)[1]]);
                         hero.getInventory().get(index-1)[1]++;

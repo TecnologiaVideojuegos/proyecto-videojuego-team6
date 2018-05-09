@@ -29,10 +29,7 @@ public class StartMenu extends Scene implements InputProviderListener
     private InputProvider provider;
     private final Command click;
     private final Rectangle game;
-    private final Rectangle statistics;
     private final Rectangle store;
-    private final Rectangle onLine;
-    private final Rectangle developer;
     private final Rectangle exit;
     private final int w;
     private final int h;
@@ -50,16 +47,17 @@ public class StartMenu extends Scene implements InputProviderListener
         this.w = Game.getX()/3;
         this.h = Game.getY()/7;
         this.x = Game.getX()/2-w/2;
-        this.y = Game.getY()/4;
+        this.y = Game.getY()/3;
         game = new Rectangle (x,y, w, h);
-        onLine = new Rectangle (x,y+step, w, h);
-        store = new Rectangle (x,y+step*2, w, h);
-        statistics = new Rectangle (x,y+step*3, w, h);
-        developer = new Rectangle (x+w+Game.getX()/50,y+step, w-Game.getX()/15, h);
+        store = new Rectangle (x,y+step, w, h);
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
         clicked = false;
         this.hero = hero;
+        if (hero.getPermission())
+        {
+            Game.develop(hero);
+        }
     }
             
     @Override
@@ -68,14 +66,8 @@ public class StartMenu extends Scene implements InputProviderListener
         Game.getImages().getImage(Images.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(game);
-        g.fill(onLine);
-        g.fill(statistics);
         g.fill(store);
         g.fill(exit);
-        if (hero.getPermission())
-        {
-            g.fill(developer);
-        }
     }
 
     @Override
@@ -87,23 +79,11 @@ public class StartMenu extends Scene implements InputProviderListener
             {
                 
             }
-            else if (statistics.contains(xMouse, yMouse))
-            {
-                
-            }
             else if (store.contains(xMouse, yMouse))
             {
                 Game.addScene(new Store(hero));
                 Game.removeSence(this);
             }
-            else if (onLine.contains(xMouse, yMouse))
-            {
-                
-            }
-            else if (developer.contains(xMouse, yMouse) && hero.getPermission())
-            {
-                
-            }   
             else if (exit.contains(xMouse, yMouse))
             {
                 Game.addScene(new Access());

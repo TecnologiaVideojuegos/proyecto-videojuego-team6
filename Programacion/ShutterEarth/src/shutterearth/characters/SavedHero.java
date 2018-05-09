@@ -14,7 +14,7 @@ public class SavedHero implements Serializable
     private final String pswd;
     private final Boolean permission;
     private int healthMax;
-    private final int stage;
+    private int stage;
     private int bullets;
     private final int kills;
     private final int numberOfGuns;
@@ -50,56 +50,64 @@ public class SavedHero implements Serializable
         this.inventory = hero.saveInventory();
     }
     
-    public String getUser ()
+    public synchronized String getUser ()
     {
         return user;
     }
     
-    public int getHealthMax ()
+    public synchronized int getHealthMax ()
     {
         return healthMax;
     }
     
-    public int getStage ()
+    public synchronized int getStage ()
     {
         return stage;
     }
     
-    public int getBullets ()
+    public synchronized int getBullets ()
     {
         return bullets;
     }
     
-    public int getKills()
+    public synchronized int getKills()
     {
         return kills;
     }
     
-    public String getPswd ()
+    public synchronized String getPswd ()
     {
         return pswd;
     }
     
-    public int getNumberOfGuns ()
+    public synchronized int getNumberOfGuns ()
     {
         return numberOfGuns;
     }
     
-    public Boolean getPermission ()
+    public synchronized Boolean getPermission ()
     {
         return permission;
     }
     
-    public ArrayList <int[]> getInventory()
+    public synchronized ArrayList <int[]> getInventory()
     {
         return inventory;
     }
-    public void sold (int money)
+    public synchronized void sold (int money)
     {
         bullets -= money;
     }
-        public void setHealth(int health)
+    public synchronized void setHealth(int health)
     {
         this.healthMax = health;
+    }
+    public synchronized void setBullets(int bullets)
+    {
+        this.bullets = bullets;
+    }
+    public synchronized void setStage(int stage)
+    {
+        this.stage = stage;
     }
 }
