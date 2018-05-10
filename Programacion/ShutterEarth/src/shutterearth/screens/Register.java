@@ -19,7 +19,7 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
-import shutterearth.Images;
+import shutterearth.Media;
 import shutterearth.characters.SavedHero;
 
 /**
@@ -66,7 +66,7 @@ public class Register extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getImages().getImage(Images.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(go);

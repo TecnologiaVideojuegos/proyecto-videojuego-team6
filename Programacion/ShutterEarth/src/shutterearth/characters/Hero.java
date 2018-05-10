@@ -3,7 +3,7 @@ package shutterearth.characters;
 
 import java.util.ArrayList;
 import shutterearth.Game;
-import shutterearth.Images;
+import shutterearth.Media;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Hero
     private int stage;
     private int bullets;
     private int kills;
-    private final Images images;
+    private final Media images;
     private float xVel;
     private float yVel;
     private float xPos;
@@ -36,7 +36,7 @@ public class Hero
         this.healthMax = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
-        this.images = Game.getImages();
+        this.images = Game.getMedia();
         this.gravity = Game.getGravity();
         this.inventory = new Inventory (hero.getInventory(),this);
     }

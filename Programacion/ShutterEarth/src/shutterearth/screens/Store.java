@@ -17,7 +17,7 @@ import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
-import shutterearth.Images;
+import shutterearth.Media;
 import shutterearth.characters.SavedHero;
 
 /**
@@ -97,18 +97,18 @@ public class Store extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getImages().getImage(Images.MENU).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.MENU).draw(0,0,Game.getX(),Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(left);
         g.fill(right);
         if (index == 0)
         {
-            Game.getImages().getSprit(Images.BASE_DER).draw(x,y,w,h);
+            Game.getMedia().getSprit(Media.BASE_DER).draw(x,y,w,h);
         }
         else
         {
-            Game.getImages().getImage(Images.getGun(index-1)).draw(x,y,w,h);
+            Game.getMedia().getImage(Media.getGun(index-1)).draw(x,y,w,h);
         }
         
         g.drawString("Kills: "+hero.getKills(), x, y-15);

@@ -8,6 +8,7 @@ package shutterearth;
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -15,10 +16,11 @@ import org.newdawn.slick.SpriteSheet;
  *
  * @author mr.blissfulgrin
  */
-public class Images
+public class Media
 {
     private final HashMap <Integer,Image> images;
     private final HashMap <Integer,Animation> sprites;
+    private final HashMap <Integer,Music> music;
     public static int MENU = 0;
     public static int BASE_DER = 1;
     public static int BASE_IZQ = 2;
@@ -37,27 +39,30 @@ public class Images
     public static int TQUARTERS_LIVE = 15;
     public static int HALF_LIVE = 16;
     public static int QUARTER_LIVE = 17;
+    public static int CANCION_MENU = 18;
     
-    public Images ()
+    public Media ()
     {
         sprites = new HashMap <>();
         images = new HashMap <>();
+        music = new HashMap <>();
 
         try
         {
-            sprites.put(Images.BASE_DER, new Animation (new SpriteSheet("./images/BASE_DER.png",281,300),180));
-            sprites.put(Images.BASE_IZQ, new Animation (new SpriteSheet("./images/BASE_IZQ.png",281,300),180));
-            images.put(Images.MENU, new Image("./images/MENU.png"));
-            images.put(Images.GUN0, new Image("./images/BULLET.png"));
-            images.put(Images.GUN1, new Image("./images/BULLET.png"));
-            images.put(Images.GUN2, new Image("./images/BULLET.png"));
-            images.put(Images.GUN3, new Image("./images/BULLET.png"));
-            images.put(Images.GUN4, new Image("./images/BULLET.png"));
-            images.put(Images.BULLETS, new Image("./images/BULLET.png"));
-            images.put(Images.FULL_LIVE, new Image("./images/FULL_LIVE.png"));
-            images.put(Images.TQUARTERS_LIVE, new Image("./images/TQUARTERS_LIVE.png"));
-            images.put(Images.HALF_LIVE, new Image("./images/HALF_LIVE.png"));
-            images.put(Images.QUARTER_LIVE, new Image("./images/QUARTER_LIVE.png"));
+            sprites.put(Media.BASE_DER, new Animation (new SpriteSheet("./media/BASE_DER.png",281,300),180));
+            sprites.put(Media.BASE_IZQ, new Animation (new SpriteSheet("./media/BASE_IZQ.png",281,300),180));
+            images.put(Media.MENU, new Image("./media/MENU.png"));
+            images.put(Media.GUN0, new Image("./media/BULLET.png"));
+            images.put(Media.GUN1, new Image("./media/BULLET.png"));
+            images.put(Media.GUN2, new Image("./media/BULLET.png"));
+            images.put(Media.GUN3, new Image("./media/BULLET.png"));
+            images.put(Media.GUN4, new Image("./media/BULLET.png"));
+            images.put(Media.BULLETS, new Image("./media/BULLET.png"));
+            images.put(Media.FULL_LIVE, new Image("./media/FULL_LIVE.png"));
+            images.put(Media.TQUARTERS_LIVE, new Image("./media/TQUARTERS_LIVE.png"));
+            images.put(Media.HALF_LIVE, new Image("./media/HALF_LIVE.png"));
+            images.put(Media.QUARTER_LIVE, new Image("./media/QUARTER_LIVE.png"));
+            music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false)); //DON'T WORK ???
         }
         catch (SlickException e)
         {
@@ -72,6 +77,10 @@ public class Images
     public Image getImage (int n)
     {
         return images.get(n);
+    }
+    public Music getMusic (int n)
+    {
+        return music.get(n);
     }
     public static int getGun (int id)
     {
