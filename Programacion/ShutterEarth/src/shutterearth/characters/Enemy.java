@@ -9,7 +9,7 @@ package shutterearth.characters;
  *
  * @author mr.blissfulgrin
  */
-public class Enemy
+public class Enemy implements BadGuy
 {
     
 }

@@ -8,6 +8,8 @@ package shutterearth.map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import shutterearth.characters.BadGuy;
+import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 
 /**
@@ -16,7 +18,9 @@ import shutterearth.screens.Scene;
  */
 public class HUD extends Scene
 {
-
+    private Hero hero;
+    private BadGuy bad;
+    
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
