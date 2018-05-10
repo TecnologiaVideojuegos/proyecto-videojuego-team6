@@ -35,12 +35,13 @@ public class Game extends BasicGame
     }
     
     // Add a scene to the list and call the init method
-    public static void addScene (Scene sence)
+    public static void addScene (Scene scene)
     {
-        scenes.add(sence);
+        if (!scenes.contains(scene))
+            scenes.add(scene);
         try 
         {
-            sence.init(app);
+            scene.init(app);
         } 
         catch (SlickException e) 
         {

@@ -19,6 +19,7 @@ import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.SavedHero;
+import shutterearth.map.LiveDisplayer;
 
 /**
  *
@@ -44,6 +45,7 @@ public class Store extends Scene implements InputProviderListener
     private final int h;
     private int index;
     private final int[][] prices;
+    private final LiveDisplayer lives;
     
     public Store (SavedHero hero)
     {
@@ -92,6 +94,7 @@ public class Store extends Scene implements InputProviderListener
         {
             status[j] = new Rectangle (xr + step*j +wr*j, yr, wr, hr);
         }
+        this.lives = new LiveDisplayer(hero.getHealthMax(),100,100,100);
     }
     
     @Override
@@ -122,6 +125,7 @@ public class Store extends Scene implements InputProviderListener
         
         if (index > 0)
         {
+            Game.removeSence(lives);
             for (int j = 0; j < status.length; j++)
             {
                 if (hero.getInventory().get(index-1)[1] > j)
@@ -132,13 +136,15 @@ public class Store extends Scene implements InputProviderListener
         }
         else
         {
-            for (int j = 0; j < status.length; j++)
+            lives.setHealth(hero.getHealthMax());
+            Game.addScene(lives);
+            /*for (int j = 0; j < status.length; j++)
             {
                 if (hero.getHealthMax()/20>j)
                     g.fill(status[j]);
                 else
                     g.draw(status[j]);
-            }
+            }*/
         }
         g.drawString("Bullets: "+hero.getBullets(), upgrade.getX(), upgrade.getMaxY()+1);
         g.fill(upgrade);

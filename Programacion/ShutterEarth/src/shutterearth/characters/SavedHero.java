@@ -3,6 +3,8 @@ package shutterearth.characters;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -12,24 +14,24 @@ public class SavedHero implements Serializable
 {
     private final String user;
     private final String pswd;
-    private final Boolean permission;
-    private int healthMax;
-    private int stage;
-    private int bullets;
-    private final int kills;
-    private final int numberOfGuns;
+    private final AtomicBoolean permission;
+    private final AtomicInteger healthMax;
+    private final AtomicInteger stage;
+    private final AtomicInteger bullets;
+    private final AtomicInteger kills;
+    private final AtomicInteger numberOfGuns;
     private final ArrayList <int[]> inventory;
     
     public SavedHero(String user, String pswd, Boolean permission)
     {
         this.user = user;
         this.pswd = pswd;
-        this.permission = permission;
-        this.healthMax = 20;
-        this.stage = 1;
-        this.bullets = 0;
-        this.kills = 0;
-        this.numberOfGuns = 1;
+        this.permission = new AtomicBoolean(permission);
+        this.healthMax = new AtomicInteger(20);
+        this.stage = new AtomicInteger(1);
+        this.bullets = new AtomicInteger(0);
+        this.kills = new AtomicInteger(0);
+        this.numberOfGuns = new AtomicInteger(1);
         this.inventory = new ArrayList<>();
         inventory.add(new int[]{0,1});
         inventory.add(new int[]{1,0});
@@ -41,12 +43,12 @@ public class SavedHero implements Serializable
     {
         this.user = hero.getUser();
         this.pswd = hero.getPswd();
-        this.permission = hero.getPermission();
-        this.bullets = hero.getBullets();
-        this.healthMax = hero.getHealthMax();
-        this.stage = hero.getStage();
-        this.kills = hero.getKills();
-        this.numberOfGuns = hero.getNumberOfGuns();
+        this.permission = new AtomicBoolean(hero.getPermission());
+        this.bullets = new AtomicInteger(hero.getBullets());
+        this.healthMax = new AtomicInteger(hero.getHealthMax());
+        this.stage = new AtomicInteger(hero.getStage());
+        this.kills = new AtomicInteger(hero.getKills());
+        this.numberOfGuns = new AtomicInteger(hero.getNumberOfGuns());
         this.inventory = hero.saveInventory();
     }
     
@@ -55,24 +57,24 @@ public class SavedHero implements Serializable
         return user;
     }
     
-    public synchronized int getHealthMax ()
+    public int getHealthMax ()
     {
-        return healthMax;
+        return healthMax.get();
     }
     
-    public synchronized int getStage ()
+    public int getStage ()
     {
-        return stage;
+        return stage.get();
     }
     
-    public synchronized int getBullets ()
+    public int getBullets ()
     {
-        return bullets;
+        return bullets.get();
     }
     
-    public synchronized int getKills()
+    public int getKills()
     {
-        return kills;
+        return kills.get();
     }
     
     public synchronized String getPswd ()
@@ -80,34 +82,34 @@ public class SavedHero implements Serializable
         return pswd;
     }
     
-    public synchronized int getNumberOfGuns ()
+    public int getNumberOfGuns ()
     {
-        return numberOfGuns;
+        return numberOfGuns.get();
     }
     
-    public synchronized Boolean getPermission ()
+    public Boolean getPermission ()
     {
-        return permission;
+        return permission.get();
     }
     
     public synchronized ArrayList <int[]> getInventory()
     {
         return inventory;
     }
-    public synchronized void sold (int money)
+    public void sold (int money)
     {
-        bullets -= money;
+        bullets.addAndGet(-money);
     }
-    public synchronized void setHealth(int health)
+    public void setHealth(int health)
     {
-        this.healthMax = health;
+        this.healthMax.set(health);
     }
-    public synchronized void setBullets(int bullets)
+    public void setBullets(int bullets)
     {
-        this.bullets = bullets;
+        this.bullets.set(bullets);
     }
-    public synchronized void setStage(int stage)
+    public void setStage(int stage)
     {
-        this.stage = stage;
+        this.stage.set(stage);
     }
 }

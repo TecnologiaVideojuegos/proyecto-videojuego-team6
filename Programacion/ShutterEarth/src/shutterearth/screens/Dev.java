@@ -5,10 +5,8 @@
  */
 package shutterearth.screens;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.concurrent.atomic.AtomicBoolean;
 import shutterearth.characters.SavedHero;
 
@@ -84,6 +82,9 @@ public class Dev extends Thread
                             break;
                         case "GUN4":
                             hero.getInventory().get(4)[1] = amount<5?amount:4;
+                            break;
+                        default:
+                            System.out.println("NON RECOGNIZED ACTION");
                             break;
                     }
                 }
