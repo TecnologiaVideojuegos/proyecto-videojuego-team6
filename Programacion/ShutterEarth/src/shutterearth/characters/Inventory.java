@@ -29,23 +29,24 @@ public class Inventory extends Scene
         Game.addScene(this);
         this.hero = hero;
         this.shots = new ArrayList <>();
-        maxGun = 4;
+        maxGun = guns.size() -1;
         index = 0;
         this.inventory = new ArrayList<>();
         guns.forEach((gun) ->
         {
-            inventory.add(new Gun(gun[0],gun[1],0));
+            if (gun[1]>0)
+                inventory.add(new Gun(gun[0],gun[1],0));
         });
     }
     
     public void rightGun()
     {
-        if (index < maxGun)
+        if (index < inventory.size())
             index++;
     }
     public void lefttGun()
     {
-        if (index < maxGun)
+        if (index > 0)
             index--;
     }
     public int getGunID()
@@ -88,5 +89,26 @@ public class Inventory extends Scene
     public void init(GameContainer gc) throws SlickException
     {
         
+    }
+    
+    public ArrayList<int[]> save()
+    {
+        ArrayList <int[]> data = new ArrayList<>();
+        for (int j = 0; j<maxGun; j++)
+        {
+            if (inventory.get(j).getID()==j)
+                data.add(new int[]{inventory.get(j).getID(),inventory.get(j).getLevel()});
+            else
+                data.add(new int[]{j,0});
+        }
+        return data;
+    }
+    public int getNumberOfGuns()
+    {
+        return maxGun;
+    }
+    public void die()
+    {
+        Game.removeSence(this);
     }
 }

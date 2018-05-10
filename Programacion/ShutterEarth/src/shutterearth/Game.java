@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
 import shutterearth.screens.Access;
+import shutterearth.screens.Dev;
 import shutterearth.screens.Scene;
 
 
@@ -22,6 +23,7 @@ public class Game extends BasicGame
     private static SavingStation savingStation;
     private static Images images;
     private static float gravity;
+    private static Dev developer;
     
     public Game (String gamename)
     {
@@ -29,6 +31,7 @@ public class Game extends BasicGame
         scenes = new ArrayList<>();
         savingStation = new SavingStation();
         Game.gravity = 0.1f;
+        developer = null;
     }
     
     // Add a scene to the list and call the init method
@@ -142,10 +145,29 @@ public class Game extends BasicGame
     {
         return gravity;
     }
+    
+    public static void resetDeveloper()
+    {
+        if (developer != null)
+        {
+            developer.end();
+            developer = null;
+        }
+    }
 
     public static void exit()
     {
+        resetDeveloper();
         savingStation.save();
         System.exit(0);
+    }
+    
+    public static void develop(SavedHero hero)
+    {
+        if (developer == null)
+        {
+            developer = new Dev(hero);
+            developer.start();
+        }
     }
 }

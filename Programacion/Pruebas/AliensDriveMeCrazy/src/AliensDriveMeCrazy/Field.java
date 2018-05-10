@@ -158,6 +158,10 @@ public class Field extends Scene implements InputProviderListener
         provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
         provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
         provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
+        provider.bindCommand(new KeyControl(Input.KEY_W), UP);
+        provider.bindCommand(new KeyControl(Input.KEY_S), DOWN);
+        provider.bindCommand(new KeyControl(Input.KEY_A), LEFT);
+        provider.bindCommand(new KeyControl(Input.KEY_D), RIGHT);
         provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
         provider.bindCommand(new KeyControl(Input.KEY_ENTER), CONTROL);
         provider.bindCommand(new KeyControl(Input.KEY_BACK), EXIT);

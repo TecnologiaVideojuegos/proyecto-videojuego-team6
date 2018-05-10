@@ -5,6 +5,7 @@
  */
 package shutterearth.screens;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -42,9 +43,31 @@ public class Store extends Scene implements InputProviderListener
     private final int w;
     private final int h;
     private int index;
+    private final int[][] prices;
     
     public Store (SavedHero hero)
     {
+        this.prices = new int[][]
+        {
+            {
+                50,100,160,225,400  //HEALTH
+            },
+            {
+                10,20,30,40         //Arma Minima
+            },
+            {
+                60,70,80,90         //Arma Base
+            },
+            {
+                120,130,140,150     //Arma Fuerte
+            },
+            {
+                170,180,190,200     //Arma Rápida
+            },
+            {
+                250,260,270,300     //Arma Final
+            },
+        };
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
         clicked = false;
@@ -75,15 +98,50 @@ public class Store extends Scene implements InputProviderListener
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         Game.getImages().getImage(Images.MENU).draw(0,0,Game.getX(),Game.getY());
+        g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(left);
         g.fill(right);
-        g.fill(upgrade);
-        Game.getImages().getSprit(Images.BASE_DER).draw(x,y,w,h);
-        for (Rectangle rectangle : status)
+        if (index == 0)
         {
-            g.fill(rectangle);
+            Game.getImages().getSprit(Images.BASE_DER).draw(x,y,w,h);
         }
+        else
+        {
+            Game.getImages().getImage(Images.getGun(index-1)).draw(x,y,w,h);
+        }
+        
+        g.drawString("Kills: "+hero.getKills(), x, y-15);
+        if ((hero.getStage()/2)>=index-1)
+        {
+            g.setColor(Color.yellow);
+            g.drawString("Cost: "+prices[index][index>0?hero.getInventory().get(index-1)[1]:hero.getHealthMax()/20], upgrade.getX(), upgrade.getMaxY()+15);
+        }
+        else
+            g.setColor(Color.red);
+        
+        if (index > 0)
+        {
+            for (int j = 0; j < status.length; j++)
+            {
+                if (hero.getInventory().get(index-1)[1] > j)
+                    g.fill(status[j]);
+                else
+                    g.draw(status[j]);
+            }
+        }
+        else
+        {
+            for (int j = 0; j < status.length; j++)
+            {
+                if (hero.getHealthMax()/20>j)
+                    g.fill(status[j]);
+                else
+                    g.draw(status[j]);
+            }
+        }
+        g.drawString("Bullets: "+hero.getBullets(), upgrade.getX(), upgrade.getMaxY()+1);
+        g.fill(upgrade);
     }
 
     @Override
@@ -106,9 +164,28 @@ public class Store extends Scene implements InputProviderListener
             }
             else if (right.contains(xMouse, yMouse))
             {
-                if (index > hero.getNumberOfGuns())
+                if ((index < prices.length-1))
                 {
-                    index --;
+                    index ++;
+                }
+            }
+            else if (upgrade.contains(xMouse, yMouse))
+            {
+                if (index > 0)
+                {
+                    if ((hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]]) && ((hero.getStage()/2)>=(index-1)))
+                    {
+                        hero.sold(prices[index][hero.getInventory().get(index-1)[1]]);
+                        hero.getInventory().get(index-1)[1]++;
+                    }
+                }
+                else
+                {
+                    if (hero.getBullets() >= prices[index][hero.getHealthMax()/20])
+                    {
+                        hero.sold(prices[index][hero.getHealthMax()/20]);
+                        hero.setHealth(((hero.getHealthMax()/20)+1)*20);
+                    }
                 }
             }
             clicked = false;

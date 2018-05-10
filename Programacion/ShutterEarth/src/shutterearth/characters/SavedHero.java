@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package shutterearth.characters;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,22 +13,29 @@ public class SavedHero implements Serializable
     private final String user;
     private final String pswd;
     private final Boolean permission;
-    private final int healthMax;
-    private final int stage;
+    private int healthMax;
+    private int stage;
     private int bullets;
     private final int kills;
-    private int numberOfGuns;
+    private final int numberOfGuns;
+    private final ArrayList <int[]> inventory;
     
     public SavedHero(String user, String pswd, Boolean permission)
     {
         this.user = user;
         this.pswd = pswd;
         this.permission = permission;
-        this.healthMax = 12;
+        this.healthMax = 20;
         this.stage = 1;
-        this.bullets = 50;
+        this.bullets = 0;
         this.kills = 0;
         this.numberOfGuns = 1;
+        this.inventory = new ArrayList<>();
+        inventory.add(new int[]{0,1});
+        inventory.add(new int[]{1,0});
+        inventory.add(new int[]{2,0});
+        inventory.add(new int[]{3,0});
+        inventory.add(new int[]{4,0});
     }
     public SavedHero(Hero hero)
     {
@@ -42,46 +46,68 @@ public class SavedHero implements Serializable
         this.healthMax = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
-        this.numberOfGuns = 1;
+        this.numberOfGuns = hero.getNumberOfGuns();
+        this.inventory = hero.saveInventory();
     }
     
-    public String getUser ()
+    public synchronized String getUser ()
     {
         return user;
     }
     
-    public int getHealthMax ()
+    public synchronized int getHealthMax ()
     {
         return healthMax;
     }
     
-    public int getStage ()
+    public synchronized int getStage ()
     {
         return stage;
     }
     
-    public int getBullets ()
+    public synchronized int getBullets ()
     {
         return bullets;
     }
     
-    public int getKills()
+    public synchronized int getKills()
     {
         return kills;
     }
     
-    public String getPswd ()
+    public synchronized String getPswd ()
     {
         return pswd;
     }
     
-    public int getNumberOfGuns ()
+    public synchronized int getNumberOfGuns ()
     {
         return numberOfGuns;
     }
     
-    public Boolean getPermission ()
+    public synchronized Boolean getPermission ()
     {
         return permission;
+    }
+    
+    public synchronized ArrayList <int[]> getInventory()
+    {
+        return inventory;
+    }
+    public synchronized void sold (int money)
+    {
+        bullets -= money;
+    }
+    public synchronized void setHealth(int health)
+    {
+        this.healthMax = health;
+    }
+    public synchronized void setBullets(int bullets)
+    {
+        this.bullets = bullets;
+    }
+    public synchronized void setStage(int stage)
+    {
+        this.stage = stage;
     }
 }

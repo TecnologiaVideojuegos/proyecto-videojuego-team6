@@ -34,6 +34,7 @@ public class SavingStation
             saves = (HashMap <String,SavedHero>) ois.readObject();
             ois.close(); 
             fis.close();
+            System.out.println("DATA LOADED");
         }
         catch (IOException | ClassNotFoundException ex)
         {   
@@ -98,6 +99,7 @@ public class SavingStation
             oos.writeObject(saves);
             oos.close();
             fos.close();
+            System.out.println("DATA SAVED");
         } 
         catch (IOException ex)
         {

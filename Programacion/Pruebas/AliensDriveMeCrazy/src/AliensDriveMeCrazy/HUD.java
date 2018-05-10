@@ -35,15 +35,15 @@ public class HUD extends Scene
     
     public HUD(Hero hero)
     {
-        this.xWearpon = 1560;
+        this.xWearpon = 1500;
         this.yWearpon = 20;
         this.wWearpon = 100;
         this.hWearpon = 100;
         this.wBullets = 20;
         this.hBullets = 20;
-        this.xBullets = 1576;
+        this.xBullets = 1570;
         this.yBullets = 20 + hWearpon + 5;
-        this.xText = 1630;
+        this.xText = 1600;
         this.yText = yBullets + 7;
                 
         this.hero = hero;
