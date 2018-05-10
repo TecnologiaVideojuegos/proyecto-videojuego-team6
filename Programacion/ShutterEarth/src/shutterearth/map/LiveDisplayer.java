@@ -5,7 +5,6 @@
  */
 package shutterearth.map;
 
-import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -19,7 +18,7 @@ import shutterearth.screens.Scene;
  */
 public class LiveDisplayer extends Scene
 {
-    private final int x;
+    private int x;
     private final int y;
     private final int radix;
     private final int space;
@@ -47,7 +46,12 @@ public class LiveDisplayer extends Scene
     private void calculate (int health)
     {
         full = health/10;
-        other = (health - full*10)/4;
+        other = (health - full*10);
+    }
+    
+    public void center ()
+    {
+        x = Game.getX()/2 - (radix*(full+(other<2?0:1))+space*full)/2;
     }
     
     @Override
@@ -57,17 +61,18 @@ public class LiveDisplayer extends Scene
         {
             Game.getMedia().getImage(Media.FULL_LIVE).draw(x+radix*j+space*j,y,radix,radix);
         }
-        switch (other)
+        if (other > 6)
         {
-            case 1:
-                Game.getMedia().getImage(Media.TQUARTERS_LIVE).draw(x+radix*full+space*full,y,radix,radix);
-                break;
-            case 2:
-                Game.getMedia().getImage(Media.HALF_LIVE).draw(x+radix*full+space*full,y,radix/2,radix);
-                break;
-            case 3:
-                Game.getMedia().getImage(Media.QUARTER_LIVE).draw(x+radix*full+space*full,y,radix/2,radix/2);
-                break;
+
+            Game.getMedia().getImage(Media.TQUARTERS_LIVE).draw(x+radix*full+space*full,y,radix,radix);
+        }
+        else if (other > 4)
+        {
+            Game.getMedia().getImage(Media.HALF_LIVE).draw(x+radix*full+space*full,y,radix/2,radix);
+        }
+        else if (other > 1)
+        {
+            Game.getMedia().getImage(Media.QUARTER_LIVE).draw(x+radix*full+space*full,y,radix/2,radix/2);
         }
     }
 

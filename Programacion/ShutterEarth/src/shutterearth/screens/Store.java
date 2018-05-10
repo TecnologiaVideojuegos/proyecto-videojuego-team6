@@ -94,7 +94,8 @@ public class Store extends Scene implements InputProviderListener
         {
             status[j] = new Rectangle (xr + step*j +wr*j, yr, wr, hr);
         }
-        this.lives = new LiveDisplayer(hero.getHealthMax(),100,100,100);
+        this.lives = new LiveDisplayer(xr,yr,hr,100);
+        this.lives.center();
     }
     
     @Override
@@ -118,7 +119,7 @@ public class Store extends Scene implements InputProviderListener
         if ((hero.getStage()/2)>=index-1)
         {
             g.setColor(Color.yellow);
-            g.drawString("Cost: "+prices[index][index>0?hero.getInventory().get(index-1)[1]:hero.getHealthMax()/20], upgrade.getX(), upgrade.getMaxY()+15);
+            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]-1):(hero.getHealthMax()/20<4?hero.getHealthMax()/20:4)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
             g.setColor(Color.red);
@@ -137,6 +138,7 @@ public class Store extends Scene implements InputProviderListener
         else
         {
             lives.setHealth(hero.getHealthMax());
+            this.lives.center();
             Game.addScene(lives);
             /*for (int j = 0; j < status.length; j++)
             {
@@ -179,15 +181,15 @@ public class Store extends Scene implements InputProviderListener
             {
                 if (index > 0)
                 {
-                    if ((hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]]) && ((hero.getStage()/2)>=(index-1)))
+                    if ((hero.getInventory().get(index-1)[1]-1 < 3) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
                     {
-                        hero.sold(prices[index][hero.getInventory().get(index-1)[1]]);
+                        hero.sold(prices[index][hero.getInventory().get(index-1)[1] - 1]);
                         hero.getInventory().get(index-1)[1]++;
                     }
                 }
                 else
                 {
-                    if (hero.getBullets() >= prices[index][hero.getHealthMax()/20])
+                    if ((hero.getHealthMax() < 100) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
                     {
                         hero.sold(prices[index][hero.getHealthMax()/20]);
                         hero.setHealth(((hero.getHealthMax()/20)+1)*20);

@@ -61,7 +61,7 @@ public class Game extends BasicGame
     {
         images = new Media();
         scenes.add(new Access());
-        Game.getMedia().getMusic(Media.CANCION_MENU).play();
+        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
 
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
