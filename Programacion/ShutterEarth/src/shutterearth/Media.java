@@ -62,7 +62,7 @@ public class Media
             images.put(Media.TQUARTERS_LIVE, new Image("./media/TQUARTERS_LIVE.png"));
             images.put(Media.HALF_LIVE, new Image("./media/HALF_LIVE.png"));
             images.put(Media.QUARTER_LIVE, new Image("./media/QUARTER_LIVE.png"));
-            music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false)); //DON'T WORK ???
+            music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
         }
         catch (SlickException e)
         {
