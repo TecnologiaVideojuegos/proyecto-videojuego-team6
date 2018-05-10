@@ -52,37 +52,37 @@ public class Store extends Scene implements InputProviderListener
         this.prices = new int[][]
         {
             {
-                50,100,160,225,400  //HEALTH
+                50,100,160,225,400,0  //HEALTH
             },
             {
-                10,20,30,40         //Arma Minima
+                10,20,30,40,0         //Arma Minima
             },
             {
-                60,70,80,90         //Arma Base
+                60,70,80,90,0        //Arma Base
             },
             {
-                120,130,140,150     //Arma Fuerte
+                120,130,140,150,0     //Arma Fuerte
             },
             {
-                170,180,190,200     //Arma Rápida
+                170,180,190,200,0     //Arma Rápida
             },
             {
-                250,260,270,300     //Arma Final
+                250,260,270,300,0     //Arma Final
             },
         };
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
         clicked = false;
         this.hero = hero;
-        this.x = Game.getX()/3;
+        this.x = Game.getX()/3 + Game.getX()/16;
         this.y = Game.getY()/3 - Game.getY()/9;
-        this.w = Game.getX()/3;
+        this.w = Game.getX()/3 - Game.getX()/8;
         this.h = Game.getY()/3;
         this.index =0;
         
-        this.left = new Rectangle (x-Game.getX()/20-Game.getX()/50,y+h/2-Game.getY()/40,Game.getX()/20,Game.getY()/20);
-        this.right = new Rectangle (x+w+Game.getX()/50,y+h/2-Game.getY()/40,Game.getX()/20,Game.getY()/20);
-        this.upgrade = new Rectangle (x+w/2-(Game.getX()/10),y+h+Game.getY()/22+Game.getX()/50,Game.getX()/5,Game.getY()/12);
+        this.left = new Rectangle (Game.getX()/3-Game.getX()/20-Game.getX()/50,y+h/2-Game.getY()/40,Game.getX()/20,Game.getY()/20);
+        this.right = new Rectangle ((Game.getX()/3)*2+Game.getX()/50,y+h/2-Game.getY()/40,Game.getX()/20,Game.getY()/20);
+        this.upgrade = new Rectangle (Game.getX()/2-Game.getX()/10,y+h+Game.getY()/22+Game.getX()/50,Game.getX()/5,Game.getY()/12);
         
         status = new Rectangle [5];
         int step = Game.getY()/60;
@@ -108,18 +108,18 @@ public class Store extends Scene implements InputProviderListener
         g.fill(right);
         if (index == 0)
         {
-            Game.getMedia().getSprit(Media.BASE_DER).draw(x,y,w,h);
+            Game.getMedia().getImage(Media.HERO_IZQ).draw(x,y,w,h);
         }
         else
         {
             Game.getMedia().getImage(Media.getGun(index-1)).draw(x,y,w,h);
         }
         
-        g.drawString("Kills: "+hero.getKills(), x, y-15);
+        g.drawString("Kills: "+hero.getKills(), x, y+h+5);
         if ((hero.getStage()/2)>=index-1)
         {
             g.setColor(Color.yellow);
-            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]-1):(hero.getHealthMax()/20<4?hero.getHealthMax()/20:4)], upgrade.getX(), upgrade.getMaxY()+15);
+            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]-1):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
             g.setColor(Color.red);
@@ -181,7 +181,7 @@ public class Store extends Scene implements InputProviderListener
             {
                 if (index > 0)
                 {
-                    if ((hero.getInventory().get(index-1)[1]-1 < 3) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
+                    if ((hero.getInventory().get(index-1)[1]-1 < 4) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
                     {
                         hero.sold(prices[index][hero.getInventory().get(index-1)[1] - 1]);
                         hero.getInventory().get(index-1)[1]++;

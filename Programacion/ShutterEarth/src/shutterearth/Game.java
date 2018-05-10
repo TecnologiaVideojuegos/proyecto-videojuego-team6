@@ -21,7 +21,7 @@ public class Game extends BasicGame
     private static int X;
     private static int Y;
     private static SavingStation savingStation;
-    private static Media images;
+    private static Media media;
     private static float gravity;
     private static Dev developer;
     
@@ -59,7 +59,7 @@ public class Game extends BasicGame
     @Override
     public void init(GameContainer gc) throws SlickException 
     {
-        images = new Media();
+        media = new Media();
         scenes.add(new Access());
         Game.getMedia().getMusic(Media.CANCION_MENU).loop();
 
@@ -140,7 +140,7 @@ public class Game extends BasicGame
     
     public static Media getMedia ()
     {
-        return images;
+        return media;
     }
     
     public static float getGravity ()

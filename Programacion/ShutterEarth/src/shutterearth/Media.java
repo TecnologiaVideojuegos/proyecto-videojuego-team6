@@ -24,8 +24,8 @@ public class Media
     public static int MENU = 0;
     public static int BASE_DER = 1;
     public static int BASE_IZQ = 2;
-    public static int HERO0 = 3;
-    public static int HERO1 = 4;
+    public static int HERO_DER = 3;
+    public static int HERO_IZQ = 4;
     public static int HERO2 = 5;
     public static int HERO3 = 6;
     public static int HERO4 = 7;
@@ -54,6 +54,8 @@ public class Media
             images.put(Media.MENU, new Image("./media/MENU.png"));
             images.put(Media.GUN0, new Image("./media/BULLET.png"));
             images.put(Media.GUN1, new Image("./media/BULLET.png"));
+            images.put(Media.HERO_DER, new Image("./media/HERO_DER.png"));
+            images.put(Media.HERO_IZQ, new Image("./media/HERO_IZQ.png"));
             images.put(Media.GUN2, new Image("./media/BULLET.png"));
             images.put(Media.GUN3, new Image("./media/BULLET.png"));
             images.put(Media.GUN4, new Image("./media/BULLET.png"));
