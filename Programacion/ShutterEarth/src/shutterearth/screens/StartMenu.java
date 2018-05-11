@@ -79,16 +79,19 @@ public class StartMenu extends Scene implements InputProviderListener
         {
             if (game.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.removeSence(this);
                 Game.addScene(new Maper(hero));
             }
             else if (store.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.addScene(new Store(hero));
                 Game.removeSence(this);
             }
             else if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.addScene(new Access());
                 Game.removeSence(this);
             }

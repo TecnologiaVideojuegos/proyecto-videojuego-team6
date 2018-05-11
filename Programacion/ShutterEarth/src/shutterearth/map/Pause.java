@@ -73,6 +73,7 @@ public class Pause extends Scene implements InputProviderListener
         {
             if (resume.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.ALIEN1).play();
                 Game.removeSence(this);
                 field.setState(STATE.ON);
                 hud.wake();
@@ -80,6 +81,7 @@ public class Pause extends Scene implements InputProviderListener
             }
             else if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.removeSence(this);
                 field.exit();
             }

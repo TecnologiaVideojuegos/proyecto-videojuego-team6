@@ -159,6 +159,7 @@ public class Store extends Scene implements InputProviderListener
         {  
             if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.save(hero);
                 Game.addScene(new StartMenu(hero));
                 Game.removeSence(this);
@@ -166,6 +167,7 @@ public class Store extends Scene implements InputProviderListener
             }
             else if (left.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 if (index > 0)
                 {
                     index --;
@@ -173,6 +175,7 @@ public class Store extends Scene implements InputProviderListener
             }
             else if (right.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 if ((index < prices.length-1))
                 {
                     index ++;
@@ -180,6 +183,7 @@ public class Store extends Scene implements InputProviderListener
             }
             else if (upgrade.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.CASH).play();
                 if (index > 0)
                 {
                     if ((hero.getInventory().get(index-1)[1]-1 < 4)&&(hero.getInventory().get(index-1)[1]>0) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))

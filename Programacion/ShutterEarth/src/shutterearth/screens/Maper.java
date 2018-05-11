@@ -91,13 +91,15 @@ public class Maper extends Scene  implements InputProviderListener
         {
             if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.removeSence(this);
                 Game.addScene(new StartMenu(hero));
             }
             for (int x = 0; x < (level.length < hero.getStage()-1?level.length:hero.getStage()); x++)
-            {
+            {  
                 if (level[x].contains(xMouse, yMouse))
                 {
+                    Game.getMedia().getSound(Media.ALIEN1).play();
                     Game.removeSence(this);
                     Hero h = new Hero (hero);
                     HUD hud = new HUD(h);

@@ -102,6 +102,7 @@ public class Register extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 if (newUser.getText().length()>5 && newPswd.getText().length()>5)
                 {
                     SavedHero hero = new SavedHero (newUser.getText(),newPswd.getText(),false);
@@ -116,6 +117,7 @@ public class Register extends Scene implements InputProviderListener
             }
             else if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.removeSence(this);
                 newUser.deactivate();
                 newPswd.deactivate();

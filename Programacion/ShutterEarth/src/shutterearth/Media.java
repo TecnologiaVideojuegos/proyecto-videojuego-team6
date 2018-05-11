@@ -64,6 +64,7 @@ public class Media
     public static int SHIP_SONG2 = 38;
     public static int ALIEN1 = 39;
     public static int ALIEN2 = 40;
+    public static int CASH = 41;
     
     public Media ()
     {
@@ -112,6 +113,7 @@ public class Media
             sound.put(Media.ALIEN2, new Sound("./media/ALIEN2.ogg"));
             sound.put(Media.SHIP_SONG, new Sound("./media/SHIP_SONG.ogg"));
             sound.put(Media.SHIP_SONG2, new Sound("./media/SHIP_SONG2.ogg"));
+            sound.put(Media.CASH, new Sound("./media/CASH.ogg"));
         }
         catch (SlickException e)
         {

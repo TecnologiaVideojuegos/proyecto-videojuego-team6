@@ -105,6 +105,7 @@ public class Access extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 SavedHero hero = Game.load(user.getText(), pass);
                 if(hero != null)
                 {
@@ -121,11 +122,12 @@ public class Access extends Scene implements InputProviderListener
             }
             else if (register.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.addScene(new Register());
-
             }
             else if (exit.contains(xMouse, yMouse))
             {
+                Game.getMedia().getSound(Media.SHOT).play();
                 Game.exit();
                 user.deactivate();
                 pswd.deactivate();
