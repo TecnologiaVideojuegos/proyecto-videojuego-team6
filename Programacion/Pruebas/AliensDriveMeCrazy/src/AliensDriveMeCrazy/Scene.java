@@ -58,6 +58,7 @@ public abstract class Scene implements Comparable<Scene>
             {
                 sence.getGraphics().clear();
                 Render(gc, sence.getGraphics());
+                
             }
             if(freezed)
             {

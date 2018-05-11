@@ -5,7 +5,6 @@
  */
 package shutterearth.map;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -76,7 +75,7 @@ public class Pause extends Scene implements InputProviderListener
             {
                 Game.removeSence(this);
                 field.setState(STATE.ON);
-                hud.setState(STATE.ON);
+                hud.wake();
             }
             else if (exit.contains(xMouse, yMouse))
             {

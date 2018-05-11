@@ -78,7 +78,7 @@ public class HUD extends Scene
         if (bad != null)
         {
             badHealth.setHealth(bad.getCurrentHealth(), true);
-            if (counter > 500)
+            if (counter > tCounter)
             {    
                 bad = null;
                 counter = 0;
@@ -109,5 +109,19 @@ public class HUD extends Scene
         Game.removeSence(this);
         Game.removeSence(heroHealth);
         Game.removeSence(badHealth);
+    }
+    
+    public void pause ()
+    {
+        this.setState(STATE.FREEZE);
+        heroHealth.setState(Scene.STATE.FREEZE);
+        badHealth.setState(Scene.STATE.FREEZE);
+    }
+    
+    public void wake ()
+    {
+        this.setState(STATE.ON);
+        heroHealth.setState(Scene.STATE.ON);
+        badHealth.setState(Scene.STATE.ON);
     }
 }

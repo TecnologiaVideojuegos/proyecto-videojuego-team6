@@ -5,7 +5,6 @@
  */
 package shutterearth.screens;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -15,61 +14,74 @@ import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
 import shutterearth.map.Field;
+import shutterearth.map.HUD;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class StartMenu extends Scene implements InputProviderListener
+public class Maper extends Scene  implements InputProviderListener
 {
     private InputProvider provider;
     private final Command click;
-    private final Rectangle game;
-    private final Rectangle store;
-    private final Rectangle exit;
-    private final int w;
-    private final int h;
-    private final int x;
-    private final int y;
+    private final SavedHero hero;
+    private Input input;
     private boolean clicked;
     private int xMouse;
     private int yMouse;
-    private Input input;
-    private final SavedHero hero;
     
-    public StartMenu (SavedHero hero)
+    private final Rectangle exit;
+    private final Circle [] level;
+    private final int w;
+    
+    public Maper (SavedHero hero)
     {
-        int step = Game.getY()/6;
-        this.w = Game.getX()/3;
-        this.h = Game.getY()/7;
-        this.x = Game.getX()/2-w/2;
-        this.y = Game.getY()/3;
-        game = new Rectangle (x,y, w, h);
-        store = new Rectangle (x,y+step, w, h);
-        exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         click = new BasicCommand("click");
-        clicked = false;
+        exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
+        
+        this.level = new Circle [10];
+        
+        this.w = Game.getX()/20;
+        int step = Game.getX()/22;
+        int start = Game.getX()/2 - w*5 - step*4;
+        
+        for (int x = 0; x < level.length; x++)
+        {
+            level [x] = new Circle(start + (w*x) + (step*x), Game.getY()/2 - w/2, w/2);
+        }
+        
         this.hero = hero;
-        Game.develop(hero);
     }
-            
+    
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
-        g.setColor(Color.yellow);
-        g.fill(game);
-        Game.getMedia().getImage(Media.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());
-        g.fill(store);
-        Game.getMedia().getImage(Media.STORE).draw(store.getX(),store.getY(),store.getWidth(),store.getHeight());
+        Game.getMedia().getImage(Media.MENU).draw(0,0,Game.getX(),Game.getY());
         g.fill(exit);
         Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        for (int x = 0; x < level.length; x++)
+        {
+            if (x+1 <= hero.getStage())
+            {
+                g.fill(level[x]);
+            }
+            else
+            {
+                g.draw(level[x]);
+            }
+            
+            if (x < level.length - 1)
+            {
+                g.drawLine(level[x].getCenterX()+(w/2), level[x].getCenterY(), level[x+1].getCenterX()-(w/2), level[x].getCenterY());
+            }
+        }
     }
 
     @Override
@@ -77,22 +89,22 @@ public class StartMenu extends Scene implements InputProviderListener
     {
         if (clicked)
         {
-            if (game.contains(xMouse, yMouse))
+            if (exit.contains(xMouse, yMouse))
             {
                 Game.removeSence(this);
-                Game.addScene(new Maper(hero));
+                Game.addScene(new StartMenu(hero));
             }
-            else if (store.contains(xMouse, yMouse))
+            for (int x = 0; x < (level.length < hero.getStage()-1?level.length:hero.getStage()); x++)
             {
-                Game.addScene(new Store(hero));
-                Game.removeSence(this);
+                if (level[x].contains(xMouse, yMouse))
+                {
+                    Game.removeSence(this);
+                    Hero h = new Hero (hero);
+                    HUD hud = new HUD(h);
+                    Game.addScene(new Field(h,x + 1,hud));
+                    Game.addScene(hud);
+                }
             }
-            else if (exit.contains(xMouse, yMouse))
-            {
-                Game.addScene(new Access());
-                Game.removeSence(this);
-            }
-            clicked = false;
         }
     }
 
@@ -102,7 +114,7 @@ public class StartMenu extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
-        input = gc.getInput();      
+        input = gc.getInput();  
     }
 
     @Override
@@ -118,5 +130,4 @@ public class StartMenu extends Scene implements InputProviderListener
 
     @Override
     public void controlReleased(Command cmnd){}
-    
 }

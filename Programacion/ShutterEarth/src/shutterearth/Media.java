@@ -52,6 +52,8 @@ public class Media
     public static int GREY = 28;
     public static int RESUME = 29;
     public static int END_GAME = 30;
+    public static int GAME = 31;
+    public static int BATTLE = 32;
     
     public Media ()
     {
@@ -88,6 +90,8 @@ public class Media
             images.put(Media.RESUME, new Image("./media/RESUME.png"));
             images.put(Media.END_GAME, new Image("./media/END_GAME.png"));
             images.put(Media.GREY, new Image("./media/GREY.png"));
+            images.put(Media.GAME, new Image("./media/GAME.png"));
+            images.put(Media.BATTLE, new Image("./media/BATTLE.png"));
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
         }
         catch (SlickException e)

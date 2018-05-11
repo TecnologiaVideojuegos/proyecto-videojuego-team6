@@ -48,6 +48,12 @@ public class Hero
         return inventory;
     }
     
+    public void setStage (int stage)
+    {
+        if (this.stage < stage)
+            this.stage = stage;
+    }
+    
     public String getUser ()
     {
         return user;

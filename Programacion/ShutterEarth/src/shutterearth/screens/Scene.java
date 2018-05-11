@@ -1,8 +1,6 @@
 
 package shutterearth.screens;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -17,7 +15,7 @@ public abstract class Scene implements Comparable<Scene>
     // The current state is saved in this variable
     private STATE state;
     // The render priority - We will need this to decide whitch scene is renderd first
-    protected int prio = 0;            
+    private int prio = 0;            
     // An Image "Buffer" to hold the last active frame when our scene get freezed
     private Image sence;
     
@@ -50,24 +48,9 @@ public abstract class Scene implements Comparable<Scene>
     // This render method get called by the Scene-Manager
     // It handles if the scene is visible/frozen/on
     // This method calls our "CustomRender"
-    public void render(GameContainer gc, Graphics g) throws SlickException {
-        if( state != STATE.INVISIBLE )
-        {
-            if( state == STATE.ON) 
-            {
-                Render(gc, g);
-            }
-            else if( state == STATE.FREEZE && !freezed)
-            {
-                sence.getGraphics().clear();
-                Render(gc, sence.getGraphics());
-                freezed = true;
-            }
-            if(freezed)
-            {
-                g.drawImage(sence, 0, 0);
-            }
-        }
+    public void render(GameContainer gc, Graphics g) throws SlickException 
+    {
+        Render(gc, g);
     }
 
     // Update method that is called by the Scene-Manager

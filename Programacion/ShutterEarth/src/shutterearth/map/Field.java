@@ -15,6 +15,7 @@ import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
 import shutterearth.Game;
+import shutterearth.Media;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
@@ -30,19 +31,24 @@ public class Field extends Scene implements InputProviderListener
     
     private final HUD hud;
     private final Hero hero;
+    private final int stage;
+    private boolean battle;
     
-    public Field (Hero hero)
+    public Field (Hero hero, int stage, HUD hud)
     {
+        this.stage = stage;
         this.hero = hero;
-        this.hud = new HUD(hero);
-        
-        Game.addScene(hud);
+        this.hud = hud;
+        this.battle = false;
     }
     
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        
+        if (battle)
+            Game.getMedia().getImage(Media.BATTLE).draw(0,0,Game.getX(),Game.getY());
+        else
+            Game.getMedia().getImage(Media.GAME).draw(0,0,Game.getX(),Game.getY());
     }
 
     @Override
@@ -67,7 +73,7 @@ public class Field extends Scene implements InputProviderListener
         if (command.equals(CONTROL))
         {
             this.setState(STATE.FREEZE);
-            hud.setState(STATE.FREEZE);
+            hud.pause();
             Game.addScene(new Pause(this,hud));
         }
     }
