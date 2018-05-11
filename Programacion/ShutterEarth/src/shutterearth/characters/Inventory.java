@@ -26,10 +26,9 @@ public class Inventory extends Scene
     
     public Inventory (ArrayList <int[]> guns, Hero hero)
     {
-        Game.addScene(this);
         this.hero = hero;
         this.shots = new ArrayList <>();
-        maxGun = guns.size() -1;
+        maxGun = guns.size();
         index = 0;
         this.inventory = new ArrayList<>();
         guns.forEach((gun) ->
@@ -94,12 +93,18 @@ public class Inventory extends Scene
     public ArrayList<int[]> save()
     {
         ArrayList <int[]> data = new ArrayList<>();
+        int correction = 0;
         for (int j = 0; j<maxGun; j++)
         {
-            if (inventory.get(j).getID()==j)
-                data.add(new int[]{inventory.get(j).getID(),inventory.get(j).getLevel()});
+            if ((inventory.size()>j-correction)&&(inventory.get(j-correction).getID()==j))
+            {
+                data.add(new int[]{inventory.get(j-correction).getID(),inventory.get(j-correction).getLevel()});
+            }
             else
+            {
                 data.add(new int[]{j,0});
+                correction++;
+            }
         }
         return data;
     }

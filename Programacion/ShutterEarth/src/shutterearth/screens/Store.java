@@ -119,12 +119,12 @@ public class Store extends Scene implements InputProviderListener
         }
         
         g.drawString("Kills: "+hero.getKills(), x, y+h+5);
-        if ((hero.getStage()/2)>=index-1)
+        if ((hero.getStage()/2)>=(index-1))
         {
             g.setColor(Color.yellow);
                     g.fill(upgrade);
             Game.getMedia().getImage(Media.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
-            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]-1):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
+            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
         {
@@ -169,6 +169,7 @@ public class Store extends Scene implements InputProviderListener
                 Game.save(hero);
                 Game.addScene(new StartMenu(hero));
                 Game.removeSence(this);
+                Game.removeSence(lives);
             }
             else if (left.contains(xMouse, yMouse))
             {
@@ -188,7 +189,7 @@ public class Store extends Scene implements InputProviderListener
             {
                 if (index > 0)
                 {
-                    if ((hero.getInventory().get(index-1)[1]-1 < 4) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
+                    if ((hero.getInventory().get(index-1)[1]-1 < 4)&&(hero.getInventory().get(index-1)[1]>0) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
                     {
                         hero.sold(prices[index][hero.getInventory().get(index-1)[1] - 1]);
                         hero.getInventory().get(index-1)[1]++;

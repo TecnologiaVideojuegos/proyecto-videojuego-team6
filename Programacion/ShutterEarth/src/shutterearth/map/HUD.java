@@ -18,8 +18,13 @@ import shutterearth.screens.Scene;
  */
 public class HUD extends Scene
 {
-    private Hero hero;
+    private final Hero hero;
     private BadGuy bad;
+    
+    public HUD (Hero hero)
+    {
+        this.hero = hero;
+    }
     
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException

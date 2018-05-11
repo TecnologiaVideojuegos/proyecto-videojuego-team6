@@ -154,7 +154,6 @@ public class Access extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.resetDeveloper();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);

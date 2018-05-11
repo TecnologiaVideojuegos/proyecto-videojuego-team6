@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package shutterearth.screens;
+package shutterearth.map;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -18,58 +17,53 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
-import shutterearth.characters.Hero;
-import shutterearth.characters.SavedHero;
-import shutterearth.map.Field;
+import shutterearth.screens.Scene;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class StartMenu extends Scene implements InputProviderListener
+public class Pause extends Scene implements InputProviderListener
 {
     private InputProvider provider;
     private final Command click;
-    private final Rectangle game;
-    private final Rectangle store;
-    private final Rectangle exit;
+    private final Field field;
+    private final HUD hud;
+    private Input input;
+    private boolean clicked;
+    private int xMouse;
+    private int yMouse;
+    
     private final int w;
     private final int h;
     private final int x;
     private final int y;
-    private boolean clicked;
-    private int xMouse;
-    private int yMouse;
-    private Input input;
-    private final SavedHero hero;
+    private final Rectangle resume;
+    private final Rectangle exit;
     
-    public StartMenu (SavedHero hero)
+    public Pause (Field field, HUD hud)
     {
+        this.field = field;
+        this.hud = hud;
+        click = new BasicCommand("click");
+        
         int step = Game.getY()/6;
         this.w = Game.getX()/3;
         this.h = Game.getY()/7;
         this.x = Game.getX()/2-w/2;
         this.y = Game.getY()/3;
-        game = new Rectangle (x,y, w, h);
-        store = new Rectangle (x,y+step, w, h);
-        exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
-        click = new BasicCommand("click");
-        clicked = false;
-        this.hero = hero;
-        Game.develop(hero);
+        resume = new Rectangle (x,y, w, h);
+        exit = new Rectangle (x,y+step, w, h);
     }
-            
+    
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
-        g.setColor(Color.yellow);
-        g.fill(game);
-        Game.getMedia().getImage(Media.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());
-        g.fill(store);
-        Game.getMedia().getImage(Media.STORE).draw(store.getX(),store.getY(),store.getWidth(),store.getHeight());
+        Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
+        g.fill(resume);
+        Game.getMedia().getImage(Media.RESUME).draw(resume.getX(),resume.getY(),resume.getWidth(),resume.getHeight());
         g.fill(exit);
-        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.END_GAME).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
     }
 
     @Override
@@ -77,22 +71,17 @@ public class StartMenu extends Scene implements InputProviderListener
     {
         if (clicked)
         {
-            if (game.contains(xMouse, yMouse))
+            if (resume.contains(xMouse, yMouse))
             {
                 Game.removeSence(this);
-                Game.addScene(new Field(new Hero(hero)));
-            }
-            else if (store.contains(xMouse, yMouse))
-            {
-                Game.addScene(new Store(hero));
-                Game.removeSence(this);
+                field.setState(STATE.ON);
+                hud.setState(STATE.ON);
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.addScene(new Access());
                 Game.removeSence(this);
+                field.exit();
             }
-            clicked = false;
         }
     }
 
@@ -102,7 +91,7 @@ public class StartMenu extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
-        input = gc.getInput();      
+        input = gc.getInput();   
     }
 
     @Override

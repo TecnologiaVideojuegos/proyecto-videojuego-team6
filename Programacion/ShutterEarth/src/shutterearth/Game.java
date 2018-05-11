@@ -122,6 +122,10 @@ public class Game extends BasicGame
     {
         return savingStation.load(user, pswd);
     }
+    public static SavedHero load(String user)
+    {
+        return savingStation.load(user);
+    }
 
     public static boolean add(SavedHero hero)
     {
@@ -148,11 +152,19 @@ public class Game extends BasicGame
         return gravity;
     }
     
-    public static void resetDeveloper()
+    private static void resetDeveloper()
     {
         if (developer != null)
         {
             developer.end();
+            try
+            {
+                developer.join();
+            } 
+            catch (InterruptedException ex)
+            {
+                System.out.println("DEV ERROR");
+            }
             developer = null;
         }
     }
@@ -170,6 +182,10 @@ public class Game extends BasicGame
         {
             developer = new Dev(hero);
             developer.start();
+        }
+        else 
+        {
+            developer.setHero(hero);
         }
     }
 }

@@ -39,6 +39,7 @@ public class Hero
         this.images = Game.getMedia();
         this.gravity = Game.getGravity();
         this.inventory = new Inventory (hero.getInventory(),this);
+        Game.addScene(inventory);
     }
     
     public String getUser ()
@@ -78,7 +79,9 @@ public class Hero
     
     public SavedHero save()
     {
-        return new SavedHero(this);
+        SavedHero saved = new SavedHero(this);
+        Game.save(saved);
+        return saved;
     }
     
     public Boolean getPermission ()

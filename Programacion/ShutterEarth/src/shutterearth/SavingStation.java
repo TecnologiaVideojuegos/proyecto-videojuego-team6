@@ -63,6 +63,18 @@ public class SavingStation
         return hero;
     }
     
+    public SavedHero load (String user)
+    { 
+        SavedHero hero = null;
+        
+        if (saves.containsKey(user))
+        {
+            hero = saves.get(user);
+        }
+        
+        return hero;
+    }
+    
     public boolean add (SavedHero hero)
     {
         if (!saves.containsKey(hero.getUser()))

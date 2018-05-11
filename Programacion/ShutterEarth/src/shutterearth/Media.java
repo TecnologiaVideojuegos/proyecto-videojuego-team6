@@ -49,6 +49,9 @@ public class Media
     public static int STORE = 25;
     public static int FORWARD = 26;
     public static int UPGRADE = 27;
+    public static int GREY = 28;
+    public static int RESUME = 29;
+    public static int END_GAME = 30;
     
     public Media ()
     {
@@ -82,6 +85,9 @@ public class Media
             images.put(Media.STORE, new Image("./media/STORE.png"));
             images.put(Media.FORWARD, new Image("./media/FORWARD.png"));
             images.put(Media.UPGRADE, new Image("./media/UPGRADE.png"));
+            images.put(Media.RESUME, new Image("./media/RESUME.png"));
+            images.put(Media.END_GAME, new Image("./media/END_GAME.png"));
+            images.put(Media.GREY, new Image("./media/GREY.png"));
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
         }
         catch (SlickException e)
