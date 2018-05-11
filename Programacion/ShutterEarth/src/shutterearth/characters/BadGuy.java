@@ -5,6 +5,8 @@
  */
 package shutterearth.characters;
 
+import org.newdawn.slick.Image;
+
 /**
  *
  * @author mr.blissfulgrin
@@ -12,4 +14,5 @@ package shutterearth.characters;
 public interface BadGuy
 {
     public int getCurrentHealth ();
+    public Image getImage ();
 }

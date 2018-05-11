@@ -126,20 +126,4 @@ public class Media
                 return BULLETS;
         }
     }
-    public static int getLive (int id)
-    {
-        switch (id)
-        {
-            case 0:
-                return FULL_LIVE;
-            case 1:
-                return TQUARTERS_LIVE;
-            case 2:
-                return HALF_LIVE;
-            case 3:
-                return QUARTER_LIVE;
-            default:
-                return BULLETS;
-        }
-    }
 }

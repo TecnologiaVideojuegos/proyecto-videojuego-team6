@@ -5,6 +5,8 @@
  */
 package shutterearth.characters;
 
+import org.newdawn.slick.Image;
+
 /**
  *
  * @author mr.blissfulgrin
@@ -14,6 +16,12 @@ public class Enemy implements BadGuy
 
     @Override
     public int getCurrentHealth()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Image getImage()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
