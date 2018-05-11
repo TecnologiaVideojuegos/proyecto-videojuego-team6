@@ -4,11 +4,8 @@ package generacionnivel;
 import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 
-/**
- * @author Daniel
- */
 public class Habitacion {
-    private Rectangle hab;//opcional
+    private Rectangle hab;
     private ArrayList <Rectangle> salidas;
     private float maxI;
     private float maxD;
