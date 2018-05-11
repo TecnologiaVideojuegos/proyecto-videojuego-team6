@@ -65,6 +65,8 @@ public class Media
     public static int ALIEN1 = 39;
     public static int ALIEN2 = 40;
     public static int CASH = 41;
+    public static int BATTLE_SONG = 42;
+    public static int END_SONG = 41;
     
     public Media ()
     {
@@ -108,6 +110,8 @@ public class Media
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
             music.put(Media.CANCION_GAME, new Music("./media/CANCION_GAME.ogg", false));
             music.put(Media.CANCION_FONDO, new Music("./media/CANCION_FONDO.ogg", false));
+            music.put(Media.BATTLE_SONG, new Music("./media/BATTLE_SONG.ogg", false));
+            music.put(Media.END_SONG, new Music("./media/END_SONG.ogg", false));
             sound.put(Media.SHOT, new Sound("./media/SHOT.ogg"));
             sound.put(Media.ALIEN1, new Sound("./media/ALIEN1.ogg"));
             sound.put(Media.ALIEN2, new Sound("./media/ALIEN2.ogg"));
