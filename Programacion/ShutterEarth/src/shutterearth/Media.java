@@ -10,6 +10,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 
 /**
@@ -21,6 +22,7 @@ public class Media
     private final HashMap <Integer,Image> images;
     private final HashMap <Integer,Animation> sprites;
     private final HashMap <Integer,Music> music;
+    private final HashMap <Integer,Sound> sound;
     public static int MENU = 0;
     public static int BASE_DER = 1;
     public static int BASE_IZQ = 2;
@@ -56,13 +58,20 @@ public class Media
     public static int BATTLE = 32;
     public static int CANCION_GAME = 33;
     public static int CANCION_FONDO = 34;
+    public static int FIRE = 35;
+    public static int SHOT = 36;
+    public static int SHIP_SONG = 37;
+    public static int SHIP_SONG2 = 38;
+    public static int ALIEN1 = 39;
+    public static int ALIEN2 = 40;
     
     public Media ()
     {
         sprites = new HashMap <>();
         images = new HashMap <>();
         music = new HashMap <>();
-
+        sound = new HashMap <>();
+        
         try
         {
             sprites.put(Media.BASE_DER, new Animation (new SpriteSheet("./media/BASE_DER.png",281,300),180));
@@ -94,9 +103,15 @@ public class Media
             images.put(Media.GREY, new Image("./media/GREY.png"));
             images.put(Media.GAME, new Image("./media/GAME.png"));
             images.put(Media.BATTLE, new Image("./media/BATTLE.png"));
+            images.put(Media.FIRE, new Image("./media/FIRE.png"));
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
             music.put(Media.CANCION_GAME, new Music("./media/CANCION_GAME.ogg", false));
             music.put(Media.CANCION_FONDO, new Music("./media/CANCION_FONDO.ogg", false));
+            sound.put(Media.SHOT, new Sound("./media/SHOT.ogg"));
+            sound.put(Media.ALIEN1, new Sound("./media/ALIEN1.ogg"));
+            sound.put(Media.ALIEN2, new Sound("./media/ALIEN2.ogg"));
+            sound.put(Media.SHIP_SONG, new Sound("./media/SHIP_SONG.ogg"));
+            sound.put(Media.SHIP_SONG2, new Sound("./media/SHIP_SONG2.ogg"));
         }
         catch (SlickException e)
         {
@@ -115,6 +130,10 @@ public class Media
     public Music getMusic (int n)
     {
         return music.get(n);
+    }
+    public Sound getSound (int n)
+    {
+        return sound.get(n);
     }
     public static int getGun (int id)
     {
