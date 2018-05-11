@@ -33,6 +33,7 @@ public class Field extends Scene implements InputProviderListener
     private final Hero hero;
     private final int stage;
     private boolean battle;
+    int c = 0;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -54,12 +55,18 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        
+        if (c > 400)
+        {
+            Game.addScene(new TextDisplayer(this,hud,stage));
+            c = 0;
+        }
+        c++;
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException
     {
+        Game.getMedia().getMusic(Media.CANCION_GAME).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         
@@ -72,9 +79,12 @@ public class Field extends Scene implements InputProviderListener
     {
         if (command.equals(CONTROL))
         {
-            this.setState(STATE.FREEZE);
-            hud.pause();
-            Game.addScene(new Pause(this,hud));
+            if (!this.isFreezed())
+            {
+                this.setState(STATE.FREEZE);
+                hud.pause();
+                Game.addScene(new Pause(this,hud));
+            }
         }
     }
 
@@ -85,7 +95,8 @@ public class Field extends Scene implements InputProviderListener
     {
         Game.removeSence(this);
         hud.end();
-        Game.addScene(new StartMenu(hero.save()));   
+        Game.addScene(new StartMenu(hero.save())); 
+        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
     }
     
 }

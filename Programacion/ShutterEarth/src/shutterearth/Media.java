@@ -54,6 +54,8 @@ public class Media
     public static int END_GAME = 30;
     public static int GAME = 31;
     public static int BATTLE = 32;
+    public static int CANCION_GAME = 33;
+    public static int CANCION_FONDO = 34;
     
     public Media ()
     {
@@ -93,6 +95,8 @@ public class Media
             images.put(Media.GAME, new Image("./media/GAME.png"));
             images.put(Media.BATTLE, new Image("./media/BATTLE.png"));
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
+            music.put(Media.CANCION_GAME, new Music("./media/CANCION_GAME.ogg", false));
+            music.put(Media.CANCION_FONDO, new Music("./media/CANCION_FONDO.ogg", false));
         }
         catch (SlickException e)
         {

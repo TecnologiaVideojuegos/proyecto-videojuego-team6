@@ -79,12 +79,6 @@ public class Register extends Scene implements InputProviderListener
         g.setColor(Color.lightGray);
         newUser.render(gc, g);
         newPswd.render(gc, g);
-        newUser.setBackgroundColor(Color.gray);
-        newUser.setBorderColor(Color.black);
-        newUser.setTextColor(Color.white);
-        newPswd.setBackgroundColor(Color.gray);
-        newPswd.setBorderColor(Color.black);
-        newPswd.setTextColor(Color.white);
         g.setColor(Color.yellow);
         g.drawString("User: ",x-rx,ry-20);
         g.drawString("Password: ",x+rx,ry-20);
@@ -122,7 +116,6 @@ public class Register extends Scene implements InputProviderListener
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.addScene(new Access ());
                 Game.removeSence(this);
                 newUser.deactivate();
                 newPswd.deactivate();
@@ -153,6 +146,12 @@ public class Register extends Scene implements InputProviderListener
         newUser.setFocus(true);
         newUser.setConsumeEvents(true);
         newPswd.setConsumeEvents(true);
+        newUser.setBackgroundColor(Color.gray);
+        newUser.setBorderColor(Color.black);
+        newUser.setTextColor(Color.white);
+        newPswd.setBackgroundColor(Color.gray);
+        newPswd.setBorderColor(Color.black);
+        newPswd.setTextColor(Color.white);
     }
     
     @Override

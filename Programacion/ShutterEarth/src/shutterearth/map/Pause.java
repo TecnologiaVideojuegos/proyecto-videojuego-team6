@@ -59,7 +59,7 @@ public class Pause extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        //Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
         g.fill(resume);
         Game.getMedia().getImage(Media.RESUME).draw(resume.getX(),resume.getY(),resume.getWidth(),resume.getHeight());
         g.fill(exit);
@@ -76,6 +76,7 @@ public class Pause extends Scene implements InputProviderListener
                 Game.removeSence(this);
                 field.setState(STATE.ON);
                 hud.wake();
+                Game.getMedia().getMusic(Media.CANCION_GAME).loop();
             }
             else if (exit.contains(xMouse, yMouse))
             {
@@ -88,6 +89,7 @@ public class Pause extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
+        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);

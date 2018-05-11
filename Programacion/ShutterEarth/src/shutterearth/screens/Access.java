@@ -88,13 +88,7 @@ public class Access extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.NEW).draw(register.getX(),register.getY(),register.getWidth(),register.getHeight());
         g.setColor(Color.lightGray);
         user.render(gc, g);
-        pswd.render(gc, g);
-        user.setBackgroundColor(Color.gray);
-        user.setBorderColor(Color.black);
-        user.setTextColor(Color.white);
-        pswd.setBackgroundColor(Color.gray);
-        pswd.setBorderColor(Color.black);
-        pswd.setTextColor(Color.white);
+        pswd.render(gc, g);       
         g.setColor(Color.yellow);
         g.drawString("User: ",x-rx,ry-20);
         g.drawString("Password: ",x+rx,ry-20);
@@ -128,7 +122,7 @@ public class Access extends Scene implements InputProviderListener
             else if (register.contains(xMouse, yMouse))
             {
                 Game.addScene(new Register());
-                Game.removeSence(this);
+
             }
             else if (exit.contains(xMouse, yMouse))
             {
@@ -173,6 +167,12 @@ public class Access extends Scene implements InputProviderListener
         user.setFocus(true);
         user.setConsumeEvents(true);
         pswd.setConsumeEvents(true);
+        user.setBackgroundColor(Color.gray);
+        user.setBorderColor(Color.black);
+        user.setTextColor(Color.white);
+        pswd.setBackgroundColor(Color.gray);
+        pswd.setBorderColor(Color.black);
+        pswd.setTextColor(Color.white);
     }
     
     @Override
