@@ -66,8 +66,11 @@ public class StartMenu extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(game);
+        Game.getMedia().getImage(Media.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());
         g.fill(store);
+        Game.getMedia().getImage(Media.STORE).draw(store.getX(),store.getY(),store.getWidth(),store.getHeight());
         g.fill(exit);
+        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
     }
 
     @Override

@@ -41,6 +41,14 @@ public class Media
     public static int QUARTER_LIVE = 17;
     public static int CANCION_MENU = 18;
     public static int LOG_IN = 19;
+    public static int EXIT = 20;
+    public static int NEW = 21;
+    public static int REGISTER = 22;
+    public static int BACK = 23;
+    public static int PLAY = 24;
+    public static int STORE = 25;
+    public static int FORWARD = 26;
+    public static int UPGRADE = 27;
     
     public Media ()
     {
@@ -66,6 +74,14 @@ public class Media
             images.put(Media.HALF_LIVE, new Image("./media/HALF_LIVE.png"));
             images.put(Media.QUARTER_LIVE, new Image("./media/QUARTER_LIVE.png"));
             images.put(Media.LOG_IN, new Image("./media/LOG_IN.png"));
+            images.put(Media.EXIT, new Image("./media/EXIT.png"));
+            images.put(Media.NEW, new Image("./media/NEW.png"));
+            images.put(Media.REGISTER, new Image("./media/REGISTER.png"));
+            images.put(Media.BACK, new Image("./media/BACK.png"));
+            images.put(Media.PLAY, new Image("./media/PLAY.png"));
+            images.put(Media.STORE, new Image("./media/STORE.png"));
+            images.put(Media.FORWARD, new Image("./media/FORWARD.png"));
+            images.put(Media.UPGRADE, new Image("./media/UPGRADE.png"));
             music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
         }
         catch (SlickException e)

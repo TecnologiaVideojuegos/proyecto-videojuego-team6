@@ -34,6 +34,8 @@ public class Register extends Scene implements InputProviderListener
     private final int y;
     private final int w;
     private final int h;
+    private final int ry;
+    private final int rx;
     private InputProvider provider;
     private final Command click;
     private final Command tab;
@@ -53,6 +55,8 @@ public class Register extends Scene implements InputProviderListener
         this.h = Game.getY()/9;
         this.x = Game.getX()/2-w/2;
         this.y = Game.getY()/3;
+        this.rx = (Game.getX()/6);
+        this.ry = y+(Game.getY()/14)*2;
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
@@ -69,7 +73,9 @@ public class Register extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
+        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(go);
+        Game.getMedia().getImage(Media.REGISTER).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
         g.setColor(Color.lightGray);
         newUser.render(gc, g);
         newPswd.render(gc, g);
@@ -80,8 +86,8 @@ public class Register extends Scene implements InputProviderListener
         newPswd.setBorderColor(Color.black);
         newPswd.setTextColor(Color.white);
         g.setColor(Color.yellow);
-        g.drawString("User: ",x-(Game.getX()/6),y+(Game.getY()/14));
-        g.drawString("Password: ",x+(Game.getX()/6),y+(Game.getY()/14));
+        g.drawString("User: ",x-rx,ry-20);
+        g.drawString("Password: ",x+rx,ry-20);
         if (ok != null)
         {
             if (ok)
@@ -128,8 +134,6 @@ public class Register extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        this.newUser = new TextField(gc, gc.getDefaultFont(), x, y, w, h);
-        this.newPswd = new TextField(gc, gc.getDefaultFont(), x, y+Game.getY()/14, w, h);
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
@@ -139,8 +143,8 @@ public class Register extends Scene implements InputProviderListener
             provider.bindCommand(new KeyControl(x), any);
         }
         input = gc.getInput();  
-        this.newUser = new TextField(gc, gc.getDefaultFont(), x-(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
-        this.newPswd = new TextField(gc, gc.getDefaultFont(), x+(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
+        this.newUser = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 30);
+        this.newPswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 30);
         newUser.setText("");
         newPswd.setText("");
         newPswd.setAcceptingInput(true);

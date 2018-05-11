@@ -81,9 +81,11 @@ public class Access extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
+        Game.getMedia().getImage(Media.EXIT).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(go);
         Game.getMedia().getImage(Media.LOG_IN).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
         g.fill(register);
+        Game.getMedia().getImage(Media.NEW).draw(register.getX(),register.getY(),register.getWidth(),register.getHeight());
         g.setColor(Color.lightGray);
         user.render(gc, g);
         pswd.render(gc, g);

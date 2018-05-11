@@ -104,8 +104,11 @@ public class Store extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.MENU).draw(0,0,Game.getX(),Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
+        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(left);
+        Game.getMedia().getImage(Media.BACK).draw(left.getX(),left.getY(),left.getWidth(),left.getHeight());
         g.fill(right);
+        Game.getMedia().getImage(Media.FORWARD).draw(right.getX(),right.getY(),right.getWidth(),right.getHeight());
         if (index == 0)
         {
             Game.getMedia().getImage(Media.HERO_IZQ).draw(x,y,w,h);
@@ -119,10 +122,15 @@ public class Store extends Scene implements InputProviderListener
         if ((hero.getStage()/2)>=index-1)
         {
             g.setColor(Color.yellow);
+                    g.fill(upgrade);
+            Game.getMedia().getImage(Media.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
             g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]-1):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
+        {
             g.setColor(Color.red);
+            g.fill(upgrade);
+        }
         
         if (index > 0)
         {
@@ -149,7 +157,6 @@ public class Store extends Scene implements InputProviderListener
             }*/
         }
         g.drawString("Bullets: "+hero.getBullets(), upgrade.getX(), upgrade.getMaxY()+1);
-        g.fill(upgrade);
     }
 
     @Override
