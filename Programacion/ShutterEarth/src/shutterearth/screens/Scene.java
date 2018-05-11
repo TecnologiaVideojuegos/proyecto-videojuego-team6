@@ -3,39 +3,22 @@ package shutterearth.screens;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import shutterearth.Game;
 
 
 public abstract class Scene implements Comparable<Scene>
 {
     // The states a scene can be in
-    public enum STATE { ON , FREEZE , INVISIBLE };
+    public enum STATE { ON , FREEZE };
     // The current state is saved in this variable
     private STATE state;
     // The render priority - We will need this to decide whitch scene is renderd first
     private int prio = 0;            
-    // An Image "Buffer" to hold the last active frame when our scene get freezed
-    private Image sence;
-    
-    private Boolean freezed;
 
     public Scene ()
     {
         // Default state is on
         state = STATE.ON;
-        try 
-        {
-            // Change to your resolution
-            // Init the buffer
-            sence = new Image(Game.getX(),Game.getY());
-        } 
-        catch (SlickException e) 
-        {
-            System.out.println("ERROR DE ESCENA " + e.toString());
-        }
-        freezed = false;
     }
 
 
@@ -90,11 +73,10 @@ public abstract class Scene implements Comparable<Scene>
     public void setState( STATE s )
     {
         state = s;
-        freezed = (state == STATE.FREEZE);
     }
     
     public Boolean isFreezed ()
     {
-        return freezed;
+        return state == STATE.FREEZE;
     }
 }
