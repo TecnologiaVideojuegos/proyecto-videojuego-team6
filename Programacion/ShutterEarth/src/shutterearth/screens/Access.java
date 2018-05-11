@@ -34,6 +34,10 @@ public class Access extends Scene implements InputProviderListener
     private final int y;
     private final int w;
     private final int h;
+    private final int ry;
+    private final int rx;
+    private final int tx;
+    private final int ty;
     private InputProvider provider;
     private final Command click;
     private final Command tab;
@@ -55,6 +59,10 @@ public class Access extends Scene implements InputProviderListener
         this.h = Game.getY()/9;
         this.x = Game.getX()/2-w/2;
         this.y = Game.getY()/3;
+        this.rx = (Game.getX()/6);
+        this.ry = y+(Game.getY()/14)*2;
+        this.tx = x+(Game.getX()/15);
+        this.ty = (Game.getY()/5);
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         register = new Rectangle (Game.getX()-Game.getX()/14-Game.getX()/16,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
@@ -74,6 +82,7 @@ public class Access extends Scene implements InputProviderListener
         g.setColor(Color.yellow);
         g.fill(exit);
         g.fill(go);
+        Game.getMedia().getImage(Media.LOG_IN).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
         g.fill(register);
         g.setColor(Color.lightGray);
         user.render(gc, g);
@@ -85,11 +94,11 @@ public class Access extends Scene implements InputProviderListener
         pswd.setBorderColor(Color.black);
         pswd.setTextColor(Color.white);
         g.setColor(Color.yellow);
-        g.drawString("User: ",x-(Game.getX()/6),y+(Game.getY()/14));
-        g.drawString("Password: ",x+(Game.getX()/6),y+(Game.getY()/14));
+        g.drawString("User: ",x-rx,ry-20);
+        g.drawString("Password: ",x+rx,ry-20);
         if (ok != null)
         {
-            g.drawString("WRONG INPUT",x+(Game.getX()/15),y+(Game.getY()/5));
+            g.drawString("WRONG INPUT",tx,y+ty);
         }
     }
 
@@ -144,8 +153,6 @@ public class Access extends Scene implements InputProviderListener
     public void init(GameContainer gc) throws SlickException
     {
         Game.resetDeveloper();
-        this.user = new TextField(gc, gc.getDefaultFont(), x, y, w, h);
-        this.pswd = new TextField(gc, gc.getDefaultFont(), x, y+Game.getY()/14, w, h);
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
@@ -155,8 +162,8 @@ public class Access extends Scene implements InputProviderListener
             provider.bindCommand(new KeyControl(x), any);
         }
         input = gc.getInput();  
-        this.user = new TextField(gc, gc.getDefaultFont(), x-(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
-        this.pswd = new TextField(gc, gc.getDefaultFont(), x+(Game.getX()/6), y+(Game.getY()/14)*2, w, 30);
+        this.user = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 30);
+        this.pswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 30);
         user.setText("");
         pswd.setText("");
         pswd.setAcceptingInput(true);
