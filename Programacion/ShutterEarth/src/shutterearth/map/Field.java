@@ -35,7 +35,8 @@ public class Field extends Scene implements InputProviderListener
     {
         this.hero = hero;
         this.hud = new HUD(hero);
-        Game.addScene(new Pause(this,hud));
+        
+        Game.addScene(hud);
     }
     
     @Override
@@ -57,6 +58,7 @@ public class Field extends Scene implements InputProviderListener
         provider.addListener(this);
         
         provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
+        provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class Field extends Scene implements InputProviderListener
     public void exit ()
     {
         Game.removeSence(this);
-        Game.removeSence(hud);
+        hud.end();
         Game.addScene(new StartMenu(hero.save()));   
     }
     

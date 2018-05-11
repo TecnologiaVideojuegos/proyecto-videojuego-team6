@@ -5,6 +5,7 @@
  */
 package shutterearth.map;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -59,7 +60,7 @@ public class Pause extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
+        //Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
         g.fill(resume);
         Game.getMedia().getImage(Media.RESUME).draw(resume.getX(),resume.getY(),resume.getWidth(),resume.getHeight());
         g.fill(exit);

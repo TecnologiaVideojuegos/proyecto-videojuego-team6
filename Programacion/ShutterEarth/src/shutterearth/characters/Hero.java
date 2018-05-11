@@ -34,12 +34,18 @@ public class Hero
         this.permission = hero.getPermission();
         this.bullets = hero.getBullets();
         this.healthMax = hero.getHealthMax();
+        this.healthCurrent = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
         this.images = Game.getMedia();
         this.gravity = Game.getGravity();
         this.inventory = new Inventory (hero.getInventory(),this);
         Game.addScene(inventory);
+    }
+    
+    public Inventory getInventory ()
+    {
+        return inventory;
     }
     
     public String getUser ()

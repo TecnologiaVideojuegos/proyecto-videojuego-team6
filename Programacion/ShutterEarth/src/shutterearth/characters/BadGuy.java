@@ -11,5 +11,5 @@ package shutterearth.characters;
  */
 public interface BadGuy
 {
-    
+    public int getCurrentHealth ();
 }

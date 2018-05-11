@@ -143,8 +143,8 @@ public class Register extends Scene implements InputProviderListener
             provider.bindCommand(new KeyControl(x), any);
         }
         input = gc.getInput();  
-        this.newUser = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 30);
-        this.newPswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 30);
+        this.newUser = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 23);
+        this.newPswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 23);
         newUser.setText("");
         newPswd.setText("");
         newPswd.setAcceptingInput(true);

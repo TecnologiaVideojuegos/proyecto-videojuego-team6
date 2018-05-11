@@ -94,7 +94,7 @@ public class Store extends Scene implements InputProviderListener
         {
             status[j] = new Rectangle (xr + step*j +wr*j, yr, wr, hr);
         }
-        this.lives = new LiveDisplayer(xr,yr,hr,100);
+        this.lives = new LiveDisplayer(xr,yr,hr,10,100);
         this.lives.center();
     }
     
@@ -145,7 +145,7 @@ public class Store extends Scene implements InputProviderListener
         }
         else
         {
-            lives.setHealth(hero.getHealthMax());
+            lives.setHealth(hero.getHealthMax(),true);
             this.lives.center();
             Game.addScene(lives);
             /*for (int j = 0; j < status.length; j++)

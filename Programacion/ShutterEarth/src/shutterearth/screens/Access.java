@@ -163,8 +163,8 @@ public class Access extends Scene implements InputProviderListener
             provider.bindCommand(new KeyControl(x), any);
         }
         input = gc.getInput();  
-        this.user = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 30);
-        this.pswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 30);
+        this.user = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 23);
+        this.pswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 23);
         user.setText("");
         pswd.setText("");
         pswd.setAcceptingInput(true);

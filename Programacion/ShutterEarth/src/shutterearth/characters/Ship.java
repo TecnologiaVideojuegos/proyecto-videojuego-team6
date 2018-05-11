@@ -11,5 +11,11 @@ package shutterearth.characters;
  */
 public class Ship implements BadGuy
 {
+
+    @Override
+    public int getCurrentHealth()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

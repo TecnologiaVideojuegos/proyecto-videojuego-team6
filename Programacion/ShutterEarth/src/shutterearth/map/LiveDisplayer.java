@@ -26,8 +26,9 @@ public class LiveDisplayer extends Scene
     private int actualHealth;
     private int full;
     private int other;
+    private final int maxRow;
     
-    public LiveDisplayer (int x, int y, int radix, int health)
+    public LiveDisplayer (int x, int y, int radix, int maxRow, int health)
     {
         this.displayingHealth = health;
         this.actualHealth = health;
@@ -36,11 +37,16 @@ public class LiveDisplayer extends Scene
         this.y = y;
         this.radix = radix;
         this.space = radix/12;
+        this.maxRow = maxRow;
     }
     
-    public void setHealth (int health)
+    public void setHealth (int health, boolean animation)
     {
         this.actualHealth = health;
+        if (!animation)
+        {
+            this.displayingHealth = health;
+        }
     }
     
     private void calculate (int health)
@@ -51,7 +57,7 @@ public class LiveDisplayer extends Scene
     
     public void center ()
     {
-        x = Game.getX()/2 - (radix*(full+(other<2?0:1))+space*full)/2;
+        x = Game.getX()/2 - (radix*((full>maxRow?maxRow:full)+(other<2?0:1))+space*(full>maxRow?maxRow:full))/2;
     }
     
     @Override
@@ -59,7 +65,7 @@ public class LiveDisplayer extends Scene
     {
         for (int j = 0; j < full; j++)
         {
-            Game.getMedia().getImage(Media.FULL_LIVE).draw(x+radix*j+space*j,y,radix,radix);
+            Game.getMedia().getImage(Media.FULL_LIVE).draw(x+(radix*(j%maxRow))+(space*(j%maxRow)),y+(radix*(j/maxRow))+(space*(j/maxRow)),radix,radix);
         }
         if (other > 6)
         {
@@ -92,8 +98,5 @@ public class LiveDisplayer extends Scene
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        
-    } 
+    public void init(GameContainer gc) throws SlickException{} 
 }

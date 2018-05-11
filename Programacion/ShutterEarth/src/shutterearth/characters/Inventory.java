@@ -50,7 +50,7 @@ public class Inventory extends Scene
     }
     public int getGunID()
     {
-        return index;
+        return inventory.get(index).getID();
     }
     public void shot()
     {
