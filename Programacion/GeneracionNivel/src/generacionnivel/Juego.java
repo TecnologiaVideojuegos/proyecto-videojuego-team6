@@ -7,17 +7,9 @@ import org.newdawn.slick.geom.*;
 
 public class Juego extends BasicGame{
     //CONSTANTES Y PROPORCIONES
-    private final AppGameContainer g = new AppGameContainer(this);
-    public final int gH = g.getScreenHeight();
-    public final int gW = g.getScreenWidth();
-    public final float hubH = gH*(3/35f);
-    public final float chH = gH*(1/14f);//alto del personaje
-    public final float chHALFW = gW*(1/80f);//mitad del ancho del personaje
-    public final float ceTHIRDH = gH*(4/105f);//un tercio del alto de una habitacion
-    public final float ceWI = gW*(1/10f);//ancho de una celda. Las celdas forman habitaciones
+    private final AppGameContainer g = new AppGameContainer(this);    
     
-    
-    private Rectangle personaje = new Rectangle(10,10,chHALFW*2, chH);
+    private Rectangle personaje = new Rectangle(10,10,Prop.chHALFW*2, Prop.chH);
     
     private Input entrada;
     private Celda[][] casillas = new Celda[8][8];
@@ -26,7 +18,7 @@ public class Juego extends BasicGame{
     
     public Juego(String t) throws SlickException{
         super(t);
-        g.setDisplayMode(gW, gH, true);
+        g.setDisplayMode(g.getScreenWidth(), g.getScreenHeight(), true);
         g.start();
     }
 
@@ -41,7 +33,7 @@ public class Juego extends BasicGame{
     private void resetCasillas(){
         for(int i=0;i<casillas.length;i++)
             for(int j=0;j<casillas[i].length;j++)
-                casillas[i][j] = new Celda(((i%8)*ceWI)+ceWI,((j%8)*(ceTHIRDH*3))+hubH,ceWI,ceTHIRDH*3);
+                casillas[i][j] = new Celda(((i%8)*Prop.ceWI)+Prop.ceWI,((j%8)*(Prop.ceTHIRDH*3))+Prop.hubH,Prop.ceWI,Prop.ceTHIRDH*3);
     }
     private void resetColores(){
         for(int i=0;i<colores.length;i++)

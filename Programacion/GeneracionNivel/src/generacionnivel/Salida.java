@@ -6,8 +6,8 @@ import org.newdawn.slick.geom.Rectangle;
 public class Salida extends Rectangle{
     private Habitacion next;
 
-    public Salida(Habitacion next, Celda c) {
-        super(c.getX(), c.getY(), c., height);
+    public Salida(Habitacion next, float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.next = next;
     }
 
