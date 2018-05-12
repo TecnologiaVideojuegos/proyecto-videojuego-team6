@@ -64,6 +64,51 @@ public class Hero
         box = new Rectangle (x,y,w,h);
     }
     
+    public Media.SPRITE getImg()
+    {
+        return xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ;
+    }
+    
+    public Rectangle getLine ()
+    {
+        return line;
+    }
+    
+    public Rectangle getColum ()
+    {
+        return colum;
+    }
+    
+    public Rectangle getBox ()
+    {
+        return box;
+    }
+    
+    public boolean isInLine (Rectangle rect)
+    {
+        return line.intersects(rect);
+    }
+    
+    public boolean isInRoom (Rectangle rect)
+    {
+        return line.intersects(rect) && colum.intersects(rect);
+    }
+    
+    public boolean isHited (Rectangle rect)
+    {
+        return box.intersects(rect);
+    }
+    
+    public float getH ()
+    {
+        return h;
+    }
+    
+    public float getW ()
+    {
+        return w;
+    }
+    
     public Rectangle[] debug ()
     {
         return new Rectangle[] {line,colum,box};

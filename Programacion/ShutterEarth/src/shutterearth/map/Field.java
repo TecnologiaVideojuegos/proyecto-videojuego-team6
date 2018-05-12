@@ -29,6 +29,13 @@ public class Field extends Scene implements InputProviderListener
 {
     private InputProvider provider;
     private final Command CONTROL = new BasicCommand("CONTROL");
+    private final Command UP = new BasicCommand("UP");
+    private final Command DOWN = new BasicCommand("DOWN");
+    private final Command LEFT = new BasicCommand("LEFT");
+    private final Command RIGHT = new BasicCommand("RIGHT");
+    private final Command I_LEFT = new BasicCommand("I_LEFT");
+    private final Command I_RIGHT = new BasicCommand("I_RIGHT");
+    private final Command SHOT = new BasicCommand("SHOT");
     
     private final HUD hud;
     private final Hero hero;
@@ -42,7 +49,7 @@ public class Field extends Scene implements InputProviderListener
         this.hud = hud;
         this.battle = false;
         
-        hero.place(200, 200, 300, 100, 500);
+        hero.place(200, 200, 400, 100, 500);
     }
     
     @Override
@@ -60,6 +67,7 @@ public class Field extends Scene implements InputProviderListener
                 Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
             }
         } 
+        Game.getMedia().getSprit(hero.getImg()).draw(hero.getX(),hero.getY(),hero.getW(),hero.getH());
     }
 
     @Override
@@ -77,6 +85,13 @@ public class Field extends Scene implements InputProviderListener
         
         provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
         provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
+        provider.bindCommand(new KeyControl(Input.KEY_W), UP);
+        provider.bindCommand(new KeyControl(Input.KEY_S), DOWN);
+        provider.bindCommand(new KeyControl(Input.KEY_D), RIGHT);
+        provider.bindCommand(new KeyControl(Input.KEY_A), LEFT);
+        provider.bindCommand(new KeyControl(Input.KEY_E), I_RIGHT);
+        provider.bindCommand(new KeyControl(Input.KEY_Q), I_LEFT);
+        provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
     }
 
     @Override

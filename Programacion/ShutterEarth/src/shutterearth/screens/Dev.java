@@ -75,7 +75,7 @@ public class Dev extends Thread
                             case "STAGE":
                                 if (Integer.parseInt(data[1].trim())>=0)
                                 {
-                                    for (int x = hero.getStage(); x < ((Integer.parseInt(data[1].trim())<10?Integer.parseInt(data[1].trim()):9)/2); x++)
+                                    for (int x = hero.getStage(); x < ((Integer.parseInt(data[1].trim())<10?Integer.parseInt(data[1].trim()):9)/2)+1; x++)
                                     {
                                         if (hero.getInventory().get(x)[1]<1)
                                             hero.getInventory().get(x)[1] = 1;
