@@ -68,6 +68,7 @@ public class Media
     public static int BATTLE_SONG = 42;
     public static int END_SONG = 43;
     public static int BAD = 44;
+    public static int BB = 45;
     
     public Media ()
     {
@@ -120,6 +121,7 @@ public class Media
             sound.put(Media.SHIP_SONG2, new Sound("./media/SHIP_SONG2.ogg"));
             sound.put(Media.CASH, new Sound("./media/CASH.ogg"));
             sound.put(Media.BAD, new Sound("./media/BAD.wav"));
+            images.put(Media.BB, new Image("./media/BB.png"));
         }
         catch (SlickException e)
         {
