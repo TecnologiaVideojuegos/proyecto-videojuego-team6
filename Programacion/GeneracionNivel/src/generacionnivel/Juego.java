@@ -1,39 +1,44 @@
 
 package generacionnivel;
 
+import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.*;
 
 
 public class Juego extends BasicGame{
     //CONSTANTES Y PROPORCIONES
-    private final AppGameContainer g = new AppGameContainer(this);    
+    private final AppGameContainer g = new AppGameContainer(this);
+    private final int gW = g.getScreenWidth();
+    private final int gH = g.getScreenHeight();
     
     private Rectangle personaje = new Rectangle(10,10,Prop.chHALFW*2, Prop.chH);
     
     private Input entrada;
-    private Celda[][] casillas = new Celda[8][8];
+    private Celda[][] celdas = new Celda[8][8];
     private Color[][] colores = new Color[8][8];
     private Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
     
+    private ArrayList<Habitacion> nivel = new ArrayList<>();
+    
     public Juego(String t) throws SlickException{
         super(t);
-        g.setDisplayMode(g.getScreenWidth(), g.getScreenHeight(), true);
+        g.setDisplayMode(gW, gH, true);
         g.start();
     }
 
     @Override
     public void init(GameContainer container) throws SlickException {
         entrada = new Input(700);
-        resetCasillas();
+        resetCeldas();
         resetColores();
         generacion();
     }
     
-    private void resetCasillas(){
-        for(int i=0;i<casillas.length;i++)
-            for(int j=0;j<casillas[i].length;j++)
-                casillas[i][j] = new Celda(((i%8)*Prop.ceWI)+Prop.ceWI,((j%8)*(Prop.ceTHIRDH*3))+Prop.hubH,Prop.ceWI,Prop.ceTHIRDH*3);
+    private void resetCeldas(){
+        for(int i=0;i<celdas.length;i++)
+            for(int j=0;j<celdas[i].length;j++)
+                celdas[i][j] = new Celda(((i%8)*Prop.ceWI)+Prop.ceWI,((j%8)*(Prop.ceTHIRDH*3))+Prop.hubH,Prop.ceWI,Prop.ceTHIRDH*3);
     }
     private void resetColores(){
         for(int i=0;i<colores.length;i++)
@@ -48,12 +53,12 @@ public class Juego extends BasicGame{
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        for(int i=0;i<casillas.length;i++){
-            for(int j=0;j<casillas[i].length;j++){
-                //if(colorear[i][j]) g.fill(casillas[i][j]);
-                //else g.draw(casillas[i][j]);
+        for(int i=0;i<celdas.length;i++){
+            for(int j=0;j<celdas[i].length;j++){
+                //if(colorear[i][j]) g.fill(celdas[i][j]);
+                //else g.draw(celdas[i][j]);
                 g.setColor(colores[i][j]);
-                g.fill(casillas[i][j]);
+                g.fill(celdas[i][j]);
             }
         }
         g.fill(personaje);
@@ -68,8 +73,8 @@ public class Juego extends BasicGame{
         int rand;
         int hab = 0;
         
-        resetCasillas();
-        casillas[r][c].setVisited(true);
+        resetCeldas();
+        celdas[r][c].setVisited(true);
         resetColores();
         colores[r][c] = diccionario[hab];
         do{
@@ -79,9 +84,9 @@ public class Juego extends BasicGame{
             try{
                 switch(rand){
                     case 0:
-                        if(!casillas[r+1][c].isVisited()){//derecha
+                        if(!celdas[r+1][c].isVisited()){//derecha
                             cellCount++;
-                            casillas[r+1][c].setVisited(true);
+                            celdas[r+1][c].setVisited(true);
                             if(colores[r+1][c].equals(Color.black)) colores[r+1][c] = diccionario[hab];
                         }
                         r = r+1;
@@ -89,9 +94,9 @@ public class Juego extends BasicGame{
                         compiCount++;
                         break;
                     case 1:
-                        if(!casillas[r-1][c].isVisited()){//izquierda
+                        if(!celdas[r-1][c].isVisited()){//izquierda
                             cellCount++;
-                            casillas[r-1][c].setVisited(true);
+                            celdas[r-1][c].setVisited(true);
                             if(colores[r-1][c].equals(Color.black)) colores[r-1][c] = diccionario[hab];
                         }
                         r = r-1;
@@ -99,10 +104,10 @@ public class Juego extends BasicGame{
                         compiCount++;
                         break;
                     case 2:
-                        if(!casillas[r][c-1].isVisited()){//arriba
+                        if(!celdas[r][c-1].isVisited()){//arriba
                             hab = (hab+1)%diccionario.length;
                             cellCount++;
-                            casillas[r][c-1].setVisited(true);
+                            celdas[r][c-1].setVisited(true);
                             if(colores[r][c-1].equals(Color.black)) colores[r][c-1] = diccionario[hab];
                         }
                         r = r;
@@ -110,10 +115,10 @@ public class Juego extends BasicGame{
                         compiCount = 1;
                         break;
                     case 3:
-                        if(!casillas[r][c+1].isVisited()){//abajo
+                        if(!celdas[r][c+1].isVisited()){//abajo
                             hab = (hab+1)%diccionario.length;
                             cellCount++;
-                            casillas[r][c+1].setVisited(true);
+                            celdas[r][c+1].setVisited(true);
                             if(colores[r][c+1].equals(Color.black)) colores[r][c+1] = diccionario[hab];
                         }
                         r = r;
