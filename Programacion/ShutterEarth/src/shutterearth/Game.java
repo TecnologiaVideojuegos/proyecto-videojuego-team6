@@ -23,6 +23,17 @@ public class Game extends BasicGame
     private static Media media;
     private static float gravity;
     private static Dev developer;
+    private static boolean debug;
+    
+    public synchronized static void setDebug (boolean debug)
+    {
+        Game.debug = debug;
+    }
+    
+    public synchronized static boolean debug ()
+    {
+        return Game.debug;
+    }
     
     public Game (String gamename)
     {
@@ -31,6 +42,7 @@ public class Game extends BasicGame
         savingStation = new SavingStation();
         Game.gravity = 0.1f;
         developer = null;
+        Game.debug = true;
     }
     
     // Add a scene to the list and call the init method

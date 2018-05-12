@@ -2,6 +2,8 @@
 package shutterearth.characters;
 
 import java.util.ArrayList;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 
@@ -19,13 +21,20 @@ public class Hero
     private int stage;
     private int bullets;
     private int kills;
-    private final Media images;
+    
+    private final float w;
+    private final float h;
     private float xVel;
     private float yVel;
     private float xPos;
     private float yPos;
     private float gravity;
     private final Inventory inventory;
+    
+    private Rectangle line;
+    private Rectangle colum;
+    private Rectangle box;
+    private float floor;
     
     public Hero(SavedHero hero)
     {
@@ -37,10 +46,27 @@ public class Hero
         this.healthCurrent = hero.getHealthMax();
         this.stage = hero.getStage();
         this.kills = hero.getKills();
-        this.images = Game.getMedia();
         this.gravity = Game.getGravity();
         this.inventory = new Inventory (hero.getInventory(),this);
-        Game.addScene(inventory);
+        Game.addScene(inventory); 
+        
+        this.h = Game.getY()/10;
+        this.w = (h*9)/17;
+    }
+    
+    public void place (float x, float y, float floor, int left, int right)
+    {
+        this.xPos = x;
+        this.yPos = y;
+        this.floor = floor;
+        line = new Rectangle (0,y,Game.getX(),floor -y);
+        colum = new Rectangle (left,0,right-left,Game.getY());
+        box = new Rectangle (x,y,w,h);
+    }
+    
+    public Rectangle[] debug ()
+    {
+        return new Rectangle[] {line,colum,box};
     }
     
     public Inventory getInventory ()

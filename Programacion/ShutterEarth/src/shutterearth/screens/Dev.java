@@ -59,30 +59,33 @@ public class Dev extends Thread
                     if ((preData != null))
                     {
                         data = preData.split(" ");
-                        switch (data [0])
+                        switch (data [0].toUpperCase())
                         {
+                            case "DEBUG":
+                                    Game.setDebug(data[1].trim().equals("1"));
+                                break;
                             case "BULLETS":
-                                if (Integer.parseInt(data[1])>=0)
-                                    hero.setBullets(Integer.parseInt(data[1]));
+                                if (Integer.parseInt(data[1].trim())>=0)
+                                    hero.setBullets(Integer.parseInt(data[1].trim()));
                                 break;
                             case "HEALTH":
-                                if (Integer.parseInt(data[1])>=0)
+                                if (Integer.parseInt(data[1].trim())>=0)
                                     hero.setHealth(Integer.parseInt(data[1]));
                                 break;
                             case "STAGE":
-                                if (Integer.parseInt(data[1])>=0)
+                                if (Integer.parseInt(data[1].trim())>=0)
                                 {
-                                    for (int x = hero.getStage(); x < ((Integer.parseInt(data[1])<10?Integer.parseInt(data[1]):9)/2); x++)
+                                    for (int x = hero.getStage(); x < ((Integer.parseInt(data[1].trim())<10?Integer.parseInt(data[1].trim()):9)/2); x++)
                                     {
                                         if (hero.getInventory().get(x)[1]<1)
                                             hero.getInventory().get(x)[1] = 1;
                                     }
-                                    hero.setStage(Integer.parseInt(data[1])<10?Integer.parseInt(data[1]):9);
+                                    hero.setStage(Integer.parseInt(data[1].trim())<10?Integer.parseInt(data[1].trim()):9);
                                 }
                                 break;
                             case "GUN":
-                                if (Integer.parseInt(data[1])>=0 && Integer.parseInt(data[2])>=0)
-                                    hero.getInventory().get(Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4)[1] = Integer.parseInt(data[2])<5?Integer.parseInt(data[2]):4;
+                                if (Integer.parseInt(data[1].trim())>=0 && Integer.parseInt(data[2].trim())>=0)
+                                    hero.getInventory().get(Integer.parseInt(data[1].trim())<5?Integer.parseInt(data[1].trim()):4)[1] = Integer.parseInt(data[2].trim())<5?Integer.parseInt(data[2].trim()):4;
                                 break;
                             case "SCOPE":
                                 SavedHero h = null;
@@ -124,7 +127,7 @@ public class Dev extends Thread
                 else
                     System.out.println("YOU HAVE NOT PERMISION");
             }
-            catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e)
+            catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e)
             {
                 System.out.println("INPUT ERROR");
                 System.out.println(e.toString());

@@ -14,6 +14,7 @@ import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
+import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.Hero;
@@ -33,7 +34,6 @@ public class Field extends Scene implements InputProviderListener
     private final Hero hero;
     private final int stage;
     private boolean battle;
-    int c = 0;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -41,6 +41,8 @@ public class Field extends Scene implements InputProviderListener
         this.hero = hero;
         this.hud = hud;
         this.battle = false;
+        
+        hero.place(200, 200, 300, 100, 500);
     }
     
     @Override
@@ -50,17 +52,20 @@ public class Field extends Scene implements InputProviderListener
             Game.getMedia().getImage(Media.IMAGE.BATTLE).draw(0,0,Game.getX(),Game.getY());
         else
             Game.getMedia().getImage(Media.IMAGE.GAME).draw(0,0,Game.getX(),Game.getY());
+        
+        if (Game.debug())
+        {
+            for (Rectangle rect : hero.debug())
+            {
+                Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
+            }
+        } 
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        if (c > 400)
-        {
-            Game.addScene(new TextDisplayer(this,hud,stage));
-            c = 0;
-        }
-        c++;
+        
     }
 
     @Override
