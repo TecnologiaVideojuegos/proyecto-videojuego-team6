@@ -88,7 +88,8 @@ public class Juego extends BasicGame{
                         if(!celdas[r+1][c].isVisited()){//derecha
                             cellCount++;
                             celdas[r+1][c].setVisited(true);
-                            
+                            celdas[r+1][c].setHab(hab);
+                            hab.addCelda(celdas[r+1][c]);
                         }
                         r = r+1;
                         c = c;
@@ -98,6 +99,8 @@ public class Juego extends BasicGame{
                         if(!celdas[r-1][c].isVisited()){//izquierda
                             cellCount++;
                             celdas[r-1][c].setVisited(true);
+                            celdas[r-1][c].setHab(hab);
+                            hab.addCelda(celdas[r-1][c]);
                         }
                         r = r-1;
                         c = c;
