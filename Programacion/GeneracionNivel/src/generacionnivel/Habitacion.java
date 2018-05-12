@@ -21,4 +21,7 @@ public class Habitacion extends Rectangle{
         else this.setBounds(this.getX()-c.getWidth(), this.getY(), this.getWidth()+c.getWidth(), this.getHeight());
     }
     
+    public void addSalidaSup(Celda c, Habitacion h){
+        salidasSup.add(new Salida(h, c))
+    }
 }

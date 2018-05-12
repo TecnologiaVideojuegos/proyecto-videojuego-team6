@@ -6,7 +6,19 @@ import org.newdawn.slick.geom.*;
 
 
 public class Juego extends BasicGame{
-    private AppGameContainer g;
+    //CONSTANTES Y PROPORCIONES
+    private final AppGameContainer g = new AppGameContainer(this);
+    public final int gH = g.getScreenHeight();
+    public final int gW = g.getScreenWidth();
+    public final float hubH = gH*(3/35f);
+    public final float chH = gH*(1/14f);//alto del personaje
+    public final float chHALFW = gW*(1/80f);//mitad del ancho del personaje
+    public final float ceTHIRDH = gH*(4/105f);//un tercio del alto de una habitacion
+    public final float ceWI = gW*(1/10f);//ancho de una celda. Las celdas forman habitaciones
+    
+    
+    private Rectangle personaje = new Rectangle(10,10,chHALFW*2, chH);
+    
     private Input entrada;
     private Celda[][] casillas = new Celda[8][8];
     private Color[][] colores = new Color[8][8];
@@ -14,21 +26,27 @@ public class Juego extends BasicGame{
     
     public Juego(String t) throws SlickException{
         super(t);
-        this.g = new AppGameContainer(this);
-        g.setDisplayMode(1280, 700, false);
+        g.setDisplayMode(gW, gH, true);
         g.start();
     }
 
     @Override
     public void init(GameContainer container) throws SlickException {
         entrada = new Input(700);
+        resetCasillas();
+        resetColores();
+        generacion();
+    }
+    
+    private void resetCasillas(){
         for(int i=0;i<casillas.length;i++)
             for(int j=0;j<casillas[i].length;j++)
-                casillas[i][j] = new Celda(((i%8)*160),((j%8)*80),160,80);
+                casillas[i][j] = new Celda(((i%8)*ceWI)+ceWI,((j%8)*(ceTHIRDH*3))+hubH,ceWI,ceTHIRDH*3);
+    }
+    private void resetColores(){
         for(int i=0;i<colores.length;i++)
             for(int j=0;j<colores[i].length;j++)
                 colores[i][j]=Color.black;
-        generacion();
     }
 
     @Override
@@ -45,7 +63,8 @@ public class Juego extends BasicGame{
                 g.setColor(colores[i][j]);
                 g.fill(casillas[i][j]);
             }
-        }        
+        }
+        g.fill(personaje);
     }
     
     public void generacion(){
@@ -57,13 +76,9 @@ public class Juego extends BasicGame{
         int rand;
         int hab = 0;
         
-        for(int i=0;i<casillas.length;i++)
-            for(int j=0;j<casillas[i].length;j++)
-                casillas[i][j] = new Celda(((i%8)*160),((j%8)*80),160,80);
+        resetCasillas();
         casillas[r][c].setVisited(true);
-        for(int i=0;i<colores.length;i++)
-            for(int j=0;j<colores[i].length;j++)
-                colores[i][j]=Color.black;
+        resetColores();
         colores[r][c] = diccionario[hab];
         do{
             if(compiCount==1) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
