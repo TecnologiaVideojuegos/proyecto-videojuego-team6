@@ -117,4 +117,6 @@ public class Juego extends BasicGame{
             } catch (Exception e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
         }while((cellCount<cellNum)||(compiCount==1));
     }
+    
+    
 }
