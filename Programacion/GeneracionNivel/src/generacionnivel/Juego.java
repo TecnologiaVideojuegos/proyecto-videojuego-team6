@@ -38,7 +38,7 @@ public class Juego extends BasicGame{
     private void resetCeldas(){
         for(int i=0;i<celdas.length;i++)
             for(int j=0;j<celdas[i].length;j++)
-                celdas[i][j] = new Celda(((i%8)*Prop.ceWI)+Prop.ceWI,((j%8)*(Prop.ceTHIRDH*3))+Prop.hubH,Prop.ceWI,Prop.ceTHIRDH*3);
+                celdas[i][j] = new Celda(((i%8)*Prop.ceWI*gW)+Prop.ceWI*gW,((j%8)*(Prop.ceTHIRDH*gH*3))+Prop.hubH*gH,Prop.ceWI*gW,Prop.ceTHIRDH*gH*3);
     }
     private void resetColores(){
         for(int i=0;i<colores.length;i++)
@@ -71,14 +71,15 @@ public class Juego extends BasicGame{
         int r = 0;
         int c = 7;
         int rand;
-        int hab = 0;
+        
         
         resetCeldas();
+        nivel.removeAll(nivel);//reset del nivel
         celdas[r][c].setVisited(true);
-        resetColores();
-        colores[r][c] = diccionario[hab];
+        Habitacion hab = new Habitacion(g,celdas[r][c]);
+        this.nivel.add(hab);
         do{
-            if(compiCount==1) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
+            if(compiCount<2) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
             else if(compiCount==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
             else rand = ((int)(Math.random()*400))%4;
             try{
@@ -87,7 +88,7 @@ public class Juego extends BasicGame{
                         if(!celdas[r+1][c].isVisited()){//derecha
                             cellCount++;
                             celdas[r+1][c].setVisited(true);
-                            if(colores[r+1][c].equals(Color.black)) colores[r+1][c] = diccionario[hab];
+                            
                         }
                         r = r+1;
                         c = c;
@@ -97,7 +98,6 @@ public class Juego extends BasicGame{
                         if(!celdas[r-1][c].isVisited()){//izquierda
                             cellCount++;
                             celdas[r-1][c].setVisited(true);
-                            if(colores[r-1][c].equals(Color.black)) colores[r-1][c] = diccionario[hab];
                         }
                         r = r-1;
                         c = c;
@@ -105,10 +105,8 @@ public class Juego extends BasicGame{
                         break;
                     case 2:
                         if(!celdas[r][c-1].isVisited()){//arriba
-                            hab = (hab+1)%diccionario.length;
                             cellCount++;
                             celdas[r][c-1].setVisited(true);
-                            if(colores[r][c-1].equals(Color.black)) colores[r][c-1] = diccionario[hab];
                         }
                         r = r;
                         c = c-1;
@@ -116,10 +114,8 @@ public class Juego extends BasicGame{
                         break;
                     case 3:
                         if(!celdas[r][c+1].isVisited()){//abajo
-                            hab = (hab+1)%diccionario.length;
                             cellCount++;
                             celdas[r][c+1].setVisited(true);
-                            if(colores[r][c+1].equals(Color.black)) colores[r][c+1] = diccionario[hab];
                         }
                         r = r;
                         c = c+1;
