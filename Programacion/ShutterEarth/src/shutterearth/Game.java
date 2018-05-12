@@ -22,6 +22,10 @@ public class Game extends BasicGame
     private static SavingStation savingStation;
     private static Media media;
     private static float gravity;
+    private static float gravityMax;
+    private static float xVel;
+    private static float yVelUp;
+    private static float yVelDown;
     private static Dev developer;
     private static boolean debug;
     
@@ -40,7 +44,11 @@ public class Game extends BasicGame
         super(gamename);
         scenes = new ArrayList<>();
         savingStation = new SavingStation();
-        Game.gravity = 0.1f;
+        Game.gravity = 1f;
+        Game.gravityMax = 50f;
+        Game.xVel = 2f;
+        Game.yVelUp = -20f;
+        Game.yVelDown = -8f;
         developer = null;
         Game.debug = true;
     }
@@ -160,6 +168,22 @@ public class Game extends BasicGame
     public static float getGravity ()
     {
         return gravity;
+    }
+    public static float getGravityMax ()
+    {
+        return gravityMax;
+    }
+    public static float getxVel ()
+    {
+        return xVel;
+    }
+    public static float getyVelDown ()
+    {
+        return yVelDown;
+    }
+    public static float getyVelUp ()
+    {
+        return yVelUp;
     }
     
     private static void resetDeveloper()

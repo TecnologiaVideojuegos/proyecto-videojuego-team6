@@ -125,7 +125,7 @@ public class Maper extends Scene  implements InputProviderListener
         }
         else
         {
-            radix = animation.getRadius() + 3f*t;
+            radix = animation.getRadius() + 5f*t;
             animation.setRadius(radix);
             animation.setCenterX(Game.getX()/2);
             animation.setCenterY(Game.getY()/2);

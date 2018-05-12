@@ -95,7 +95,7 @@ public class Pause extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);
-        input = gc.getInput();   
+        input = gc.getInput();  
     }
 
     @Override

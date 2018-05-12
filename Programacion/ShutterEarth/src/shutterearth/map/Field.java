@@ -49,7 +49,7 @@ public class Field extends Scene implements InputProviderListener
         this.hud = hud;
         this.battle = false;
         
-        hero.place(200, 200, 400, 100, 500);
+        hero.place(400, 100, 500);
     }
     
     @Override
@@ -68,12 +68,13 @@ public class Field extends Scene implements InputProviderListener
             }
         } 
         Game.getMedia().getSprit(hero.getImg()).draw(hero.getX(),hero.getY(),hero.getW(),hero.getH());
+                g.drawString("WWWWW", 100, 400);
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        
+        hero.update(t);
     }
 
     @Override
@@ -85,10 +86,10 @@ public class Field extends Scene implements InputProviderListener
         
         provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
         provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
-        provider.bindCommand(new KeyControl(Input.KEY_W), UP);
-        provider.bindCommand(new KeyControl(Input.KEY_S), DOWN);
-        provider.bindCommand(new KeyControl(Input.KEY_D), RIGHT);
-        provider.bindCommand(new KeyControl(Input.KEY_A), LEFT);
+        provider.bindCommand(new KeyControl(Input.KEY_UP), UP);
+        provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
+        provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
+        provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
         provider.bindCommand(new KeyControl(Input.KEY_E), I_RIGHT);
         provider.bindCommand(new KeyControl(Input.KEY_Q), I_LEFT);
         provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
@@ -97,13 +98,43 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void controlPressed(Command command)
     {
-        if (command.equals(CONTROL))
+        if (!this.isFreezed())
         {
-            if (!this.isFreezed())
+            if (command.equals(CONTROL))
             {
                 this.setState(STATE.FREEZE);
                 hud.pause();
                 Game.addScene(new Pause(this,hud));
+            }
+            else if (command.equals(UP))
+            {
+                //hero.setBounds(stage, stage, stage);
+                hero.goUp();
+            }
+            else if (command.equals(DOWN))
+            {
+                //hero.setBounds(stage, stage, stage);
+                hero.goDown();
+            }
+            else if (command.equals(RIGHT))
+            {
+                hero.goRight();
+            }
+            else if (command.equals(LEFT))
+            {
+                hero.goLeft();
+            }
+            else if (command.equals(I_RIGHT))
+            {
+                hero.inventoryRight();
+            }
+            else if (command.equals(I_LEFT))
+            {
+                hero.inventroyLeft();
+            }
+            else if (command.equals(SHOT))
+            {
+                hero.shot();
             }
         }
     }
