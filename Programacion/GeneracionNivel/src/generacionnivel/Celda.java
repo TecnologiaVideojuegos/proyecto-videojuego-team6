@@ -5,7 +5,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Celda extends Rectangle{
     private boolean visited;
-    private Habitacion hab;
+    private Habitacion hab = null;
 
     public Celda(float x, float y, float width, float height) {
         super(x, y, width, height);
