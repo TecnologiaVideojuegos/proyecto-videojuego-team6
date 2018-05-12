@@ -11,9 +11,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
-import shutterearth.characters.BadGuy;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
+import shutterearth.characters.Character;
 
 /**
  *
@@ -22,7 +22,7 @@ import shutterearth.screens.Scene;
 public class HUD extends Scene
 {
     private final Hero hero;
-    private BadGuy bad;
+    private Character bad;
     private final LiveDisplayer heroHealth;
     private final LiveDisplayer badHealth;
     private final int gx;
@@ -73,7 +73,7 @@ public class HUD extends Scene
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         heroHealth.setHealth(hero.getHealthCurrent(), true);
         if (bad != null)
@@ -100,7 +100,7 @@ public class HUD extends Scene
         Game.addScene(badHealth);
     }
     
-    public void addBadGuy (BadGuy bad,int lastLive)
+    public void addBadGuy (Character bad,int lastLive)
     {
         badHealth.setHealth(lastLive, false);
     }
@@ -110,6 +110,7 @@ public class HUD extends Scene
         Game.removeSence(this);
         Game.removeSence(heroHealth);
         Game.removeSence(badHealth);
+        hero.end();
     }
     
     public void pause ()
@@ -117,6 +118,7 @@ public class HUD extends Scene
         this.setState(STATE.FREEZE);
         heroHealth.setState(Scene.STATE.FREEZE);
         badHealth.setState(Scene.STATE.FREEZE);
+        hero.pause();
     }
     
     public void wake ()
@@ -124,5 +126,6 @@ public class HUD extends Scene
         this.setState(STATE.ON);
         heroHealth.setState(Scene.STATE.ON);
         badHealth.setState(Scene.STATE.ON);
+        hero.wake();
     }
 }

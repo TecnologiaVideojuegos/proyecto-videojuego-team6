@@ -28,6 +28,7 @@ public class Game extends BasicGame
     private static float yVelDown;
     private static Dev developer;
     private static boolean debug;
+    private float delta;
     
     public synchronized static void setDebug (boolean debug)
     {
@@ -90,10 +91,10 @@ public class Game extends BasicGame
     @Override
     public void update(GameContainer gc, int c) throws SlickException 
     {
-        c *= 0.1;
+        delta = c * 0.1f;
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
-            scenes.get(i).update(gc,c);
+            scenes.get(i).update(gc,delta);
         }
     }
 

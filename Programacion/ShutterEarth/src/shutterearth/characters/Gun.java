@@ -107,7 +107,13 @@ public class Gun
         damage = gun [enemy][id][level][0];
         delay = gun [enemy][id][level][1];
         speed = gun [enemy][id][level][2];
-        consume = gun [enemy][id][level][2];
+        consume = gun [enemy][id][level][3];
+        /*
+        System.out.println("ID: "+id);
+        System.out.println("Level: "+level);
+        System.out.println("Damage: "+damage);
+        System.out.println("Speed: "+speed);
+        System.out.println("Consume: "+consume);*/
     }
     
     public int getDamage()

@@ -18,9 +18,7 @@ import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
-import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
-import shutterearth.map.Field;
 
 /**
  *
@@ -73,7 +71,7 @@ public class StartMenu extends Scene implements InputProviderListener
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         if (clicked)
         {

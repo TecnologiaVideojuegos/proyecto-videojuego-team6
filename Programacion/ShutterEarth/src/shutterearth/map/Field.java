@@ -59,22 +59,11 @@ public class Field extends Scene implements InputProviderListener
             Game.getMedia().getImage(Media.IMAGE.BATTLE).draw(0,0,Game.getX(),Game.getY());
         else
             Game.getMedia().getImage(Media.IMAGE.GAME).draw(0,0,Game.getX(),Game.getY());
-        
-        if (Game.debug())
-        {
-            for (Rectangle rect : hero.debug())
-            {
-                Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
-            }
-        } 
-        Game.getMedia().getSprit(hero.getImg()).draw(hero.getX(),hero.getY(),hero.getW(),hero.getH());
-                g.drawString("WWWWW", 100, 400);
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
-        hero.update(t);
     }
 
     @Override

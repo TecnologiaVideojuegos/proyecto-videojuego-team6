@@ -11,7 +11,7 @@ import org.newdawn.slick.Image;
  *
  * @author mr.blissfulgrin
  */
-public interface BadGuy
+public interface Character
 {
     public int getCurrentHealth ();
     public Image getImage ();

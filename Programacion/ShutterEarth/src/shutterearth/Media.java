@@ -30,7 +30,7 @@ public class Media extends Scene
     private final HashMap <MUSIC,Music> music;
     private final HashMap <SOUND,Sound> sound;
        
-    public static enum IMAGE {MENU,BULLET,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE,BB};    
+    public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB};    
     public static enum SPRITE {BASE_DER,BASE_IZQ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
     public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD};
@@ -78,7 +78,7 @@ public class Media extends Scene
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         oneIn = false;
         try
@@ -88,7 +88,7 @@ public class Media extends Scene
                 if (!images.containsKey(img) && !oneIn)
                 {
                     if (img.name().equals("GUN0")||img.name().equals("GUN1")||img.name().equals("GUN2")||img.name().equals("GUN3")|img.name().equals("GUN4"))
-                        images.put(img, new Image("./media/BULLET.png"));
+                        images.put(img, new Image("./media/BULLET_R.png"));
                     else
                         images.put(img, new Image("./media/"+img.name()+".png"));
                     where ++;
@@ -182,7 +182,7 @@ public class Media extends Scene
             case 4:
                 return IMAGE.GUN0;
             default:
-                return IMAGE.BULLET;
+                return IMAGE.BULLET_R;
         }
     }
 }

@@ -11,7 +11,7 @@ import org.newdawn.slick.Image;
  *
  * @author mr.blissfulgrin
  */
-public class Ship implements BadGuy
+public class Ship implements Character
 {
 
     @Override

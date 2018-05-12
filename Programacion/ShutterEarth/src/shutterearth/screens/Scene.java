@@ -24,7 +24,7 @@ public abstract class Scene implements Comparable<Scene>
 
     // These methods will be used by the "real" scenes that inherit from this scene
     public abstract void Render(GameContainer gc, Graphics g) throws SlickException;
-    public abstract void Update(GameContainer gc, int t) throws SlickException;
+    public abstract void Update(GameContainer gc, float t) throws SlickException;
     public abstract void init(GameContainer gc) throws SlickException;
 
 
@@ -38,7 +38,7 @@ public abstract class Scene implements Comparable<Scene>
 
     // Update method that is called by the Scene-Manager
     // This method calls our "CustomUpdate"
-    public void update(GameContainer gc, int t) throws SlickException {
+    public void update(GameContainer gc, float t) throws SlickException {
         if(state == STATE.ON)
         {
             Update(gc, t);

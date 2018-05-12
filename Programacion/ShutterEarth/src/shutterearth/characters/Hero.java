@@ -2,20 +2,24 @@
 package shutterearth.characters;
 
 import java.util.ArrayList;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.screens.Scene;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Hero
+public class Hero extends Scene
 {
     private final String user;
     private final String pswd;
     private final Boolean permission;
-    private int healthMax;
+    private final int healthMax;
     private int healthCurrent;
     private int stage;
     private int bullets;
@@ -36,6 +40,9 @@ public class Hero
     private boolean over;
     private boolean jumpUp;
     private boolean jumpDown;
+    private boolean animation;
+    private int counterAnimation;
+    private final int animationTime;
     
     public Hero(SavedHero hero)
     {
@@ -48,14 +55,16 @@ public class Hero
         this.stage = hero.getStage();
         this.kills = hero.getKills();
         this.inventory = new Inventory (hero.getInventory(),this);
-        Game.addScene(inventory); 
         
-        this.h = Game.getY()/10;
+        this.h = Game.getY()/11;
         this.w = (h*9)/17;
         this.jumpUp = false;
         this.jumpDown = false;
         this.over = false;
         this.xPos = Game.getxVel();
+        animationTime = 20;
+        counterAnimation = 0;
+        animation = false;
     }
     
     public void goUp()
@@ -86,18 +95,67 @@ public class Hero
     }
     public void inventroyLeft()
     {
-        
+        inventory.lefttGun();
     }
     public void inventoryRight()
     {
-        
+        inventory.rightGun();
     }
     public void shot()
     {
-        
+        if (!jumping())
+        {
+            if (bullets >= inventory.getCost())
+            {
+                bullets -= inventory.getCost();
+                inventory.shot();
+            }
+        }
     }
     
-    public void update (int t)
+    public void getDamage (int damage)
+    {
+        this.healthCurrent -= damage;
+    }
+    
+    public boolean isAlive ()
+    {
+        return this.healthCurrent > 0;
+    }
+    
+    public void hasKilled(int money)
+    {
+        bullets += money;
+        kills++;
+    }
+    
+    
+    @Override
+    public void Render(GameContainer gc, Graphics g) throws SlickException
+    {
+                
+        if (Game.debug())
+        {
+            for (Rectangle rect : this.debug())
+            {
+                Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
+            }
+        } 
+        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
+        if (animation)
+        {
+            if (counterAnimation > animationTime)
+            {
+                animation = false;
+                counterAnimation = 0;
+            }
+            Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
+            counterAnimation++;
+        }
+    }
+
+    @Override
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         this.setX(this.xPos + this.xVel*t);
         if (yVel < Game.getGravityMax())
@@ -142,6 +200,9 @@ public class Hero
             this.goLeft();
         }
     }
+
+    @Override
+    public void init(GameContainer gc) throws SlickException{}
     
     public boolean jumping ()
     {
@@ -176,11 +237,6 @@ public class Hero
         box.setY(y);
         line.setY(y);
         line.setHeight(floor+h-y);
-    }
-    
-    public Media.SPRITE getImg()
-    {
-        return xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ;
     }
     
     public Rectangle getLine ()
@@ -296,7 +352,8 @@ public class Hero
     }
     public void doShotAnimation()
     {
-        
+        Game.getMedia().getSound(Media.SOUND.SHOT).play();
+        animation = true;
     }
     public boolean getFace()
     {
@@ -310,4 +367,25 @@ public class Hero
     {
         return inventory.getNumberOfGuns();
     }
+    
+    public void start ()
+    {
+        Game.addScene(inventory);
+        Game.addScene(this);
+    }
+    public void end ()
+    {
+        Game.removeSence(this);
+        Game.removeSence(inventory);
+    } 
+    public void pause ()
+    {
+        this.setState(STATE.FREEZE);
+        inventory.setState(STATE.FREEZE);
+    } 
+    public void wake ()
+    {
+        this.setState(STATE.ON);
+        inventory.setState(STATE.ON);
+    } 
 }

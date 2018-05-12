@@ -16,25 +16,45 @@ public class Shot
     private int delay;
     private float x;
     private float y;
+    private final float w;
+    private final float h;
     private boolean first;
     private final Hero hero;
     private final int updateRate;
     private boolean face;
     
+    private float maxR;
+    private float maxL;
+    
     public Shot (Gun gun, Hero hero)
     {
-        this.updateRate = 2;
-        this.delay = gun.getDamage();
+        this.updateRate = 4;
+        this.delay = gun.getDelay()*2;
         this.y = hero.getY();
         first = true;
         this.hero = hero;
+        
+        this.w = Game.getX()/50;
+        this.h = Game.getY()/50;
+        
+        maxR = Game.getX();
+        maxL = 0;
     }
     
-    public void update (int delta)
+    public float getW()
+    {
+        return w;
+    }
+    public float getH()
+    {
+        return h;
+    }
+    
+    public void update (float delta)
     {
         if (delay > 0)
         {
-            delay --;
+            delay -= 1*delta;
         }
         else
         {
@@ -42,16 +62,18 @@ public class Shot
             {
                 first = false;
                 hero.doShotAnimation();
-                y = hero.getY();
-                x = hero.getX();
+                y = hero.getBox().getCenterY();
+                x = hero.getBox().getCenterX();
+                maxR = hero.getColum().getMaxX();
+                maxL = hero.getColum().getX();
                 face = hero.getFace();
             }
             else
             {
                 if (face)
-                    x += x + updateRate*delta;
+                    x += updateRate*delta;
                 else
-                    x -= x + updateRate*delta;
+                    x -= updateRate*delta;
             }
         }
     }
@@ -64,12 +86,16 @@ public class Shot
     {
         return y;
     }
+    public boolean getFace()
+    {
+        return face;
+    }
     public boolean isDwable()
     {
-        return delay <= 0;
+        return (delay <= 0) && !first;
     }
     public boolean ended ()
     {
-        return x>Game.getX() || x<0;
+        return x<maxL || x+w>maxR;
     }
 }

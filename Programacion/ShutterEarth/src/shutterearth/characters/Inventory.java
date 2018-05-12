@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.Game;
+import shutterearth.Media;
 import shutterearth.screens.Scene;
 
 /**
@@ -22,12 +23,17 @@ public class Inventory extends Scene
     private final ArrayList <Gun> inventory;
     private int index;
     private final ArrayList <Shot> shots;
+    private final ArrayList <Shot> toRemove;
     private final Hero hero;
+    private final int delay;
+    private int counter;
+    
     
     public Inventory (ArrayList <int[]> guns, Hero hero)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
+        this.toRemove = new ArrayList <>();
         maxGun = guns.size();
         index = 0;
         this.inventory = new ArrayList<>();
@@ -36,11 +42,13 @@ public class Inventory extends Scene
             if (gun[1]>0)
                 inventory.add(new Gun(gun[0],gun[1],0));
         });
+        this.delay = 40;
+        this.counter = 0;
     }
     
     public void rightGun()
     {
-        if (index < inventory.size())
+        if (index < inventory.size()-1)
             index++;
     }
     public void lefttGun()
@@ -52,10 +60,20 @@ public class Inventory extends Scene
     {
         return inventory.get(index).getID();
     }
+    public int getCost()
+    {
+        return inventory.get(index).getConsume();
+    }
+    
     public void shot()
     {
-        shots.add(new Shot (inventory.get(index),hero));
+        if (counter <= 0)
+        {
+            shots.add(new Shot (inventory.get(index),hero));
+            counter = delay;
+        }
     }
+    
     public void end ()
     {
         Game.removeSence(this);
@@ -66,22 +84,39 @@ public class Inventory extends Scene
     {
         shots.forEach((s) ->
         {
-            //if(s.isDwable())
-                //DRAW
+            if (s.isDwable())
+                Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
         });
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         shots.forEach((s) ->
         {
             s.update(t);
+            if (s.isDwable()&&s.ended())
+            {
+                toRemove.add(s);
+            }
         });
+        toRemove.forEach((s)->
+        {
+            shots.remove(s);
+        });
+        toRemove.clear();
         shots.forEach((s) ->
         {
-            //HIT OVER ENEMIES
+            //COLIDES
+            //ENTER TO REMOVE
         });
+        toRemove.forEach((s)->
+        {
+            shots.remove(s);
+        });
+        toRemove.clear();
+        if (counter >= 0)
+            counter -= 1*t;
     }
 
     @Override

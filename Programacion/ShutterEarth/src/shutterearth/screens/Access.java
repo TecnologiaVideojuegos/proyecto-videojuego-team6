@@ -99,7 +99,7 @@ public class Access extends Scene implements InputProviderListener
     }
 
     @Override
-    public void Update(GameContainer gc, int t) throws SlickException
+    public void Update(GameContainer gc, float t) throws SlickException
     {
         if (clicked)
         {
