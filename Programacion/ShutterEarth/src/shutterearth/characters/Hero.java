@@ -14,7 +14,7 @@ import shutterearth.screens.Scene;
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Scene
+public class Hero extends Scene implements Character
 {
     private final String user;
     private final String pswd;
@@ -66,7 +66,7 @@ public class Hero extends Scene
         counterAnimation = 0;
         animation = false;
     }
-    
+    @Override
     public void goUp()
     {
         if (!jumping())
@@ -76,6 +76,7 @@ public class Hero extends Scene
             jumpUp = true;
         }
     }
+    @Override
     public void goLeft()
     {
         xVel = -Game.getxVel();
@@ -84,6 +85,7 @@ public class Hero extends Scene
     {
         xVel = Game.getxVel();
     }
+    @Override
     public void goDown()
     {
         if (!jumping())
@@ -101,6 +103,7 @@ public class Hero extends Scene
     {
         inventory.rightGun();
     }
+    @Override
     public void shot()
     {
         if (!jumping())
@@ -112,12 +115,12 @@ public class Hero extends Scene
             }
         }
     }
-    
+    @Override
     public void getDamage (int damage)
     {
         this.healthCurrent -= damage;
     }
-    
+    @Override
     public boolean isAlive ()
     {
         return this.healthCurrent > 0;
@@ -208,7 +211,7 @@ public class Hero extends Scene
     {
         return jumpUp || jumpDown;
     }
-    
+    @Override
     public void place (float floor, int left, int right)
     {
         this.xPos = left;
@@ -218,7 +221,7 @@ public class Hero extends Scene
         colum = new Rectangle (left,0,right-left,Game.getY());
         box = new Rectangle (xPos,yPos,w,h);
     }
-    
+    @Override
     public void setBounds (float left, float right, float floor)
     {
         colum.setX(left);
@@ -238,52 +241,52 @@ public class Hero extends Scene
         line.setY(y);
         line.setHeight(floor+h-y);
     }
-    
+    @Override
     public Rectangle getLine ()
     {
         return line;
     }
-    
+    @Override
     public Rectangle getColum ()
     {
         return colum;
     }
-    
+    @Override
     public Rectangle getBox ()
     {
         return box;
     }
-    
+    @Override
     public boolean isInLine (Rectangle rect)
     {
         return line.intersects(rect);
     }
-    
+    @Override
     public boolean isInRoom (Rectangle rect)
     {
         return line.intersects(rect) && colum.intersects(rect);
     }
-    
+    @Override
     public boolean isHited (Rectangle rect)
     {
         return box.intersects(rect);
     }
-    
+    @Override
     public float getH ()
     {
         return h;
     }
-    
+    @Override
     public float getW ()
     {
         return w;
     }
-    
+    @Override
     public Rectangle[] debug ()
     {
         return new Rectangle[] {line,colum,box};
     }
-    
+    @Override
     public Inventory getInventory ()
     {
         return inventory;
@@ -341,20 +344,23 @@ public class Hero extends Scene
     {
         return permission;
     }
-    
+    @Override
     public float getY()
     {
         return yPos;
     }
+    @Override
     public float getX()
     {
         return xPos;
     }
+    @Override
     public void doShotAnimation()
     {
         Game.getMedia().getSound(Media.SOUND.SHOT).play();
         animation = true;
     }
+    @Override
     public boolean getFace()
     {
         return xVel > 0;
@@ -363,29 +369,39 @@ public class Hero extends Scene
     {
         return inventory.save();
     }
+    
     public int getNumberOfGuns()
     {
         return inventory.getNumberOfGuns();
     }
-    
+    @Override
     public void start ()
     {
         Game.addScene(inventory);
         Game.addScene(this);
     }
+    @Override
     public void end ()
     {
         Game.removeSence(this);
         Game.removeSence(inventory);
     } 
+    @Override
     public void pause ()
     {
         this.setState(STATE.FREEZE);
         inventory.setState(STATE.FREEZE);
     } 
+    @Override
     public void wake ()
     {
         this.setState(STATE.ON);
         inventory.setState(STATE.ON);
     } 
+
+    @Override
+    public int getCurrentHealth()
+    {
+        return this.healthCurrent;
+    }
 }

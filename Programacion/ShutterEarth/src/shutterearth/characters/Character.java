@@ -5,7 +5,6 @@
  */
 package shutterearth.characters;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
@@ -15,7 +14,6 @@ import org.newdawn.slick.geom.Rectangle;
 public interface Character
 {
     public int getCurrentHealth ();
-    public Image getImage ();
     public void goUp();
     public void goLeft();
     public void goRight();
