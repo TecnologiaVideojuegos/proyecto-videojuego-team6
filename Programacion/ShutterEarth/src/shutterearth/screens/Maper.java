@@ -75,9 +75,9 @@ public class Maper extends Scene  implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.MENU).draw(0,0,Game.getX(),Game.getY());
         g.fill(exit);
-        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         for (int x = 0; x < level.length; x++)
         {
             if (x+1 <= hero.getStage())
@@ -108,7 +108,7 @@ public class Maper extends Scene  implements InputProviderListener
             {
                 if (exit.contains(xMouse, yMouse))
                 {
-                    Game.getMedia().getSound(Media.SHOT).play();
+                    Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     Game.removeSence(this);
                     Game.addScene(new StartMenu(hero));
                 }
@@ -116,7 +116,7 @@ public class Maper extends Scene  implements InputProviderListener
                 {  
                     if (level[x].contains(xMouse, yMouse))
                     {
-                        Game.getMedia().getSound(Media.ALIEN1).play();
+                        Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
                         animationStarted = true;
                         stage = x + 1;
                     }

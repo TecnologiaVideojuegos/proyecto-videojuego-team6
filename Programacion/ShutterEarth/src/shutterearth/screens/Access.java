@@ -78,14 +78,14 @@ public class Access extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
-        Game.getMedia().getImage(Media.EXIT).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.EXIT).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(go);
-        Game.getMedia().getImage(Media.LOG_IN).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.LOG_IN).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
         g.fill(register);
-        Game.getMedia().getImage(Media.NEW).draw(register.getX(),register.getY(),register.getWidth(),register.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.NEW).draw(register.getX(),register.getY(),register.getWidth(),register.getHeight());
         g.setColor(Color.lightGray);
         user.render(gc, g);
         pswd.render(gc, g);       
@@ -108,14 +108,14 @@ public class Access extends Scene implements InputProviderListener
                 SavedHero hero = Game.load(user.getText(), pass);
                 if(hero != null)
                 {
-                    Game.getMedia().getSound(Media.SHOT).play();
+                    Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     StartMenu startMenu = new StartMenu(hero);
                     Game.addScene(startMenu);
                     Game.removeSence(this);
                 }
                 else
                 {
-                    Game.getMedia().getSound(Media.BAD).play();
+                    Game.getMedia().getSound(Media.SOUND.BAD).play();
                     user.setText("");
                     pswd.setText("");
                     ok = false;
@@ -123,12 +123,12 @@ public class Access extends Scene implements InputProviderListener
             }
             else if (register.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.addScene(new Register());
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.exit();
                 user.deactivate();
                 pswd.deactivate();

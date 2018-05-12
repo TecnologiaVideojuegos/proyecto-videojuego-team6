@@ -7,68 +7,41 @@ package shutterearth;
 
 import java.util.HashMap;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import shutterearth.screens.Access;
+import shutterearth.screens.Scene;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Media
+public class Media extends Scene
 {
-    private final HashMap <Integer,Image> images;
-    private final HashMap <Integer,Animation> sprites;
-    private final HashMap <Integer,Music> music;
-    private final HashMap <Integer,Sound> sound;
-    public static int MENU = 0;
-    public static int BASE_DER = 1;
-    public static int BASE_IZQ = 2;
-    public static int HERO_DER = 3;
-    public static int HERO_IZQ = 4;
-    public static int HERO2 = 5;
-    public static int HERO3 = 6;
-    public static int HERO4 = 7;
-    public static int GUN0 = 8;
-    public static int GUN1 = 9;
-    public static int GUN2 = 10;
-    public static int GUN3 = 11;
-    public static int GUN4 = 12;
-    public static int BULLETS = 13;
-    public static int FULL_LIVE = 14;
-    public static int TQUARTERS_LIVE = 15;
-    public static int HALF_LIVE = 16;
-    public static int QUARTER_LIVE = 17;
-    public static int CANCION_MENU = 18;
-    public static int LOG_IN = 19;
-    public static int EXIT = 20;
-    public static int NEW = 21;
-    public static int REGISTER = 22;
-    public static int BACK = 23;
-    public static int PLAY = 24;
-    public static int STORE = 25;
-    public static int FORWARD = 26;
-    public static int UPGRADE = 27;
-    public static int GREY = 28;
-    public static int RESUME = 29;
-    public static int END_GAME = 30;
-    public static int GAME = 31;
-    public static int BATTLE = 32;
-    public static int CANCION_GAME = 33;
-    public static int CANCION_FONDO = 34;
-    public static int FIRE = 35;
-    public static int SHOT = 36;
-    public static int SHIP_SONG = 37;
-    public static int SHIP_SONG2 = 38;
-    public static int ALIEN1 = 39;
-    public static int ALIEN2 = 40;
-    public static int CASH = 41;
-    public static int BATTLE_SONG = 42;
-    public static int END_SONG = 43;
-    public static int BAD = 44;
-    public static int BB = 45;
+    private final HashMap <IMAGE,Image> images;
+    private final HashMap <SPRITE,Animation> sprites;
+    private final HashMap <MUSIC,Music> music;
+    private final HashMap <SOUND,Sound> sound;
+       
+    public static enum IMAGE {MENU,BULLET,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE,BB};    
+    public static enum SPRITE {BASE_DER,BASE_IZQ};
+    public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
+    public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD};
+    
+    private Image background;
+    private Rectangle black;
+    private Rectangle yellow;
+    private int amount;
+    private int where;
+    private int maxW;
+    private int next;
     
     public Media ()
     {
@@ -77,90 +50,132 @@ public class Media
         music = new HashMap <>();
         sound = new HashMap <>();
         
+        this.amount = IMAGE.values().length + SPRITE.values().length + MUSIC.values().length + SOUND.values().length;
+        this.where = 0;
+        this.maxW = (Game.getX()*8)/10-40;
+        this.black = new Rectangle (Game.getX()/10, Game.getY()/3, (Game.getX()*8)/10, Game.getY()/3);
+        this.yellow = new Rectangle (Game.getX()/10+20, Game.getY()/3+20, 0, Game.getY()/3-40);
         try
         {
-            sprites.put(Media.BASE_DER, new Animation (new SpriteSheet("./media/BASE_DER.png",281,300),180));
-            sprites.put(Media.BASE_IZQ, new Animation (new SpriteSheet("./media/BASE_IZQ.png",281,300),180));
-            images.put(Media.MENU, new Image("./media/MENU.png"));
-            images.put(Media.GUN0, new Image("./media/BULLET.png"));
-            images.put(Media.GUN1, new Image("./media/BULLET.png"));
-            images.put(Media.HERO_DER, new Image("./media/HERO_DER.png"));
-            images.put(Media.HERO_IZQ, new Image("./media/HERO_IZQ.png"));
-            images.put(Media.GUN2, new Image("./media/BULLET.png"));
-            images.put(Media.GUN3, new Image("./media/BULLET.png"));
-            images.put(Media.GUN4, new Image("./media/BULLET.png"));
-            images.put(Media.BULLETS, new Image("./media/BULLET.png"));
-            images.put(Media.FULL_LIVE, new Image("./media/FULL_LIVE.png"));
-            images.put(Media.TQUARTERS_LIVE, new Image("./media/TQUARTERS_LIVE.png"));
-            images.put(Media.HALF_LIVE, new Image("./media/HALF_LIVE.png"));
-            images.put(Media.QUARTER_LIVE, new Image("./media/QUARTER_LIVE.png"));
-            images.put(Media.LOG_IN, new Image("./media/LOG_IN.png"));
-            images.put(Media.EXIT, new Image("./media/EXIT.png"));
-            images.put(Media.NEW, new Image("./media/NEW.png"));
-            images.put(Media.REGISTER, new Image("./media/REGISTER.png"));
-            images.put(Media.BACK, new Image("./media/BACK.png"));
-            images.put(Media.PLAY, new Image("./media/PLAY.png"));
-            images.put(Media.STORE, new Image("./media/STORE.png"));
-            images.put(Media.FORWARD, new Image("./media/FORWARD.png"));
-            images.put(Media.UPGRADE, new Image("./media/UPGRADE.png"));
-            images.put(Media.RESUME, new Image("./media/RESUME.png"));
-            images.put(Media.END_GAME, new Image("./media/END_GAME.png"));
-            images.put(Media.GREY, new Image("./media/GREY.png"));
-            images.put(Media.GAME, new Image("./media/GAME.png"));
-            images.put(Media.BATTLE, new Image("./media/BATTLE.png"));
-            images.put(Media.FIRE, new Image("./media/FIRE.png"));
-            music.put(Media.CANCION_MENU, new Music("./media/CANCION_MENU.ogg", false));
-            music.put(Media.CANCION_GAME, new Music("./media/CANCION_GAME.ogg", false));
-            music.put(Media.CANCION_FONDO, new Music("./media/CANCION_FONDO.ogg", false));
-            music.put(Media.BATTLE_SONG, new Music("./media/BATTLE_SONG.ogg", false));
-            music.put(Media.END_SONG, new Music("./media/END_SONG.ogg", false));
-            sound.put(Media.SHOT, new Sound("./media/SHOT.ogg"));
-            sound.put(Media.ALIEN1, new Sound("./media/ALIEN1.ogg"));
-            sound.put(Media.ALIEN2, new Sound("./media/ALIEN2.ogg"));
-            sound.put(Media.SHIP_SONG, new Sound("./media/SHIP_SONG.ogg"));
-            sound.put(Media.SHIP_SONG2, new Sound("./media/SHIP_SONG2.ogg"));
-            sound.put(Media.CASH, new Sound("./media/CASH.ogg"));
-            sound.put(Media.BAD, new Sound("./media/BAD.wav"));
-            images.put(Media.BB, new Image("./media/BB.png"));
-        }
-        catch (SlickException e)
+            this.background = new Image("./media/MENU.png");
+        } catch (SlickException ex)
         {
             System.out.println("ERROR LOADING MEDIA");
         }
     }
     
-    public Animation getSprit (int n)
+
+    @Override
+    public void Render(GameContainer gc, Graphics g) throws SlickException
+    {
+        background.draw(0,0,Game.getX(),Game.getY());
+        g.setColor(Color.black);
+        g.fill(black);
+        g.setColor(Color.yellow);
+        g.fill(yellow);
+    }
+
+    @Override
+    public void Update(GameContainer gc, int t) throws SlickException
+    {
+        try
+        {
+            for (IMAGE img : IMAGE.values())
+            {
+                if (!images.containsKey(img))
+                {
+                    if (img.name().equals("GUN0")||img.name().equals("GUN1")||img.name().equals("GUN2")||img.name().equals("GUN3")|img.name().equals("GUN4"))
+                        images.put(img, new Image("./media/BULLET.png"));
+                    else
+                        images.put(img, new Image("./media/"+img.name()+".png"));
+                    where ++;
+                    break;
+                }
+            }
+            
+            for (SPRITE spt : SPRITE.values())
+            {
+                if (!sprites.containsKey(spt))
+                {
+                    sprites.put(spt, new Animation (new SpriteSheet("./media/"+spt.name()+".png",281,300),180));
+                    where ++;
+                    break;
+                }
+            }
+            
+            for (MUSIC ms : MUSIC.values())
+            {
+                if (!music.containsKey(ms))
+                {
+                    music.put(ms, new Music("./media/"+ms.name()+".ogg", false));
+                    where ++;
+                    break;
+                }
+            }
+            
+            for (SOUND s : SOUND.values())
+            {
+                if (!sound.containsKey(s))
+                {
+                    if (!s.name().equals("BAD"))
+                        sound.put(s, new Sound("./media/"+s.name()+".ogg"));
+                    else
+                        sound.put(s, new Sound("./media/"+s.name()+".wav"));
+                    where ++;
+                    break;
+                }
+            }
+        }
+        catch (SlickException e)
+        {
+            System.out.println("ERROR LOADING MEDIA");
+        }
+        next = (maxW*where)/amount;
+        yellow.setWidth(next);
+                
+        if (where >= amount)
+        {
+            Game.removeSence(this);
+            Game.addScene(new Access());
+            Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
+        }
+    }
+
+    @Override
+    public void init(GameContainer gc) throws SlickException{}
+
+    public Animation getSprit (SPRITE n)
     {
         return sprites.get(n);
     }
-    public Image getImage (int n)
+    public Image getImage (IMAGE n)
     {
         return images.get(n);
     }
-    public Music getMusic (int n)
+    public Music getMusic (MUSIC n)
     {
         return music.get(n);
     }
-    public Sound getSound (int n)
+    public Sound getSound (SOUND n)
     {
         return sound.get(n);
     }
-    public static int getGun (int id)
+    public static IMAGE getGun (int id)
     {
         switch (id)
         {
             case 0:
-                return GUN0;
+                return IMAGE.GUN0;
             case 1:
-                return GUN0;
+                return IMAGE.GUN0;
             case 2:
-                return GUN0;
+                return IMAGE.GUN0;
             case 3:
-                return GUN0;
+                return IMAGE.GUN0;
             case 4:
-                return GUN0;
+                return IMAGE.GUN0;
             default:
-                return BULLETS;
+                return IMAGE.BULLET;
         }
     }
 }

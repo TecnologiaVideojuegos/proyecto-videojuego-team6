@@ -58,7 +58,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
         txt.render(gc, g);
     }
 
@@ -373,7 +373,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.getMedia().getMusic(Media.CANCION_FONDO).loop();
+        Game.getMedia().getMusic(Media.MUSIC.CANCION_FONDO).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new KeyControl(Input.KEY_ENTER), next);
@@ -399,7 +399,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
                 hud.wake();
                 field.setState(STATE.ON);
                 Game.removeSence(this);
-                Game.getMedia().getMusic(Media.CANCION_GAME).loop();
+                Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
                 provider.clearCommand(next);
             }
         }

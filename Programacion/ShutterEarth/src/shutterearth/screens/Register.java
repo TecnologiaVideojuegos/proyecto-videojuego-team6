@@ -70,12 +70,12 @@ public class Register extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
-        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(go);
-        Game.getMedia().getImage(Media.REGISTER).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.REGISTER).draw(go.getX(),go.getY(),go.getWidth(),go.getHeight());
         g.setColor(Color.lightGray);
         newUser.render(gc, g);
         newPswd.render(gc, g);
@@ -104,13 +104,13 @@ public class Register extends Scene implements InputProviderListener
             {
                 if (newUser.getText().length()>5 && newPswd.getText().length()>5)
                 {
-                    Game.getMedia().getSound(Media.SHOT).play();
+                    Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     SavedHero hero = new SavedHero (newUser.getText(),newPswd.getText(),false);
                     ok = Game.add(hero);
                 }
                 else
                 {
-                    Game.getMedia().getSound(Media.BAD).play();
+                    Game.getMedia().getSound(Media.SOUND.BAD).play();
                     ok = false;
                 }
                 newUser.setText("");
@@ -118,7 +118,7 @@ public class Register extends Scene implements InputProviderListener
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.removeSence(this);
                 newUser.deactivate();
                 newPswd.deactivate();

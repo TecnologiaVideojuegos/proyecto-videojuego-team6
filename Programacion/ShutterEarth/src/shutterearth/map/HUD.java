@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
+import shutterearth.Media;
 import shutterearth.characters.BadGuy;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
@@ -61,12 +62,12 @@ public class HUD extends Scene
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(hero.getInventory().getGunID()).draw(gx,gy,gw,gh);
+        Game.getMedia().getImage(Media.getGun(hero.getInventory().getGunID())).draw(gx,gy,gw,gh);
 
         g.drawString("Bullets: " + hero.getBullets(), gx, gy+gh+15);
         if (bad != null)
         {
-            Game.getMedia().getImage(hero.getInventory().getGunID()).draw();
+            Game.getMedia().getImage(Media.getGun(hero.getInventory().getGunID())).draw();
             g.draw(rect);
         }
     }

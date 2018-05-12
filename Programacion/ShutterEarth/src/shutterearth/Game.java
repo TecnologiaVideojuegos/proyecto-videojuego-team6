@@ -9,7 +9,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
-import shutterearth.screens.Access;
 import shutterearth.screens.Dev;
 import shutterearth.screens.Scene;
 
@@ -60,8 +59,7 @@ public class Game extends BasicGame
     public void init(GameContainer gc) throws SlickException 
     {
         media = new Media();
-        scenes.add(new Access());
-        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
+        Game.addScene(media);
 
         for( int i = 0 ; i < scenes.size() ; i++ )
         {

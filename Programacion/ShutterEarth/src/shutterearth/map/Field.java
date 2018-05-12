@@ -47,9 +47,9 @@ public class Field extends Scene implements InputProviderListener
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         if (battle)
-            Game.getMedia().getImage(Media.BATTLE).draw(0,0,Game.getX(),Game.getY());
+            Game.getMedia().getImage(Media.IMAGE.BATTLE).draw(0,0,Game.getX(),Game.getY());
         else
-            Game.getMedia().getImage(Media.GAME).draw(0,0,Game.getX(),Game.getY());
+            Game.getMedia().getImage(Media.IMAGE.GAME).draw(0,0,Game.getX(),Game.getY());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.getMedia().getMusic(Media.CANCION_GAME).loop();
+        Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         
@@ -96,7 +96,7 @@ public class Field extends Scene implements InputProviderListener
         Game.removeSence(this);
         hud.end();
         Game.addScene(new StartMenu(hero.save())); 
-        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
+        Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
     }
     
 }

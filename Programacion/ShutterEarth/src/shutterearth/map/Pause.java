@@ -59,11 +59,11 @@ public class Pause extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.GREY).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
         g.fill(resume);
-        Game.getMedia().getImage(Media.RESUME).draw(resume.getX(),resume.getY(),resume.getWidth(),resume.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.RESUME).draw(resume.getX(),resume.getY(),resume.getWidth(),resume.getHeight());
         g.fill(exit);
-        Game.getMedia().getImage(Media.END_GAME).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.END_GAME).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
     }
 
     @Override
@@ -73,15 +73,15 @@ public class Pause extends Scene implements InputProviderListener
         {
             if (resume.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.ALIEN1).play();
+                Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
                 Game.removeSence(this);
                 field.setState(STATE.ON);
                 hud.wake();
-                Game.getMedia().getMusic(Media.CANCION_GAME).loop();
+                Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.removeSence(this);
                 field.exit();
             }
@@ -91,7 +91,7 @@ public class Pause extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.getMedia().getMusic(Media.CANCION_MENU).loop();
+        Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(new MouseButtonControl(0), click);

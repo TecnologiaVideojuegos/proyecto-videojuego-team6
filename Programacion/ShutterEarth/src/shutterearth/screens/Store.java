@@ -101,17 +101,17 @@ public class Store extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0,0,Game.getX(),Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.MENU).draw(0,0,Game.getX(),Game.getY());
         g.setColor(Color.yellow);
         g.fill(exit);
-        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
         g.fill(left);
-        Game.getMedia().getImage(Media.BACK).draw(left.getX(),left.getY(),left.getWidth(),left.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.BACK).draw(left.getX(),left.getY(),left.getWidth(),left.getHeight());
         g.fill(right);
-        Game.getMedia().getImage(Media.FORWARD).draw(right.getX(),right.getY(),right.getWidth(),right.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.FORWARD).draw(right.getX(),right.getY(),right.getWidth(),right.getHeight());
         if (index == 0)
         {
-            Game.getMedia().getImage(Media.HERO_IZQ).draw(x,y,w,h);
+            Game.getMedia().getImage(Media.IMAGE.HERO_IZQ).draw(x,y,w,h);
         }
         else
         {
@@ -123,7 +123,7 @@ public class Store extends Scene implements InputProviderListener
         {
             g.setColor(Color.yellow);
                     g.fill(upgrade);
-            Game.getMedia().getImage(Media.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
+            Game.getMedia().getImage(Media.IMAGE.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
             g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
@@ -159,7 +159,7 @@ public class Store extends Scene implements InputProviderListener
         {  
             if (exit.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.save(hero);
                 Game.addScene(new StartMenu(hero));
                 Game.removeSence(this);
@@ -169,24 +169,24 @@ public class Store extends Scene implements InputProviderListener
             {
                 if (index > 0)
                 {
-                    Game.getMedia().getSound(Media.SHOT).play();
+                    Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     index --;
                 }
                 else
                 {
-                    Game.getMedia().getSound(Media.BAD).play();
+                    Game.getMedia().getSound(Media.SOUND.BAD).play();
                 }
             }
             else if (right.contains(xMouse, yMouse))
             {
                 if ((index < prices.length-1))
                 {
-                    Game.getMedia().getSound(Media.SHOT).play();
+                    Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     index ++;
                 }
                 else
                 {
-                    Game.getMedia().getSound(Media.BAD).play();
+                    Game.getMedia().getSound(Media.SOUND.BAD).play();
                 }
             }
             else if (upgrade.contains(xMouse, yMouse))
@@ -195,26 +195,26 @@ public class Store extends Scene implements InputProviderListener
                 {
                     if ((hero.getInventory().get(index-1)[1]-1 < 4)&&(hero.getInventory().get(index-1)[1]>0) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
                     {
-                        Game.getMedia().getSound(Media.CASH).play();
+                        Game.getMedia().getSound(Media.SOUND.CASH).play();
                         hero.sold(prices[index][hero.getInventory().get(index-1)[1] - 1]);
                         hero.getInventory().get(index-1)[1]++;
                     }
                     else
                     {
-                        Game.getMedia().getSound(Media.BAD).play();
+                        Game.getMedia().getSound(Media.SOUND.BAD).play();
                     }
                 }
                 else
                 {
                     if ((hero.getHealthMax() < 100) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
                     {
-                        Game.getMedia().getSound(Media.CASH).play();
+                        Game.getMedia().getSound(Media.SOUND.CASH).play();
                         hero.sold(prices[index][hero.getHealthMax()/20]);
                         hero.setHealth(((hero.getHealthMax()/20)+1)*20);
                     }
                     else
                     {
-                        Game.getMedia().getSound(Media.BAD).play();
+                        Game.getMedia().getSound(Media.SOUND.BAD).play();
                     }
                 }
             }

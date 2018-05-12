@@ -62,14 +62,14 @@ public class StartMenu extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        Game.getMedia().getImage(Media.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.MENU).draw(0, 0, Game.getX(), Game.getY());
         g.setColor(Color.yellow);
         g.fill(game);
-        Game.getMedia().getImage(Media.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());
         g.fill(store);
-        Game.getMedia().getImage(Media.STORE).draw(store.getX(),store.getY(),store.getWidth(),store.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.STORE).draw(store.getX(),store.getY(),store.getWidth(),store.getHeight());
         g.fill(exit);
-        Game.getMedia().getImage(Media.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
+        Game.getMedia().getImage(Media.IMAGE.BACK).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());
     }
 
     @Override
@@ -79,19 +79,19 @@ public class StartMenu extends Scene implements InputProviderListener
         {
             if (game.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.removeSence(this);
                 Game.addScene(new Maper(hero));
             }
             else if (store.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.addScene(new Store(hero));
                 Game.removeSence(this);
             }
             else if (exit.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
+                Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.addScene(new Access());
                 Game.removeSence(this);
             }
