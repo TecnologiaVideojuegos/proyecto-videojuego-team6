@@ -8,41 +8,25 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
-import shutterearth.screens.Scene;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Scene implements Charact
+public class Hero extends CharactX
 {
     private final String user;
     private final String pswd;
     private final Boolean permission;
     private final int healthMax;
-    private int healthCurrent;
     private int stage;
     private int bullets;
     private int kills;
-    
-    private final float w;
-    private final float h;
-    private float xVel;
-    private float yVel;
-    private float xPos;
-    private float yPos;
-    private final Inventory inventory;
-    
-    private Rectangle line;
-    private Rectangle colum;
-    private Rectangle box;
+
     private float floor;
     private boolean over;
     private boolean jumpUp;
     private boolean jumpDown;
-    private boolean animation;
-    private int counterAnimation;
-    private final int animationTime;
     
     public Hero(SavedHero hero)
     {
@@ -68,12 +52,6 @@ public class Hero extends Scene implements Charact
     }
     
     @Override
-    public void addEnemys (ArrayList <Charact> enemy)
-    {
-        inventory.addEnemys(enemy);
-    }
-    
-    @Override
     public void goUp()
     {
         if (!jumping())
@@ -88,6 +66,7 @@ public class Hero extends Scene implements Charact
     {
         xVel = -Game.getxVel();
     }
+    @Override
     public void goRight()
     {
         xVel = Game.getxVel();
@@ -102,14 +81,7 @@ public class Hero extends Scene implements Charact
             jumpDown = true;
         }
     }
-    public void inventroyLeft()
-    {
-        inventory.lefttGun();
-    }
-    public void inventoryRight()
-    {
-        inventory.rightGun();
-    }
+
     @Override
     public void shot()
     {
@@ -122,23 +94,6 @@ public class Hero extends Scene implements Charact
             }
         }
     }
-    @Override
-    public void getDamage (int damage)
-    {
-        this.healthCurrent -= damage;
-    }
-    @Override
-    public boolean isAlive ()
-    {
-        return this.healthCurrent > 0;
-    }
-    
-    public void hasKilled(int money)
-    {
-        bullets += money;
-        kills++;
-    }
-    
     
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
@@ -240,6 +195,20 @@ public class Hero extends Scene implements Charact
         this.floor = floor + h;
     }
     
+    public void hasKilled(int money)
+    {
+        bullets += money;
+        kills++;
+    }
+        public void inventroyLeft()
+    {
+        inventory.lefttGun();
+    }
+    public void inventoryRight()
+    {
+        inventory.rightGun();
+    }
+    
     private void setX(float x)
     {
         this.xPos = x;
@@ -251,56 +220,6 @@ public class Hero extends Scene implements Charact
         box.setY(y);
         line.setY(y);
         line.setHeight(floor+h-y);
-    }
-    @Override
-    public Rectangle getLine ()
-    {
-        return line;
-    }
-    @Override
-    public Rectangle getColum ()
-    {
-        return colum;
-    }
-    @Override
-    public Rectangle getBox ()
-    {
-        return box;
-    }
-    @Override
-    public boolean isInLine (Rectangle rect)
-    {
-        return line.intersects(rect);
-    }
-    @Override
-    public boolean isInRoom (Rectangle rect)
-    {
-        return line.intersects(rect) && colum.intersects(rect);
-    }
-    @Override
-    public boolean isHited (Rectangle rect)
-    {
-        return box.intersects(rect);
-    }
-    @Override
-    public float getH ()
-    {
-        return h;
-    }
-    @Override
-    public float getW ()
-    {
-        return w;
-    }
-    @Override
-    public Rectangle[] debug ()
-    {
-        return new Rectangle[] {line,colum,box};
-    }
-    @Override
-    public Inventory getInventory ()
-    {
-        return inventory;
     }
     
     public void setStage (int stage)
@@ -355,27 +274,6 @@ public class Hero extends Scene implements Charact
     {
         return permission;
     }
-    @Override
-    public float getY()
-    {
-        return yPos;
-    }
-    @Override
-    public float getX()
-    {
-        return xPos;
-    }
-    @Override
-    public void doShotAnimation()
-    {
-        Game.getMedia().getSound(Media.SOUND.SHOT).play();
-        animation = true;
-    }
-    @Override
-    public boolean getFace()
-    {
-        return xVel > 0;
-    }
     public ArrayList<int[]> saveInventory()
     {
         return inventory.save();
@@ -384,40 +282,5 @@ public class Hero extends Scene implements Charact
     public int getNumberOfGuns()
     {
         return inventory.getNumberOfGuns();
-    }
-    @Override
-    public void start ()
-    {
-        Game.addScene(this);
-    }
-    @Override
-    public void end ()
-    {
-        Game.removeSence(this);
-        Game.removeSence(inventory);
-    } 
-    @Override
-    public void pause ()
-    {
-        this.setState(STATE.FREEZE);
-        inventory.setState(STATE.FREEZE);
-    } 
-    @Override
-    public void wake ()
-    {
-        this.setState(STATE.ON);
-        inventory.setState(STATE.ON);
-    } 
-
-    @Override
-    public int getCurrentHealth()
-    {
-        return this.healthCurrent;
-    }
-
-    @Override
-    public void startI()
-    {
-        Game.addScene(inventory);
     }
 }
