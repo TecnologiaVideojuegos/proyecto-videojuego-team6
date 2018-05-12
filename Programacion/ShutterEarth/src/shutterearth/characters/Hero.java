@@ -62,7 +62,7 @@ public class Hero extends Scene implements Charact
         this.jumpDown = false;
         this.over = false;
         this.xPos = Game.getxVel();
-        animationTime = 20;
+        animationTime = 50;
         counterAnimation = 0;
         animation = false;
     }
@@ -154,13 +154,7 @@ public class Hero extends Scene implements Charact
         Game.getMedia().getSprit(xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
         if (animation)
         {
-            if (counterAnimation > animationTime)
-            {
-                animation = false;
-                counterAnimation = 0;
-            }
             Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
-            counterAnimation++;
         }
     }
 
@@ -208,6 +202,16 @@ public class Hero extends Scene implements Charact
         if (xPos+w >= colum.getX()+colum.getWidth())
         {
             this.goLeft();
+        }
+        
+        if (animation)
+        {
+            if (counterAnimation > animationTime)
+            {
+                animation = false;
+                counterAnimation = 0;
+            }
+            counterAnimation+=1*t;
         }
     }
 
@@ -384,7 +388,6 @@ public class Hero extends Scene implements Charact
     @Override
     public void start ()
     {
-        Game.addScene(inventory);
         Game.addScene(this);
     }
     @Override
@@ -410,5 +413,11 @@ public class Hero extends Scene implements Charact
     public int getCurrentHealth()
     {
         return this.healthCurrent;
+    }
+
+    @Override
+    public void startI()
+    {
+        Game.addScene(inventory);
     }
 }

@@ -46,6 +46,19 @@ public class Inventory extends Scene
         this.counter = 0;
     }
     
+    public Inventory (int[] gun, Charact hero)
+    {
+        this.hero = hero;
+        this.shots = new ArrayList <>();
+        this.toRemove = new ArrayList <>();
+        maxGun = 1;
+        index = 0;
+        this.inventory = new ArrayList<>();
+        inventory.add(new Gun(gun[0],gun[1],1));
+        this.delay = 200;
+        this.counter = 0;
+    }
+    
     public void addEnemys (ArrayList <Charact> enemy)
     {
         this.enemy = enemy;

@@ -10,6 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import shutterearth.Game;
 import shutterearth.screens.Scene;
 
 /**
@@ -18,11 +19,42 @@ import shutterearth.screens.Scene;
  */
 public class Ship extends Scene implements Charact
 {
-
+    private int healthCurrent;
+    private int stage;
+    private int bullets;
+    private int kills;
+    
+    private final float w;
+    private final float h;
+    private float xVel;
+    private float yVel;
+    private float xPos;
+    private float yPos;
+    private final Inventory inventory;
+    
+    private Rectangle line;
+    private Rectangle colum;
+    private Rectangle box;
+    private float floor;
+    private boolean over;
+    private boolean jumpUp;
+    private boolean jumpDown;
+    private boolean animation;
+    private int counterAnimation;
+    private final int animationTime;
+    
+    public Ship (int type,int stage)
+    {
+        this.w = Game.getX()/9;
+        this.h = Game.getX()/9;
+        this.animationTime = 60;
+        this.inventory = new Inventory(new int[]{type+2,stage/2},this);
+    }
+    
     @Override
     public int getCurrentHealth()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.healthCurrent;
     }
 
     @Override
@@ -76,13 +108,13 @@ public class Ship extends Scene implements Charact
     @Override
     public void getDamage(int damage)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.healthCurrent -= damage;
     }
 
     @Override
     public boolean isAlive()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return healthCurrent > 0;
     }
 
     @Override
@@ -184,31 +216,39 @@ public class Ship extends Scene implements Charact
     @Override
     public void start()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game.addScene(this);
+    }
+    @Override
+    public void startI()
+    {
+        Game.addScene(inventory);
     }
 
     @Override
     public void end()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game.removeSence(this);
+        Game.removeSence(inventory);
     }
 
     @Override
     public void pause()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setState(STATE.FREEZE);
+        inventory.setState(STATE.FREEZE);
     }
 
     @Override
     public void wake()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setState(STATE.ON);
+        inventory.setState(STATE.ON);
     }
 
     @Override
     public void addEnemys(ArrayList<Charact> enemy)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inventory.addEnemys(enemy);
     }
     
 }

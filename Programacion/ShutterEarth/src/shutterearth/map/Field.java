@@ -200,5 +200,10 @@ public class Field extends Scene implements InputProviderListener
             e.start();
         });
         hero.start();
+        enemy.forEach((e)->
+        {
+            e.startI();
+        });
+        hero.startI();
     }
 }
