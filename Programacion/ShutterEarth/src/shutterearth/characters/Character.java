@@ -6,6 +6,7 @@
 package shutterearth.characters;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 /**
  *
@@ -15,4 +16,31 @@ public interface Character
 {
     public int getCurrentHealth ();
     public Image getImage ();
+    public void goUp();
+    public void goLeft();
+    public void goRight();
+    public void goDown();
+    public void shot();
+    public void getDamage (int damage);
+    public boolean isAlive ();
+    public Rectangle getLine ();
+    public void place (float floor, int left, int right);
+    public void setBounds (float left, float right, float floor);
+    public Rectangle getColum ();
+    public Rectangle getBox ();
+    public boolean isInLine (Rectangle rect);
+    public boolean isInRoom (Rectangle rect);
+    public boolean isHited (Rectangle rect);
+    public float getH ();
+    public float getW ();
+    public Rectangle[] debug ();
+    public Inventory getInventory ();
+    public float getY();
+    public float getX();
+    public void doShotAnimation();
+    public boolean getFace();
+    public void start ();
+    public void end ();
+    public void pause ();
+    public void wake ();
 }

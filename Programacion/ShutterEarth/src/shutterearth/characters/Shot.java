@@ -5,6 +5,7 @@
  */
 package shutterearth.characters;
 
+import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 
 /**
@@ -26,6 +27,8 @@ public class Shot
     private float maxR;
     private float maxL;
     
+    private final Rectangle box;
+    
     public Shot (Gun gun, Hero hero)
     {
         this.updateRate = 4;
@@ -39,6 +42,8 @@ public class Shot
         
         maxR = Game.getX();
         maxL = 0;
+        
+        this.box = new Rectangle(0,0,w,h);
     }
     
     public float getW()
@@ -76,6 +81,13 @@ public class Shot
                     x -= updateRate*delta;
             }
         }
+        box.setX(x);
+        box.setY(y);
+    }
+    
+    public Rectangle getBox ()
+    {
+        return box;
     }
     
     public float getX()
