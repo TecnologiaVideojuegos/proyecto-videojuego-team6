@@ -12,7 +12,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author mr.blissfulgrin
  */
-public interface Character
+public interface Charact
 {
     public int getCurrentHealth ();
     public void goUp();
@@ -42,5 +42,5 @@ public interface Character
     public void end ();
     public void pause ();
     public void wake ();
-    public void addEnemys (ArrayList <Character> enemy);
+    public void addEnemys (ArrayList <Charact> enemy);
 }

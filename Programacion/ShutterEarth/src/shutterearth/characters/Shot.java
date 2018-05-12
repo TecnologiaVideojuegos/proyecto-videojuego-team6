@@ -20,7 +20,7 @@ public class Shot
     private final float w;
     private final float h;
     private boolean first;
-    private final Character hero;
+    private final Charact hero;
     private final int updateRate;
     private boolean face;
     
@@ -29,7 +29,7 @@ public class Shot
     
     private final Rectangle box;
     
-    public Shot (Gun gun, Character hero)
+    public Shot (Gun gun, Charact hero)
     {
         this.updateRate = 4;
         this.delay = gun.getDelay()*2;

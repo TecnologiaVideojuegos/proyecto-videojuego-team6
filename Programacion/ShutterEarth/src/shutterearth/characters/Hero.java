@@ -14,7 +14,7 @@ import shutterearth.screens.Scene;
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends Scene implements Character
+public class Hero extends Scene implements Charact
 {
     private final String user;
     private final String pswd;
@@ -68,7 +68,7 @@ public class Hero extends Scene implements Character
     }
     
     @Override
-    public void addEnemys (ArrayList <Character> enemy)
+    public void addEnemys (ArrayList <Charact> enemy)
     {
         inventory.addEnemys(enemy);
     }

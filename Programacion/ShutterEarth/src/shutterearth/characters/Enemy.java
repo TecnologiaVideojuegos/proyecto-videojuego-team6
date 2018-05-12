@@ -16,7 +16,7 @@ import shutterearth.screens.Scene;
  *
  * @author mr.blissfulgrin
  */
-public class Enemy extends Scene implements Character
+public class Enemy extends Scene implements Charact
 {
 
     @Override
@@ -206,7 +206,7 @@ public class Enemy extends Scene implements Character
     }
 
     @Override
-    public void addEnemys(ArrayList<Character> enemy)
+    public void addEnemys(ArrayList<Charact> enemy)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

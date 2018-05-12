@@ -5,6 +5,7 @@
  */
 package shutterearth.screens;
 
+import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,6 +20,7 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.characters.Charact;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
 import shutterearth.map.Field;
@@ -131,12 +133,11 @@ public class Maper extends Scene  implements InputProviderListener
             animation.setCenterY(Game.getY()/2);
             if (radix > diagonal)
             {
-                Game.removeSence(this);
                 Hero h = new Hero (hero);
                 HUD hud = new HUD(h);
-                Game.addScene(new Field(h,stage,hud));
-                Game.addScene(hud);
-                h.start();
+                Field field = new Field(h,stage,hud);
+                field.start();
+                Game.removeSence(this);
             }
         }
     }

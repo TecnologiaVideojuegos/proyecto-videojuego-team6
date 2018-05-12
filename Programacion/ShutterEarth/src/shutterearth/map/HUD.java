@@ -13,7 +13,7 @@ import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
-import shutterearth.characters.Character;
+import shutterearth.characters.Charact;
 
 /**
  *
@@ -22,7 +22,7 @@ import shutterearth.characters.Character;
 public class HUD extends Scene
 {
     private final Hero hero;
-    private Character bad;
+    private Charact bad;
     private final LiveDisplayer heroHealth;
     private final LiveDisplayer badHealth;
     private final int gx;
@@ -100,7 +100,7 @@ public class HUD extends Scene
         Game.addScene(badHealth);
     }
     
-    public void addBadGuy (Character bad,int lastLive)
+    public void addBadGuy (Charact bad,int lastLive)
     {
         badHealth.setHealth(lastLive, false);
     }

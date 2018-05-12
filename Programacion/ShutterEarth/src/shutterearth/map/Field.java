@@ -20,7 +20,7 @@ import shutterearth.Media;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
-import shutterearth.characters.Character;
+import shutterearth.characters.Charact;
 
 /**
  *
@@ -42,7 +42,7 @@ public class Field extends Scene implements InputProviderListener
     private final Hero hero;
     private final int stage;
     private boolean battle;
-    private final ArrayList <Character> enemy;
+    private final ArrayList <Charact> enemy;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -50,13 +50,31 @@ public class Field extends Scene implements InputProviderListener
         this.hero = hero;
         this.hud = hud;
         this.battle = false;
-        
         hero.place(400, 100, 500);
         
         enemy = new ArrayList <>();
-        switch (stage)
+        switch(stage)
         {
-            
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
         }
         hero.addEnemys(enemy);
     }
@@ -73,6 +91,8 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
+        if (!hero.isAlive())
+            this.exit();
     }
 
     @Override
@@ -143,20 +163,42 @@ public class Field extends Scene implements InputProviderListener
     {
         this.setState(STATE.FREEZE);
         hud.pause();
+        enemy.forEach((e)->
+        {
+            e.pause();
+        });
     }
     
     public void wake ()
     {
-        this.setState(STATE.FREEZE);
-        hud.pause();
+        this.setState(STATE.ON);
+        hud.wake();
+        enemy.forEach((e)->
+        {
+            e.wake();
+        });
     }
     
     public void exit ()
     {
         Game.removeSence(this);
         hud.end();
+        enemy.forEach((e)->
+        {
+            e.end();
+        });
         Game.addScene(new StartMenu(hero.save())); 
         Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
     }
     
+    public void start ()
+    {
+        Game.addScene(this);
+        Game.addScene(hud);
+        enemy.forEach((e)->
+        {
+            e.start();
+        });
+        hero.start();
+    }
 }
