@@ -47,9 +47,10 @@ public class Dev extends Thread
     {
         String preData;
         String [] data;
-        try
+
+        while (control.get())
         {
-            while (control.get())
+            try
             {
                 System.out.print("Hello "+hero.getUser()+" what's your will? ");
                 preData = input.readLine();
@@ -61,28 +62,27 @@ public class Dev extends Thread
                         switch (data [0])
                         {
                             case "BULLETS":
-                                hero.setBullets(Integer.parseInt(data[1]));
+                                if (Integer.parseInt(data[1])>=0)
+                                    hero.setBullets(Integer.parseInt(data[1]));
                                 break;
                             case "HEALTH":
-                                hero.setHealth(Integer.parseInt(data[1]));
+                                if (Integer.parseInt(data[1])>=0)
+                                    hero.setHealth(Integer.parseInt(data[1]));
                                 break;
                             case "STAGE":
-                                hero.setStage(Integer.parseInt(data[1])<10?Integer.parseInt(data[1]):9);
+                                if (Integer.parseInt(data[1])>=0)
+                                {
+                                    for (int x = hero.getStage(); x < ((Integer.parseInt(data[1])<10?Integer.parseInt(data[1]):9)/2); x++)
+                                    {
+                                        if (hero.getInventory().get(x)[1]<1)
+                                            hero.getInventory().get(x)[1] = 1;
+                                    }
+                                    hero.setStage(Integer.parseInt(data[1])<10?Integer.parseInt(data[1]):9);
+                                }
                                 break;
-                            case "GUN0":
-                                hero.getInventory().get(0)[1] = Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4;
-                                break;
-                            case "GUN1":
-                                hero.getInventory().get(1)[1] = Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4;
-                                break;
-                            case "GUN2":
-                                hero.getInventory().get(2)[1] = Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4;
-                                break;
-                            case "GUN3":
-                                hero.getInventory().get(3)[1] = Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4;
-                                break;
-                            case "GUN4":
-                                hero.getInventory().get(4)[1] = Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4;
+                            case "GUN":
+                                if (Integer.parseInt(data[1])>=0 && Integer.parseInt(data[2])>=0)
+                                    hero.getInventory().get(Integer.parseInt(data[1])<5?Integer.parseInt(data[1]):4)[1] = Integer.parseInt(data[2])<5?Integer.parseInt(data[2]):4;
                                 break;
                             case "SCOPE":
                                 SavedHero h = null;
@@ -94,21 +94,26 @@ public class Dev extends Thread
                                 {
                                     h = this.hero;
                                 }
-                                System.out.println("Hero: "+h.getUser());
-                                System.out.println("Kills: "+h.getKills());
-                                System.out.println("BULLETS: "+h.getBullets());
-                                System.out.println("HEALTH: "+h.getHealthMax());
-                                System.out.println("GUNS: "+h.getNumberOfGuns());
-                                System.out.println("STAGE: "+h.getStage());
-                                for (int j = 0; j<h.getInventory().size(); j++)
+                                if (h!=null)
                                 {
-                                    for (int i = 0; i<h.getInventory().get(j).length; i++)
+                                    System.out.println("------------------------------");
+                                    System.out.println("Hero: "+h.getUser());
+                                    System.out.println("Kills: "+h.getKills());
+                                    System.out.println("BULLETS: "+h.getBullets());
+                                    System.out.println("HEALTH: "+h.getHealthMax());
+                                    System.out.println("GUNS: "+h.getNumberOfGuns());
+                                    System.out.println("STAGE: "+h.getStage());
+                                    System.out.println("INVENTORY:");
+                                    for (int j = 0; j<h.getInventory().size(); j++)
                                     {
-                                        System.out.print(h.getInventory().get(j)[i]+ "  ");
+                                        for (int i = 0; i<h.getInventory().get(j).length; i++)
+                                        {
+                                            System.out.print(h.getInventory().get(j)[i]+ "  ");
+                                        }
+                                        System.out.println("");
                                     }
-                                    System.out.println("");
+                                    System.out.println("------------------------------");
                                 }
-
                                 break;
                             default:
                                 System.out.println("NON RECOGNIZED ACTION");
@@ -119,12 +124,13 @@ public class Dev extends Thread
                 else
                     System.out.println("YOU HAVE NOT PERMISION");
             }
+            catch (IOException | NumberFormatException | ArrayIndexOutOfBoundsException e)
+            {
+                System.out.println("INPUT ERROR");
+                System.out.println(e.toString());
+            }
         }
-        catch (IOException | ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("INPUT ERROR");
-            System.out.println(e.toString());
-        }
+
     }
     
     public void setHero(SavedHero hero)
