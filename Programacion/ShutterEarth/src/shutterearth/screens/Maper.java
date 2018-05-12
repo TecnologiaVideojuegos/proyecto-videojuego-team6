@@ -5,6 +5,7 @@
  */
 package shutterearth.screens;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -41,6 +42,12 @@ public class Maper extends Scene  implements InputProviderListener
     private final Circle [] level;
     private final int w;
     
+    private final Circle animation;
+    private boolean animationStarted;
+    private int stage;
+    private final int diagonal;
+    private float radix;
+    
     public Maper (SavedHero hero)
     {
         click = new BasicCommand("click");
@@ -58,6 +65,11 @@ public class Maper extends Scene  implements InputProviderListener
         }
         
         this.hero = hero;
+        
+        diagonal = (Game.getX()^2+Game.getY()^2)^(1/2);
+        animationStarted = false;
+        radix = 0;
+        animation = new Circle (0,0,0);
     }
     
     @Override
@@ -82,30 +94,48 @@ public class Maper extends Scene  implements InputProviderListener
                 g.drawLine(level[x].getCenterX()+(w/2), level[x].getCenterY(), level[x+1].getCenterX()-(w/2), level[x].getCenterY());
             }
         }
+        g.setColor(Color.black);
+        g.fill(animation);
+        g.setColor(Color.yellow);
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
-        if (clicked)
+        if (!animationStarted)
         {
-            if (exit.contains(xMouse, yMouse))
+            if (clicked)
             {
-                Game.getMedia().getSound(Media.SHOT).play();
-                Game.removeSence(this);
-                Game.addScene(new StartMenu(hero));
-            }
-            for (int x = 0; x < (level.length < hero.getStage()-1?level.length:hero.getStage()); x++)
-            {  
-                if (level[x].contains(xMouse, yMouse))
+                if (exit.contains(xMouse, yMouse))
                 {
-                    Game.getMedia().getSound(Media.ALIEN1).play();
+                    Game.getMedia().getSound(Media.SHOT).play();
                     Game.removeSence(this);
-                    Hero h = new Hero (hero);
-                    HUD hud = new HUD(h);
-                    Game.addScene(new Field(h,x + 1,hud));
-                    Game.addScene(hud);
+                    Game.addScene(new StartMenu(hero));
                 }
+                for (int x = 0; x < (level.length < hero.getStage()-1?level.length:hero.getStage()); x++)
+                {  
+                    if (level[x].contains(xMouse, yMouse))
+                    {
+                        Game.getMedia().getSound(Media.ALIEN1).play();
+                        animationStarted = true;
+                        stage = x + 1;
+                    }
+                }
+            }
+        }
+        else
+        {
+            radix = animation.getRadius() + 3f*t;
+            animation.setRadius(radix);
+            animation.setCenterX(Game.getX()/2);
+            animation.setCenterY(Game.getY()/2);
+            if (radix > diagonal)
+            {
+                Game.removeSence(this);
+                Hero h = new Hero (hero);
+                HUD hud = new HUD(h);
+                Game.addScene(new Field(h,stage,hud));
+                Game.addScene(hud);
             }
         }
     }

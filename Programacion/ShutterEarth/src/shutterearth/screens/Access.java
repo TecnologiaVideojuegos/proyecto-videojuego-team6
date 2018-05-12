@@ -105,16 +105,17 @@ public class Access extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
                 SavedHero hero = Game.load(user.getText(), pass);
                 if(hero != null)
                 {
+                    Game.getMedia().getSound(Media.SHOT).play();
                     StartMenu startMenu = new StartMenu(hero);
                     Game.addScene(startMenu);
                     Game.removeSence(this);
                 }
                 else
                 {
+                    Game.getMedia().getSound(Media.BAD).play();
                     user.setText("");
                     pswd.setText("");
                     ok = false;

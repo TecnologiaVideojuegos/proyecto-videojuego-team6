@@ -102,14 +102,15 @@ public class Register extends Scene implements InputProviderListener
         {
             if (go.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
                 if (newUser.getText().length()>5 && newPswd.getText().length()>5)
                 {
+                    Game.getMedia().getSound(Media.SHOT).play();
                     SavedHero hero = new SavedHero (newUser.getText(),newPswd.getText(),false);
                     ok = Game.add(hero);
                 }
                 else
                 {
+                    Game.getMedia().getSound(Media.BAD).play();
                     ok = false;
                 }
                 newUser.setText("");

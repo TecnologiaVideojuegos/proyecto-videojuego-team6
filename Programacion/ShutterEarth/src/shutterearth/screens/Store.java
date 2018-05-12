@@ -167,37 +167,54 @@ public class Store extends Scene implements InputProviderListener
             }
             else if (left.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
                 if (index > 0)
                 {
+                    Game.getMedia().getSound(Media.SHOT).play();
                     index --;
+                }
+                else
+                {
+                    Game.getMedia().getSound(Media.BAD).play();
                 }
             }
             else if (right.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SHOT).play();
                 if ((index < prices.length-1))
                 {
+                    Game.getMedia().getSound(Media.SHOT).play();
                     index ++;
+                }
+                else
+                {
+                    Game.getMedia().getSound(Media.BAD).play();
                 }
             }
             else if (upgrade.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.CASH).play();
                 if (index > 0)
                 {
                     if ((hero.getInventory().get(index-1)[1]-1 < 4)&&(hero.getInventory().get(index-1)[1]>0) &&(hero.getBullets() >= prices[index][hero.getInventory().get(index-1)[1]-1]) && ((hero.getStage()/2)>=(index-1)))
                     {
+                        Game.getMedia().getSound(Media.CASH).play();
                         hero.sold(prices[index][hero.getInventory().get(index-1)[1] - 1]);
                         hero.getInventory().get(index-1)[1]++;
+                    }
+                    else
+                    {
+                        Game.getMedia().getSound(Media.BAD).play();
                     }
                 }
                 else
                 {
                     if ((hero.getHealthMax() < 100) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
                     {
+                        Game.getMedia().getSound(Media.CASH).play();
                         hero.sold(prices[index][hero.getHealthMax()/20]);
                         hero.setHealth(((hero.getHealthMax()/20)+1)*20);
+                    }
+                    else
+                    {
+                        Game.getMedia().getSound(Media.BAD).play();
                     }
                 }
             }

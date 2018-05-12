@@ -66,7 +66,8 @@ public class Media
     public static int ALIEN2 = 40;
     public static int CASH = 41;
     public static int BATTLE_SONG = 42;
-    public static int END_SONG = 41;
+    public static int END_SONG = 43;
+    public static int BAD = 44;
     
     public Media ()
     {
@@ -118,10 +119,11 @@ public class Media
             sound.put(Media.SHIP_SONG, new Sound("./media/SHIP_SONG.ogg"));
             sound.put(Media.SHIP_SONG2, new Sound("./media/SHIP_SONG2.ogg"));
             sound.put(Media.CASH, new Sound("./media/CASH.ogg"));
+            sound.put(Media.BAD, new Sound("./media/BAD.wav"));
         }
         catch (SlickException e)
         {
-            System.out.println("ERROR LOADING IMAGES");
+            System.out.println("ERROR LOADING MEDIA");
         }
     }
     
