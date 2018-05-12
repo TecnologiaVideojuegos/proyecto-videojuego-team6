@@ -28,7 +28,6 @@ public class Pause extends Scene implements InputProviderListener
     private InputProvider provider;
     private final Command click;
     private final Field field;
-    private final HUD hud;
     private Input input;
     private boolean clicked;
     private int xMouse;
@@ -41,10 +40,9 @@ public class Pause extends Scene implements InputProviderListener
     private final Rectangle resume;
     private final Rectangle exit;
     
-    public Pause (Field field, HUD hud)
+    public Pause (Field field)
     {
         this.field = field;
-        this.hud = hud;
         click = new BasicCommand("click");
         
         int step = Game.getY()/6;
@@ -75,8 +73,7 @@ public class Pause extends Scene implements InputProviderListener
             {
                 Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
                 Game.removeSence(this);
-                field.setState(STATE.ON);
-                hud.wake();
+                field.wake();
                 Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
             }
             else if (exit.contains(xMouse, yMouse))

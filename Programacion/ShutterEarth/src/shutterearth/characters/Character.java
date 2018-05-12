@@ -5,6 +5,7 @@
  */
 package shutterearth.characters;
 
+import java.util.ArrayList;
 import org.newdawn.slick.geom.Rectangle;
 
 /**
@@ -41,4 +42,5 @@ public interface Character
     public void end ();
     public void pause ();
     public void wake ();
+    public void addEnemys (ArrayList <Character> enemy);
 }

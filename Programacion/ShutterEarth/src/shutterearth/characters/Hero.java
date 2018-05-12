@@ -66,6 +66,13 @@ public class Hero extends Scene implements Character
         counterAnimation = 0;
         animation = false;
     }
+    
+    @Override
+    public void addEnemys (ArrayList <Character> enemy)
+    {
+        inventory.addEnemys(enemy);
+    }
+    
     @Override
     public void goUp()
     {

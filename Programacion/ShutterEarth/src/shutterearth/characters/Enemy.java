@@ -5,6 +5,7 @@
  */
 package shutterearth.characters;
 
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -200,6 +201,12 @@ public class Enemy extends Scene implements Character
 
     @Override
     public void init(GameContainer gc) throws SlickException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addEnemys(ArrayList<Character> enemy)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

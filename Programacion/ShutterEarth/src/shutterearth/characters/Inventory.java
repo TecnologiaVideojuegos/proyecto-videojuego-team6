@@ -24,12 +24,12 @@ public class Inventory extends Scene
     private int index;
     private final ArrayList <Shot> shots;
     private final ArrayList <Shot> toRemove;
-    private final Hero hero;
+    private final Character hero;
     private final int delay;
     private int counter;
+    private  ArrayList <Character> enemy;
     
-    
-    public Inventory (ArrayList <int[]> guns, Hero hero)
+    public Inventory (ArrayList <int[]> guns, Character hero)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
@@ -44,6 +44,11 @@ public class Inventory extends Scene
         });
         this.delay = 40;
         this.counter = 0;
+    }
+    
+    public void addEnemys (ArrayList <Character> enemy)
+    {
+        this.enemy = enemy;
     }
     
     public void rightGun()

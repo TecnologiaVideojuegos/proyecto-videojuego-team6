@@ -5,6 +5,7 @@
  */
 package shutterearth.map;
 
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -14,12 +15,12 @@ import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
-import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
+import shutterearth.characters.Character;
 
 /**
  *
@@ -41,6 +42,7 @@ public class Field extends Scene implements InputProviderListener
     private final Hero hero;
     private final int stage;
     private boolean battle;
+    private final ArrayList <Character> enemy;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -50,6 +52,13 @@ public class Field extends Scene implements InputProviderListener
         this.battle = false;
         
         hero.place(400, 100, 500);
+        
+        enemy = new ArrayList <>();
+        switch (stage)
+        {
+            
+        }
+        hero.addEnemys(enemy);
     }
     
     @Override
@@ -91,9 +100,8 @@ public class Field extends Scene implements InputProviderListener
         {
             if (command.equals(CONTROL))
             {
-                this.setState(STATE.FREEZE);
-                hud.pause();
-                Game.addScene(new Pause(this,hud));
+                this.pause();
+                Game.addScene(new Pause(this));
             }
             else if (command.equals(UP))
             {
@@ -131,6 +139,18 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void controlReleased(Command cmnd) {}
  
+    public void pause ()
+    {
+        this.setState(STATE.FREEZE);
+        hud.pause();
+    }
+    
+    public void wake ()
+    {
+        this.setState(STATE.FREEZE);
+        hud.pause();
+    }
+    
     public void exit ()
     {
         Game.removeSence(this);
