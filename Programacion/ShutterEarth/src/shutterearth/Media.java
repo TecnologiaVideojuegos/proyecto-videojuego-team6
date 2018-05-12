@@ -42,6 +42,7 @@ public class Media extends Scene
     private int where;
     private int maxW;
     private int next;
+    private boolean oneIn;
     
     public Media ()
     {
@@ -73,55 +74,61 @@ public class Media extends Scene
         g.fill(black);
         g.setColor(Color.yellow);
         g.fill(yellow);
+        g.drawString("Loading...", black.getX(), black.getY()+black.getHeight()+20);
     }
 
     @Override
     public void Update(GameContainer gc, int t) throws SlickException
     {
+        oneIn = false;
         try
         {
             for (IMAGE img : IMAGE.values())
             {
-                if (!images.containsKey(img))
+                if (!images.containsKey(img) && !oneIn)
                 {
                     if (img.name().equals("GUN0")||img.name().equals("GUN1")||img.name().equals("GUN2")||img.name().equals("GUN3")|img.name().equals("GUN4"))
                         images.put(img, new Image("./media/BULLET.png"));
                     else
                         images.put(img, new Image("./media/"+img.name()+".png"));
                     where ++;
+                    oneIn = true;
                     break;
                 }
             }
             
             for (SPRITE spt : SPRITE.values())
             {
-                if (!sprites.containsKey(spt))
+                if (!sprites.containsKey(spt) && !oneIn)
                 {
                     sprites.put(spt, new Animation (new SpriteSheet("./media/"+spt.name()+".png",281,300),180));
                     where ++;
+                    oneIn = true;
                     break;
                 }
             }
             
             for (MUSIC ms : MUSIC.values())
             {
-                if (!music.containsKey(ms))
+                if (!music.containsKey(ms) && !oneIn)
                 {
                     music.put(ms, new Music("./media/"+ms.name()+".ogg", false));
                     where ++;
+                    oneIn = true;
                     break;
                 }
             }
             
             for (SOUND s : SOUND.values())
             {
-                if (!sound.containsKey(s))
+                if (!sound.containsKey(s) && !oneIn)
                 {
                     if (!s.name().equals("BAD"))
                         sound.put(s, new Sound("./media/"+s.name()+".ogg"));
                     else
                         sound.put(s, new Sound("./media/"+s.name()+".wav"));
                     where ++;
+                    oneIn = true;
                     break;
                 }
             }
