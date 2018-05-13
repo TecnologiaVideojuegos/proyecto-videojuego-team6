@@ -120,6 +120,7 @@ public class Register extends Scene implements InputProviderListener
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.removeSence(this);
+                Game.addScene(new Access());
                 newUser.deactivate();
                 newPswd.deactivate();
             }

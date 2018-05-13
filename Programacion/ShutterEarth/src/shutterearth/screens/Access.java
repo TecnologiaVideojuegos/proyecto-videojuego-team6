@@ -125,6 +125,7 @@ public class Access extends Scene implements InputProviderListener
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.addScene(new Register());
+                Game.removeSence(this);
             }
             else if (exit.contains(xMouse, yMouse))
             {

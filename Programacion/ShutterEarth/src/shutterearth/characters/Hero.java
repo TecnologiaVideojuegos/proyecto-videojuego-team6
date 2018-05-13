@@ -102,7 +102,15 @@ public class Hero extends CharactX
         } 
         if (this.isAlive())
         {
-            Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_DER : Media.SPRITE.HERO_1_IZQ).draw(xPos,yPos,w,h);
+            if (!jumping())
+            {
+                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_DER : Media.SPRITE.HERO_1_IZQ).draw(xPos,yPos,w,h);
+            }
+            else
+            {
+                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_SDE : Media.SPRITE.HERO_1_SIZ).draw(xPos,yPos,w,h);
+            }
+            
             if (animation)
             {
                 Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
