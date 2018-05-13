@@ -12,6 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.Control;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.MouseButtonControl;
@@ -29,6 +30,7 @@ public class Store extends Scene implements InputProviderListener
 {
     private InputProvider provider;
     private final Command click;
+    Control mouse = new MouseButtonControl(0);
     private final Rectangle exit;
     private final Rectangle left;
     private final Rectangle right;
@@ -161,6 +163,8 @@ public class Store extends Scene implements InputProviderListener
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 Game.save(hero);
+                provider.unbindCommand(mouse);
+                provider.removeListener(this);
                 Game.addScene(new StartMenu(hero));
                 Game.removeSence(this);
                 Game.removeSence(lives);
@@ -227,7 +231,7 @@ public class Store extends Scene implements InputProviderListener
     {
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
-        provider.bindCommand(new MouseButtonControl(0), click);
+        provider.bindCommand(mouse, click);
         input = gc.getInput();  
     }
     

@@ -13,6 +13,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.Control;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
@@ -42,6 +43,20 @@ public class Field extends Scene implements InputProviderListener
     private final Command I_LEFT = new BasicCommand("I_LEFT");
     private final Command I_RIGHT = new BasicCommand("I_RIGHT");
     private final Command SHOT = new BasicCommand("SHOT");
+    
+    private final Control back = new KeyControl(Input.KEY_BACK);
+    private final Control esc = new KeyControl(Input.KEY_ESCAPE);
+    private final Control up = new KeyControl(Input.KEY_UP);
+    private final Control down = new KeyControl(Input.KEY_DOWN);
+    private final Control right = new KeyControl(Input.KEY_RIGHT);
+    private final Control left = new KeyControl(Input.KEY_LEFT);
+    private final Control e = new KeyControl(Input.KEY_E);
+    private final Control w = new KeyControl(Input.KEY_W);
+    private final Control s = new KeyControl(Input.KEY_S);
+    private final Control d = new KeyControl(Input.KEY_D);
+    private final Control a = new KeyControl(Input.KEY_A);
+    private final Control q = new KeyControl(Input.KEY_Q);
+    private final Control space = new KeyControl(Input.KEY_SPACE);
     
     private final HUD hud;
     private final Hero hero;
@@ -152,9 +167,9 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
-                sh.forEach((s)->
+                sh.forEach((ship)->
                 {
-                    s.activate();
+                    ship.activate();
                 });
                 sh.clear();
             }
@@ -175,18 +190,32 @@ public class Field extends Scene implements InputProviderListener
                     }
                     else
                     {
+                        hero.save();
+                        provider.unbindCommand(back);
+                        provider.unbindCommand(esc);
+                        provider.unbindCommand(up);
+                        provider.unbindCommand(down);
+                        provider.unbindCommand(right);
+                        provider.unbindCommand(left);
+                        provider.unbindCommand(w);
+                        provider.unbindCommand(a);
+                        provider.unbindCommand(s);
+                        provider.unbindCommand(d);
+                        provider.unbindCommand(q);
+                        provider.unbindCommand(e);
+                        provider.unbindCommand(space);
+                        provider.removeListener(this);
                         hero.setStage(stage+1);
                         SavedHero hs = hero.save();
-                        //INVENTORY
                         hs.reInventory();
                         Hero h = new Hero (hs);
                         HUD hudn = new HUD(h);
                         Field field = new Field(h,stage+1,hudn);
                         Game.removeSence(this);
                         hud.end();
-                        enemy.forEach((e)->
+                        enemy.forEach((enem)->
                         {
-                            e.end();
+                            enem.end();
                         });
                         field.start();
                     }
@@ -212,15 +241,19 @@ public class Field extends Scene implements InputProviderListener
         
         for (int x = 0; x<2; x++)
         {
-            provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
-            provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
-            provider.bindCommand(new KeyControl(Input.KEY_UP), UP);
-            provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
-            provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
-            provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
-            provider.bindCommand(new KeyControl(Input.KEY_E), I_RIGHT);
-            provider.bindCommand(new KeyControl(Input.KEY_Q), I_LEFT);
-            provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
+            provider.bindCommand(back, CONTROL);
+            provider.bindCommand(esc, CONTROL);
+            provider.bindCommand(up, UP);
+            provider.bindCommand(down, DOWN);
+            provider.bindCommand(right, RIGHT);
+            provider.bindCommand(left, LEFT);
+            provider.bindCommand(e, I_RIGHT);
+            provider.bindCommand(w, UP);
+            provider.bindCommand(s, DOWN);
+            provider.bindCommand(d, RIGHT);
+            provider.bindCommand(a, LEFT);
+            provider.bindCommand(q, I_LEFT);
+            provider.bindCommand(space, SHOT);
         }
     }
 
@@ -274,9 +307,9 @@ public class Field extends Scene implements InputProviderListener
     {
         this.setState(STATE.FREEZE);
         hud.pause();
-        enemy.forEach((e)->
+        enemy.forEach((enem)->
         {
-            e.pause();
+            enem.pause();
         });
     }
     
@@ -284,20 +317,35 @@ public class Field extends Scene implements InputProviderListener
     {
         this.setState(STATE.ON);
         hud.wake();
-        enemy.forEach((e)->
+        enemy.forEach((enem)->
         {
-            e.wake();
+            enem.wake();
         });
     }
     
     public void exit ()
     {
         hero.save();
+        provider.unbindCommand(back);
+        provider.unbindCommand(esc);
+        provider.unbindCommand(up);
+        provider.unbindCommand(down);
+        provider.unbindCommand(right);
+        provider.unbindCommand(left);
+        provider.unbindCommand(w);
+        provider.unbindCommand(a);
+        provider.unbindCommand(s);
+        provider.unbindCommand(d);
+        provider.unbindCommand(q);
+        provider.unbindCommand(e);
+        provider.unbindCommand(space);
+        provider.removeListener(this);
+        
         Game.removeSence(this);
         hud.end();
-        enemy.forEach((e)->
+        enemy.forEach((enem)->
         {
-            e.end();
+            enem.end();
         });
         Game.addScene(new StartMenu(hero.save())); 
         Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
@@ -308,14 +356,14 @@ public class Field extends Scene implements InputProviderListener
         Game.addScene(this);
         Game.addScene(hud);
         hero.setField(this);
-        enemy.forEach((e)->
+        enemy.forEach((enem)->
         {
-            e.start();
+            enem.start();
         });
         hero.start();
-        enemy.forEach((e)->
+        enemy.forEach((enem)->
         {
-            e.startI();
+            enem.startI();
         });
         hero.startI();
     }

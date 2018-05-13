@@ -12,6 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.Control;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
@@ -40,8 +41,9 @@ public class Access extends Scene implements InputProviderListener
     private final int ty;
     private InputProvider provider;
     private final Command click;
+    Control mouse = new MouseButtonControl(0);
+    Control tb = new KeyControl(Input.KEY_TAB);
     private final Command tab;
-    private final Command any;
     private boolean clicked;
     private int xMouse;
     private int yMouse;
@@ -68,7 +70,6 @@ public class Access extends Scene implements InputProviderListener
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
         tab = new BasicCommand("tab");
-        any = new BasicCommand("any");
         clicked = false;
         this.pass = "";
         focus = true;
@@ -109,6 +110,9 @@ public class Access extends Scene implements InputProviderListener
                 if(hero != null)
                 {
                     Game.getMedia().getSound(Media.SOUND.SHOT).play();
+                    provider.unbindCommand(mouse);
+                    provider.unbindCommand(tb);
+                    provider.removeListener(this);
                     StartMenu startMenu = new StartMenu(hero);
                     Game.addScene(startMenu);
                     Game.removeSence(this);
@@ -124,12 +128,18 @@ public class Access extends Scene implements InputProviderListener
             else if (register.contains(xMouse, yMouse))
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
+                provider.unbindCommand(mouse);
+                provider.unbindCommand(tb);
+                provider.removeListener(this);
                 Game.addScene(new Register());
                 Game.removeSence(this);
             }
             else if (exit.contains(xMouse, yMouse))
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
+                provider.unbindCommand(mouse);
+                provider.unbindCommand(tb);
+                provider.removeListener(this);
                 Game.removeSence(this);
                 Game.exit();
             }
@@ -152,13 +162,9 @@ public class Access extends Scene implements InputProviderListener
     public void init(GameContainer gc) throws SlickException
     {
         provider = new InputProvider(gc.getInput());
-        provider.addListener(this);
-        provider.bindCommand(new MouseButtonControl(0), click);
-        provider.bindCommand(new KeyControl(Input.KEY_TAB), tab);
-        for (int x = 30; x < 45; x++)
-        {
-            provider.bindCommand(new KeyControl(x), any);
-        }
+        provider.addListener(this);       
+        provider.bindCommand(mouse, click);
+        provider.bindCommand(tb, tab);
         input = gc.getInput();  
         this.user = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 23);
         this.pswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 23);
