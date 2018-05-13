@@ -32,8 +32,8 @@ public class Ship extends CharactX
         this.hero = hero;
         this.state = 0;
         this.side = 0;
-        w = Game.getX()/9;
-        h = Game.getY()/9;
+        w = Game.getX()/10;
+        h = Game.getY()/10;
         animationTime = 20;
         inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20);
 
@@ -47,6 +47,7 @@ public class Ship extends CharactX
         box = new Rectangle (xPos,yPos,w,h);
         first = true;
         count = 0;
+        this.target = 0;
     }
 
     @Override
@@ -66,6 +67,7 @@ public class Ship extends CharactX
             {
                 Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
             }
+            g.drawLine(0, target, Game.getX(), target);
         } 
     }
 
@@ -80,6 +82,7 @@ public class Ship extends CharactX
                 {
                     case 0: //change side
                         state = (int)(Math.random()*2 + 1);
+                        Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                         break;
                     case 1: //GO RIGTH                  
                         if (yPos < 0)
@@ -107,6 +110,7 @@ public class Ship extends CharactX
                             state = 3;
                             xVel = 0;
                             side = 1;
+                            Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                         }
                         break;
                     case 2: //GO LEFT
@@ -133,7 +137,9 @@ public class Ship extends CharactX
                         else
                         {
                             state = 3;
+                            xVel = 0;
                             side = 2;
+                            Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                         }
                         break;
                     case 3: //SHOT

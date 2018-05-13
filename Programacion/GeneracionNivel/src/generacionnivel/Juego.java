@@ -24,7 +24,7 @@ public class Juego extends BasicGame{
     
     public Juego(String t) throws SlickException{
         super(t);
-        g.setDisplayMode(gW, gH, true);
+        g.setDisplayMode(gW, gH, false);
         g.start();
     }
 
