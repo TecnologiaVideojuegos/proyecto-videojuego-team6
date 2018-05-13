@@ -104,11 +104,33 @@ public class Hero extends CharactX
         {
             if (!jumping())
             {
-                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_DER : Media.SPRITE.HERO_1_IZQ).draw(xPos,yPos,w,h);
+                switch (inventory.getGunID())
+                {
+                    case 0:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_DER : Media.SPRITE.HERO_1_IZQ).draw(xPos,yPos,w,h);
+                    break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_2_DER : Media.SPRITE.HERO_2_IZQ).draw(xPos,yPos,w,h);
+                    break;
+                }
             }
             else
             {
-                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_SDE : Media.SPRITE.HERO_1_SIZ).draw(xPos,yPos,w,h);
+                switch (inventory.getGunID())
+                {
+                    case 0:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_SDE : Media.SPRITE.HERO_1_SIZ).draw(xPos,yPos,w,h);
+                    break;
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_2_SDE : Media.SPRITE.HERO_2_SIZ).draw(xPos,yPos,w,h);
+                    break;
+                }
             }
             
             if (animation)

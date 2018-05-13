@@ -31,7 +31,7 @@ public class Media extends Scene
     private final HashMap <SOUND,Sound> sound;
        
     public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ};    
-    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ};
+    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
     public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD,HITED,HITED_ALIEN,FIRE_ALIEN};
     
@@ -105,10 +105,25 @@ public class Media extends Scene
                         sprites.put(spt, new Animation (new SpriteSheet("./media/"+spt.name()+".png",spt.name().charAt(spt.name().length()-3)=='S'?300:281,spt.name().charAt(spt.name().length()-3)=='S'?320:300),180));
                     else
                     {
-                        if (spt.name().equals("HERO_1_DER")||spt.name().equals("HERO_1_IZQ"))
-                            sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",312,408),180));
-                        else if (spt.name().equals("HERO_1_SDE")||spt.name().equals("HERO_1_SIZ"))
-                            sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",265,424),180));
+                        switch (spt.name())
+                        {
+                            case "HERO_1_DER":
+                            case "HERO_1_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",312,408),180));
+                                break;
+                            case "HERO_1_SDE":
+                            case "HERO_1_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",265,424),180));
+                                break;
+                            case "HERO_2_DER":
+                            case "HERO_2_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",328,408),180));
+                                break;
+                            case "HERO_2_SDE":
+                            case "HERO_2_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",280,424),180));
+                                break;
+                        }
                     }
                     where ++;
                     oneIn = true;

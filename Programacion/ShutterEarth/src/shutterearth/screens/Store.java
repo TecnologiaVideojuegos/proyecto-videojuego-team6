@@ -113,7 +113,18 @@ public class Store extends Scene implements InputProviderListener
         Game.getMedia().getImage(Media.IMAGE.FORWARD).draw(right.getX(),right.getY(),right.getWidth(),right.getHeight());
         if (index == 0)
         {
-            Game.getMedia().getSprit(Media.SPRITE.HERO_1_DER).draw(x,y,w,h);
+            switch (hero.getStage()/2)
+            {
+                case 0:
+                    Game.getMedia().getSprit(Media.SPRITE.HERO_1_DER).draw(x,y,w,h);
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    Game.getMedia().getSprit(Media.SPRITE.HERO_2_DER).draw(x,y,w,h);
+                    break;
+            }
         }
         else
         {
