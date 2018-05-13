@@ -46,7 +46,7 @@ public class Inventory extends Scene
         this.counter = 0;
     }
     
-    public Inventory (int[] gun, Charact hero)
+    public Inventory (int[] gun, Charact hero, int delay)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
@@ -55,7 +55,7 @@ public class Inventory extends Scene
         index = 0;
         this.inventory = new ArrayList<>();
         inventory.add(new Gun(gun[0],gun[1],1));
-        this.delay = 200;
+        this.delay = delay;
         this.counter = 0;
     }
     
