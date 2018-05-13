@@ -36,7 +36,7 @@ public class Hero extends CharactX
         this.inventory = new Inventory (hero.getInventory(),this);
         
         this.h = Game.getY()/11;
-        this.w = (h*9)/17;
+        this.w = (h*9)/15;
         this.jumpUp = false;
         this.jumpDown = false;
         this.over = false;
@@ -102,7 +102,7 @@ public class Hero extends CharactX
         } 
         if (this.isAlive())
         {
-            Game.getMedia().getSprit(xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
+            Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_1_DER : Media.SPRITE.HERO_1_IZQ).draw(xPos,yPos,w,h);
             if (animation)
             {
                 Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);

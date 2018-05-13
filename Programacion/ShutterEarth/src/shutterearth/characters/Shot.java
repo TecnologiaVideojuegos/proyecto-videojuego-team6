@@ -77,7 +77,7 @@ public class Shot
             {
                     first = false;
                     hero.doShotAnimation();
-                    y = hero.getBox().getY()+offset;
+                    y = hero.getBox().getY()+offset-h;
                     x = hero.getBox().getCenterX();
                     maxR = hero.getColum().getMaxX();
                     maxL = hero.getColum().getX();
