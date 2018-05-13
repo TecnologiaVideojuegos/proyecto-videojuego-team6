@@ -35,8 +35,9 @@ public class Ship extends CharactX
         h = Game.getY()/9;
         animationTime = 20;
         inventory = new Inventory(new int[]{type+2,stage/2},this);
-        xPos = Game.getX();
-        yPos = -h;
+
+        xPos = (int)(Math.random()*(Game.getX()+1000) - 500);
+        yPos = -(int)(Math.random()*500+h);
         floor = 0;
         
         line = new Rectangle (0,yPos,Game.getX(),h);
@@ -138,11 +139,11 @@ public class Ship extends CharactX
                         gess = (int)(Math.random()*4);
                         if (gess==0)
                         {
-                            target += Math.random()*Game.getY()/8;
+                            target += Math.random()*Game.getY()/10;
                         }
                         else if (gess==1)
                         {
-                            target -= Math.random()*Game.getY()/8;
+                            target -= Math.random()*Game.getY()/10;
                         }
                         first = false;
                     }

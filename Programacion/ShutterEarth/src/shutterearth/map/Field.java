@@ -63,6 +63,7 @@ public class Field extends Scene implements InputProviderListener
         sh = new ArrayList <>();
         
         sh.add(new Ship(2,3,hero));
+        sh.add(new Ship(2,3,hero));
         sh.forEach((s) ->
         {
             enemy.add(s);
