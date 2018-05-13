@@ -41,7 +41,9 @@ public class SavingStation
             System.out.println("CREATING BASE DATA");
             ArrayList <SavedHero> base = new ArrayList <> ();
             SavedHero Juan = new SavedHero ("GS7", "qwerty77", true);
+            SavedHero UndMe = new SavedHero ("UndMe", "qwerty", true);
             base.add(Juan);
+            base.add(UndMe);
             
             saves = new HashMap <> ();
             base.forEach((h) ->
