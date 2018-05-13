@@ -16,6 +16,7 @@ public class Juego extends BasicGame{
     
     private Input entrada;
     private Celda[][] celdas = new Celda[8][8];
+    private int[] filasCount = new int[8];
     private Color[][] colores = new Color[8][8];
     private Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
     
@@ -39,6 +40,7 @@ public class Juego extends BasicGame{
         for(int i=0;i<celdas.length;i++)
             for(int j=0;j<celdas[i].length;j++)
                 celdas[i][j] = new Celda(((i%8)*Prop.ceWI*gW)+Prop.ceWI*gW,((j%8)*(Prop.ceTHIRDH*gH*3))+Prop.hubH*gH,Prop.ceWI*gW,Prop.ceTHIRDH*gH*3);
+        for(int i=0;i<filasCount.length;i++) filasCount[i] = celdas.length;
     }
     private void resetColores(){
         for(int i=0;i<colores.length;i++)
@@ -80,13 +82,13 @@ public class Juego extends BasicGame{
         celdas[r][c].setHab(hab);
         this.nivel.add(hab);
         do{
-            if(hab.getCount()<2) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
+            if((hab.getCount()<2)&&(filasCount[c]>1)) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
             else if(hab.getCount()==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
             else rand = ((int)(Math.random()*400))%4;
             try{
                 switch(rand){
                     case 0:
-                        if(!celdas[r+1][c].isVisited()){//derecha
+                        if((!celdas[r+1][c].isVisited())&&(filasCount[c]>1)){//derecha
                             cellCount++;
                             celdas[r+1][c].setVisited(true);
                             celdas[r+1][c].setHab(hab);
@@ -97,7 +99,7 @@ public class Juego extends BasicGame{
                         c = c;
                         break;
                     case 1:
-                        if(!celdas[r-1][c].isVisited()){//izquierda
+                        if((!celdas[r-1][c].isVisited())&&(filasCount[c]>1)){//izquierda
                             cellCount++;
                             celdas[r-1][c].setVisited(true);
                             celdas[r-1][c].setHab(hab);
@@ -138,7 +140,12 @@ public class Juego extends BasicGame{
                         c = c+1;
                         break;
                 }
-            } catch (Exception e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
+            } catch (IndexOutOfBoundsException e){
+                for(int i=0;i<e.getStackTrace().length;i++){
+                    if(i!=0) System.out.print("   ");
+                    System.out.println(e.getStackTrace()[i].getClassName()+" "+e.getStackTrace()[i].getMethodName()+" "+e.getStackTrace()[i].getLineNumber());
+                }                    
+            }//Captura el IndexOutOfBoundsException y lo vuelve a intentar
         }while((cellCount<cellNum)||(hab.getCount()==1));
     }
     

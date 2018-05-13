@@ -8,8 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Habitacion extends Rectangle{
-    private ArrayList <Salida> salidasSup;
-    private ArrayList <Salida> salidasInf;
+    private ArrayList <Salida> salidasSup = new ArrayList<>();
+    private ArrayList <Salida> salidasInf = new ArrayList<>();
     private int cellCount;
     private float maxI;
     private float maxD;
