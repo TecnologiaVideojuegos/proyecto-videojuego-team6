@@ -58,8 +58,13 @@ public class Field extends Scene implements InputProviderListener
     private boolean animationStarted;
     private int diagonal;
     
+    private final int xt;
+    private final int yt;
+    
     public Field (Hero hero, int stage, HUD hud)
     {
+        this.xt = 10;
+        this.yt = 15 + Game.getX()/30 + Game.getX()/300;
         this.stage = stage;
         this.hero = hero;
         this.hud = hud;
@@ -122,6 +127,16 @@ public class Field extends Scene implements InputProviderListener
         {
             g.setColor(Color.black);
             g.fill(animation);
+            g.setColor(Color.yellow);
+        }
+        if (battle)
+        {
+            g.drawString("Stage: "+stage, xt, yt);
+        }
+        else
+        {
+            g.setColor(Color.black);
+            g.drawString("Stage: "+stage, xt, yt);
             g.setColor(Color.yellow);
         }
     }
