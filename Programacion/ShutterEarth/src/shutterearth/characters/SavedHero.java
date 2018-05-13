@@ -112,4 +112,13 @@ public class SavedHero implements Serializable
     {
         this.stage.set(stage);
     }
+    
+    public void reInventory()
+    {
+        for (int x = 0; x < (this.getStage()/2)+1; x++)
+        {
+            if (this.getInventory().get(x)[1]<1)
+                this.getInventory().get(x)[1] = 1;
+        }
+    }
 }

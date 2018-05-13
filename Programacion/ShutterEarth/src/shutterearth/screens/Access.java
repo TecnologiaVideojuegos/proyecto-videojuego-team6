@@ -207,4 +207,10 @@ public class Access extends Scene implements InputProviderListener
         }
         pswd.setText(txt);
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Access ";
+    }
 }

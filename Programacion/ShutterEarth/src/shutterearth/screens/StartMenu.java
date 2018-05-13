@@ -120,4 +120,9 @@ public class StartMenu extends Scene implements InputProviderListener
     @Override
     public void controlReleased(Command cmnd){}
     
+    @Override
+    public String toString()
+    {
+        return "Start "+this.hero.toString();
+    }
 }

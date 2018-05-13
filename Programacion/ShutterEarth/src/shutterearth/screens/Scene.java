@@ -79,4 +79,7 @@ public abstract class Scene implements Comparable<Scene>
     {
         return state == STATE.FREEZE;
     }
+    
+    @Override
+    public abstract String toString ();
 }

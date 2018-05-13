@@ -449,4 +449,10 @@ public class TextDisplayer extends Scene implements InputProviderListener
 
     @Override
     public void controlReleased(Command cmnd){}
+    
+    @Override
+    public String toString()
+    {
+        return "TextDisplayer "+this.step;
+    }
 }

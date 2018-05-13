@@ -30,6 +30,7 @@ public class Game extends BasicGame
     private static boolean debug;
     private float delta;
     private static float step;
+    private static int reward;
     
     public synchronized static void setDebug (boolean debug)
     {
@@ -46,6 +47,11 @@ public class Game extends BasicGame
         return Game.step;
     }
     
+    public static int getReward()
+    {
+        return reward;
+    }
+    
     public Game (String gamename)
     {
         super(gamename);
@@ -58,6 +64,7 @@ public class Game extends BasicGame
         Game.yVelDown = -8f;
         developer = null;
         Game.debug = true;
+        Game.reward = 3;
     }
     
     // Add a scene to the list and call the init method
@@ -229,5 +236,18 @@ public class Game extends BasicGame
         {
             developer.setHero(hero);
         }
+    }
+    
+    public synchronized static int numberScenes ()
+    {
+        return scenes.size();
+    }
+    
+    public synchronized static void sceneLog()
+    {
+        scenes.forEach((s) ->
+        {
+            System.out.println(s.toString());
+        });
     }
 }

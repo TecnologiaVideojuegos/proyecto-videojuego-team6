@@ -111,4 +111,10 @@ public class Enemy extends CharactX
         Game.getMedia().getSound(Media.SOUND.FIRE_ALIEN).play();
         animation = true;
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Enemy "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
+    }
 }

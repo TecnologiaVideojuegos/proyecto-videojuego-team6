@@ -39,6 +39,7 @@ public class Ship extends CharactX
         h = Game.getY()/10;
         animationTime = 20;
         inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20+type*100);
+        this.field = field;
 
         xPos = (int)(Math.random()*(Game.getX()+1000) - 500);
         yPos = -(int)(Math.random()*1000+h);
@@ -302,5 +303,11 @@ public class Ship extends CharactX
     {
         Game.getMedia().getSound(Media.SOUND.FIRE_ALIEN).play();
         animation = true;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Ship "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
     }
 }

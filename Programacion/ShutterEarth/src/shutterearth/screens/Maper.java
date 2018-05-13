@@ -66,6 +66,7 @@ public class Maper extends Scene  implements InputProviderListener
         animationStarted = false;
         radix = 0;
         animation = new Circle (0,0,0);
+        stage = 0;
     }
     
     @Override
@@ -158,4 +159,10 @@ public class Maper extends Scene  implements InputProviderListener
 
     @Override
     public void controlReleased(Command cmnd){}
+    
+    @Override
+    public String toString()
+    {
+        return "Maper "+this.hero.toString()+" "+this.stage;
+    }
 }

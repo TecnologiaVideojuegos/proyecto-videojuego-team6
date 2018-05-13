@@ -134,4 +134,10 @@ public class HUD extends Scene
         badHealth.setState(Scene.STATE.ON);
         hero.wake();
     }
+    
+    @Override
+    public String toString()
+    {
+        return "HUD "+this.hero.toString();
+    }
 }

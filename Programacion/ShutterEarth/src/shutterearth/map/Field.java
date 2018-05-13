@@ -24,6 +24,7 @@ import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
 import shutterearth.characters.Charact;
 import shutterearth.characters.Enemy;
+import shutterearth.characters.SavedHero;
 import shutterearth.characters.Ship;
 
 /**
@@ -75,8 +76,8 @@ public class Field extends Scene implements InputProviderListener
         ArrayList <Charact> h = new ArrayList <>();
         h.add(hero);
         
-        sh.add(new Ship(1,3,hero,this));
-        sh.add(new Ship(1,3,hero,this));
+        sh.add(new Ship(1,stage,hero,this));
+        sh.add(new Ship(1,stage,hero,this));
         this.shipCounter = 200;
         sh.forEach((s) ->
         {
@@ -117,25 +118,31 @@ public class Field extends Scene implements InputProviderListener
             Game.getMedia().getImage(Media.IMAGE.BATTLE).draw(0,0,Game.getX(),Game.getY());
         else
             Game.getMedia().getImage(Media.IMAGE.GAME).draw(0,0,Game.getX(),Game.getY());
-        
-        g.setColor(Color.black);
-        g.fill(animation);
-        g.setColor(Color.yellow);
+        if (animationStarted)
+        {
+            g.setColor(Color.black);
+            g.fill(animation);
+            g.setColor(Color.yellow);
+        }
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        if (counter < shipCounter)
+        if (!sh.isEmpty())
         {
-            counter += 1*t;
-        }
-        else
-        {
-            sh.forEach((s)->
+            if (counter < shipCounter)
             {
-                s.activate();
-            });
+                counter += 1*t;
+            }
+            else
+            {
+                sh.forEach((s)->
+                {
+                    s.activate();
+                });
+                sh.clear();
+            }
         }
         if (animationStarted)
         {
@@ -145,8 +152,39 @@ public class Field extends Scene implements InputProviderListener
             animation.setCenterY(Game.getY()/2);
             if (radix > diagonal)
             {
-                this.exit();
+                if (enemy.isEmpty() && hero.isAlive())
+                {
+                    if (stage >= 10)
+                    {
+                        this.exit();
+                    }
+                    else
+                    {
+                        hero.setStage(stage+1);
+                        SavedHero hs = hero.save();
+                        //INVENTORY
+                        hs.reInventory();
+                        Hero h = new Hero (hs);
+                        HUD hudn = new HUD(h);
+                        Field field = new Field(h,stage+1,hudn);
+                        Game.removeSence(this);
+                        hud.end();
+                        enemy.forEach((e)->
+                        {
+                            e.end();
+                        });
+                        field.start();
+                    }
+                }
+                else
+                {
+                    this.exit();
+                }
             }
+        }
+        else if (enemy.isEmpty() && hero.isAlive())
+        {
+            this.startAnimation();
         }
     }
 
@@ -239,6 +277,7 @@ public class Field extends Scene implements InputProviderListener
     
     public void exit ()
     {
+        hero.save();
         Game.removeSence(this);
         hud.end();
         enemy.forEach((e)->
@@ -289,5 +328,11 @@ public class Field extends Scene implements InputProviderListener
     {
         Game.getMedia().getMusic(Media.MUSIC.BATTLE_SONG).loop();
         this.battle = true;
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Field "+this.hero.toString()+" "+this.stage;
     }
 }

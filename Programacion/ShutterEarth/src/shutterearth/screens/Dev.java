@@ -61,6 +61,10 @@ public class Dev extends Thread
                         data = preData.split(" ");
                         switch (data [0].toUpperCase())
                         {
+                            case "SCENES":
+                                    System.out.println(Game.numberScenes());
+                                    Game.sceneLog();
+                                break;
                             case "DEBUG":
                                     Game.setDebug(data[1].trim().equals("1"));
                                 break;

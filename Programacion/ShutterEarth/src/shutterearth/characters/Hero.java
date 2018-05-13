@@ -316,4 +316,10 @@ public class Hero extends CharactX
     {
         field.setHudAlien(enemy, LastLive);
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Hero "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
+    }
 }

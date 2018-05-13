@@ -99,4 +99,10 @@ public class LiveDisplayer extends Scene
 
     @Override
     public void init(GameContainer gc) throws SlickException{} 
+    
+    @Override
+    public String toString()
+    {
+        return "LiveDisplayer "+this.displayingHealth+" "+this.actualHealth;
+    }
 }

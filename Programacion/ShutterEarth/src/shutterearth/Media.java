@@ -185,4 +185,10 @@ public class Media extends Scene
                 return IMAGE.BULLET_R;
         }
     }
+    
+    @Override
+    public String toString()
+    {
+        return "Media";
+    }
 }

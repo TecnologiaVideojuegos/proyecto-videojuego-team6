@@ -130,25 +130,28 @@ public class Inventory extends Scene
             {
                 hero.getEnemys().forEach((e)->
                 {
-                    if (s.getBox().intersects(e.getBox()))
+                    if (e.isAlive())
                     {
-                        e.getDamage(s.getDamage());
-                        toRemove.add(s);
-                        if (e.getInfo() == 0)
+                        if (s.getBox().intersects(e.getBox()))
                         {
-                            Game.getMedia().getSound(Media.SOUND.HITED).play();
-                        }
-                        else
-                        {
-                            Game.getMedia().getSound(Media.SOUND.HITED_ALIEN).play();
-                            if (hero.getInfo()==0)
+                            e.getDamage(s.getDamage());
+                            toRemove.add(s);
+                            if (e.getInfo() == 0)
                             {
-                                hero.setHudAlien(e, e.getCurrentHealth()+s.getDamage());
+                                Game.getMedia().getSound(Media.SOUND.HITED).play();
                             }
-                        }
-                        if(hero.getInfo()==0 && !e.isAlive())
-                        {
-                            hero.hasKilled(e.getHealthMax());
+                            else
+                            {
+                                Game.getMedia().getSound(Media.SOUND.HITED_ALIEN).play();
+                                if (hero.getInfo()==0)
+                                {
+                                    hero.setHudAlien(e, e.getCurrentHealth()+s.getDamage());
+                                }
+                            }
+                            if(hero.getInfo()==0 && !e.isAlive())
+                            {
+                                hero.hasKilled(e.getHealthMax()*Game.getReward());
+                            }
                         }
                     }
                 });
@@ -196,5 +199,11 @@ public class Inventory extends Scene
     public void die()
     {
         Game.removeSence(this);
+    }
+    
+    @Override
+    public String toString()
+    {
+        return "Inventory "+this.hero.toString()+" "+this.inventory.size()+" "+this.shots.size();
     }
 }
