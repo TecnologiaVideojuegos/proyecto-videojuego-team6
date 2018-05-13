@@ -161,7 +161,7 @@ public class Ship extends CharactX
                         xVel = 0;
                         this.shot();
                         first = true;
-                        if (count > 200)
+                        if (count > 100)
                         {
                             count = 0;
                             state = 0;
