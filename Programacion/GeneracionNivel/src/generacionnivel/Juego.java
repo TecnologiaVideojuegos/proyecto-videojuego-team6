@@ -53,14 +53,15 @@ public class Juego extends BasicGame{
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        for(int i=0;i<celdas.length;i++){
+        /*for(int i=0;i<celdas.length;i++){
             for(int j=0;j<celdas[i].length;j++){
                 //if(colorear[i][j]) g.fill(celdas[i][j]);
                 //else g.draw(celdas[i][j]);
                 g.setColor(colores[i][j]);
                 g.fill(celdas[i][j]);
             }
-        }
+        }*/
+        for(Habitacion h : nivel) h.render(g);
         g.fill(personaje);
     }
     
@@ -76,6 +77,7 @@ public class Juego extends BasicGame{
         nivel.removeAll(nivel);//reset del nivel
         celdas[r][c].setVisited(true);
         Habitacion hab = new Habitacion(g,celdas[r][c]);
+        celdas[r][c].setHab(hab);
         this.nivel.add(hab);
         do{
             if(hab.getCount()<2) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
@@ -110,6 +112,7 @@ public class Juego extends BasicGame{
                             cellCount++;
                             celdas[r][c-1].setVisited(true);
                             hab = new Habitacion(g, celdas[r][c-1]);
+                            nivel.add(hab);
                             celdas[r][c-1].setHab(hab);
                             celdas[r][c].getHab().addSalidaSup(celdas[r][c], hab);
                             celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
@@ -124,6 +127,7 @@ public class Juego extends BasicGame{
                             cellCount++;
                             celdas[r][c+1].setVisited(true);
                             hab = new Habitacion(g, celdas[r][c+1]);
+                            nivel.add(hab);
                             celdas[r][c+1].setHab(hab);
                             celdas[r][c].getHab().addSalidaInf(celdas[r][c], hab);
                             celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
