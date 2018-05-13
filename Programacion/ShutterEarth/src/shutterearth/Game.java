@@ -29,6 +29,7 @@ public class Game extends BasicGame
     private static Dev developer;
     private static boolean debug;
     private float delta;
+    private static float step;
     
     public synchronized static void setDebug (boolean debug)
     {
@@ -38,6 +39,11 @@ public class Game extends BasicGame
     public synchronized static boolean debug ()
     {
         return Game.debug;
+    }
+    
+    public synchronized static float step ()
+    {
+        return Game.step;
     }
     
     public Game (String gamename)
@@ -131,6 +137,7 @@ public class Game extends BasicGame
         app = new AppGameContainer(new Game ("Shutter Earth"));
         setX(app.getScreenWidth()-50);
         setY(app.getScreenHeight()-50);
+        Game.step = Game.getX()/10;
         app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);

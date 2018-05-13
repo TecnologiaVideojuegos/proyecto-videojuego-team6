@@ -22,11 +22,6 @@ public class Hero extends CharactX
     private int stage;
     private int bullets;
     private int kills;
-
-    private float floor;
-    private boolean over;
-    private boolean jumpUp;
-    private boolean jumpDown;
     
     public Hero(SavedHero hero)
     {
@@ -97,8 +92,7 @@ public class Hero extends CharactX
     
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
-    {
-                
+    {        
         if (Game.debug())
         {
             for (Rectangle rect : this.debug())
@@ -195,6 +189,21 @@ public class Hero extends CharactX
         this.floor = floor + h;
     }
     
+    @Override
+    protected void setX(float x)
+    {
+        this.xPos = x;
+        box.setX(x);
+    }
+    @Override
+    protected void setY(float y)
+    {
+        this.yPos = y;
+        box.setY(y);
+        line.setY(y);
+        line.setHeight(floor+h-y);
+    }
+    
     public void hasKilled(int money)
     {
         bullets += money;
@@ -207,19 +216,6 @@ public class Hero extends CharactX
     public void inventoryRight()
     {
         inventory.rightGun();
-    }
-    
-    private void setX(float x)
-    {
-        this.xPos = x;
-        box.setX(x);
-    }
-    private void setY(float y)
-    {
-        this.yPos = y;
-        box.setY(y);
-        line.setY(y);
-        line.setHeight(floor+h-y);
     }
     
     public void setStage (int stage)

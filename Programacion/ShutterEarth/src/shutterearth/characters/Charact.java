@@ -44,4 +44,5 @@ public interface Charact
     public void wake ();
     public void addEnemys (ArrayList <Charact> enemy);
     public void startI();
+    public void activate();
 }
