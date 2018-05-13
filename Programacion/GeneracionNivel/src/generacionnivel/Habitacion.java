@@ -23,7 +23,7 @@ public class Habitacion extends Rectangle{
         cellCount = 1;
         
         Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
-        color = diccionario[((int)Math.random()*700)%diccionario.length];
+        color = diccionario[((int)(Math.random()*700))%diccionario.length];
     }
     
     public void addCelda(Celda c){
@@ -56,6 +56,9 @@ public class Habitacion extends Rectangle{
     public void render(Graphics g){
         g.setColor(color);
         g.fill(this);
+        g.setColor(Color.white);
+        for(Salida s : salidasInf) g.draw(s);
+        for(Salida s : salidasSup) g.draw(s);
     }
     
     public int getCount(){

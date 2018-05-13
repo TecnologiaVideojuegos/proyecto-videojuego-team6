@@ -81,6 +81,7 @@ public class Juego extends BasicGame{
         Habitacion hab = new Habitacion(g,celdas[r][c]);
         celdas[r][c].setHab(hab);
         this.nivel.add(hab);
+        filasCount[c]--;
         do{
             if((hab.getCount()<2)&&(filasCount[c]>1)) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
             else if(hab.getCount()==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
@@ -88,56 +89,64 @@ public class Juego extends BasicGame{
             try{
                 switch(rand){
                     case 0:
-                        if((!celdas[r+1][c].isVisited())&&(filasCount[c]>1)){//derecha
+                        if(!celdas[r+1][c].isVisited()){//derecha
                             cellCount++;
                             celdas[r+1][c].setVisited(true);
                             celdas[r+1][c].setHab(hab);
                             hab.addCelda(celdas[r+1][c]);
                             hab.addCount();
+                            filasCount[c]--;
                         }
                         r = r+1;
                         c = c;
                         break;
                     case 1:
-                        if((!celdas[r-1][c].isVisited())&&(filasCount[c]>1)){//izquierda
+                        if(!celdas[r-1][c].isVisited()){//izquierda
                             cellCount++;
                             celdas[r-1][c].setVisited(true);
                             celdas[r-1][c].setHab(hab);
                             hab.addCelda(celdas[r-1][c]);
                             hab.addCount();
+                            filasCount[c]--;
                         }
                         r = r-1;
                         c = c;
                         break;
                     case 2:
-                        if(!celdas[r][c-1].isVisited()){//arriba
-                            cellCount++;
-                            celdas[r][c-1].setVisited(true);
-                            hab = new Habitacion(g, celdas[r][c-1]);
-                            nivel.add(hab);
-                            celdas[r][c-1].setHab(hab);
-                            celdas[r][c].getHab().addSalidaSup(celdas[r][c], hab);
-                            celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
-                        } else{
-                            hab = celdas[r][c-1].getHab();
+                        if(!((!celdas[r][c-1].isVisited())&&(filasCount[c-1]<=1))){
+                            if(!celdas[r][c-1].isVisited()){//arriba
+                                cellCount++;
+                                celdas[r][c-1].setVisited(true);
+                                hab = new Habitacion(g, celdas[r][c-1]);
+                                nivel.add(hab);
+                                celdas[r][c-1].setHab(hab);
+                                celdas[r][c].getHab().addSalidaSup(celdas[r][c], hab);
+                                celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
+                                filasCount[c-1]--;
+                            } else{
+                                hab = celdas[r][c-1].getHab();
+                            }
+                            r = r;
+                            c = c-1;
                         }
-                        r = r;
-                        c = c-1;
                         break;
                     case 3:
-                        if(!celdas[r][c+1].isVisited()){//abajo
-                            cellCount++;
-                            celdas[r][c+1].setVisited(true);
-                            hab = new Habitacion(g, celdas[r][c+1]);
-                            nivel.add(hab);
-                            celdas[r][c+1].setHab(hab);
-                            celdas[r][c].getHab().addSalidaInf(celdas[r][c], hab);
-                            celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
-                        } else{
-                            hab = celdas[r][c+1].getHab();
+                        if(!((!celdas[r][c+1].isVisited())&&(filasCount[c+1]<=1))){
+                            if(!celdas[r][c+1].isVisited()){//abajo
+                                cellCount++;
+                                celdas[r][c+1].setVisited(true);
+                                hab = new Habitacion(g, celdas[r][c+1]);
+                                nivel.add(hab);
+                                celdas[r][c+1].setHab(hab);
+                                celdas[r][c].getHab().addSalidaInf(celdas[r][c], hab);
+                                celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
+                                filasCount[c+1]--;
+                            } else{
+                                hab = celdas[r][c+1].getHab();
+                            }
+                            r = r;
+                            c = c+1;
                         }
-                        r = r;
-                        c = c+1;
                         break;
                 }
             } catch (IndexOutOfBoundsException e){
