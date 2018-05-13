@@ -81,7 +81,7 @@ public class Field extends Scene implements InputProviderListener
         ArrayList <Charact> h = new ArrayList <>();
         h.add(hero);
         
-        sh.add(new Ship(1,stage,hero,this));
+        sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
         this.shipCounter = 200;
         sh.forEach((s) ->

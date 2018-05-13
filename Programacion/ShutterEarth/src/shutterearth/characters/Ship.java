@@ -28,6 +28,7 @@ public class Ship extends CharactX
     private int gess;
     private int wait;
     private final int type;
+    private final int bullets;
     
     public Ship (int type,int stage, Hero hero, Field field)
     {
@@ -35,8 +36,16 @@ public class Ship extends CharactX
         this.hero = hero;
         this.state = 0;
         this.side = 0;
-        w = Game.getX()/10;
-        h = Game.getY()/10;
+        if (type == 1)
+        {
+            w = Game.getX()/10;
+            h = Game.getY()/10;
+        }
+        else
+        {
+            w = Game.getX()/12;
+            h = (w*12)/7;
+        }
         animationTime = 20;
         inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20+type*100);
         this.field = field;
@@ -52,9 +61,10 @@ public class Ship extends CharactX
         first = true;
         count = 0;
         this.target = 0;
+        this.bullets = ((stage/2)>3?(stage/2):3);
         
-        this.healthCurrent = 50*stage*type;
-        this.healthMax = 50*stage*type;
+        this.healthCurrent = 10+50*stage*type;
+        this.healthMax = 10+50*stage*type;
     }
 
     @Override
@@ -63,12 +73,19 @@ public class Ship extends CharactX
         if (this.isAlive())
         {
             if (active)
-            {
+            {       
+                if (type == 1)
+                {
                     Game.getMedia().getImage(this.getFace()?Media.IMAGE.SHIP_RIGHT:Media.IMAGE.SHIP_LEFT).draw(xPos,yPos,w,h);
-                    if (animation)
-                    {
-                        Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos,yPos,w,h);
-                    }
+                }
+                else
+                {
+                    Game.getMedia().getImage(this.getFace()?Media.IMAGE.SHIP_F_DER:Media.IMAGE.SHIP_F_IZQ).draw(xPos,yPos,w,h);
+                }
+                if (animation)
+                {
+                    Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos,yPos,w,h);
+                }
             }
             if (Game.debug())
             {
@@ -97,22 +114,22 @@ public class Ship extends CharactX
                             Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                             break;
                         case 1: //GO RIGTH                  
-                            if (yPos < 0)
+                            if (yPos < 0 -(type==1?0:h+10))
                             {
                                 xVel = 0;
                                 this.goDown();
                             }
-                            else if (yPos > 15)
+                            else if (yPos > 15-(type==1?0:h+10))
                             {
                                 xVel = 0;
                                 this.goUp();
                             }
-                            else if (xPos+w>Game.getX())
+                            else if (xPos+w>Game.getX()+(type==1?0:20))
                             {
                                 yVel = 0;
                                 this.goLeft();
                             }
-                            else if (xPos+w<Game.getX()-15)
+                            else if (xPos+w<Game.getX()-15+(type==1?0:20))
                             {
                                 yVel = 0;
                                 this.goRight();
@@ -126,22 +143,22 @@ public class Ship extends CharactX
                             }
                             break;
                         case 2: //GO LEFT
-                            if (yPos < 0)
+                            if (yPos < 0-(type==1?0:h+10))
                             {
                                 xVel = 0;
                                 this.goDown();
                             }
-                            else if (yPos > 15)
+                            else if (yPos > 15-(type==1?0:h+10))
                             {
                                 xVel = 0;
                                 this.goUp();
                             }
-                            else if (xPos < 0)
+                            else if (xPos < 0-(type==1?0:20))
                             {
                                 yVel = 0;
                                 this.goRight();
                             }
-                            else if (xPos > 15)
+                            else if (xPos > 15-(type==1?0:20))
                             {
                                 yVel = 0;
                                 this.goLeft();
@@ -182,7 +199,10 @@ public class Ship extends CharactX
                             else
                             {
                                 xVel = 0;
-                                this.shot();
+                                if (type == 1)        
+                                    this.shot();
+                                else
+                                    inventory.shot(bullets);
                                 first = true;
                                 if (count > 100)
                                 {
