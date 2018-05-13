@@ -61,12 +61,15 @@ public class Field extends Scene implements InputProviderListener
         enemy = new ArrayList <>();
         en = new ArrayList <>();
         sh = new ArrayList <>();
+        ArrayList <Charact> h = new ArrayList <>();
+        h.add(hero);
         
-        sh.add(new Ship(2,3,hero));
-        sh.add(new Ship(2,3,hero));
+        sh.add(new Ship(1,3,hero,this));
+        sh.add(new Ship(1,3,hero,this));
         sh.forEach((s) ->
         {
             enemy.add(s);
+            s.addEnemys(h);
         });
         
         switch(stage)
@@ -130,15 +133,18 @@ public class Field extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         
-        provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
-        provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
-        provider.bindCommand(new KeyControl(Input.KEY_UP), UP);
-        provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
-        provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
-        provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
-        provider.bindCommand(new KeyControl(Input.KEY_E), I_RIGHT);
-        provider.bindCommand(new KeyControl(Input.KEY_Q), I_LEFT);
-        provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
+        for (int x = 0; x<2; x++)
+        {
+            provider.bindCommand(new KeyControl(Input.KEY_BACK), CONTROL);
+            provider.bindCommand(new KeyControl(Input.KEY_ESCAPE), CONTROL);
+            provider.bindCommand(new KeyControl(Input.KEY_UP), UP);
+            provider.bindCommand(new KeyControl(Input.KEY_DOWN), DOWN);
+            provider.bindCommand(new KeyControl(Input.KEY_RIGHT), RIGHT);
+            provider.bindCommand(new KeyControl(Input.KEY_LEFT), LEFT);
+            provider.bindCommand(new KeyControl(Input.KEY_E), I_RIGHT);
+            provider.bindCommand(new KeyControl(Input.KEY_Q), I_LEFT);
+            provider.bindCommand(new KeyControl(Input.KEY_SPACE), SHOT);
+        }
     }
 
     @Override
@@ -223,6 +229,7 @@ public class Field extends Scene implements InputProviderListener
     {
         Game.addScene(this);
         Game.addScene(hud);
+        hero.setField(this);
         enemy.forEach((e)->
         {
             e.start();
@@ -233,5 +240,10 @@ public class Field extends Scene implements InputProviderListener
             e.startI();
         });
         hero.startI();
+    }
+    
+    public void setHudAlien (Charact enemy, int lastLive)
+    {
+        hud.addBadGuy(enemy, lastLive);
     }
 }

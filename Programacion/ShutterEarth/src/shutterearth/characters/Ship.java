@@ -11,6 +11,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.map.Field;
 
 /**
  *
@@ -26,16 +27,18 @@ public class Ship extends CharactX
     private float count;
     private int gess;
     private int wait;
+    private final int type;
     
-    public Ship (int type,int stage, Hero hero)
+    public Ship (int type,int stage, Hero hero, Field field)
     {
+        this.type = type;
         this.hero = hero;
         this.state = 0;
         this.side = 0;
         w = Game.getX()/10;
         h = Game.getY()/10;
         animationTime = 20;
-        inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20);
+        inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20+type*100);
 
         xPos = (int)(Math.random()*(Game.getX()+1000) - 500);
         yPos = -(int)(Math.random()*1000+h);
@@ -48,6 +51,9 @@ public class Ship extends CharactX
         first = true;
         count = 0;
         this.target = 0;
+        
+        this.healthCurrent = 50*stage*type;
+        this.healthMax = 50*stage*type;
     }
 
     @Override
@@ -247,7 +253,7 @@ public class Ship extends CharactX
     @Override
     public void shot()
     {
-        inventory.shot();
+        inventory.shot(1);
     }
     
     @Override
@@ -270,4 +276,17 @@ public class Ship extends CharactX
 
     @Override
     public void setBounds(float left, float right, float floor){}
+    
+    @Override
+    public int getInfo ()
+    {
+        return 2+type;
+    }
+    
+    @Override
+    public void doShotAnimation()
+    {
+        Game.getMedia().getSound(Media.SOUND.FIRE_ALIEN).play();
+        animation = true;
+    }
 }

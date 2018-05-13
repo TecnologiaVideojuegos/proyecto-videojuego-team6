@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.map.Field;
 import shutterearth.screens.Scene;
 
 /**
@@ -28,6 +29,7 @@ public abstract class CharactX extends Scene implements Charact
     protected float xPos;
     protected float yPos;
     protected Inventory inventory;
+    protected int healthMax;
     
     protected float floor;
     protected boolean over;
@@ -42,6 +44,8 @@ public abstract class CharactX extends Scene implements Charact
     protected int animationTime;
     
     protected boolean active;
+    protected Field field;
+    ArrayList<Charact> enemy;
     
     public CharactX ()
     {
@@ -85,11 +89,7 @@ public abstract class CharactX extends Scene implements Charact
     protected abstract void setY(float y);
     
     @Override
-    public void doShotAnimation()
-    {
-        Game.getMedia().getSound(Media.SOUND.SHOT).play();
-        animation = true;
-    }
+    public abstract void doShotAnimation();
     
     @Override
     public int getCurrentHealth()
@@ -222,7 +222,13 @@ public abstract class CharactX extends Scene implements Charact
     @Override
     public void addEnemys(ArrayList<Charact> enemy)
     {
-        inventory.addEnemys(enemy);
+        this.enemy = enemy;
+    }
+    
+    @Override
+    public ArrayList<Charact> getEnemys()
+    {
+        return enemy;
     }
     
     @Override
@@ -230,4 +236,18 @@ public abstract class CharactX extends Scene implements Charact
     {
         active = true;
     }
+    
+    @Override
+    public int getHealthMax ()
+    {
+        return healthMax;
+    }
+    @Override
+    public void hasKilled(int money){}
+    
+    @Override
+    public abstract int getInfo();
+    
+    @Override
+    public void setHudAlien (Charact enemy, int LastLive){}
 }

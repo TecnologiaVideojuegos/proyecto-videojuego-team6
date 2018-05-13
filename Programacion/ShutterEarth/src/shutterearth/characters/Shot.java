@@ -29,8 +29,12 @@ public class Shot
     
     private final Rectangle box;
     
-    public Shot (Gun gun, Charact hero)
+    private final int offset;
+    private final int damage;
+    
+    public Shot (Gun gun, Charact hero, int offset)
     {
+        this.offset = offset;
         this.updateRate = 4;
         this.delay = gun.getDelay()*2;
         this.y = hero.getY();
@@ -44,6 +48,12 @@ public class Shot
         maxL = 0;
         
         this.box = new Rectangle(0,0,w,h);
+        this.damage = gun.getDamage();
+    }
+    
+    public int getDamage()
+    {
+        return damage;
     }
     
     public float getW()
@@ -65,13 +75,13 @@ public class Shot
         {
             if (first)
             {
-                first = false;
-                hero.doShotAnimation();
-                y = hero.getBox().getCenterY();
-                x = hero.getBox().getCenterX();
-                maxR = hero.getColum().getMaxX();
-                maxL = hero.getColum().getX();
-                face = hero.getFace();
+                    first = false;
+                    hero.doShotAnimation();
+                    y = hero.getBox().getY()+offset;
+                    x = hero.getBox().getCenterX();
+                    maxR = hero.getColum().getMaxX();
+                    maxL = hero.getColum().getX();
+                    face = hero.getFace();
             }
             else
             {
@@ -108,6 +118,7 @@ public class Shot
     }
     public boolean ended ()
     {
-        return x<maxL || x+w>maxR;
+        //return x<maxL || x+w>maxR;
+        return x<0 || x+w>Game.getX();
     }
 }

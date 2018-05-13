@@ -44,5 +44,10 @@ public interface Charact
     public void wake ();
     public void addEnemys (ArrayList <Charact> enemy);
     public void startI();
-    public void activate();
+    public void activate();    
+    public int getHealthMax ();
+    public ArrayList<Charact> getEnemys();
+    public void hasKilled(int money);
+    public int getInfo();
+    public void setHudAlien (Charact enemy, int LastLive);
 }

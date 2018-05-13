@@ -33,7 +33,7 @@ public class Media extends Scene
     public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT};    
     public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
-    public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD};
+    public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD,HITED,HITED_ALIEN,FIRE_ALIEN};
     
     private Image background;
     private Rectangle black;
@@ -123,7 +123,7 @@ public class Media extends Scene
             {
                 if (!sound.containsKey(s) && !oneIn)
                 {
-                    if (!s.name().equals("BAD"))
+                    if (!s.name().equals("BAD") && !s.name().equals("FIRE_ALIEN"))
                         sound.put(s, new Sound("./media/"+s.name()+".ogg"));
                     else
                         sound.put(s, new Sound("./media/"+s.name()+".wav"));

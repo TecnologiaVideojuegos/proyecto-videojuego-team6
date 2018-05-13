@@ -67,7 +67,12 @@ public class HUD extends Scene
         g.drawString("Bullets: " + hero.getBullets(), gx, gy+gh+15);
         if (bad != null)
         {
-            Game.getMedia().getImage(Media.getGun(hero.getInventory().getGunID())).draw();
+            switch(bad.getInfo())
+            {
+                case 3:
+                    Game.getMedia().getImage(Media.IMAGE.SHIP_RIGHT).draw(bx,by,bw,bw);
+                    break;
+            }
             g.draw(rect);
         }
     }
@@ -103,6 +108,7 @@ public class HUD extends Scene
     public void addBadGuy (Charact bad,int lastLive)
     {
         badHealth.setHealth(lastLive, false);
+        this.bad = bad;
     }
     
     public void end ()

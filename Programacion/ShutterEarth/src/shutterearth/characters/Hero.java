@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.map.Field;
 
 /**
  *
@@ -18,7 +19,6 @@ public class Hero extends CharactX
     private final String user;
     private final String pswd;
     private final Boolean permission;
-    private final int healthMax;
     private int stage;
     private int bullets;
     private int kills;
@@ -85,7 +85,7 @@ public class Hero extends CharactX
             if (bullets >= inventory.getCost())
             {
                 bullets -= inventory.getCost();
-                inventory.shot();
+                inventory.shot(1);
             }
         }
     }
@@ -204,6 +204,7 @@ public class Hero extends CharactX
         line.setHeight(floor+h-y);
     }
     
+    @Override
     public void hasKilled(int money)
     {
         bullets += money;
@@ -232,11 +233,6 @@ public class Hero extends CharactX
     public String getPswd ()
     {
         return pswd;
-    }
-    
-    public int getHealthMax ()
-    {
-        return healthMax;
     }
     
     public int getHealthCurrent ()
@@ -278,5 +274,28 @@ public class Hero extends CharactX
     public int getNumberOfGuns()
     {
         return inventory.getNumberOfGuns();
+    }
+    
+    public void setField(Field field)
+    {
+        this.field = field;
+    }
+    
+    @Override
+    public int getInfo ()
+    {
+        return 0;
+    }
+    
+    @Override
+    public void doShotAnimation()
+    {
+        Game.getMedia().getSound(Media.SOUND.SHOT).play();
+        animation = true;
+    }
+    @Override
+    public void setHudAlien (Charact enemy, int LastLive)
+    {
+        field.setHudAlien(enemy, LastLive);
     }
 }

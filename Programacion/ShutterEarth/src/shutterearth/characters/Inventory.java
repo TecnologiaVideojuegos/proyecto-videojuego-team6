@@ -27,7 +27,6 @@ public class Inventory extends Scene
     private final Charact hero;
     private final int delay;
     private int counter;
-    private  ArrayList <Charact> enemy;
     
     public Inventory (ArrayList <int[]> guns, Charact hero)
     {
@@ -59,11 +58,6 @@ public class Inventory extends Scene
         this.counter = 0;
     }
     
-    public void addEnemys (ArrayList <Charact> enemy)
-    {
-        this.enemy = enemy;
-    }
-    
     public void rightGun()
     {
         if (index < inventory.size()-1)
@@ -83,11 +77,15 @@ public class Inventory extends Scene
         return inventory.get(index).getConsume();
     }
     
-    public void shot()
+    public void shot(int n)
     {
         if (counter <= 0)
         {
-            shots.add(new Shot (inventory.get(index),hero));
+            int offset = (int)(hero.getH()/(n+1));
+            for (int j = 0; j < n; j++)
+            {
+                shots.add(new Shot (inventory.get(index),hero,offset+offset*j));
+            }
             counter = delay;
         }
     }
@@ -125,8 +123,33 @@ public class Inventory extends Scene
         toRemove.clear();
         shots.forEach((s) ->
         {
-            //COLIDES
-            //ENTER TO REMOVE
+            if (s.isDwable())
+            {
+                hero.getEnemys().forEach((e)->
+                {
+                    if (s.getBox().intersects(e.getBox()))
+                    {
+                        e.getDamage(s.getDamage());
+                        toRemove.add(s);
+                        if (e.getInfo() == 0)
+                        {
+                            Game.getMedia().getSound(Media.SOUND.HITED).play();
+                        }
+                        else
+                        {
+                            Game.getMedia().getSound(Media.SOUND.HITED_ALIEN).play();
+                            if (hero.getInfo()==0)
+                            {
+                                hero.setHudAlien(e, e.getCurrentHealth()+s.getDamage());
+                            }
+                        }
+                        if(hero.getInfo()==0 && !e.isAlive())
+                        {
+                            hero.hasKilled(e.getHealthMax());
+                        }
+                    }
+                });
+            }
         });
         toRemove.forEach((s)->
         {

@@ -9,6 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import shutterearth.Game;
+import shutterearth.Media;
 
 /**
  *
@@ -96,5 +97,18 @@ public class Enemy extends CharactX
         box.setY(y);
         line.setY(y);
         line.setHeight(floor+h-y);
+    }
+
+    @Override
+    public int getInfo()
+    {
+        return 2;
+    }
+    
+    @Override
+    public void doShotAnimation()
+    {
+        Game.getMedia().getSound(Media.SOUND.FIRE_ALIEN).play();
+        animation = true;
     }
 }
