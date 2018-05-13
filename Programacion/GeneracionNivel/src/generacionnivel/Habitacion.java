@@ -10,6 +10,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Habitacion extends Rectangle{
     private ArrayList <Salida> salidasSup;
     private ArrayList <Salida> salidasInf;
+    private int cellCount;
     private float maxI;
     private float maxD;
     
@@ -19,6 +20,7 @@ public class Habitacion extends Rectangle{
     public Habitacion(AppGameContainer g, Rectangle celda){
         super(celda.getLocation().getX(), celda.getLocation().getY(), celda.getWidth(), celda.getHeight());
         this.g = g;
+        cellCount = 1;
         
         Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
         color = diccionario[((int)Math.random()*700)%diccionario.length];
@@ -54,5 +56,13 @@ public class Habitacion extends Rectangle{
     public void render(Graphics g){
         g.setColor(color);
         g.fill(this);
+    }
+    
+    public int getCount(){
+        return cellCount;
+    }
+    
+    public void addCount(){
+        cellCount++;
     }
 }
