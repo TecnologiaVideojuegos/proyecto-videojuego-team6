@@ -131,10 +131,7 @@ public class Media extends Scene
             {
                 if (!sound.containsKey(s) && !oneIn)
                 {
-                    if (!s.name().equals("BAD") && !s.name().equals("FIRE_ALIEN"))
-                        sound.put(s, new Sound("./media/"+s.name()+".ogg"));
-                    else
-                        sound.put(s, new Sound("./media/"+s.name()+".wav"));
+                    sound.put(s, new Sound("./media/"+s.name()+".wav"));
                     where ++;
                     oneIn = true;
                     break;
