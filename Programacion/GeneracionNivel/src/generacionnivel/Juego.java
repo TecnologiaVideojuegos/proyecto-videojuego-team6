@@ -53,21 +53,21 @@ public class Juego extends BasicGame{
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        for(int i=0;i<celdas.length;i++){
+        /*for(int i=0;i<celdas.length;i++){
             for(int j=0;j<celdas[i].length;j++){
                 //if(colorear[i][j]) g.fill(celdas[i][j]);
                 //else g.draw(celdas[i][j]);
                 g.setColor(colores[i][j]);
                 g.fill(celdas[i][j]);
             }
-        }
+        }*/
+        for(Habitacion h : nivel) h.render(g);
         g.fill(personaje);
     }
     
     public void generacion(){
         int cellCount = 1;
         int cellNum = 32;
-        int compiCount = 1;
         int r = 0;
         int c = 7;
         int rand;
@@ -77,10 +77,11 @@ public class Juego extends BasicGame{
         nivel.removeAll(nivel);//reset del nivel
         celdas[r][c].setVisited(true);
         Habitacion hab = new Habitacion(g,celdas[r][c]);
+        celdas[r][c].setHab(hab);
         this.nivel.add(hab);
         do{
-            if(compiCount<2) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
-            else if(compiCount==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
+            if(hab.getCount()<2) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
+            else if(hab.getCount()==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
             else rand = ((int)(Math.random()*400))%4;
             try{
                 switch(rand){
@@ -88,42 +89,57 @@ public class Juego extends BasicGame{
                         if(!celdas[r+1][c].isVisited()){//derecha
                             cellCount++;
                             celdas[r+1][c].setVisited(true);
-                            
+                            celdas[r+1][c].setHab(hab);
+                            hab.addCelda(celdas[r+1][c]);
+                            hab.addCount();
                         }
                         r = r+1;
                         c = c;
-                        compiCount++;
                         break;
                     case 1:
                         if(!celdas[r-1][c].isVisited()){//izquierda
                             cellCount++;
                             celdas[r-1][c].setVisited(true);
+                            celdas[r-1][c].setHab(hab);
+                            hab.addCelda(celdas[r-1][c]);
+                            hab.addCount();
                         }
                         r = r-1;
                         c = c;
-                        compiCount++;
                         break;
                     case 2:
                         if(!celdas[r][c-1].isVisited()){//arriba
                             cellCount++;
                             celdas[r][c-1].setVisited(true);
+                            hab = new Habitacion(g, celdas[r][c-1]);
+                            nivel.add(hab);
+                            celdas[r][c-1].setHab(hab);
+                            celdas[r][c].getHab().addSalidaSup(celdas[r][c], hab);
+                            celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
+                        } else{
+                            hab = celdas[r][c-1].getHab();
                         }
                         r = r;
                         c = c-1;
-                        compiCount = 1;
                         break;
                     case 3:
                         if(!celdas[r][c+1].isVisited()){//abajo
                             cellCount++;
                             celdas[r][c+1].setVisited(true);
+                            hab = new Habitacion(g, celdas[r][c+1]);
+                            nivel.add(hab);
+                            celdas[r][c+1].setHab(hab);
+                            celdas[r][c].getHab().addSalidaInf(celdas[r][c], hab);
+                            celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
+                        } else{
+                            hab = celdas[r][c+1].getHab();
                         }
                         r = r;
                         c = c+1;
-                        compiCount = 1;
                         break;
                 }
             } catch (Exception e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
-        }while((cellCount<cellNum)||(compiCount==1));
+        }while((cellCount<cellNum)||(hab.getCount()==1));
     }
     
     
