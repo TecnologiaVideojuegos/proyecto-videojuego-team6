@@ -29,6 +29,11 @@ public abstract class CharactX extends Scene implements Charact
     protected float yPos;
     protected Inventory inventory;
     
+    protected float floor;
+    protected boolean over;
+    protected boolean jumpUp;
+    protected boolean jumpDown;
+    
     protected Rectangle line;
     protected Rectangle colum;
     protected Rectangle box;
@@ -36,10 +41,13 @@ public abstract class CharactX extends Scene implements Charact
     protected int counterAnimation;
     protected int animationTime;
     
+    protected boolean active;
+    
     public CharactX ()
     {
         counterAnimation = 0;
         animation = false;
+        active = false;
     }
 
     @Override
@@ -71,6 +79,10 @@ public abstract class CharactX extends Scene implements Charact
 
     @Override
     public abstract void setBounds(float left, float right, float floor);
+    
+        
+    protected abstract void setX(float x);
+    protected abstract void setY(float y);
     
     @Override
     public void doShotAnimation()
@@ -211,5 +223,11 @@ public abstract class CharactX extends Scene implements Charact
     public void addEnemys(ArrayList<Charact> enemy)
     {
         inventory.addEnemys(enemy);
+    }
+    
+    @Override
+    public void activate()
+    {
+        active = true;
     }
 }

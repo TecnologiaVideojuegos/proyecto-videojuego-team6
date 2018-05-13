@@ -82,11 +82,19 @@ public class Enemy extends CharactX
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    @Override
-    public void doShotAnimation()
+    
+     @Override
+    protected void setX(float x)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.xPos = x;
+        box.setX(x);
     }
-
+    @Override
+    protected void setY(float y)
+    {
+        this.yPos = y;
+        box.setY(y);
+        line.setY(y);
+        line.setHeight(floor+h-y);
+    }
 }

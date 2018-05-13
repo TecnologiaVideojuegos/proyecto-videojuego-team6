@@ -21,6 +21,8 @@ import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
 import shutterearth.characters.Charact;
+import shutterearth.characters.Enemy;
+import shutterearth.characters.Ship;
 
 /**
  *
@@ -43,6 +45,10 @@ public class Field extends Scene implements InputProviderListener
     private final int stage;
     private boolean battle;
     private final ArrayList <Charact> enemy;
+    private final ArrayList <Enemy> en;
+    private final ArrayList <Ship> sh;
+    
+    int counter =0;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -50,9 +56,18 @@ public class Field extends Scene implements InputProviderListener
         this.hero = hero;
         this.hud = hud;
         this.battle = false;
-        hero.place(400, 100, 500);
+        hero.place(450, 400, 900);
         
         enemy = new ArrayList <>();
+        en = new ArrayList <>();
+        sh = new ArrayList <>();
+        
+        sh.add(new Ship(2,3,hero));
+        sh.forEach((s) ->
+        {
+            enemy.add(s);
+        });
+        
         switch(stage)
         {
             case 0:
@@ -91,6 +106,18 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
+        if (counter < 100)
+        {
+            counter ++;
+        }
+        else
+        {
+            sh.forEach((s)->
+            {
+                s.activate();
+            });
+        }
+        
         if (!hero.isAlive())
             this.exit();
     }

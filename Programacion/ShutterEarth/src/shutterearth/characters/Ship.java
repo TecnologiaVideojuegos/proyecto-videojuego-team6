@@ -8,7 +8,9 @@ package shutterearth.characters;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
+import shutterearth.Media;
 
 /**
  *
@@ -16,77 +18,235 @@ import shutterearth.Game;
  */
 public class Ship extends CharactX
 {    
-    public Ship (int type,int stage)
+    private int state;
+    private int side;
+    private boolean first;
+    private float target;
+    private final Hero hero;
+    private float count;
+    private int gess;
+    
+    public Ship (int type,int stage, Hero hero)
     {
+        this.hero = hero;
+        this.state = 0;
+        this.side = 0;
         w = Game.getX()/9;
-        h = Game.getX()/9;
-        animationTime = 60;
+        h = Game.getY()/9;
+        animationTime = 20;
         inventory = new Inventory(new int[]{type+2,stage/2},this);
+        xPos = Game.getX();
+        yPos = -h;
+        floor = 0;
+        
+        line = new Rectangle (0,yPos,Game.getX(),h);
+        colum = new Rectangle (0,0,Game.getX(),Game.getY());
+        box = new Rectangle (xPos,yPos,w,h);
+        first = true;
+        count = 0;
     }
 
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (active)
+        {
+                Game.getMedia().getImage(this.getFace()?Media.IMAGE.SHIP_RIGHT:Media.IMAGE.SHIP_LEFT).draw(xPos,yPos,w,h);
+                if (animation)
+                {
+                    Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos,yPos,w,h);
+                }
+        }
+        if (Game.debug())
+        {
+            for (Rectangle rect : this.debug())
+            {
+                Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
+            }
+        } 
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (active)
+        {
+            switch (state)
+            {
+                case 0: //change side
+                    state = (int)(Math.random()*2 + 1);
+                    break;
+                case 1: //GO RIGTH                  
+                    if (yPos < 0)
+                    {
+                        xVel = 0;
+                        this.goDown();
+                    }
+                    else if (yPos > 30)
+                    {
+                        xVel = 0;
+                        this.goUp();
+                    }
+                    else if (xPos+w>Game.getX())
+                    {
+                        yVel = 0;
+                        this.goLeft();
+                    }
+                    else if (xPos+w<Game.getX()-30)
+                    {
+                        yVel = 0;
+                        this.goRight();
+                    }
+                    else
+                    {
+                        state = 3;
+                        xVel = 0;
+                        side = 1;
+                    }
+                    break;
+                case 2: //GO LEFT
+                    if (yPos < 0)
+                    {
+                        xVel = 0;
+                        this.goDown();
+                    }
+                    else if (yPos > 30)
+                    {
+                        xVel = 0;
+                        this.goUp();
+                    }
+                    else if (xPos < 0)
+                    {
+                        yVel = 0;
+                        this.goRight();
+                    }
+                    else if (xPos > 30)
+                    {
+                        yVel = 0;
+                        this.goLeft();
+                    }
+                    else
+                    {
+                        state = 3;
+                        side = 2;
+                    }
+                    break;
+                case 3: //SHOT
+                    if (first)
+                    {
+                        target = hero.getBox().getCenterY();
+                        gess = (int)(Math.random()*4);
+                        if (gess==0)
+                        {
+                            target += Math.random()*Game.getY()/8;
+                        }
+                        else if (gess==1)
+                        {
+                            target -= Math.random()*Game.getY()/8;
+                        }
+                        first = false;
+                    }
+                    if (box.getCenterY() < target-10)
+                    {
+                        xVel = 0;
+                        this.goDown();
+                    }
+                    else if (box.getCenterY() > target+10)
+                    {
+                        xVel = 0;
+                        this.goUp();
+                    }
+                    else
+                    {
+                        xVel = 0;
+                        this.shot();
+                        first = true;
+                        if (count > 200)
+                        {
+                            count = 0;
+                            state = 0;
+                        }
+                        else
+                        {
+                            count += 1*t;
+                        }
+                    }
+                    break;
+                default:
+                        state = 0;
+                        break;
+            }
+            this.setX(xPos + xVel*t);
+            this.setY(yPos + yVel*t);
+        }
+        
+        counterAnimation -= 1*t;
+        if (counterAnimation < 0)
+        {
+            animation = false;
+            counterAnimation = this.animationTime;
+        }
+    }
+    
+    @Override
+    protected void setX(float x)
+    {
+        this.xPos = x;
+        box.setX(x);
+    }
+    @Override
+    protected void setY(float y)
+    {
+        this.yPos = y;
+        box.setY(y);
+        line.setY(y);
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void init(GameContainer gc) throws SlickException{}
 
     @Override
     public void goUp()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        yVel = - Game.getxVel();
     }
 
     @Override
     public void goLeft()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        xVel = -Game.getxVel();
     }
 
     @Override
     public void goRight()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        xVel = Game.getxVel();
     }
 
     @Override
     public void goDown()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        yVel = Game.getxVel();
     }
 
     @Override
     public void shot()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void place(float floor, int left, int right)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setBounds(float left, float right, float floor)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        inventory.shot();
     }
     
     @Override
-    public void doShotAnimation()
+    public boolean getFace()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (xVel != 0)
+            return xVel > 0;
+        else
+            return side==2;
     }
+
+    @Override
+    public void place(float floor, int left, int right){}
+
+    @Override
+    public void setBounds(float left, float right, float floor){}
 }
