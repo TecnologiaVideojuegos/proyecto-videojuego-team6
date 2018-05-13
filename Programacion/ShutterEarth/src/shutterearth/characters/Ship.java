@@ -59,154 +59,168 @@ public class Ship extends CharactX
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        if (active)
+        if (this.isAlive())
         {
-                Game.getMedia().getImage(this.getFace()?Media.IMAGE.SHIP_RIGHT:Media.IMAGE.SHIP_LEFT).draw(xPos,yPos,w,h);
-                if (animation)
-                {
-                    Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos,yPos,w,h);
-                }
-        }
-        if (Game.debug())
-        {
-            for (Rectangle rect : this.debug())
+            if (active)
             {
-                Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
+                    Game.getMedia().getImage(this.getFace()?Media.IMAGE.SHIP_RIGHT:Media.IMAGE.SHIP_LEFT).draw(xPos,yPos,w,h);
+                    if (animation)
+                    {
+                        Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos,yPos,w,h);
+                    }
             }
-            g.drawLine(0, target, Game.getX(), target);
-        } 
+            if (Game.debug())
+            {
+                for (Rectangle rect : this.debug())
+                {
+                    Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
+                }
+                g.drawLine(0, target, Game.getX(), target);
+            }
+        }
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        if (active)
+        if (this.isAlive())
         {
-            if (wait < 0)
+            if (active)
             {
-                switch (state)
+                if (wait < 0)
                 {
-                    case 0: //change side
-                        state = (int)(Math.random()*2 + 1);
-                        Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
-                        break;
-                    case 1: //GO RIGTH                  
-                        if (yPos < 0)
-                        {
-                            xVel = 0;
-                            this.goDown();
-                        }
-                        else if (yPos > 15)
-                        {
-                            xVel = 0;
-                            this.goUp();
-                        }
-                        else if (xPos+w>Game.getX())
-                        {
-                            yVel = 0;
-                            this.goLeft();
-                        }
-                        else if (xPos+w<Game.getX()-15)
-                        {
-                            yVel = 0;
-                            this.goRight();
-                        }
-                        else
-                        {
-                            state = 3;
-                            xVel = 0;
-                            side = 1;
+                    switch (state)
+                    {
+                        case 0: //change side
+                            state = (int)(Math.random()*2 + 1);
                             Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
-                        }
-                        break;
-                    case 2: //GO LEFT
-                        if (yPos < 0)
-                        {
-                            xVel = 0;
-                            this.goDown();
-                        }
-                        else if (yPos > 15)
-                        {
-                            xVel = 0;
-                            this.goUp();
-                        }
-                        else if (xPos < 0)
-                        {
-                            yVel = 0;
-                            this.goRight();
-                        }
-                        else if (xPos > 15)
-                        {
-                            yVel = 0;
-                            this.goLeft();
-                        }
-                        else
-                        {
-                            state = 3;
-                            xVel = 0;
-                            side = 2;
-                            Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
-                        }
-                        break;
-                    case 3: //SHOT
-                        if (first)
-                        {
-                            target = hero.getBox().getCenterY();
-                            gess = (int)(Math.random()*4);
-                            if (gess==0)
+                            break;
+                        case 1: //GO RIGTH                  
+                            if (yPos < 0)
                             {
-                                target += Math.random()*Game.getY()/10;
+                                xVel = 0;
+                                this.goDown();
                             }
-                            else if (gess==1)
+                            else if (yPos > 15)
                             {
-                                target -= Math.random()*Game.getY()/10;
+                                xVel = 0;
+                                this.goUp();
                             }
-                            first = false;
-                        }
-                        if (box.getCenterY() < target-10)
-                        {
-                            xVel = 0;
-                            this.goDown();
-                        }
-                        else if (box.getCenterY() > target+10)
-                        {
-                            xVel = 0;
-                            this.goUp();
-                        }
-                        else
-                        {
-                            xVel = 0;
-                            this.shot();
-                            first = true;
-                            if (count > 100)
+                            else if (xPos+w>Game.getX())
                             {
-                                count = 0;
-                                state = 0;
+                                yVel = 0;
+                                this.goLeft();
+                            }
+                            else if (xPos+w<Game.getX()-15)
+                            {
+                                yVel = 0;
+                                this.goRight();
                             }
                             else
                             {
-                                count += 1*t;
+                                state = 3;
+                                xVel = 0;
+                                side = 1;
+                                Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                             }
-                        }
-                        break;
-                    default:
-                            state = 0;
                             break;
+                        case 2: //GO LEFT
+                            if (yPos < 0)
+                            {
+                                xVel = 0;
+                                this.goDown();
+                            }
+                            else if (yPos > 15)
+                            {
+                                xVel = 0;
+                                this.goUp();
+                            }
+                            else if (xPos < 0)
+                            {
+                                yVel = 0;
+                                this.goRight();
+                            }
+                            else if (xPos > 15)
+                            {
+                                yVel = 0;
+                                this.goLeft();
+                            }
+                            else
+                            {
+                                state = 3;
+                                xVel = 0;
+                                side = 2;
+                                Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
+                            }
+                            break;
+                        case 3: //SHOT
+                            if (first)
+                            {
+                                target = hero.getBox().getCenterY();
+                                gess = (int)(Math.random()*4);
+                                if (gess==0)
+                                {
+                                    target += Math.random()*Game.getY()/10;
+                                }
+                                else if (gess==1)
+                                {
+                                    target -= Math.random()*Game.getY()/10;
+                                }
+                                first = false;
+                            }
+                            if (box.getCenterY() < target-10)
+                            {
+                                xVel = 0;
+                                this.goDown();
+                            }
+                            else if (box.getCenterY() > target+10)
+                            {
+                                xVel = 0;
+                                this.goUp();
+                            }
+                            else
+                            {
+                                xVel = 0;
+                                this.shot();
+                                first = true;
+                                if (count > 100)
+                                {
+                                    count = 0;
+                                    state = 0;
+                                }
+                                else
+                                {
+                                    count += 1*t;
+                                }
+                            }
+                            break;
+                        default:
+                                state = 0;
+                                break;
+                    }
+                    this.setX(xPos + xVel*t);
+                    this.setY(yPos + yVel*t);
+
+                    counterAnimation -= 1*t;
+                    if (counterAnimation < 0)
+                    {
+                        animation = false;
+                        counterAnimation = this.animationTime;
+                    }
                 }
-                this.setX(xPos + xVel*t);
-                this.setY(yPos + yVel*t);
-            
-                counterAnimation -= 1*t;
-                if (counterAnimation < 0)
-                {
-                    animation = false;
-                    counterAnimation = this.animationTime;
-                }
+                else
+                    wait -= 1*t;
             }
-            else
-                wait -= 1*t;
         }
-        
+        else
+        {
+            if (!called)
+            {
+                Game.removeSence(this);
+                field.enemyDied(this);
+                called = true;
+            }
+        }
     }
     
     @Override

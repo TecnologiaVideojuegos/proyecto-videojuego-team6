@@ -11,7 +11,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
-import shutterearth.Media;
 import shutterearth.map.Field;
 import shutterearth.screens.Scene;
 
@@ -47,11 +46,14 @@ public abstract class CharactX extends Scene implements Charact
     protected Field field;
     ArrayList<Charact> enemy;
     
+    protected boolean called;
+    
     public CharactX ()
     {
         counterAnimation = 0;
         animation = false;
         active = false;
+        called = false;
     }
 
     @Override

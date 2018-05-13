@@ -100,67 +100,85 @@ public class Hero extends CharactX
                 Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
             }
         } 
-        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
-        if (animation)
+        if (this.isAlive())
         {
-            Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
+            Game.getMedia().getSprit(xVel > 0? Media.SPRITE.BASE_DER : Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
+            if (animation)
+            {
+                Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
+            }
+        }
+        else
+        {
+            Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
         }
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        this.setX(this.xPos + this.xVel*t);
-        if (yVel < Game.getGravityMax())
-            yVel += Game.getGravity()*t;
-        this.setY(this.yPos + this.yVel*t);
-        
-        if (jumpUp)
-        { 
-            if (over)
+        if (this.isAlive())
+        {
+            this.setX(this.xPos + this.xVel*t);
+            if (yVel < Game.getGravityMax())
+                yVel += Game.getGravity()*t;
+            this.setY(this.yPos + this.yVel*t);
+
+            if (jumpUp)
+            { 
+                if (over)
+                {
+                    if (yPos >= floor)
+                    {
+                        jumpUp = false;
+                        over = false;
+                        yPos = floor;
+                    }  
+                }
+                else
+                {
+                    over = (yPos < floor);
+                }
+            }
+            else if(jumpDown)
             {
                 if (yPos >= floor)
                 {
-                    jumpUp = false;
-                    over = false;
+                    jumpDown = false;
                     yPos = floor;
-                }  
+                }
             }
-            else
+            else if (yPos >= floor)
             {
-                over = (yPos < floor);
+                this.setY(floor);
             }
-        }
-        else if(jumpDown)
-        {
-            if (yPos >= floor)
+
+            if (xPos <= colum.getX())
             {
-                jumpDown = false;
-                yPos = floor;
+                this.goRight();
             }
-        }
-        else if (yPos >= floor)
-        {
-            this.setY(floor);
-        }
-        
-        if (xPos <= colum.getX())
-        {
-            this.goRight();
-        }
-        if (xPos+w >= colum.getX()+colum.getWidth())
-        {
-            this.goLeft();
-        }
-        
-        if (animation)
-        {
-            if (counterAnimation > animationTime)
+            if (xPos+w >= colum.getX()+colum.getWidth())
             {
-                animation = false;
-                counterAnimation = 0;
+                this.goLeft();
             }
-            counterAnimation+=1*t;
+
+            if (animation)
+            {
+                if (counterAnimation > animationTime)
+                {
+                    animation = false;
+                    counterAnimation = 0;
+                }
+                counterAnimation+=1*t;
+            }
+        }
+        else
+        {
+            if (!called)
+            {
+                field.heroDied();
+                called = true;
+            }
         }
     }
 

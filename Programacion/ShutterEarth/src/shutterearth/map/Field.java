@@ -6,6 +6,7 @@
 package shutterearth.map;
 
 import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -15,6 +16,7 @@ import org.newdawn.slick.command.Command;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
+import org.newdawn.slick.geom.Circle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.Hero;
@@ -47,8 +49,13 @@ public class Field extends Scene implements InputProviderListener
     private final ArrayList <Charact> enemy;
     private final ArrayList <Enemy> en;
     private final ArrayList <Ship> sh;
+    private int shipCounter;
+    private float counter;
     
-    int counter =0;
+    private float radix;
+    private Circle animation;
+    private boolean animationStarted;
+    private int diagonal;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -57,6 +64,10 @@ public class Field extends Scene implements InputProviderListener
         this.hud = hud;
         this.battle = false;
         hero.place(450, 400, 900);
+        radix = 0;
+        animation = new Circle (Game.getX()/2,Game.getY()/2,radix);
+        animationStarted = false;
+        diagonal = (Game.getX()^2+Game.getY()^2)^(1/2);
         
         enemy = new ArrayList <>();
         en = new ArrayList <>();
@@ -66,6 +77,7 @@ public class Field extends Scene implements InputProviderListener
         
         sh.add(new Ship(1,3,hero,this));
         sh.add(new Ship(1,3,hero,this));
+        this.shipCounter = 200;
         sh.forEach((s) ->
         {
             enemy.add(s);
@@ -105,14 +117,18 @@ public class Field extends Scene implements InputProviderListener
             Game.getMedia().getImage(Media.IMAGE.BATTLE).draw(0,0,Game.getX(),Game.getY());
         else
             Game.getMedia().getImage(Media.IMAGE.GAME).draw(0,0,Game.getX(),Game.getY());
+        
+        g.setColor(Color.black);
+        g.fill(animation);
+        g.setColor(Color.yellow);
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        if (counter < 100)
+        if (counter < shipCounter)
         {
-            counter ++;
+            counter += 1*t;
         }
         else
         {
@@ -121,9 +137,17 @@ public class Field extends Scene implements InputProviderListener
                 s.activate();
             });
         }
-        
-        if (!hero.isAlive())
-            this.exit();
+        if (animationStarted)
+        {
+            radix = animation.getRadius() + 5f*t;
+            animation.setRadius(radix);
+            animation.setCenterX(Game.getX()/2);
+            animation.setCenterY(Game.getY()/2);
+            if (radix > diagonal)
+            {
+                this.exit();
+            }
+        }
     }
 
     @Override
@@ -245,5 +269,25 @@ public class Field extends Scene implements InputProviderListener
     public void setHudAlien (Charact enemy, int lastLive)
     {
         hud.addBadGuy(enemy, lastLive);
+    }
+    public void heroDied ()
+    {
+        Game.addScene(new TextDisplayer(this,11,0));
+    }
+    public void enemyDied (Charact enemy)
+    {
+        this.enemy.remove(enemy);
+    }
+    
+    public void startAnimation ()
+    {
+        Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
+        this.animationStarted = true;
+    }
+    
+    public void startBattle ()
+    {
+        Game.getMedia().getMusic(Media.MUSIC.BATTLE_SONG).loop();
+        this.battle = true;
     }
 }

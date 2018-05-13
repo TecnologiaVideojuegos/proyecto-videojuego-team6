@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package shutterearth.screens;
 
-import java.util.ArrayList;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +15,6 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
-import shutterearth.characters.Charact;
 import shutterearth.characters.Hero;
 import shutterearth.characters.SavedHero;
 import shutterearth.map.Field;

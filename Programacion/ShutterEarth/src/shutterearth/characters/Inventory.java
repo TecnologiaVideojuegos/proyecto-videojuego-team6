@@ -79,14 +79,17 @@ public class Inventory extends Scene
     
     public void shot(int n)
     {
-        if (counter <= 0)
+        if (hero.isAlive())
         {
-            int offset = (int)(hero.getH()/(n+1));
-            for (int j = 0; j < n; j++)
+            if (counter <= 0)
             {
-                shots.add(new Shot (inventory.get(index),hero,offset+offset*j));
+                int offset = (int)(hero.getH()/(n+1));
+                for (int j = 0; j < n; j++)
+                {
+                    shots.add(new Shot (inventory.get(index),hero,offset+offset*j));
+                }
+                counter = delay;
             }
-            counter = delay;
         }
     }
     
@@ -158,13 +161,15 @@ public class Inventory extends Scene
         toRemove.clear();
         if (counter >= 0)
             counter -= 1*t;
+        
+        if (!hero.isAlive() && shots.isEmpty())
+        {
+            Game.removeSence(this);
+        }
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        
-    }
+    public void init(GameContainer gc) throws SlickException{}
     
     public ArrayList<int[]> save()
     {

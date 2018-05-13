@@ -29,24 +29,24 @@ public class TextDisplayer extends Scene implements InputProviderListener
     private InputProvider provider;
     private final Command next;
     private final Field field;
-    private final HUD hud;
     
     private TextField txt;
     private int step;
     private String toShow;
     private boolean nextable;
     private final boolean [] done;
+    private final int doNext;
     
-    public TextDisplayer (Field field, HUD hud, int stage)
+    public TextDisplayer (Field field, int stage, int doNext)
     {
-        field.setState(STATE.FREEZE);
-        hud.pause();
+        field.pause();
         this.field = field;
-        this.hud = hud;
         next = new BasicCommand("click");
         
+        this.doNext = doNext;
+        
         this.toShow = "";
-        this.step = stage -1;
+        this.step = (stage -1)*10;
         this.nextable = true;
         done = new boolean [10]; 
         for (int j = 0; j < done.length; j++)
@@ -366,6 +366,41 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 99:
                 nextable = false;
                 break;
+            case 100:
+                if (!done[step%10])
+                {
+                    toShow += "-- \tAhora nunca podrás recuperar a tu hija\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 101:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: \tpienso volver a por ti,\n\tLa humanidad no descansará hasta haber acabado contigo\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 102:
+                if (!done[step%10])
+                {
+                    toShow += "-- \tNunca podréis vencerme\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 103:
+                if (!done[step%10])
+                {
+                    toShow += "-- \tDile adiós a tu hija\n";
+                    done[step%10] = true;
+                }
+            case 104:
+            case 105:
+            case 106:
+            case 107:
+            case 108:
+            case 109:
+                nextable = false;
+                break;
         }
         txt.setText(toShow);
     }
@@ -396,10 +431,17 @@ public class TextDisplayer extends Scene implements InputProviderListener
             }
             else
             {
-                hud.wake();
-                field.setState(STATE.ON);
-                Game.removeSence(this);
                 Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
+                field.wake();
+                if (doNext == 0)
+                {
+                    field.startAnimation();
+                }
+                else if (doNext == 1)
+                {
+                    field.startBattle();
+                }
+                Game.removeSence(this);
                 provider.clearCommand(next);
             }
         }
