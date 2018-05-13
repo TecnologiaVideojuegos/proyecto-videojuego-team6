@@ -2,6 +2,7 @@ package shutterearth;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import org.lwjgl.openal.AL;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -222,6 +223,7 @@ public class Game extends BasicGame
     {
         resetDeveloper();
         savingStation.save();
+        AL.destroy();
         System.exit(0);
     }
     

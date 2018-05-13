@@ -33,6 +33,7 @@ public class Dev extends Thread
         control.set(false);
         try
         {
+            System.in.close();
             input.close();
             System.out.println("CLOSED CORRECTLY");
         }

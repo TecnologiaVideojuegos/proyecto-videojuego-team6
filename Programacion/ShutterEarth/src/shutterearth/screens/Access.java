@@ -130,9 +130,8 @@ public class Access extends Scene implements InputProviderListener
             else if (exit.contains(xMouse, yMouse))
             {
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
+                Game.removeSence(this);
                 Game.exit();
-                user.deactivate();
-                pswd.deactivate();
             }
             clicked = false;
         }
