@@ -23,7 +23,9 @@ public class Inventory extends Scene
     private final ArrayList <Gun> inventory;
     private int index;
     private final ArrayList <Shot> shots;
-    private final ArrayList <Shot> toRemove;
+    private final ArrayList <Shot> toRemoveS;
+    private final ArrayList <Label> label;
+    private final ArrayList <Label> toRemoveL;
     private final Charact hero;
     private final int delay;
     private int counter;
@@ -33,7 +35,9 @@ public class Inventory extends Scene
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
-        this.toRemove = new ArrayList <>();
+        this.toRemoveS = new ArrayList <>();
+        this.label = new ArrayList <>();
+        this.toRemoveL = new ArrayList <>();
         maxGun = guns.size();
         index = 0;
         this.inventory = new ArrayList<>();
@@ -51,7 +55,9 @@ public class Inventory extends Scene
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
-        this.toRemove = new ArrayList <>();
+        this.toRemoveS = new ArrayList <>();
+        this.label = new ArrayList <>();
+        this.toRemoveL = new ArrayList <>();
         maxGun = 1;
         index = 0;
         this.inventory = new ArrayList<>();
@@ -125,6 +131,11 @@ public class Inventory extends Scene
                 }
             }
         });
+        label.forEach((lab)->
+        {
+            if (lab.isAlive())
+                g.drawString(lab.getLabel(), lab.getX(), lab.getY());
+        });
     }
 
     @Override
@@ -135,19 +146,33 @@ public class Inventory extends Scene
             s.update(t);
             if (s.isDwable()&&s.ended())
             {
-                toRemove.add(s);
+                toRemoveS.add(s);
             }
             else if(!hero.isAlive() && !s.isDwable())
             {
-                toRemove.add(s);
+                toRemoveS.add(s);
             }
                     
         });
-        toRemove.forEach((s)->
+        toRemoveS.forEach((s)->
         {
             shots.remove(s);
         });
-        toRemove.clear();
+        toRemoveS.clear();
+        
+        label.forEach((lab)->
+        {
+            if (!lab.isAlive())
+                toRemoveL.add(lab);
+            else
+                lab.update(t);
+        });
+        toRemoveL.forEach((lab)->
+        {
+            label.remove(lab);
+        });
+        toRemoveL.clear();
+        
         shots.forEach((s) ->
         {
             if (s.isDwable())
@@ -159,7 +184,7 @@ public class Inventory extends Scene
                         if (s.getBox().intersects(e.getBox()))
                         {
                             e.getDamage(s.getDamage());
-                            toRemove.add(s);
+                            toRemoveS.add(s);
                             if (e.getInfo() == 0)
                             {
                                 Game.getMedia().getSound(Media.SOUND.HITED).play();
@@ -172,8 +197,9 @@ public class Inventory extends Scene
                                     hero.setHudAlien(e, e.getCurrentHealth()+s.getDamage());
                                 }
                             }
-                            if(hero.getInfo()==0 && !e.isAlive())
+                            if(hero.getInfo()==0 && !e.isAlive() && hero.isAlive())
                             {
+                                label.add(new Label(hero.getBox().getCenterX(),hero.getBox().getCenterY(),hero.getFace(),e.getHealthMax()*Game.getReward()));
                                 hero.hasKilled(e.getHealthMax()*Game.getReward());
                             }
                         }
@@ -181,11 +207,11 @@ public class Inventory extends Scene
                 });
             }
         });
-        toRemove.forEach((s)->
+        toRemoveS.forEach((s)->
         {
             shots.remove(s);
         });
-        toRemove.clear();
+        toRemoveS.clear();
         if (counter >= 0)
             counter -= 1*t;
         

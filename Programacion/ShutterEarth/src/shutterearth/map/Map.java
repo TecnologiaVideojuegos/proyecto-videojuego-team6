@@ -5,23 +5,32 @@
  */
 package shutterearth.map;
 
+import shutterearth.screens.Scene;
+
 /**
  *
  * @author mr.blissfulgrin
  */
-public interface Map //Los que implemente Map deben extender de Scene tb
+public abstract class Map extends Scene
 {
-    //Dimensiones del mapa
-    public void draw (float x, float y, float w, float h); 
+    protected final float x;
+    protected final float y;
+    
+    public Map (float x, float y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
     //Da los spawns de los personajes, (x,y,)npc (w,h,floor)habitación
     //Primero el héroe y el reto son los npc
-    public int [] getSpots (int n);
+    public abstract float [][] getSpots (int n);
     //Da la sigiente habitación si se puede ir a ella o la misma si no
-    public void getNextRoom (boolean up);
+    public abstract float[] getNextRoom (int room, boolean up);
     //Control de Scena, deben tenerlos pero no tienen por qué contener nada si no se necesita
     //Solo si el mapa tiene animaciones
-    public void start ();
-    public void pause ();
-    public void wake ();
-    public void end ();
+    public abstract void start ();
+    public abstract void pause ();
+    public abstract void wake ();
+    public abstract void end ();
 }

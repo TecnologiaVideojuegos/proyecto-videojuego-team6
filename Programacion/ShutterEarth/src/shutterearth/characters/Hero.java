@@ -44,6 +44,7 @@ public class Hero extends CharactX
         animationTime = 40;
         counterAnimation = 0;
         animation = false;
+        this.goRight();
     }
     
     @Override
@@ -51,6 +52,7 @@ public class Hero extends CharactX
     {
         if (!jumping())
         {
+            this.boundSetter(this.field.getNewBownds(room, true));
             yVel = Game.getyVelUp();
             this.setY(yPos-1);
             jumpUp = true;
@@ -71,6 +73,7 @@ public class Hero extends CharactX
     {
         if (!jumping())
         {
+            this.boundSetter(this.field.getNewBownds(room, false));
             yVel = Game.getyVelDown();
             this.setY(yPos-1);
             jumpDown = true;
@@ -216,21 +219,25 @@ public class Hero extends CharactX
     public void init(GameContainer gc) throws SlickException{}
     
     @Override
-    public void place (float floor, int left, int right)
+    public void place (float x, float y, float floor, float left, float right, int borderRoom, int room)
     {
-        this.xPos = left;
-        this.yPos = floor - h;
-        this.floor = floor - h;
-        line = new Rectangle (0,yPos,Game.getX(),floor+h-yPos);
+        this.room = room;
+        this.xPos = x;
+        this.yPos = y;
+        this.floor = floor - h - 5;
+        line = new Rectangle (0,yPos,Game.getX(),floor-yPos);
         colum = new Rectangle (left,0,right-left,Game.getY());
         box = new Rectangle (xPos,yPos,w,h);
+        this.borderRoom = borderRoom;
     }
     @Override
-    public void setBounds (float floor, float left, float right)
+    public void setBounds (float floor, float left, float right, int borderRoom, int room)
     {
+        this.room = room;
         colum.setX(left);
         colum.setWidth(right-left);
-        this.floor = floor - h;
+        this.floor = floor - h - 5;
+        this.borderRoom = borderRoom;
     }
     
     @Override
@@ -245,7 +252,7 @@ public class Hero extends CharactX
         this.yPos = y;
         box.setY(y);
         line.setY(y);
-        line.setHeight(floor+h-y);
+        line.setHeight(floor+h+5-y);
     }
     
     @Override

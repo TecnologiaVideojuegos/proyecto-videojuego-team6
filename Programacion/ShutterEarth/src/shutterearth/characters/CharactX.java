@@ -47,6 +47,8 @@ public abstract class CharactX extends Scene implements Charact
     ArrayList<Charact> enemy;
     
     protected boolean called;
+    protected int borderRoom;
+    protected int room;
     
     public CharactX ()
     {
@@ -81,11 +83,15 @@ public abstract class CharactX extends Scene implements Charact
     public abstract void shot();
 
     @Override
-    public abstract void place(float floor, int left, int right);
+    public abstract void place(float x, float y, float floor, float left, float right, int borderRoom, int room);
 
     @Override
-    public abstract void setBounds(float left, float right, float floor);
+    public abstract void setBounds (float floor, float left, float right, int borderRoom, int room);
     
+    protected void boundSetter(float[] bounds)
+    {
+        setBounds(bounds[0],bounds[1],bounds[2],(int)bounds[3],(int)bounds[4]);
+    }
         
     protected abstract void setX(float x);
     protected abstract void setY(float y);
@@ -256,5 +262,10 @@ public abstract class CharactX extends Scene implements Charact
     public boolean jumping ()
     {
         return jumpUp || jumpDown;
+    }
+    @Override
+    public int getBorder()
+    {
+        return borderRoom;
     }
 }

@@ -71,10 +71,9 @@ public class Pause extends Scene implements InputProviderListener
         {
             if (resume.contains(xMouse, yMouse))
             {
-                Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
+                Game.getMedia().getSound(Media.SOUND.ALIEN2).play();
                 Game.removeSence(this);
                 field.wake();
-                Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
             }
             else if (exit.contains(xMouse, yMouse))
             {

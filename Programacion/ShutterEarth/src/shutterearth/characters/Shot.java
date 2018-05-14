@@ -31,6 +31,7 @@ public class Shot
     
     private final int offset;
     private final int damage;
+    private int borderRoom;
     
     public Shot (Gun gun, Charact hero, int offset)
     {
@@ -79,6 +80,7 @@ public class Shot
                     hero.doShotAnimation();
                     y = hero.getBox().getY()+offset-h/2;
                     x = hero.getBox().getCenterX();
+                    borderRoom = hero.getBorder();
                     maxR = hero.getColum().getMaxX();
                     maxL = hero.getColum().getX();
                     face = hero.getFace();
@@ -118,7 +120,16 @@ public class Shot
     }
     public boolean ended ()
     {
-        return x<maxL || x+w>maxR;
-        //return x<0 || x+w>Game.getX();
+        switch (borderRoom)
+        {
+            case 0:
+                return x<0 || x+w>maxR; 
+            case 1:
+                return x<maxL || x+w>Game.getX(); 
+            case 2:
+                return x<0 || x+w>Game.getX(); 
+            default:
+                return x<maxL || x+w>maxR;
+        }
     }
 }

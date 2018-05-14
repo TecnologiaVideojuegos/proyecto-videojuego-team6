@@ -431,7 +431,6 @@ public class TextDisplayer extends Scene implements InputProviderListener
             }
             else
             {
-                Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
                 field.wake();
                 if (doNext == 0)
                 {

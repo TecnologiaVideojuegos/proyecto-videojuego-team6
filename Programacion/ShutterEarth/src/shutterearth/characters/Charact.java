@@ -23,8 +23,8 @@ public interface Charact
     public void getDamage (int damage);
     public boolean isAlive ();
     public Rectangle getLine ();
-    public void place (float floor, int left, int right);
-    public void setBounds (float floor, float right, float left);
+    public void place (float x, float y, float floor, float left, float right, int borderRoom,int room);
+    public void setBounds (float floor, float left, float right, int borderRoom, int room);
     public Rectangle getColum ();
     public Rectangle getBox ();
     public boolean isInLine (Rectangle rect);
@@ -50,4 +50,5 @@ public interface Charact
     public void hasKilled(int money);
     public int getInfo();
     public void setHudAlien (Charact enemy, int LastLive);
+    public int getBorder();
 }

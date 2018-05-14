@@ -65,6 +65,7 @@ public class Ship extends CharactX
         
         this.healthCurrent = 10+50*stage*type;
         this.healthMax = 10+50*stage*type;
+        this.borderRoom = 2;
     }
 
     @Override
@@ -307,10 +308,10 @@ public class Ship extends CharactX
     }
 
     @Override
-    public void place(float floor, int left, int right){}
+    public void place(float x, float y, float floor, float left, float right, int borderRoom,int room){}
 
     @Override
-    public void setBounds(float left, float right, float floor){}
+    public void setBounds(float left, float right, float floor, int borderRoom,int room){}
     
     @Override
     public int getInfo ()

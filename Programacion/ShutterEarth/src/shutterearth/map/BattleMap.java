@@ -5,82 +5,118 @@
  */
 package shutterearth.map;
 
+import java.util.ArrayList;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import shutterearth.screens.Scene;
+import org.newdawn.slick.geom.Rectangle;
+import shutterearth.Game;
+import shutterearth.Media;
 
 /**
  *
  * @author mr.blissfulgrin
  */
-public class BattleMap extends Scene implements Map
+public class BattleMap extends Map
 {
-
+    private final ArrayList <Rectangle> room;
+    public BattleMap (float x, float y)
+    {
+        super (x,y);
+        this.room = new ArrayList <>();
+    }
+    
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        g.setColor(Color.black);
+        room.forEach((rm)->
+        {
+            Game.getMedia().getImage(Media.IMAGE.GREY).draw(rm.getX(),rm.getY(),rm.getWidth(),rm.getHeight());
+            g.fill(new Rectangle(rm.getX(),rm.getMaxY()-10,rm.getWidth(),10));
+        });
+        g.setColor(Color.yellow);
     }
 
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
-    public void init(GameContainer gc) throws SlickException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public void init(GameContainer gc) throws SlickException{}
 
     @Override
     public String toString()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Battle Map "+x+" "+y;
     }
 
     @Override
-    public void draw(float x, float y, float w, float h)
+    public float[][] getSpots(int n)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        float [][] spots = new float [n][6];
+        int rm;
+        spots[0] = new float[]{room.get(0).getX()+10,room.get(0).getY()-10,room.get(0).getMaxY(),x,Game.getX()-x,2,0};
+        
+        for (int j = 1; j < n; j++)
+        {
+            rm = (int)(Math.random()*(room.size()-1)+1);
+            spots[j] = new float[]{(float)(Math.random()*(Game.getX()-(x)*2-10)+x+10),room.get(rm).getY()-10,room.get(rm).getMaxY(),x,Game.getX()-x,2,rm};
+        }
+        
+        return spots;
     }
 
     @Override
-    public int[] getSpots(int n)
+    public float[] getNextRoom(int room, boolean up)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void getNextRoom(boolean up)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (up && (room < (this.room.size()-1)))
+        {
+            return new float[]{this.room.get(room+1).getMaxY(),x,Game.getX()-x,2,room+1};
+        }
+        else if (!up && (room > 0))
+        {
+            return new float[]{this.room.get(room-1).getMaxY(),x,Game.getX()-x,2,room-1};
+        }
+        else
+        {
+            return new float[]{this.room.get(room).getMaxY(),x,Game.getX()-x,2,room};
+        }
     }
 
     @Override
     public void start()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game.addScene(this);
+        float actualFloor = Game.getY();
+        System.out.println(Game.getY());
+        for (int j = 0; j<6; j++)
+        {
+            actualFloor -= Game.step();
+            System.out.println(actualFloor);
+            room.add(new Rectangle (x,actualFloor,Game.getX()-(x)*2,Game.step()));
+        }
     }
 
     @Override
     public void pause()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setState(STATE.FREEZE);
     }
 
     @Override
     public void wake()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setState(STATE.ON);
     }
 
     @Override
     public void end()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Game.removeSence(this);
     }
     
 }

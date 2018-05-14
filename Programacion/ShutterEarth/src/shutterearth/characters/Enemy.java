@@ -242,22 +242,26 @@ public class Enemy extends CharactX
     }
 
     @Override
-    public void place(float floor, int left, int right)
+    public void place(float x, float y, float floor, float left, float right, int borderRoom, int room)
     {
+        this.room = room;
         this.xPos = left;
         this.yPos = floor - h;
         this.floor = floor - h;
         line = new Rectangle (0,yPos,Game.getX(),floor+h-yPos);
         colum = new Rectangle (left,0,right-left,Game.getY());
         box = new Rectangle (xPos,yPos,w,h);
+        this.borderRoom = borderRoom;
     }
 
     @Override
-    public void setBounds(float left, float right, float floor)
+    public void setBounds (float floor, float left, float right, int borderRoom, int room)
     {
+        this.room = room;
         colum.setX(left);
         colum.setWidth(right-left);
         this.floor = floor - h;
+        this.borderRoom = borderRoom;
     }
     
      @Override

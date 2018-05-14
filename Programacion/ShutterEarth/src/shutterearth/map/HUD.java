@@ -128,6 +128,11 @@ public class HUD extends Scene
         hero.end();
     }
     
+    public void start ()
+    {
+        Game.addScene(this);
+    }
+    
     public void pause ()
     {
         this.setState(STATE.FREEZE);

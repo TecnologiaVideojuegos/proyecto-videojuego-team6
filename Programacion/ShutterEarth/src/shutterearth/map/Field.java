@@ -69,12 +69,14 @@ public class Field extends Scene implements InputProviderListener
     private float counter;
     
     private float radix;
-    private Circle animation;
+    private final Circle animation;
     private boolean animationStarted;
-    private int diagonal;
+    private final int diagonal;
     
     private final int xt;
     private final int yt;
+    
+    private  Map map;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -84,7 +86,6 @@ public class Field extends Scene implements InputProviderListener
         this.hero = hero;
         this.hud = hud;
         this.battle = false;
-        hero.place(450, 400, 900);
         radix = 0;
         animation = new Circle (Game.getX()/2,Game.getY()/2,radix);
         animationStarted = false;
@@ -93,52 +94,6 @@ public class Field extends Scene implements InputProviderListener
         enemy = new ArrayList <>();
         en = new ArrayList <>();
         sh = new ArrayList <>();
-        ArrayList <Charact> h = new ArrayList <>();
-        h.add(hero);
-        
-        sh.add(new Ship(2,stage,hero,this));
-        sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 200;
-        sh.forEach((ship) ->
-        {
-            enemy.add(ship);
-            ship.addEnemys(h);
-        });
-        
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));
-        en.forEach((enem) ->
-        {
-            enemy.add(enem);
-            enem.addEnemys(h);
-            enem.place(600, 400, 900);
-        });
-        en.clear();
-        
-        switch(stage)
-        {
-            case 0:
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                break;
-        }
-        hero.addEnemys(enemy);
     }
     
     @Override
@@ -223,6 +178,7 @@ public class Field extends Scene implements InputProviderListener
                         Field field = new Field(h,stage+1,hudn);
                         Game.removeSence(this);
                         hud.end();
+                        map.end();
                         enemy.forEach((enem)->
                         {
                             enem.end();
@@ -279,12 +235,10 @@ public class Field extends Scene implements InputProviderListener
             }
             else if (command.equals(UP))
             {
-                hero.setBounds(450, 400, 900);
                 hero.goUp();
             }
             else if (command.equals(DOWN))
             {
-                hero.setBounds(600, 400, 900);
                 hero.goDown();
             }
             else if (command.equals(RIGHT))
@@ -317,6 +271,7 @@ public class Field extends Scene implements InputProviderListener
     {
         this.setState(STATE.FREEZE);
         hud.pause();
+        map.pause();
         enemy.forEach((enem)->
         {
             enem.pause();
@@ -325,8 +280,10 @@ public class Field extends Scene implements InputProviderListener
     
     public void wake ()
     {
+        Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
         this.setState(STATE.ON);
         hud.wake();
+        map.wake();
         enemy.forEach((enem)->
         {
             enem.wake();
@@ -353,6 +310,7 @@ public class Field extends Scene implements InputProviderListener
         
         Game.removeSence(this);
         hud.end();
+        map.end();
         enemy.forEach((enem)->
         {
             enem.end();
@@ -363,8 +321,63 @@ public class Field extends Scene implements InputProviderListener
     
     public void start ()
     {
+        float [][]spots;
+        this.map = new BattleMap(Game.getX()/9,hero.getH()*2);
         Game.addScene(this);
-        Game.addScene(hud);
+        map.start();
+        spots = map.getSpots(3);
+        
+        ArrayList <Charact> h = new ArrayList <>();
+        h.add(hero);
+        hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
+        
+        sh.add(new Ship(2,stage,hero,this));
+        sh.add(new Ship(1,stage,hero,this));
+        this.shipCounter = 200;
+        sh.forEach((ship) ->
+        {
+            enemy.add(ship);
+            ship.addEnemys(h);
+        });
+        
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
+        en.forEach((enem) ->
+        {
+            enemy.add(enem);
+            enem.addEnemys(h);
+            enem.place(410f,910f,600f, 400f, 900f,2,0);
+        });
+        en.clear();
+        
+        
+        
+        switch(stage)
+        {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            case 6:
+                break;
+            case 7:
+                break;
+            case 8:
+                break;
+            case 9:
+                break;
+        }
+        hero.addEnemys(enemy);
+        
+        hud.start();
         hero.setField(this);
         enemy.forEach((enem)->
         {
@@ -409,7 +422,8 @@ public class Field extends Scene implements InputProviderListener
         return "Field "+this.hero.toString()+" "+this.stage;
     }
     
-    /*public Rectangle getNewBownds(boolean up)
+    public float [] getNewBownds(int room,boolean up)
     {
-    }*/
+        return map.getNextRoom(room, up);
+    }
 }
