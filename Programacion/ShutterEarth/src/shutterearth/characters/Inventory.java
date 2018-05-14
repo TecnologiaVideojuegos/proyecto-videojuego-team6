@@ -126,7 +126,7 @@ public class Inventory extends Scene
                         Game.getMedia().getImage(s.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
                         break;
                     case 2:
-                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.SHIP_SHOT:Media.IMAGE.SHIP_SHOT).draw(s.getX(),s.getY(),s.getW(),s.getH());
                         break;
                     case 3:
                         Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
