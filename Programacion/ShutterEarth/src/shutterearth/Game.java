@@ -33,6 +33,11 @@ public class Game extends BasicGame
     private static float step;
     private static int reward;
     
+    public static AppGameContainer getContainer ()
+    {
+        return app;
+    }
+    
     public synchronized static void setDebug (boolean debug)
     {
         Game.debug = debug;
@@ -149,6 +154,15 @@ public class Game extends BasicGame
         Game.debug = false;
         Game.reward = 2;
         Game.step = (Game.getY())/7;
+        
+        System.out.println("-----------------------");
+        System.out.println(Game.gravity);
+        System.out.println(Game.gravityMax);
+        System.out.println(Game.xVel);
+        System.out.println(Game.yVelUp);
+        System.out.println(Game.yVelDown);
+        System.out.println(Game.step);
+        System.out.println("-----------------------");
 
         app.setDisplayMode(X,Y, true);
         app.setShowFPS(false);
