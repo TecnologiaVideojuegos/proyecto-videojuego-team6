@@ -56,6 +56,19 @@ public class Habitacion extends Rectangle{
                 (Prop.ceTHIRDH*g.getScreenHeight())));
     }
     
+    public ArrayList<Salida> getSalSup(){
+        return salidasSup;
+    }
+    public ArrayList<Salida> getSalInf(){
+        return salidasInf;
+    }
+    public void addSalidaSup(Salida s){
+        salidasSup.add(s);
+    }
+    public void addSalidaInf(Salida s){
+        salidasInf.add(s);
+    }
+    
     public void render(Graphics g){
         g.setColor(color);
         g.fill(this);

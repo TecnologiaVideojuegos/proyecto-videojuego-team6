@@ -168,12 +168,36 @@ public class Juego extends BasicGame{
                             //revisa la celda derecha
                             nivel.remove(celdas[i][j].getHab());
                             celdas[i+1][j].getHab().addCelda(celdas[i][j]);
+                            for(Salida s : celdas[i][j].getHab().getSalSup()){
+                                celdas[i+1][j].getHab().addSalidaSup(s);
+                                for(Salida y :s.getNext().getSalInf())
+                                    if(y.getNext().equals(celdas[i][j].getHab()))
+                                        y.setHab(celdas[i+1][j].getHab());
+                            }
+                            for(Salida s : celdas[i][j].getHab().getSalInf()){
+                                celdas[i+1][j].getHab().addSalidaInf(s);
+                                for(Salida y :s.getNext().getSalSup())
+                                    if(y.getNext().equals(celdas[i][j].getHab()))
+                                        y.setHab(celdas[i+1][j].getHab());
+                            }
                             celdas[i][j].setHab(celdas[i+1][j].getHab());
                             break;
                         case 1:
                             //revisa la celda izquierda
                             nivel.remove(celdas[i][j].getHab());
                             celdas[i-1][j].getHab().addCelda(celdas[i][j]);
+                            for(Salida s : celdas[i][j].getHab().getSalSup()){
+                                celdas[i-1][j].getHab().addSalidaSup(s);
+                                for(Salida y :s.getNext().getSalInf())
+                                    if(y.getNext().equals(celdas[i][j].getHab()))
+                                        y.setHab(celdas[i-1][j].getHab());
+                            }
+                            for(Salida s : celdas[i][j].getHab().getSalInf()){
+                                celdas[i-1][j].getHab().addSalidaInf(s);
+                                for(Salida y :s.getNext().getSalSup())
+                                    if(y.getNext().equals(celdas[i][j].getHab()))
+                                        y.setHab(celdas[i-1][j].getHab());
+                            }
                             celdas[i][j].setHab(celdas[i-1][j].getHab());
                             break;
                     }

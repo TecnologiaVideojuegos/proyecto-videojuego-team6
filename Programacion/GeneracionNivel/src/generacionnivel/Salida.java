@@ -14,4 +14,8 @@ public class Salida extends Rectangle{
     public Habitacion getNext() {
         return next;
     }
+    
+    public void setHab(Habitacion h){
+        next = h;
+    }
 }
