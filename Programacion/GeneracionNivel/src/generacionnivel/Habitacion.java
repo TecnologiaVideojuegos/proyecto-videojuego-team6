@@ -11,26 +11,29 @@ public class Habitacion extends Rectangle{
     private ArrayList <Salida> salidasSup = new ArrayList<>();
     private ArrayList <Salida> salidasInf = new ArrayList<>();
     private int cellCount;
-    private float maxI;
-    private float maxD;
     
     private AppGameContainer g;
     private Color color;
+    private String id;
     
-    public Habitacion(AppGameContainer g, Rectangle celda){
+    public Habitacion(AppGameContainer g, Rectangle celda, String id){
         super(celda.getLocation().getX(), celda.getLocation().getY(), celda.getWidth(), celda.getHeight());
         this.g = g;
         cellCount = 1;
         
         Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
         color = diccionario[((int)(Math.random()*700))%diccionario.length];
+        
+        this.id = id;
     }
     
     public void addCelda(Celda c){
         //Si esta a la derecha
-        if(this.getX()>c.getX()) this.setBounds(this.getX(), this.getY(), this.getWidth()+c.getWidth(), this.getHeight());
+        if(getX()<c.getX()) setBounds(getX(), getY(), getWidth()+c.getWidth(), getHeight());
         //Si esta a la izquierda
-        else this.setBounds(this.getX()-c.getWidth(), this.getY(), this.getWidth()+c.getWidth(), this.getHeight());
+        else setBounds(getX()-c.getWidth(), getY(), getWidth()+c.getWidth(), getHeight());
+        
+        cellCount++;
     }
     
     /**
@@ -57,8 +60,15 @@ public class Habitacion extends Rectangle{
         g.setColor(color);
         g.fill(this);
         g.setColor(Color.white);
-        for(Salida s : salidasInf) g.draw(s);
-        for(Salida s : salidasSup) g.draw(s);
+        g.drawString(toString(), getCenterX(), getCenterY());
+        for(Salida s : salidasInf){
+            g.draw(s);
+            g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+        }
+        for(Salida s : salidasSup){
+            g.draw(s);
+            g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+        }
     }
     
     public int getCount(){
@@ -67,5 +77,9 @@ public class Habitacion extends Rectangle{
     
     public void addCount(){
         cellCount++;
+    }
+    
+    public String toString(){
+        return id+" - "+cellCount;
     }
 }
