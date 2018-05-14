@@ -252,4 +252,9 @@ public abstract class CharactX extends Scene implements Charact
     
     @Override
     public void setHudAlien (Charact enemy, int LastLive){}
+    
+    public boolean jumping ()
+    {
+        return jumpUp || jumpDown;
+    }
 }

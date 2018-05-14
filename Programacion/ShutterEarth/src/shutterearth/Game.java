@@ -143,10 +143,10 @@ public class Game extends BasicGame
     public static void main(String[] args) throws SlickException
     {
         app = new AppGameContainer(new Game ("Shutter Earth"));
-        setX(app.getScreenWidth()-50);
-        setY(app.getScreenHeight()-50);
+        setX(app.getScreenWidth());
+        setY(app.getScreenHeight());
         Game.step = Game.getX()/10;
-        app.setDisplayMode(X,Y, false);
+        app.setDisplayMode(X,Y, true);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();

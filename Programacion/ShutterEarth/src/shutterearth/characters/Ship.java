@@ -46,8 +46,8 @@ public class Ship extends CharactX
             w = Game.getX()/12;
             h = (w*12)/7;
         }
-        animationTime = 20;
-        inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20+type*100);
+        animationTime = 30;
+        inventory = new Inventory(new int[]{type+2,stage/2},this,500-stage*20+type*100,2);
         this.field = field;
 
         xPos = (int)(Math.random()*(Game.getX()+1000) - 500);

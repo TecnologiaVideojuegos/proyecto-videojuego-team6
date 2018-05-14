@@ -54,22 +54,22 @@ public class Store extends Scene implements InputProviderListener
         this.prices = new int[][]
         {
             {
-                50,100,160,225,400,0  //HEALTH
+                50,100,160,225,300,400,500,800,900,1000,0       //HEALTH
             },
             {
-                10,20,30,40,0         //Arma Minima
+                30,60,90,120,0                                  //Arma Minima
             },
             {
-                60,70,80,90,0        //Arma Base
+                140,180,200,220,0                               //Arma Base
             },
             {
-                120,130,140,150,0     //Arma Fuerte
+                240,300,350,450,0                               //Arma Fuerte
             },
             {
-                170,180,190,200,0     //Arma Rápida
+                400,450,500,550,0                               //Arma Rápida
             },
             {
-                250,260,270,300,0     //Arma Final
+                500,600,700,800,0                               //Arma Final
             },
         };
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
@@ -221,7 +221,7 @@ public class Store extends Scene implements InputProviderListener
                 }
                 else
                 {
-                    if ((hero.getHealthMax() < 100) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
+                    if ((hero.getHealthMax() < 200) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
                     {
                         Game.getMedia().getSound(Media.SOUND.CASH).play();
                         hero.sold(prices[index][hero.getHealthMax()/20]);

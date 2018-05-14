@@ -24,7 +24,7 @@ public interface Charact
     public boolean isAlive ();
     public Rectangle getLine ();
     public void place (float floor, int left, int right);
-    public void setBounds (float left, float right, float floor);
+    public void setBounds (float floor, float right, float left);
     public Rectangle getColum ();
     public Rectangle getBox ();
     public boolean isInLine (Rectangle rect);

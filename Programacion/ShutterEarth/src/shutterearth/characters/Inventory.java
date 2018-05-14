@@ -27,6 +27,7 @@ public class Inventory extends Scene
     private final Charact hero;
     private final int delay;
     private int counter;
+    private final int to;
     
     public Inventory (ArrayList <int[]> guns, Charact hero)
     {
@@ -43,9 +44,10 @@ public class Inventory extends Scene
         });
         this.delay = 40;
         this.counter = 0;
+        this.to = 0;
     }
     
-    public Inventory (int[] gun, Charact hero, int delay)
+    public Inventory (int[] gun, Charact hero, int delay, int to)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
@@ -56,6 +58,7 @@ public class Inventory extends Scene
         inventory.add(new Gun(gun[0],gun[1],1));
         this.delay = delay;
         this.counter = 0;
+        this.to = to;
     }
     
     public void rightGun()
@@ -104,7 +107,23 @@ public class Inventory extends Scene
         shots.forEach((s) ->
         {
             if (s.isDwable())
-                Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+            {
+                switch (to)
+                {
+                    case 0:
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        break;
+                    case 1:
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        break;
+                    case 2:
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        break;
+                    case 3:
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        break;
+                }
+            }
         });
     }
 
@@ -118,6 +137,11 @@ public class Inventory extends Scene
             {
                 toRemove.add(s);
             }
+            else if(!hero.isAlive())
+            {
+
+            }
+                    
         });
         toRemove.forEach((s)->
         {

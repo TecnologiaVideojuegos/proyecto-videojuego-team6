@@ -215,10 +215,6 @@ public class Hero extends CharactX
     @Override
     public void init(GameContainer gc) throws SlickException{}
     
-    public boolean jumping ()
-    {
-        return jumpUp || jumpDown;
-    }
     @Override
     public void place (float floor, int left, int right)
     {
@@ -230,11 +226,11 @@ public class Hero extends CharactX
         box = new Rectangle (xPos,yPos,w,h);
     }
     @Override
-    public void setBounds (float left, float right, float floor)
+    public void setBounds (float floor, float left, float right)
     {
         colum.setX(left);
         colum.setWidth(right-left);
-        this.floor = floor + h;
+        this.floor = floor - h;
     }
     
     @Override

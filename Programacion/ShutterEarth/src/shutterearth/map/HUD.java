@@ -40,7 +40,7 @@ public class HUD extends Scene
     public HUD (Hero hero)
     {
         this.hero = hero;
-        this.heroHealth = new LiveDisplayer(10,10,Game.getX()/60,5,hero.getHealthMax());
+        this.heroHealth = new LiveDisplayer(10,10,Game.getX()/60,10,hero.getHealthMax());
         
         this.gy = 20;
         this.gw = Game.getX()/15;
@@ -69,8 +69,17 @@ public class HUD extends Scene
         {
             switch(bad.getInfo())
             {
+                case 1:
+                    Game.getMedia().getSprit(Media.SPRITE.BASE_DER).draw(bx,by,bw,bw);
+                    break;
+                case 2:
+                    Game.getMedia().getSprit(Media.SPRITE.FUERTE_DER).draw(bx,by,bw,bw);
+                    break;
                 case 3:
                     Game.getMedia().getImage(Media.IMAGE.SHIP_RIGHT).draw(bx,by,bw,bw);
+                    break;
+                case 4:
+                    Game.getMedia().getImage(Media.IMAGE.SHIP_F_DER).draw(bx,by,bw,bw);
                     break;
             }
             g.draw(rect);

@@ -99,11 +99,21 @@ public class Field extends Scene implements InputProviderListener
         sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
         this.shipCounter = 200;
-        sh.forEach((s) ->
+        sh.forEach((ship) ->
         {
-            enemy.add(s);
-            s.addEnemys(h);
+            enemy.add(ship);
+            ship.addEnemys(h);
         });
+        
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
+        en.forEach((enem) ->
+        {
+            enemy.add(enem);
+            enem.addEnemys(h);
+            enem.place(600, 400, 900);
+        });
+        en.clear();
         
         switch(stage)
         {
@@ -269,12 +279,12 @@ public class Field extends Scene implements InputProviderListener
             }
             else if (command.equals(UP))
             {
-                //hero.setBounds(stage, stage, stage);
+                hero.setBounds(450, 400, 900);
                 hero.goUp();
             }
             else if (command.equals(DOWN))
             {
-                //hero.setBounds(stage, stage, stage);
+                hero.setBounds(600, 400, 900);
                 hero.goDown();
             }
             else if (command.equals(RIGHT))
@@ -398,4 +408,8 @@ public class Field extends Scene implements InputProviderListener
     {
         return "Field "+this.hero.toString()+" "+this.stage;
     }
+    
+    /*public Rectangle getNewBownds(boolean up)
+    {
+    }*/
 }
