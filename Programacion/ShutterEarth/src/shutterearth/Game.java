@@ -58,14 +58,7 @@ public class Game extends BasicGame
         super(gamename);
         scenes = new ArrayList<>();
         savingStation = new SavingStation();
-        Game.gravity = 1f;
-        Game.gravityMax = 50f;
-        Game.xVel = 2f;
-        Game.yVelUp = -20f;
-        Game.yVelDown = -8f;
         developer = null;
-        Game.debug = false;
-        Game.reward = 3;
     }
     
     // Add a scene to the list and call the init method
@@ -145,7 +138,28 @@ public class Game extends BasicGame
         app = new AppGameContainer(new Game ("Shutter Earth"));
         setX(app.getScreenWidth());
         setY(app.getScreenHeight());
-        Game.step = Game.getX()/10;
+        
+        //MAC PROPORTION 1764000px
+        
+        Game.gravity = Game.getX()*Game.getY()/1764000;
+        Game.gravityMax = Game.getX()*Game.getY()*50f/1764000;
+        Game.xVel = Game.getX()*Game.getY()*2f/1764000;
+        Game.yVelUp = -Game.getX()*Game.getY()*20f/1764000;
+        Game.yVelDown = -Game.getX()*Game.getY()*8f/1764000;
+        Game.debug = false;
+        Game.reward = 3;
+        Game.step = (Game.getX()*16)/110;
+        
+        System.out.println("----------------");
+        System.out.println(Game.gravity);
+        System.out.println(Game.gravityMax);
+        System.out.println(Game.xVel);
+        System.out.println(Game.yVelUp);
+        System.out.println(Game.yVelDown);
+        
+        
+        
+        
         app.setDisplayMode(X,Y, true);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
