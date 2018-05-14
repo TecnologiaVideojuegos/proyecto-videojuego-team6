@@ -1,12 +1,15 @@
 package generacionnivel;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Nivel {
     private ArrayList<Habitacion> nivel;
+    private Habitacion heroSpawn;
     
     private final AppGameContainer g;
     private final int gW;
@@ -18,12 +21,35 @@ public class Nivel {
         this.gH = g.getScreenHeight();
         
         generacion();
+        heroSpawn = nivel.get(0);
         nivel.sort(null);
         paredes();
     }
     
     public ArrayList<Habitacion> getNv(){
         return nivel;
+    }
+    
+    public Habitacion getHeroSpawn(){
+        return heroSpawn;
+    }
+    
+    public ArrayList<Rectangle> getBulleytLimits(){
+        ArrayList<Rectangle> aux = new ArrayList<>();
+        for(Habitacion h : nivel) aux.addAll(h.getBulletLimits());
+        return aux;
+    }
+    
+    public ArrayList<Pair> getSpawns(int diffFactor){
+        ArrayList<Pair> aux = new ArrayList<>();
+        int factor;
+        for(Habitacion h : nivel){
+            if(!h.equals(heroSpawn)){
+                factor = ((int)(Math.random()*100))%diffFactor;
+                aux.addAll(h.spawn(((int)(Math.random()*100))%factor));
+            }
+        }
+        return aux;
     }
     
     public void render(Graphics g){

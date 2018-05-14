@@ -2,6 +2,7 @@
 package generacionnivel;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -76,6 +77,16 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>{
     
     public ArrayList<Rectangle> getBulletLimits(){
         return bulletLimits;
+    }
+    
+    public ArrayList<Pair> spawn(int n){
+        ArrayList<Pair> aux = new ArrayList<>();
+        //Seleccionamos una x dentro de la habitacion como pto de spawn,
+        //el resto de la info esta contenida en la propia Habitacion
+        float x = ((float)(Math.random()*(getMaxX()-getX()))+getX());
+        for(int i=0;i<n;i++) aux.add(new Pair(this, x));
+        
+        return aux;
     }
     
     public void render(Graphics g){
