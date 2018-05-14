@@ -1,15 +1,21 @@
 
 package generacionnivel;
 
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Celda extends Rectangle{
     private boolean visited;
     private Habitacion hab = null;
+    private Image img;
 
-    public Celda(float x, float y, float width, float height) {
+    public Celda(float x, float y, float width, float height) throws SlickException{
         super(x, y, width, height);
         this.visited = false;
+        int rand = ((int)(Math.random()*60))%6;
+        this.img = new Image("image/"+rand+".png");
     }
 
     public boolean isVisited() {
@@ -26,5 +32,9 @@ public class Celda extends Rectangle{
 
     public void setHab(Habitacion hab) {
         this.hab = hab;
-    }    
+    }
+    
+    public void render(Graphics g){
+        g.texture(this, img, true);
+    }
 }

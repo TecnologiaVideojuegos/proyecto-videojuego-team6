@@ -5,25 +5,24 @@ import java.util.ArrayList;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Habitacion extends Rectangle{
+public class Habitacion extends Rectangle implements Comparable<Habitacion>{
     private ArrayList <Salida> salidasSup = new ArrayList<>();
     private ArrayList <Salida> salidasInf = new ArrayList<>();
+    private ArrayList <Rectangle> bulletLimits = new ArrayList<>();
     private int cellCount;
     
     private AppGameContainer g;
-    private Color color;
+    private ArrayList<Celda> celdas = new ArrayList<>();
     private String id;
     
-    public Habitacion(AppGameContainer g, Rectangle celda, String id){
+    public Habitacion(AppGameContainer g, Celda celda, String id){
         super(celda.getLocation().getX(), celda.getLocation().getY(), celda.getWidth(), celda.getHeight());
         this.g = g;
         cellCount = 1;
-        
-        Color[] diccionario = {Color.blue,Color.orange,Color.green,Color.magenta,Color.cyan,Color.yellow,Color.pink};
-        color = diccionario[((int)(Math.random()*700))%diccionario.length];
-        
+        celdas.add(celda);        
         this.id = id;
     }
     
@@ -33,6 +32,7 @@ public class Habitacion extends Rectangle{
         //Si esta a la izquierda
         else setBounds(getX()-c.getWidth(), getY(), getWidth()+c.getWidth(), getHeight());
         
+        celdas.add(c);
         cellCount++;
     }
     
@@ -69,19 +69,31 @@ public class Habitacion extends Rectangle{
         salidasInf.add(s);
     }
     
+    public void addBulletLimits(float x){
+        if(x>this.getX()) bulletLimits.add(new Rectangle(x-5,this.getY(),5,this.getHeight()));
+        else bulletLimits.add(new Rectangle(x,this.getY(),5,this.getHeight()));
+    }
+    
+    public ArrayList<Rectangle> getBulletLimits(){
+        return bulletLimits;
+    }
+    
     public void render(Graphics g){
-        g.setColor(color);
-        g.fill(this);
-        g.setColor(Color.white);
+        for(Celda c : celdas) c.render(g);
         g.drawString(toString(), getCenterX(), getCenterY());
         for(Salida s : salidasInf){
             g.draw(s);
             g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+            s.render(g, false);
         }
         for(Salida s : salidasSup){
             g.draw(s);
             g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+            s.render(g, true);
         }
+        g.setColor(Color.darkGray);
+        for(Rectangle r : bulletLimits) g.fill(r);
+        g.setColor(Color.white);
     }
     
     public int getCount(){
@@ -94,5 +106,17 @@ public class Habitacion extends Rectangle{
     
     public String toString(){
         return id+" - "+cellCount;
+    }
+    
+    @Override
+    public int compareTo(Habitacion h){
+        int comp = 0;
+        if(this.getY()<h.getY()) comp = -1;
+        else if(this.getY()>h.getY()) comp = 1;
+        else{
+            if(this.getX()<h.getX()) comp = -1;
+            else if(this.getX()>h.getX()) comp = 1;
+        }
+        return comp;
     }
 }

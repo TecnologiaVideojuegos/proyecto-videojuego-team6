@@ -24,7 +24,7 @@ public class Juego extends BasicGame{
     
     public Juego(String t) throws SlickException{
         super(t);
-        g.setDisplayMode(gW, gH, false);
+        g.setDisplayMode(gW, gH, true);
         g.start();
     }
 
@@ -33,10 +33,11 @@ public class Juego extends BasicGame{
         entrada = new Input(700);
         resetCeldas();
         generacion();
-        //nivel1();
+        nivel.sort(null);
+        paredes();
     }
     
-    private void resetCeldas(){
+    private void resetCeldas() throws SlickException{
         for(int i=0;i<celdas.length;i++)
             for(int j=0;j<celdas[i].length;j++)
                 celdas[i][j] = new Celda(((i%8)*Prop.ceWI*gW)+Prop.ceWI*gW,((j%8)*(Prop.ceTHIRDH*gH*3))+Prop.hubH*gH,Prop.ceWI*gW,Prop.ceTHIRDH*gH*3);
@@ -59,7 +60,7 @@ public class Juego extends BasicGame{
         return ""+genId;
     }
     
-    public void generacion(){
+    public void generacion() throws SlickException{
         int cellCount = 1;
         int cellNum = 32;
         int r = 0;
@@ -203,6 +204,17 @@ public class Juego extends BasicGame{
                     }
                 }
             }
+        }
+    }
+    
+    public void paredes(){
+        for(int i=0;i<nivel.size();i++){
+            if(i!=0)
+                if(nivel.get(i-1).getY()==nivel.get(i).getY())
+                    nivel.get(i).addBulletLimits(nivel.get(i).getX());
+            if(i<(nivel.size()-1))
+                if(nivel.get(i+1).getY()==nivel.get(i).getY())
+                    nivel.get(i).addBulletLimits(nivel.get(i).getMaxX());
         }
     }
     
