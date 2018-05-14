@@ -143,12 +143,40 @@ public class Juego extends BasicGame{
         }while((cellCount<cellNum)||(celdas[r][c].getHab().getCount()==1));
         
         //Eliminamos las habitaciones de una celda
+        int aux = 2;
         for(int i=0;i<celdas.length;i++){
             for(int j=0;j<celdas[i].length;j++){
-                while(celdas[i][j].getHab().getCount()==1){
-                    try{
-                        
-                    } catch(IndexOutOfBoundsException e){}
+                if((celdas[i][j].isVisited())&&(celdas[i][j].getHab().getCount()==1)){
+                    try{ if(celdas[i-1][j].getHab().getCount()<=2) aux = 1;
+                    }catch(Exception e){ aux = 3;}
+                    try{ if(celdas[i+1][j].getHab().getCount()<=2) aux = 0;
+                    }catch(Exception e){ aux = 4;}
+                    switch(aux){
+                        case 2:
+                            aux = ((int)(Math.random()*32))%2;
+                            break;
+                        case 3:
+                            aux = 0;
+                            break;
+                        case 4:
+                            aux = 1;
+                            break;
+                    }
+
+                    switch(aux){
+                        case 0:
+                            //revisa la celda derecha
+                            nivel.remove(celdas[i][j].getHab());
+                            celdas[i+1][j].getHab().addCelda(celdas[i][j]);
+                            celdas[i][j].setHab(celdas[i+1][j].getHab());
+                            break;
+                        case 1:
+                            //revisa la celda izquierda
+                            nivel.remove(celdas[i][j].getHab());
+                            celdas[i-1][j].getHab().addCelda(celdas[i][j]);
+                            celdas[i][j].setHab(celdas[i-1][j].getHab());
+                            break;
+                    }
                 }
             }
         }
