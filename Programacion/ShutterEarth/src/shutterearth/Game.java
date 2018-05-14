@@ -156,6 +156,8 @@ public class Game extends BasicGame
         Game.step = (Game.getY())/7;
         
         System.out.println("-----------------------");
+        System.out.println(Game.X);
+        System.out.println(Game.Y);
         System.out.println(Game.gravity);
         System.out.println(Game.gravityMax);
         System.out.println(Game.xVel);
