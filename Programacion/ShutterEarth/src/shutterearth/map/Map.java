@@ -27,8 +27,7 @@ public abstract class Map extends Scene
     public abstract float [][] getSpots (int n);
     //Da la sigiente habitación si se puede ir a ella o la misma si no
     public abstract float[] getNextRoom (int room,float x, boolean up);
-    //Control de Scena, deben tenerlos pero no tienen por qué contener nada si no se necesita
-    //Solo si el mapa tiene animaciones
+    //Control de Scena
     public abstract void start ();
     public abstract void pause ();
     public abstract void wake ();
