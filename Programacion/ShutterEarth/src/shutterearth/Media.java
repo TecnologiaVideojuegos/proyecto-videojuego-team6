@@ -31,7 +31,7 @@ public class Media extends Scene
     private final HashMap <SOUND,Sound> sound;
        
     public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION};    
-    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ};
+    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
     public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD,HITED,HITED_ALIEN,FIRE_ALIEN};
     
@@ -122,6 +122,18 @@ public class Media extends Scene
                             case "HERO_2_SDE":
                             case "HERO_2_SIZ":
                                 sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",280,424),180));
+                                break;
+                            case "HERO_3_DER":
+                            case "HERO_3_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",368,408),180));
+                                break;
+                            case "HERO_3_SDE":
+                            case "HERO_3_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",320,424),180));
+                                break;
+                            case "HERO_4_DER":
+                            case "HERO_4_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",344,410),180));
                                 break;
                         }
                     }

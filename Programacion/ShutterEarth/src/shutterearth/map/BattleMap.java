@@ -80,15 +80,15 @@ public class BattleMap extends Map
     {
         if (up && (room < (this.room.size()-1)))
         {
-            return new float[]{this.room.get(room+1).getMaxY(),x,Game.getX()-x,2,room+1};
+            return new float[]{this.room.get(room+1).getMaxY(),this.x,Game.getX()-this.x,2,room+1};
         }
         else if (!up && (room > 0))
         {
-            return new float[]{this.room.get(room-1).getMaxY(),x,Game.getX()-x,2,room-1};
+            return new float[]{this.room.get(room-1).getMaxY(),this.x,Game.getX()-this.x,2,room-1};
         }
         else
         {
-            return new float[]{this.room.get(room).getMaxY(),x,Game.getX()-x,2,room};
+            return new float[]{this.room.get(room).getMaxY(),this.x,Game.getX()-this.x,2,room};
         }
     }
 
@@ -97,7 +97,6 @@ public class BattleMap extends Map
     {
         Game.addScene(this);
         float actualFloor = Game.getY();
-        System.out.println(Game.getY());
         for (int j = 0; j<6; j++)
         {
             actualFloor -= Game.step();
