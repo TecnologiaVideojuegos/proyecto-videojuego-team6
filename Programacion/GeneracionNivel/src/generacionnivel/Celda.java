@@ -14,7 +14,7 @@ public class Celda extends Rectangle{
     public Celda(float x, float y, float width, float height) throws SlickException{
         super(x, y, width, height);
         this.visited = false;
-        int rand = ((int)(Math.random()*60))%6;
+        int rand = ((int)(Math.random()*70))%7;
         this.img = new Image("image/"+rand+".png");
     }
 

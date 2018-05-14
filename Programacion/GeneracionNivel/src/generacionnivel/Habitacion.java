@@ -79,16 +79,23 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>{
     }
     
     public void render(Graphics g){
+        //Primero dibujamos los fondos
         for(Celda c : celdas) c.render(g);
-        g.drawString(toString(), getCenterX(), getCenterY());
+        
+        //A continuacion dibujamos el contorno de la habitacion
+        //g.drawString(toString(), getCenterX(), getCenterY()); //for testing
+        g.setColor(Color.black);
+        g.draw(this);
+        
+        //Despues dibujamos las marcas de las salidas y de las paredes internas
         for(Salida s : salidasInf){
-            g.draw(s);
-            g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+            //g.draw(s); //for testing
+            //g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
             s.render(g, false);
         }
         for(Salida s : salidasSup){
-            g.draw(s);
-            g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
+            //g.draw(s); //for testing
+            //g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
             s.render(g, true);
         }
         g.setColor(Color.darkGray);
