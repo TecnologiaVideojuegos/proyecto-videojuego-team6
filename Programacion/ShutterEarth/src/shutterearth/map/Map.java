@@ -26,7 +26,7 @@ public abstract class Map extends Scene
     //Primero el héroe y el reto son los npc
     public abstract float [][] getSpots (int n);
     //Da la sigiente habitación si se puede ir a ella o la misma si no
-    public abstract float[] getNextRoom (int room, boolean up);
+    public abstract float[] getNextRoom (int room,float x, boolean up);
     //Control de Scena, deben tenerlos pero no tienen por qué contener nada si no se necesita
     //Solo si el mapa tiene animaciones
     public abstract void start ();

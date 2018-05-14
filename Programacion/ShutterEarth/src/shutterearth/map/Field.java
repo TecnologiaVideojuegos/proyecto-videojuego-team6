@@ -334,7 +334,7 @@ public class Field extends Scene implements InputProviderListener
         sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 1000;
+        this.shipCounter = 5000;
         sh.forEach((ship) ->
         {
             enemy.add(ship);
@@ -427,8 +427,8 @@ public class Field extends Scene implements InputProviderListener
         return "Field "+this.hero.toString()+" "+this.stage;
     }
     
-    public float [] getNewBownds(int room,boolean up)
+    public float [] getNewBownds(int room,float x,boolean up)
     {
-        return map.getNextRoom(room, up);
+        return map.getNextRoom(room, x, up);
     }
 }
