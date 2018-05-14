@@ -69,16 +69,15 @@ public class LiveDisplayer extends Scene
         }
         if (other > 6)
         {
-
-            Game.getMedia().getImage(Media.IMAGE.TQUARTERS_LIVE).draw(x+radix*full+space*full,y,radix,radix);
+            Game.getMedia().getImage(Media.IMAGE.TQUARTERS_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix,radix);
         }
         else if (other > 4)
         {
-            Game.getMedia().getImage(Media.IMAGE.HALF_LIVE).draw(x+radix*full+space*full,y,radix/2,radix);
+            Game.getMedia().getImage(Media.IMAGE.HALF_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix);
         }
         else if (other > 1)
         {
-            Game.getMedia().getImage(Media.IMAGE.QUARTER_LIVE).draw(x+radix*full+space*full,y,radix/2,radix/2);
+            Game.getMedia().getImage(Media.IMAGE.QUARTER_LIVE).draw(x+radix*(full%maxRow)+space*(full%maxRow),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix/2);
         }
     }
 

@@ -118,7 +118,7 @@ public class Shot
     }
     public boolean ended ()
     {
-        //return x<maxL || x+w>maxR;
-        return x<0 || x+w>Game.getX();
+        return x<maxL || x+w>maxR;
+        //return x<0 || x+w>Game.getX();
     }
 }

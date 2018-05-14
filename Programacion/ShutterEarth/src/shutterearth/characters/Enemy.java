@@ -26,9 +26,8 @@ public class Enemy extends CharactX
     {
         h = Game.getY()/10;
         w = (h/10)*9;
-        animationTime = 40;
         
-        animationTime = 60;
+        animationTime = 40;
         counterAnimation = 0;
         animation = false;
         

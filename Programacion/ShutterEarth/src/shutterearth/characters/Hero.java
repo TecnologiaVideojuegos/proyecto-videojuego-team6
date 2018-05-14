@@ -41,7 +41,7 @@ public class Hero extends CharactX
         this.jumpDown = false;
         this.over = false;
         this.xPos = Game.getxVel();
-        animationTime = 50;
+        animationTime = 40;
         counterAnimation = 0;
         animation = false;
     }
