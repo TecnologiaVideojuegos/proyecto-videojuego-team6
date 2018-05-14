@@ -22,7 +22,7 @@ public class Label
     
     protected Label (float x, float y, boolean face, int money)
     {
-        this.counterDamage = 200;
+        this.counterDamage = 350;
         this.x = x;
         this.y = y;
         if (face)

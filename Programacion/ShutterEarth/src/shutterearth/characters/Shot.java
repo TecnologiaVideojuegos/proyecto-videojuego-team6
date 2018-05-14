@@ -33,11 +33,14 @@ public class Shot
     private final int damage;
     private int borderRoom;
     
+    private float counter;
+    private int hited;
+    
     public Shot (Gun gun, Charact hero, int offset)
     {
         this.offset = offset;
         this.updateRate = 4;
-        this.delay = gun.getDelay()*2;
+        this.delay = gun.getDelay();
         this.y = hero.getY();
         first = true;
         this.hero = hero;
@@ -50,6 +53,16 @@ public class Shot
         
         this.box = new Rectangle(0,0,w,h);
         this.damage = gun.getDamage();
+        this.counter = 40;
+    }
+    
+    public void setHited(int hited)
+    {
+        this.hited = hited;
+    }
+    public int getHited()
+    {
+        return hited;
     }
     
     public int getDamage()
@@ -64,6 +77,15 @@ public class Shot
     public float getH()
     {
         return h;
+    }
+    
+    public void count (float delta)
+    {
+        this.counter -= 1*delta;
+    }
+    public boolean remove()
+    {
+        return counter <0;
     }
     
     public void update (float delta)

@@ -10,6 +10,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
@@ -21,10 +22,14 @@ import shutterearth.Media;
 public class BattleMap extends Map
 {
     private final ArrayList <Rectangle> room;
+    private final ArrayList <Circle> animation;
+    
     public BattleMap (float x, float y)
     {
         super (x,y);
         this.room = new ArrayList <>();
+        this.animation = new ArrayList <>();
+        
     }
     
     @Override
@@ -64,7 +69,7 @@ public class BattleMap extends Map
         for (int j = 1; j < n; j++)
         {
             rm = (int)(Math.random()*(room.size()-1)+1);
-            spots[j] = new float[]{(float)(Math.random()*(Game.getX()-(x)*2-10)+x+10),room.get(rm).getY()-10,room.get(rm).getMaxY(),x,Game.getX()-x,2,rm};
+            spots[j] = new float[]{(float)((Math.random()*((Game.getX()-((x)*2)-10)))+x+10),room.get(rm).getY()-10,room.get(rm).getMaxY(),x,Game.getX()-x,2,rm};
         }
         
         return spots;
@@ -96,7 +101,6 @@ public class BattleMap extends Map
         for (int j = 0; j<6; j++)
         {
             actualFloor -= Game.step();
-            System.out.println(actualFloor);
             room.add(new Rectangle (x,actualFloor,Game.getX()-(x)*2,Game.step()));
         }
     }

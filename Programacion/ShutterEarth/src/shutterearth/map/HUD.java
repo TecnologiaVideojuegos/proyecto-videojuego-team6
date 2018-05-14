@@ -100,10 +100,12 @@ public class HUD extends Scene
             }
             else
                 counter ++;
+            badHealth.setDisplay(true);
         }
         else
         {
             badHealth.setHealth(0, false);
+            badHealth.setDisplay(false);
         }
     }
 

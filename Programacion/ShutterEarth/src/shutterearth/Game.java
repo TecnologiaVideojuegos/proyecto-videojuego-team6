@@ -146,7 +146,7 @@ public class Game extends BasicGame
         Game.xVel = Game.getX()*Game.getY()*2f/1764000;
         Game.yVelUp = -Game.getX()*Game.getY()*20f/1764000;
         Game.yVelDown = -Game.getX()*Game.getY()*8f/1764000;
-        Game.debug = true;
+        Game.debug = false;
         Game.reward = 3;
         Game.step = (Game.getY())/7;
 

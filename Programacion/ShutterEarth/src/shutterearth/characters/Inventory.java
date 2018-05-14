@@ -23,13 +23,14 @@ public class Inventory extends Scene
     private final ArrayList <Gun> inventory;
     private int index;
     private final ArrayList <Shot> shots;
+        private final ArrayList <Shot> count;
     private final ArrayList <Shot> toRemoveS;
     private final ArrayList <Label> label;
     private final ArrayList <Label> toRemoveL;
     private final Charact hero;
     private final int delay;
     private int counter;
-    private final int to;
+    private final int from;
     
     public Inventory (ArrayList <int[]> guns, Charact hero)
     {
@@ -37,6 +38,7 @@ public class Inventory extends Scene
         this.shots = new ArrayList <>();
         this.toRemoveS = new ArrayList <>();
         this.label = new ArrayList <>();
+        this.count = new ArrayList <>();
         this.toRemoveL = new ArrayList <>();
         maxGun = guns.size();
         index = 0;
@@ -48,15 +50,16 @@ public class Inventory extends Scene
         });
         this.delay = 40;
         this.counter = 0;
-        this.to = 0;
+        this.from = 0;
     }
     
-    public Inventory (int[] gun, Charact hero, int delay, int to)
+    public Inventory (int[] gun, Charact hero, int delay, int from)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
         this.toRemoveS = new ArrayList <>();
         this.label = new ArrayList <>();
+        this.count = new ArrayList <>();
         this.toRemoveL = new ArrayList <>();
         maxGun = 1;
         index = 0;
@@ -64,7 +67,7 @@ public class Inventory extends Scene
         inventory.add(new Gun(gun[0],gun[1],1));
         this.delay = delay;
         this.counter = 0;
-        this.to = to;
+        this.from = from;
     }
     
     public void rightGun()
@@ -114,7 +117,7 @@ public class Inventory extends Scene
         {
             if (s.isDwable())
             {
-                switch (to)
+                switch (from)
                 {
                     case 0:
                         Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
@@ -135,6 +138,21 @@ public class Inventory extends Scene
         {
             if (lab.isAlive())
                 g.drawString(lab.getLabel(), lab.getX(), lab.getY());
+        });
+        count.forEach((s)->
+        {
+            switch (s.getHited())
+            {
+                case 0:
+                case 1:
+                case 2:
+                    Game.getMedia().getImage(Media.IMAGE.BLOOD).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                    break;
+                case 3:
+                case 4:
+                    Game.getMedia().getImage(Media.IMAGE.EXPLOSION).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                    break;
+            }
         });
     }
 
@@ -184,6 +202,8 @@ public class Inventory extends Scene
                         if (s.getBox().intersects(e.getBox()))
                         {
                             e.getDamage(s.getDamage());
+                            s.setHited(e.getInfo());
+                            count.add(s);
                             toRemoveS.add(s);
                             if (e.getInfo() == 0)
                             {
@@ -199,7 +219,7 @@ public class Inventory extends Scene
                             }
                             if(hero.getInfo()==0 && !e.isAlive() && hero.isAlive())
                             {
-                                label.add(new Label(hero.getBox().getCenterX(),hero.getBox().getCenterY(),hero.getFace(),e.getHealthMax()*Game.getReward()));
+                                label.add(new Label(e.getBox().getCenterX(),e.getBox().getCenterY(),e.getFace(),e.getHealthMax()*Game.getReward()));
                                 hero.hasKilled(e.getHealthMax()*Game.getReward());
                             }
                         }
@@ -212,6 +232,18 @@ public class Inventory extends Scene
             shots.remove(s);
         });
         toRemoveS.clear();
+        count.forEach((s)->
+        {
+            if (s.remove())
+                toRemoveS.add(s);
+            else
+                s.count(t);
+        });
+        toRemoveS.forEach((s)->
+        {
+            count.remove(s);
+        });
+
         if (counter >= 0)
             counter -= 1*t;
         

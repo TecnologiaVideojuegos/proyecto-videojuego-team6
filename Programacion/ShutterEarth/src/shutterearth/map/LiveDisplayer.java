@@ -27,6 +27,7 @@ public class LiveDisplayer extends Scene
     private int full;
     private int other;
     private final int maxRow;
+    private boolean display;
     
     public LiveDisplayer (int x, int y, int radix, int maxRow, int health)
     {
@@ -38,6 +39,12 @@ public class LiveDisplayer extends Scene
         this.radix = radix;
         this.space = radix/12;
         this.maxRow = maxRow;
+        this.display = true;
+    }
+    
+    public void setDisplay(boolean on)
+    {
+        this.display = on;
     }
     
     public void setHealth (int health, boolean animation)
@@ -63,22 +70,25 @@ public class LiveDisplayer extends Scene
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        for (int j = 0; j < full; j++)
+        if (display)
         {
-            Game.getMedia().getImage(Media.IMAGE.FULL_LIVE).draw(x+(radix*(j%maxRow))+(space*(j%maxRow)),y+(radix*(j/maxRow))+(space*(j/maxRow)),radix,radix);
-        }
-        if (other > 6)
-        {
-            Game.getMedia().getImage(Media.IMAGE.TQUARTERS_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix,radix);
-        }
-        else if (other > 4)
-        {
-            Game.getMedia().getImage(Media.IMAGE.HALF_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix);
-        }
-        else if (other > 1)
-        {
-            Game.getMedia().getImage(Media.IMAGE.QUARTER_LIVE).draw(x+radix*(full%maxRow)+space*(full%maxRow),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix/2);
-        }
+            for (int j = 0; j < full; j++)
+            {
+                Game.getMedia().getImage(Media.IMAGE.FULL_LIVE).draw(x+(radix*(j%maxRow))+(space*(j%maxRow)),y+(radix*(j/maxRow))+(space*(j/maxRow)),radix,radix);
+            }
+            if (other > 6)
+            {
+                Game.getMedia().getImage(Media.IMAGE.TQUARTERS_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix,radix);
+            }
+            else if (other > 4)
+            {
+                Game.getMedia().getImage(Media.IMAGE.HALF_LIVE).draw(x+(radix*(full%maxRow)+space*(full%maxRow)),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix);
+            }
+            else if (other > 1)
+            {
+                Game.getMedia().getImage(Media.IMAGE.QUARTER_LIVE).draw(x+radix*(full%maxRow)+space*(full%maxRow),y+(radix*(full/maxRow)+space*(full/maxRow)),radix/2,radix/2);
+            }
+        } 
     }
 
     @Override

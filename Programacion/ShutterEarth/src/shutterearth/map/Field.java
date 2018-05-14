@@ -325,7 +325,7 @@ public class Field extends Scene implements InputProviderListener
         this.map = new BattleMap(Game.getX()/9,hero.getH()*2);
         Game.addScene(this);
         map.start();
-        spots = map.getSpots(3);
+        spots = map.getSpots(7);
         
         ArrayList <Charact> h = new ArrayList <>();
         h.add(hero);
@@ -333,7 +333,8 @@ public class Field extends Scene implements InputProviderListener
         
         sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 200;
+        sh.add(new Ship(1,stage,hero,this));
+        this.shipCounter = 1000;
         sh.forEach((ship) ->
         {
             enemy.add(ship);
@@ -341,13 +342,17 @@ public class Field extends Scene implements InputProviderListener
         });
         
         en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
         en.add(new Enemy(2,stage,hero,this));
-        en.forEach((enem) ->
+        en.add(new Enemy(2,stage,hero,this));
+        for (int j = 0; j < en.size(); j++)
         {
-            enemy.add(enem);
-            enem.addEnemys(h);
-            enem.place(410f,910f,600f, 400f, 900f,2,0);
-        });
+            enemy.add(en.get(j));
+            en.get(j).addEnemys(h);
+            en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
+        }
         en.clear();
         
         
