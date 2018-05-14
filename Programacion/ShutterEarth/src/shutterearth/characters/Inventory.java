@@ -137,9 +137,9 @@ public class Inventory extends Scene
             {
                 toRemove.add(s);
             }
-            else if(!hero.isAlive())
+            else if(!hero.isAlive() && !s.isDwable())
             {
-
+                toRemove.add(s);
             }
                     
         });

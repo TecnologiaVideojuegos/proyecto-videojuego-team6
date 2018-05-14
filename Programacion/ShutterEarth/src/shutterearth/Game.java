@@ -209,7 +209,7 @@ public class Game extends BasicGame
             developer.end();
             try
             {
-                developer.join();
+                developer.join(1000);
             } 
             catch (InterruptedException ex)
             {
