@@ -64,7 +64,7 @@ public class Game extends BasicGame
         Game.yVelUp = -20f;
         Game.yVelDown = -8f;
         developer = null;
-        Game.debug = true;
+        Game.debug = false;
         Game.reward = 3;
     }
     
