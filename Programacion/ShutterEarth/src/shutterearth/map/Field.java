@@ -331,14 +331,14 @@ public class Field extends Scene implements InputProviderListener
         Game.addScene(this);
         map.start();
         //new BattleMap(Game.getX()/10,hero.getH()*2).start();
-        //spots = map.getSpots(7);
+        spots = map.getSpots(7);
         
         ArrayList <Charact> h = new ArrayList <>();
         h.add(hero);
-        //hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
+        hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
         
         
-        hero.place(890, Game.getY()-100, Game.getY()-5, 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
+        //hero.place(890, Game.getY()-100, Game.getY()-5, 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
         
         
         //sh.add(new Ship(2,stage,hero,this));
@@ -351,17 +351,17 @@ public class Field extends Scene implements InputProviderListener
             ship.addEnemys(h);
         });
         
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(2,stage,hero,this));
-        //en.add(new Enemy(2,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
         for (int j = 0; j < en.size(); j++)
         {
             enemy.add(en.get(j));
             en.get(j).addEnemys(h);
-            //en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
+            en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
         }
         en.clear();
         
