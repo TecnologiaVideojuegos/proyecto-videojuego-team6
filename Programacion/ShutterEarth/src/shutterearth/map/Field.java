@@ -179,7 +179,7 @@ public class Field extends Scene implements InputProviderListener
                         hs.reInventory();
                         Hero h = new Hero (hs);
                         HUD hudn = new HUD(h);
-                        Field field = new Field(h,(stage+1>10?10:stage+1),hudn);
+                        Field field = new Field(h,((stage+1)>10?10:stage+1),hudn);
                         Game.removeSence(this);
                         hud.end();
                         map.end();
@@ -284,7 +284,10 @@ public class Field extends Scene implements InputProviderListener
     
     public void wake ()
     {
-        Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
+        if (battle)
+            Game.getMedia().getMusic(Media.MUSIC.BATTLE_SONG).loop();
+        else
+            Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
         this.setState(STATE.ON);
         hud.wake();
         map.wake();
@@ -324,20 +327,7 @@ public class Field extends Scene implements InputProviderListener
     }
     
     public void start ()
-    {
-        
-        /*
-        sh.add(new Ship(2,stage,hero,this));
-        sh.add(new Ship(1,stage,hero,this));
-        sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 3500;
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));*/
-        
+    {        
         switch(stage)
         {
             case 1:
@@ -388,7 +378,6 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
-                en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
@@ -396,6 +385,12 @@ public class Field extends Scene implements InputProviderListener
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 5:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
@@ -419,6 +414,10 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 3500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 7:
@@ -432,6 +431,12 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 3500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 8:
@@ -445,6 +450,10 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 3500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 9:
@@ -458,6 +467,12 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 5500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
@@ -471,11 +486,16 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
-                setMap(new Juego (Game.getX()/9,hero.getH()*2));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 3500;
+                setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
                 break;
         }
-        //tsetMap(new Juego (Game.getX()/9,hero.getH()*2));
-        //setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
     }
     
     public void setHudAlien (Charact enemy, int lastLive)
@@ -530,6 +550,7 @@ public class Field extends Scene implements InputProviderListener
         {
             ship.activate();
         });
+        startBattle ();
     }
     private void setup ()
     {
