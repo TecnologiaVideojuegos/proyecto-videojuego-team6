@@ -30,8 +30,8 @@ public class Media extends Scene
     private final HashMap <MUSIC,Music> music;
     private final HashMap <SOUND,Sound> sound;
        
-    public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION,SHIP_SHOT};    
-    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ};
+    public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION,SHIP_SHOT,BACKGROUND_0,BACKGROUND_1,BACKGROUND_2,BACKGROUND_3,BACKGROUND_4,BACKGROUND_5,BACKGROUND_6};    
+    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ,HERO_4_SDE,HERO_4_SIZ,HERO_5_DER,HERO_5_IZQ,HERO_5_SDE,HERO_5_SIZ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
     public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD,HITED,HITED_ALIEN,FIRE_ALIEN};
     
@@ -43,6 +43,8 @@ public class Media extends Scene
     private int maxW;
     private int next;
     private boolean oneIn;
+    
+    private String source;
     
     public Media ()
     {
@@ -63,6 +65,7 @@ public class Media extends Scene
         {
             System.out.println("ERROR LOADING MEDIA");
         }
+        this.source = "";
     }
     
 
@@ -74,7 +77,7 @@ public class Media extends Scene
         g.fill(black);
         g.setColor(Color.yellow);
         g.fill(yellow);
-        g.drawString("Loading...", black.getX(), black.getY()+black.getHeight()+20);
+        g.drawString(source, black.getX(), black.getY()+black.getHeight()+20);
     }
 
     @Override
@@ -93,6 +96,7 @@ public class Media extends Scene
                         images.put(img, new Image("./media/"+img.name()+".png"));
                     where ++;
                     oneIn = true;
+                    source = "./media/"+img.name()+"/.png";
                     break;
                 }
             }
@@ -135,10 +139,23 @@ public class Media extends Scene
                             case "HERO_4_IZQ":
                                 sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",344,410),180));
                                 break;
+                            case "HERO_4_SDE":
+                            case "HERO_4_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",296,424),180));
+                                break;
+                            case "HERO_5_DER":
+                            case "HERO_5_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",496,408),180));
+                                break;
+                            case "HERO_5_SDE":
+                            case "HERO_5_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",449,424),180));
+                                break;
                         }
                     }
                     where ++;
                     oneIn = true;
+                    source = "./media/"+spt.name()+"/.png";
                     break;
                 }
             }
@@ -147,9 +164,10 @@ public class Media extends Scene
             {
                 if (!music.containsKey(ms) && !oneIn)
                 {
-                    music.put(ms, new Music("./media/"+ms.name()+".ogg", false));
+                    music.put(ms, new Music("./media/"+ms.name()+".wav", false));
                     where ++;
                     oneIn = true;
+                    source = "./media/"+ms.name()+"/.wav";
                     break;
                 }
             }
@@ -161,6 +179,7 @@ public class Media extends Scene
                     sound.put(s, new Sound("./media/"+s.name()+".wav"));
                     where ++;
                     oneIn = true;
+                    source = "./media/"+s.name()+"/.wav";
                     break;
                 }
             }
@@ -214,7 +233,29 @@ public class Media extends Scene
             case 4:
                 return IMAGE.GUN0;
             default:
-                return IMAGE.BULLET_R;
+                return null;
+        }
+    }
+    public static IMAGE getBackGround (int id)
+    {
+        switch (id)
+        {
+            case 0:
+                return IMAGE.BACKGROUND_0;
+            case 1:
+                return IMAGE.BACKGROUND_1;
+            case 2:
+                return IMAGE.BACKGROUND_2;
+            case 3:
+                return IMAGE.BACKGROUND_3;
+            case 4:
+                return IMAGE.BACKGROUND_4;
+            case 5:
+                return IMAGE.BACKGROUND_5;
+            case 6:
+                return IMAGE.BACKGROUND_6;
+            default:
+                return null;
         }
     }
     

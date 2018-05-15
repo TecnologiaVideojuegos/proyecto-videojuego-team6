@@ -5,6 +5,7 @@
  */
 package shutterearth.map;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -62,6 +63,7 @@ public class HUD extends Scene
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
+        g.setColor(Color.yellow);
         Game.getMedia().getImage(Media.getGun(hero.getInventory().getGunID())).draw(gx,gy,gw,gh);
 
         g.drawString("Bullets: " + hero.getBullets(), gx, gy+gh+15);
@@ -83,6 +85,7 @@ public class HUD extends Scene
                     break;
             }
             g.draw(rect);
+            Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
         }
     }
 

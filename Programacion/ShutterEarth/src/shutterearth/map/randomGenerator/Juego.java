@@ -1,38 +1,27 @@
 
 package shutterearth.map.randomGenerator;
 
-import org.newdawn.slick.*;
-import org.newdawn.slick.geom.*;
-import shutterearth.screens.Scene;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
 import shutterearth.Game;
+import shutterearth.map.Map;
 
 
-public class Juego extends Scene{
-    
-    private Rectangle personaje = new Rectangle(10,10,Prop.chHALFW*2*Game.getX(), Prop.chH*Game.getY());
-    
-    private Input entrada;
-    
+public class Juego extends Map
+{
+
     private Nivel nivel;
 
-    @Override
-    public void init(GameContainer container) throws SlickException {
-        entrada = new Input(700);
-        nivel = new Nivel(Game.getContainer());
+    public Juego (float x, float y)
+    {
+        super (x,y);
     }
     
-    /*public void nivel1(){
-        Habitacion hab = new Habitacion(g,celdas[0][7],geneId());
-        System.out.println(hab.getX()+" - "+hab.getY()+"  =  "+hab.getWidth()+" - "+hab.getHeight());
-        hab.addCelda(celdas[1][7]);
-        System.out.println(hab.getX()+" - "+hab.getY()+"  =  "+hab.getWidth()+" - "+hab.getHeight());
-        nivel.add(hab);
-        hab= new Habitacion(g, celdas[1][6],geneId());
-        nivel.add(hab);
-        nivel.get(0).addSalidaSup(celdas[1][7], nivel.get(1));
-        nivel.get(1).addSalidaInf(celdas[1][6], nivel.get(0));
-    }*/
-
+    @Override
+    public void init(GameContainer container) throws SlickException {}
+    
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
@@ -48,5 +37,43 @@ public class Juego extends Scene{
     public String toString()
     {
         return "RANDOM GENERATOR";
+    }
+
+    @Override
+    public float[][] getSpots(int n)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public float[] getNextRoom(int room, float x, boolean up)
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void start()
+    {
+        try
+        {
+            nivel = new Nivel(Game.getContainer());
+            Game.addScene(this);
+        }
+        catch (SlickException e)
+        {
+            System.out.println("ERROR LOADING RANDOM MAP... " +e.toString());
+        }
+    }
+
+    @Override
+    public void pause(){}
+
+    @Override
+    public void wake(){}
+
+    @Override
+    public void end()
+    {
+        Game.removeSence(this);
     }
 }

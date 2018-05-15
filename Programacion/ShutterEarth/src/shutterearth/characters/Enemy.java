@@ -24,7 +24,7 @@ public class Enemy extends CharactX
     
     public Enemy (int type, int stage,Hero hero,Field field)
     {
-        h = Game.getY()/10;
+        h = Game.getY()/12;
         w = (h/10)*9;
         
         animationTime = 40;

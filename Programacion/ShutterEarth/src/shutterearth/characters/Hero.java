@@ -35,7 +35,7 @@ public class Hero extends CharactX
         this.kills = hero.getKills();
         this.inventory = new Inventory (hero.getInventory(),this);
         
-        this.h = Game.getY()/11;
+        this.h = Game.getY()/13;
         this.w = (h*9)/15;
         this.jumpUp = false;
         this.jumpDown = false;
@@ -44,7 +44,7 @@ public class Hero extends CharactX
         animationTime = 40;
         counterAnimation = 0;
         animation = false;
-        this.goRight();
+        //this.goRight();
     }
     
     @Override
@@ -52,7 +52,7 @@ public class Hero extends CharactX
     {
         if (!jumping())
         {
-            this.boundSetter(this.field.getNewBownds(room,xPos, true));
+            //this.boundSetter(this.field.getNewBownds(room,xPos, true));//-----------------------------------------------------------------------------------------
             yVel = Game.getyVelUp();
             this.setY(yPos-1);
             jumpUp = true;
@@ -73,7 +73,7 @@ public class Hero extends CharactX
     {
         if (!jumping())
         {
-            this.boundSetter(this.field.getNewBownds(room,xPos, false));
+            //this.boundSetter(this.field.getNewBownds(room,xPos, false));//-----------------------------------------------------------------------------------------
             yVel = Game.getyVelDown();
             this.setY(yPos-1);
             jumpDown = true;
@@ -119,8 +119,10 @@ public class Hero extends CharactX
                         Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_3_DER : Media.SPRITE.HERO_3_IZQ).draw(xPos,yPos,w,h);
                         break;
                     case 3:
-                    case 4:
                         Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_4_DER : Media.SPRITE.HERO_4_IZQ).draw(xPos,yPos,w,h);
+                        break;
+                    case 4:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_5_DER : Media.SPRITE.HERO_5_IZQ).draw(xPos,yPos,w,h);
                     break;
                 }
             }
@@ -135,9 +137,13 @@ public class Hero extends CharactX
                         Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_2_SDE : Media.SPRITE.HERO_2_SIZ).draw(xPos,yPos,w,h);
                         break;
                     case 2:
-                    case 3:
-                    case 4:
                         Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_3_SDE : Media.SPRITE.HERO_3_SIZ).draw(xPos,yPos,w,h);
+                        break;
+                    case 3:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_4_SDE : Media.SPRITE.HERO_4_SIZ).draw(xPos,yPos,w,h);
+                        break;
+                    case 4:
+                        Game.getMedia().getSprit(xVel > 0? Media.SPRITE.HERO_5_SDE : Media.SPRITE.HERO_5_SIZ).draw(xPos,yPos,w,h);
                         break;
                 }
             }

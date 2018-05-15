@@ -38,12 +38,12 @@ public class Ship extends CharactX
         this.side = 0;
         if (type == 1)
         {
-            w = Game.getX()/10;
-            h = Game.getY()/10;
+            w = Game.getX()/12;
+            h = Game.getY()/12;
         }
         else
         {
-            w = Game.getX()/12;
+            w = Game.getX()/14;
             h = (w*12)/7;
         }
         animationTime = 50;
@@ -265,25 +265,25 @@ public class Ship extends CharactX
     @Override
     public void goUp()
     {
-        yVel = - Game.getxVel();
+        yVel = - Game.getxVel()*1.2f;
     }
 
     @Override
     public void goLeft()
     {
-        xVel = -Game.getxVel();
+        xVel = -Game.getxVel()*1.2f;
     }
 
     @Override
     public void goRight()
     {
-        xVel = Game.getxVel();
+        xVel = Game.getxVel()*1.2f;
     }
 
     @Override
     public void goDown()
     {
-        yVel = Game.getxVel();
+        yVel = Game.getxVel()*1.2f;
     }
 
     @Override

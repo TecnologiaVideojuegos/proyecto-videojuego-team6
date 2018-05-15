@@ -45,8 +45,8 @@ public class Shot
         first = true;
         this.hero = hero;
         
-        this.w = Game.getX()/50;
-        this.h = Game.getY()/50;
+        this.w = Game.getX()/55;
+        this.h = Game.getY()/55;
         
         maxR = Game.getX();
         maxL = 0;

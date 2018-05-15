@@ -145,15 +145,17 @@ public class Game extends BasicGame
         setY(app.getScreenHeight());
         
         //MAC PROPORTION 1764000px
+        //X 1680px
+        //Y 1050px
         
-        Game.gravity = Game.getX()*Game.getY()/1764000;
-        Game.gravityMax = Game.getX()*Game.getY()*50f/1764000;
-        Game.xVel = Game.getX()*Game.getY()*2f/1764000;
-        Game.yVelUp = -Game.getX()*Game.getY()*20f/1764000;
-        Game.yVelDown = -Game.getX()*Game.getY()*8f/1764000;
+        Game.gravity = Game.getY()/1050;
+        Game.gravityMax = Game.getY()*50f/1050;
+        Game.xVel = Game.getX()*1.8f/1680;
+        Game.yVelUp = -Game.getY()*18f/1050;
+        Game.yVelDown = -Game.getY()*8f/1050;
         Game.debug = false;
         Game.reward = 2;
-        Game.step = (Game.getY())/7;
+        Game.step = ((Game.getY()*12)/105f);
         
         System.out.println("-----------------------");
         System.out.println(Game.X);

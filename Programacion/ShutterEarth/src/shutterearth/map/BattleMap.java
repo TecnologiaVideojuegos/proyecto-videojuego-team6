@@ -97,7 +97,7 @@ public class BattleMap extends Map
     {
         Game.addScene(this);
         float actualFloor = Game.getY();
-        for (int j = 0; j<6; j++)
+        for (int j = 0; j<8; j++)
         {
             actualFloor -= Game.step();
             room.add(new Rectangle (x,actualFloor,Game.getX()-(x)*2,Game.step()));

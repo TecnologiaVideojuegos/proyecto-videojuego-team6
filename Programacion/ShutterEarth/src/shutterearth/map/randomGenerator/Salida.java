@@ -5,7 +5,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Salida extends Rectangle{
+public class Salida extends Rectangle
+{
     private Habitacion next;
 
     public Salida(Habitacion next, float x, float y, float width, float height) {
@@ -21,9 +22,10 @@ public class Salida extends Rectangle{
         next = h;
     }
     
-    public void render(Graphics g, boolean b){
+    public void render(Graphics g, boolean b)
+    {
         g.setColor(Color.blue);
-        g.setLineWidth(5);
+        g.setLineWidth(9);
         if(b) g.drawLine(this.getX(), this.getY(), this.getMaxX(), this.getY());
         else g.drawLine(this.getX(), this.getMaxY(), this.getMaxX(), this.getMaxY());
         g.setColor(Color.white);

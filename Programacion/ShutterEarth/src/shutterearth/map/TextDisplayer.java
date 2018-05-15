@@ -58,6 +58,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
+        g.setColor(Color.yellow);
         Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
         txt.render(gc, g);
     }

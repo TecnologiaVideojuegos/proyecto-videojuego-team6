@@ -22,6 +22,7 @@ import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.SavedHero;
+import shutterearth.map.randomGenerator.Juego;
 
 /**
  *

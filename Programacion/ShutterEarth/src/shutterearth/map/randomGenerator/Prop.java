@@ -1,7 +1,8 @@
 
 package shutterearth.map.randomGenerator;
 
-public class Prop {
+public class Prop 
+{
     /**Alto del espacio del HUB*/
     public static float hubH = (3/35f);
     /**Alto del personaje*/
