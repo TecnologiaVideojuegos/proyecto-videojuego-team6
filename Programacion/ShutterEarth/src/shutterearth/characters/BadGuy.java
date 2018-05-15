@@ -92,7 +92,7 @@ public class BadGuy extends Charact
     @Override
     public void shot()
     {
-        inventory.shot(stage/2);
+        inventory.shot(((stage/2) > 0?(stage/2):1));
     }
     
     public void revive ()

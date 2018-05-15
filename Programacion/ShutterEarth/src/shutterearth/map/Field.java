@@ -18,6 +18,7 @@ import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.BadGuy;
@@ -84,7 +85,12 @@ public class Field extends Scene implements InputProviderListener
     private float [][]spots;
     private int n;
     
-    public Field (Hero hero, int stage, HUD hud)
+    private final BB bb;
+    private Rectangle futureBB;
+    private boolean done;
+    private boolean accessBB;
+    
+    public Field (Hero hero, int stage, HUD hud, int lessHealth)
     {
         this.xt = 10;
         this.yt = 15 + Game.getX()/30 + Game.getX()/300;
@@ -101,6 +107,10 @@ public class Field extends Scene implements InputProviderListener
         enemy = new ArrayList <>();
         en = new ArrayList <>();
         sh = new ArrayList <>();
+        hero.getDamage(lessHealth);
+        accessBB = false;
+        done = false;
+        bb = new BB();
     }
     
     @Override
@@ -133,9 +143,11 @@ public class Field extends Scene implements InputProviderListener
     {
         if (relisable)
         {
-            if ((counter < shipCounter) || deadAliens())
+            if ((counter < shipCounter))
             {
                 counter += 1*t;
+                if (deadAliens())
+                    counter = shipCounter;
             }
             else
             {
@@ -153,42 +165,7 @@ public class Field extends Scene implements InputProviderListener
             {
                 if (enemy.isEmpty() && hero.isAlive())
                 {
-                    if (stage >= 10)
-                    {
-                        this.exit();
-                    }
-                    else
-                    {
-                        hero.save();
-                        provider.unbindCommand(back);
-                        provider.unbindCommand(esc);
-                        provider.unbindCommand(up);
-                        provider.unbindCommand(down);
-                        provider.unbindCommand(right);
-                        provider.unbindCommand(left);
-                        provider.unbindCommand(w);
-                        provider.unbindCommand(a);
-                        provider.unbindCommand(s);
-                        provider.unbindCommand(d);
-                        provider.unbindCommand(q);
-                        provider.unbindCommand(e);
-                        provider.unbindCommand(space);
-                        provider.removeListener(this);
-                        hero.setStage(stage);
-                        SavedHero hs = hero.save();
-                        hs.reInventory();
-                        Hero h = new Hero (hs);
-                        HUD hudn = new HUD(h);
-                        Field field = new Field(h,((stage+1)>10?10:stage+1),hudn);
-                        Game.removeSence(this);
-                        hud.end();
-                        map.end();
-                        enemy.forEach((enem)->
-                        {
-                            enem.end();
-                        });
-                        field.start();
-                    }
+                    this.loadNew();
                 }
                 else
                 {
@@ -198,7 +175,57 @@ public class Field extends Scene implements InputProviderListener
         }
         else if (enemy.isEmpty() && hero.isAlive())
         {
-            this.startAnimation();
+            if (accessBB)
+            {
+                if (hero.isAlive())
+                {
+                    bb.setBB(futureBB);
+                    if (hero.getBox().intersects(bb.getBB()))
+                    {
+                        this.startAnimation();
+                    }
+                }
+                else
+                {
+                    this.startAnimation();
+                }
+            }
+            else if (done)
+            {
+                this.startAnimation();
+            }
+            else
+            {
+                switch (stage)
+                {
+                    case 1:
+
+                        bb.setBB(futureBB);
+                        if (hero.getBox().intersects(bb.getBB()))
+                        {
+                            bb.exit();
+                            releaseBadGuy();
+                            done = true;
+                        }
+                        break;
+                    case 5:
+                        bb.setBB(futureBB);
+                        if (hero.getBox().intersects(bb.getBB()))
+                        {
+                            bb.exit();
+                            releaseBadGuy();
+                            done = true;
+                        }
+                        break;
+                    case 10:
+                        releaseBadGuy();
+                        accessBB = true;
+                        break;
+                    default:
+                        this.startAnimation();
+                        break; 
+                }
+            }
         }
     }
 
@@ -318,6 +345,7 @@ public class Field extends Scene implements InputProviderListener
         Game.removeSence(this);
         hud.end();
         map.end();
+        bb.exit();
         enemy.forEach((enem)->
         {
             enem.end();
@@ -350,7 +378,7 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                this.shipCounter = 4500;
+                this.shipCounter = 5500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 3:
@@ -365,7 +393,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                this.shipCounter = 3500;
+                this.shipCounter = 5000;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 4:
@@ -381,7 +409,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                this.shipCounter = 2500;
+                this.shipCounter = 4500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 5:
@@ -400,7 +428,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                this.shipCounter = 1500;
+                this.shipCounter = 4000;
                 setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
                 break;
             case 6:
@@ -453,7 +481,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                this.shipCounter = 3500;
+                this.shipCounter = 3000;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 9:
@@ -472,7 +500,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                this.shipCounter = 5500;
+                this.shipCounter = 3000;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
@@ -492,7 +520,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                this.shipCounter = 3500;
+                this.shipCounter = 2500;
                 setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
                 break;
         }
@@ -555,9 +583,10 @@ public class Field extends Scene implements InputProviderListener
     private void setup ()
     {
         relisable = !sh.isEmpty();
-        n = sh.size() + en.size() +2;
+        n = sh.size() + en.size() +3;
         spots = map.getSpots(n);
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
+        futureBB = new Rectangle(spots[n-1][0], spots[n-1][1] + Game.step() - hero.getH()/2 - 5,hero.getW(),hero.getH()/2);
         sh.forEach((ship) ->
         {
             if (!enemy.contains(ship))
@@ -591,10 +620,10 @@ public class Field extends Scene implements InputProviderListener
         hero.startI();
     }
     
-    private void releaseBad()
+    private void releaseBadGuy()
     {
         this.badGuy = new BadGuy(stage,hero,this);
-        badGuy.place(spots[n-1][0], spots[n-1][1], spots[n-1][2], spots[n-1][3], spots[n-1][4], (int)spots[n-1][5], (int)spots[n-1][6]);
+        badGuy.place(spots[n-2][0], spots[n-2][1], spots[n-2][2], spots[n-2][3], spots[n-2][4], (int)spots[n-2][5], (int)spots[n-2][6]);
         enemy.add(badGuy);
         badGuy.start();
         badGuy.startI();
@@ -604,8 +633,41 @@ public class Field extends Scene implements InputProviderListener
     {
         boolean result = false;
         
-        result = enemy.stream().map((c) -> c.isAlive()).reduce(result, (accumulator, alien) -> accumulator | alien);
+        result = en.stream().map((c) -> c.isAlive()).reduce(result, (accumulator, _item) -> accumulator | _item);
         
-        return result;
+        return !result;
+    }
+    
+    private void loadNew()
+    {
+        hero.save();
+        provider.unbindCommand(back);
+        provider.unbindCommand(esc);
+        provider.unbindCommand(up);
+        provider.unbindCommand(down);
+        provider.unbindCommand(right);
+        provider.unbindCommand(left);
+        provider.unbindCommand(w);
+        provider.unbindCommand(a);
+        provider.unbindCommand(s);
+        provider.unbindCommand(d);
+        provider.unbindCommand(q);
+        provider.unbindCommand(e);
+        provider.unbindCommand(space);
+        provider.removeListener(this);
+        hero.setStage((stage+1)>10?10:stage+1);
+        SavedHero hs = hero.save();
+        hs.reInventory();
+        Hero h = new Hero (hs);
+        HUD hudn = new HUD(h);
+        Field field = new Field(h,((stage+1)>10?10:stage+1),hudn,hero.getHealthCurrent()-hero.getHealthCurrent());
+        Game.removeSence(this);
+        hud.end();
+        map.end();
+        enemy.forEach((enem)->
+        {
+            enem.end();
+        });
+        field.start();
     }
 }
