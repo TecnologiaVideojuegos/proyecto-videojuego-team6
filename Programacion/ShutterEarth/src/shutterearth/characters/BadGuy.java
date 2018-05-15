@@ -38,8 +38,8 @@ public class BadGuy extends Charact
         this.healthMax = 50 + stage*100;
         this.healthCurrent = 50 + stage*100;
         
-        this.h = Game.getY()/12;
-        this.w = (h*9)/11;
+        this.h = Game.getY()/11;
+        this.w = h;
         this.jumpUp = false;
         this.jumpDown = false;
         this.over = false;
@@ -133,8 +133,10 @@ public class BadGuy extends Charact
             else
             {
                 if (h<Game.getY()/6)
+                {
                     h++;
-                w = (h*9)/11;
+                    w = h;
+                }
                 Game.getMedia().getSprit(Media.SPRITE.MALO_DER).draw(xPos,yPos,w,h);
             }
         }
