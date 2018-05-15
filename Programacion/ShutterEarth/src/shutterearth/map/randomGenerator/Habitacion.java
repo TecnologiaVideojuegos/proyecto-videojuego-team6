@@ -17,13 +17,14 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     
     private final AppGameContainer g;
     private final ArrayList<Celda> celdas = new ArrayList<>();
-    private final String id;
+    private final int id;
+    private boolean[] lado = new boolean[2];//indica si es una hab izq o der
     
     private  Rectangle up;
     private  Rectangle down;
     private boolean first;
     
-    public Habitacion(AppGameContainer g, Celda celda, String id)
+    public Habitacion(AppGameContainer g, Celda celda, int id)
     {
         super(celda.getLocation().getX(), celda.getLocation().getY(), celda.getWidth(), celda.getHeight());
         this.g = g;
@@ -31,6 +32,17 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         celdas.add(celda);        
         this.id = id;
         this.first = true;
+    }
+    
+    public void setLado(int i, int d){
+        if(i==1) lado[0] = false;
+        else if(i==2) lado[0] = true;
+        if(d==1) lado[1] = false;
+        else if(d==2) lado[1] = true;
+    }
+    
+    public int getLado(){
+        
     }
     
     public void addCelda(Celda c)
@@ -158,6 +170,10 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     public void addCount()
     {
         cellCount++;
+    }
+    
+    public int getId(){
+        return id;
     }
     
     @Override
