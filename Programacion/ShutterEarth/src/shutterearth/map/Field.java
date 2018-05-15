@@ -20,6 +20,7 @@ import org.newdawn.slick.command.KeyControl;
 import org.newdawn.slick.geom.Circle;
 import shutterearth.Game;
 import shutterearth.Media;
+import shutterearth.characters.BadGuy;
 import shutterearth.characters.Hero;
 import shutterearth.screens.Scene;
 import shutterearth.screens.StartMenu;
@@ -78,6 +79,7 @@ public class Field extends Scene implements InputProviderListener
     private final int yt;
     
     private  Map map;
+    private BadGuy badGuy;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -323,8 +325,8 @@ public class Field extends Scene implements InputProviderListener
     public void start ()
     {
         float [][]spots;
-        //this.map = new BattleMap(Game.getX()/9,hero.getH()*2);
-        this.map = new Juego (Game.getX()/9,hero.getH()*2);
+        this.map = new BattleMap(Game.getX()/9,hero.getH()*2);
+        //this.map = new Juego (Game.getX()/9,hero.getH()*2);
         Game.addScene(this);
         map.start();
         //new BattleMap(Game.getX()/10,hero.getH()*2).start();
@@ -334,27 +336,28 @@ public class Field extends Scene implements InputProviderListener
         h.add(hero);
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
         
+        this.badGuy = new BadGuy(stage,hero,this);
+        badGuy.place(spots[1][0], spots[1][1], spots[1][2], spots[1][3], spots[1][4], (int)spots[1][5], (int)spots[1][6]);
+        enemy.add(badGuy);
         
-        sh.add(new Ship(2,stage,hero,this));
-        sh.add(new Ship(1,stage,hero,this));
-        sh.add(new Ship(1,stage,hero,this));
+        //sh.add(new Ship(2,stage,hero,this));
+        //sh.add(new Ship(1,stage,hero,this));
+        //sh.add(new Ship(1,stage,hero,this));
         this.shipCounter = 3500;
         sh.forEach((ship) ->
         {
             enemy.add(ship);
-            ship.addEnemys(h);
         });
         
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(1,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));
+        //en.add(new Enemy(1,stage,hero,this));
+        //en.add(new Enemy(1,stage,hero,this));
+        //en.add(new Enemy(1,stage,hero,this));
+        //en.add(new Enemy(1,stage,hero,this));
+        //en.add(new Enemy(2,stage,hero,this));
+        //en.add(new Enemy(2,stage,hero,this));
         for (int j = 0; j < en.size(); j++)
         {
             enemy.add(en.get(j));
-            en.get(j).addEnemys(h);
             en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
         }
         en.clear();
@@ -392,11 +395,13 @@ public class Field extends Scene implements InputProviderListener
         {
             enem.start();
         });
+        badGuy.start();
         hero.start();
         enemy.forEach((enem)->
         {
             enem.startI();
         });
+        badGuy.startI();
         hero.startI();
     }
     

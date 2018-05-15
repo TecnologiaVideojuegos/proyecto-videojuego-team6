@@ -5,6 +5,7 @@
  */
 package shutterearth.characters;
 
+import java.util.ArrayList;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -47,7 +48,7 @@ public class Ship extends Charact
             h = (w*12)/7;
         }
         animationTime = 50;
-        inventory = new Inventory(new int[]{type+2,((stage-1)/2)},this,2);
+        inventory = new Inventory(new int[]{type+1,((stage-1)/2)},this,2);
         this.field = field;
 
         xPos = (int)(Math.random()*(Game.getX()+1000) - 500);
@@ -66,6 +67,9 @@ public class Ship extends Charact
         this.healthCurrent = 10+50*stage*type;
         this.healthMax = 10+50*stage*type;
         this.borderRoom = 2;
+        
+        this.enemy = new ArrayList <>();
+        this.enemy.add(hero);
     }
 
     @Override

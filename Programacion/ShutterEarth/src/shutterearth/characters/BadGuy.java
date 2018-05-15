@@ -18,50 +18,91 @@ import shutterearth.map.Field;
  *
  * @author mr.blissfulgrin
  */
-public class Enemy extends Charact
+public class BadGuy extends Charact
 {
-    private final int type;
     private final Hero hero;
+    private final int stage;
+    private boolean revived;
     
-    public Enemy (int type, int stage,Hero hero,Field field)
+    public BadGuy (int stage, Hero hero, Field field)
     {
-        h = Game.getY()/12;
-        w = (h/10)*9;
+        if (stage < 1)
+            this.stage = 1;
+        else if (stage > 10)
+            this.stage = 1;
+        else
+            this.stage = stage;
+        this.field = field;
+        this.inventory = new Inventory(new int[]{4,((stage-1)/2)},this,3);
         
-        animationTime = 40;
-        counterAnimation = 0;
-        animation = false;
+        this.healthMax = 50 + stage*100;
+        this.healthCurrent = 50 + stage*100;
         
+        this.h = Game.getY()/12;
+        this.w = (h*9)/11;
         this.jumpUp = false;
         this.jumpDown = false;
         this.over = false;
+        this.xPos = Game.getxVel();
+        animationTime = 40;
+        counterAnimation = 0;
+        animation = false;
+        revived = false;
+        this.goRight();
         
-        this.type = type;
         this.hero = hero;
-        
-        inventory = new Inventory(new int[]{type-1,((stage-1)/2)},this,1);
-        this.field = field;
-        
-        if ((Math.random()*2)==0)
-        {
-            this.goRight();
-        }
-        else
-        {
-            this.goLeft();
-        }
-        yVel = 0;
-        
-        this.healthCurrent = 20+10*stage*type;
-        this.healthMax = 20+10*stage*type;
         
         this.enemy = new ArrayList <>();
         this.enemy.add(hero);
     }
     
     @Override
-    public void Render(GameContainer gc, Graphics g) throws SlickException
+    public void goUp()
     {
+        if (!jumping())
+        {
+            this.boundSetter(this.field.getNewBownds(room,xPos, true, w));
+            yVel = Game.getyVelUp();
+            this.setY(yPos-1);
+            jumpUp = true;
+        }
+    }
+    @Override
+    public void goLeft()
+    {
+        xVel = -Game.getxVel();
+    }
+    @Override
+    public void goRight()
+    {
+        xVel = Game.getxVel();
+    }
+    @Override
+    public void goDown()
+    {
+        if (!jumping())
+        {
+            this.boundSetter(this.field.getNewBownds(room,xPos, false, w));
+            yVel = Game.getyVelDown();
+            this.setY(yPos-1);
+            jumpDown = true;
+        }
+    }
+
+    @Override
+    public void shot()
+    {
+        inventory.shot(stage/2);
+    }
+    
+    public void revive ()
+    {
+        revived = true;
+    }
+    
+    @Override
+    public void Render(GameContainer gc, Graphics g) throws SlickException
+    {        
         if (Game.debug())
         {
             for (Rectangle rect : this.debug())
@@ -71,24 +112,30 @@ public class Enemy extends Charact
         } 
         if (this.isAlive())
         {
-            if (type == 1)
+            if (!jumping())
             {
-                if (jumping())
-                    Game.getMedia().getSprit(this.getFace()?Media.SPRITE.BASE_SDE:Media.SPRITE.BASE_SIZ).draw(xPos,yPos,w,h);
-                else
-                    Game.getMedia().getSprit(this.getFace()?Media.SPRITE.BASE_DER:Media.SPRITE.BASE_IZQ).draw(xPos,yPos,w,h);
+                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.MALO_DER : Media.SPRITE.MALO_IZQ).draw(xPos,yPos,w,h);
             }
             else
             {
-                if (jumping())
-                    Game.getMedia().getSprit(this.getFace()?Media.SPRITE.FUERTE_SDE:Media.SPRITE.FUERTE_SIZ).draw(xPos,yPos,w,h);
-                else
-                    Game.getMedia().getSprit(this.getFace()?Media.SPRITE.FUERTE_DER:Media.SPRITE.FUERTE_IZQ).draw(xPos,yPos,w,h);
+                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.MALO_SDE: Media.SPRITE.MALO_SIZ).draw(xPos,yPos,w,h);
             }
-                
+            
             if (animation)
             {
                 Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
+            }
+        }
+        else
+        {
+            if (!revived)
+                Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
+            else
+            {
+                if (h<Game.getY()/6)
+                    h++;
+                w = (h*9)/11;
+                Game.getMedia().getSprit(Media.SPRITE.MALO_DER).draw(xPos,yPos,w,h);
             }
         }
     }
@@ -98,21 +145,57 @@ public class Enemy extends Charact
     {
         if (this.isAlive())
         {
-            if (this.isInRoom(hero.getBox()))
+            if (this.yPos < (hero.getY()-hero.getH()))
             {
-                this.shot();
-                if (this.box.getCenterX()>hero.box.getCenterX())
+                switch((int)(Math.random()*50))
                 {
-                    this.goLeft();
+                    case 0:
+                        this.goDown();
+                        break;
                 }
-                else
+            }
+            else if (this.box.getMaxY() > hero.getY())
+            {
+                switch((int)(Math.random()*50))
                 {
-                    this.goRight();
+                    case 0:
+                        this.goUp();
+                        break;
                 }
             }
             else
             {
-                switch ((int)(Math.random()*200))
+                switch((int)(Math.random()*350))
+                {
+                    case 0:
+                        this.goDown();
+                        break;
+                    case 1:
+                        this.goUp();
+                        break;
+                }
+            }
+            if (this.xPos > (hero.getX()+hero.getW()))
+            {
+                switch((int)(Math.random()*35))
+                {
+                    case 0:
+                        this.goLeft();
+                        break;
+                }
+            }
+            else if (this.box.getMaxX() < hero.getX())
+            {
+                switch((int)(Math.random()*35))
+                {
+                    case 0:
+                        this.goRight();
+                        break;
+                }
+            }
+            else
+            {
+                switch((int)(Math.random()*300))
                 {
                     case 0:
                         this.goRight();
@@ -121,17 +204,10 @@ public class Enemy extends Charact
                         this.goLeft();
                         break;
                 }
-                switch ((int)(Math.random()*500))
-                {
-                    case 0:
-                        field.getNewBownds(room,xPos,true,w);
-                        this.goUp();
-                        break;
-                    case 1:
-                        field.getNewBownds(room,xPos,false,w);
-                        this.goDown();
-                        break;
-                }
+            }
+            if (this.isInRoom(hero.box))
+            {
+                this.shot();
             }
             
             this.setX(this.xPos + this.xVel*t);
@@ -176,7 +252,7 @@ public class Enemy extends Charact
             {
                 this.goLeft();
             }
-            
+
             if (animation)
             {
                 if (counterAnimation > animationTime)
@@ -187,87 +263,34 @@ public class Enemy extends Charact
                 counterAnimation+=1*t;
             }
         }
-        else
-        {
-
-            if (!called)
-            {
-                Game.removeSence(this);
-                field.enemyDied(this);
-                called = true;
-            }
-        }
     }
 
     @Override
     public void init(GameContainer gc) throws SlickException{}
-
+    
     @Override
-    public void goUp()
-    {
-        if (!jumping())
-        {
-            this.boundSetter(this.field.getNewBownds(room,xPos, true, w));
-            yVel = Game.getyVelUp();
-            this.setY(yPos-1);
-            jumpUp = true;
-        }
-    }
-
-    @Override
-    public void goLeft()
-    {
-        xVel = -Game.getxVel() +(float)Math.random()*1;
-    }
-
-    @Override
-    public void goRight()
-    {
-        xVel = Game.getxVel() - (float)Math.random()*1;
-    }
-
-    @Override
-    public void goDown()
-    {
-        if (!jumping())
-        {
-            this.boundSetter(this.field.getNewBownds(room,xPos, false,w));
-            yVel = Game.getyVelDown();
-            this.setY(yPos-1);
-            jumpDown = true;
-        }
-    }
-
-    @Override
-    public void shot()
-    {
-        inventory.shot(1);
-    }
-
-    @Override
-    public void place(float x, float y, float floor, float left, float right, int borderRoom, int room)
+    public void place (float x, float y, float floor, float left, float right, int borderRoom, int room)
     {
         this.room = room;
         this.xPos = x;
         this.yPos = y;
         this.floor = floor - h - 5;
-        line = new Rectangle (0,yPos,Game.getX(),floor+h-yPos);
+        line = new Rectangle (0,yPos,Game.getX(),floor-yPos);
         colum = new Rectangle (left,0,right-left,Game.getY());
         box = new Rectangle (xPos,yPos,w,h);
         this.borderRoom = borderRoom;
     }
-
     @Override
     public void setBounds (float floor, float left, float right, int borderRoom, int room)
     {
         this.room = room;
         colum.setX(left);
         colum.setWidth(right-left);
-        this.floor = floor - h -5;
+        this.floor = floor - h - 5;
         this.borderRoom = borderRoom;
     }
     
-     @Override
+    @Override
     protected void setX(float x)
     {
         this.xPos = x;
@@ -279,25 +302,25 @@ public class Enemy extends Charact
         this.yPos = y;
         box.setY(y);
         line.setY(y);
-        line.setHeight(floor+h-y +5);
+        line.setHeight(floor+h+5-y);
     }
-
+    
     @Override
-    public int getInfo()
+    public int getInfo ()
     {
-        return type;
+        return 5;
     }
     
     @Override
     public void doShotAnimation()
     {
-        Game.getMedia().getSound(Media.SOUND.FIRE_ALIEN).play();
+        Game.getMedia().getSound(Media.SOUND.SHOT).play();
         animation = true;
     }
     
     @Override
     public String toString()
     {
-        return "Enemy "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
+        return "BadGuy "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
     }
 }

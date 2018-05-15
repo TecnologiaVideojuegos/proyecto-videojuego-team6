@@ -83,6 +83,9 @@ public class HUD extends Scene
                 case 4:
                     Game.getMedia().getImage(Media.IMAGE.SHIP_F_DER).draw(bx,by,bw,bw);
                     break;
+                case 5:
+                    Game.getMedia().getSprit(Media.SPRITE.MALO_DER).draw(bx,by,bw,bw);
+                    break;
             }
             g.draw(rect);
             Game.getMedia().getImage(Media.IMAGE.GREY).draw(rect.getX(),rect.getY(),rect.getWidth(),rect.getHeight());
