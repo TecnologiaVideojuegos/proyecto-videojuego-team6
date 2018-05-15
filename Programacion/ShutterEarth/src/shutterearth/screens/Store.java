@@ -127,8 +127,8 @@ public class Store extends Scene implements InputProviderListener
                 case 3:
                     Game.getMedia().getSprit(Media.SPRITE.HERO_4_DER).draw(x,y,w,h);
                     break;
-                case 4:
-                    Game.getMedia().getSprit(Media.SPRITE.HERO_5_DER).draw(x,y,w,h);
+                default:
+                    Game.getMedia().getSprit(Media.SPRITE.HERO_5_DER).draw(x-20,y,w+40,h);
                     break;
             }
         }
@@ -143,7 +143,7 @@ public class Store extends Scene implements InputProviderListener
             g.setColor(Color.yellow);
                     g.fill(upgrade);
             Game.getMedia().getImage(Media.IMAGE.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
-            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<5?hero.getHealthMax()/20:5)], upgrade.getX(), upgrade.getMaxY()+15);
+            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<11?hero.getHealthMax()/20:10)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
         {

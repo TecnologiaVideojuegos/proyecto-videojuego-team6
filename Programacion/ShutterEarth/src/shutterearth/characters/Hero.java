@@ -94,6 +94,10 @@ public class Hero extends Charact
                 bullets -= inventory.getCost();
                 inventory.shot(1);
             }
+            else
+            {
+                Game.getMedia().getSound(Media.SOUND.BAD).play();
+            }
         }
     }
     
