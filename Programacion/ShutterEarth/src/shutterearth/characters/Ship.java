@@ -17,7 +17,7 @@ import shutterearth.map.Field;
  *
  * @author mr.blissfulgrin
  */
-public class Ship extends CharactX
+public class Ship extends Charact
 {    
     private int state;
     private int side;

@@ -17,7 +17,7 @@ import shutterearth.map.Field;
  *
  * @author mr.blissfulgrin
  */
-public class Enemy extends CharactX
+public class Enemy extends Charact
 {
     private final int type;
     private final Hero hero;

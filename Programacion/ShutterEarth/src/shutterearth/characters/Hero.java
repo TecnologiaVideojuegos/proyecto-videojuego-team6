@@ -14,7 +14,7 @@ import shutterearth.map.Field;
  *
  * @author mr.blissfulgrin
  */
-public class Hero extends CharactX
+public class Hero extends Charact
 {
     private final String user;
     private final String pswd;
