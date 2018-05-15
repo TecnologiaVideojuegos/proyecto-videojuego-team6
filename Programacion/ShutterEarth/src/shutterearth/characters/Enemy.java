@@ -38,7 +38,7 @@ public class Enemy extends CharactX
         this.type = type;
         this.hero = hero;
         
-        inventory = new Inventory(new int[]{type,stage/2},this,100-stage*2+type*1,1);
+        inventory = new Inventory(new int[]{type,stage/2},this,1);
         this.field = field;
         
         if ((Math.random()*2)==0)

@@ -171,7 +171,10 @@ public class Field extends Scene implements InputProviderListener
                         provider.unbindCommand(e);
                         provider.unbindCommand(space);
                         provider.removeListener(this);
-                        hero.setStage(stage+1);
+                        if (hero.getStage()<10)
+                        {
+                            hero.setStage(stage+1);
+                        }
                         SavedHero hs = hero.save();
                         hs.reInventory();
                         Hero h = new Hero (hs);
@@ -340,8 +343,8 @@ public class Field extends Scene implements InputProviderListener
         
         //sh.add(new Ship(2,stage,hero,this));
         //sh.add(new Ship(1,stage,hero,this));
-        //sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 5000;
+        sh.add(new Ship(1,stage,hero,this));
+        this.shipCounter = 50000;
         sh.forEach((ship) ->
         {
             enemy.add(ship);

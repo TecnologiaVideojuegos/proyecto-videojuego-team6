@@ -28,7 +28,7 @@ public class Inventory extends Scene
     private final ArrayList <Label> label;
     private final ArrayList <Label> toRemoveL;
     private final Charact hero;
-    private final int delay;
+    private int delay;
     private int counter;
     private final int from;
     
@@ -48,12 +48,12 @@ public class Inventory extends Scene
             if (gun[1]>0)
                 inventory.add(new Gun(gun[0],gun[1],0));
         });
-        this.delay = 40;
+        this.delay = inventory.get(0).getSpeed();
         this.counter = 0;
         this.from = 0;
     }
     
-    public Inventory (int[] gun, Charact hero, int delay, int from)
+    public Inventory (int[] gun, Charact hero, int from)
     {
         this.hero = hero;
         this.shots = new ArrayList <>();
@@ -65,7 +65,7 @@ public class Inventory extends Scene
         index = 0;
         this.inventory = new ArrayList<>();
         inventory.add(new Gun(gun[0],gun[1],1));
-        this.delay = delay;
+        this.delay = inventory.get(0).getSpeed();
         this.counter = 0;
         this.from = from;
     }
@@ -73,12 +73,18 @@ public class Inventory extends Scene
     public void rightGun()
     {
         if (index < inventory.size()-1)
+        {
             index++;
+            this.delay = inventory.get(index).getSpeed();
+        }
     }
     public void lefttGun()
     {
         if (index > 0)
+        {
+            this.delay = inventory.get(index).getSpeed();
             index--;
+        }
     }
     public int getGunID()
     {

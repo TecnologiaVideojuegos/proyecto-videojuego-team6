@@ -53,7 +53,7 @@ public class Shot
         
         this.box = new Rectangle(0,0,w,h);
         this.damage = gun.getDamage();
-        this.counter = 40;
+        this.counter = gun.getDelay();
     }
     
     public void setHited(int hited)

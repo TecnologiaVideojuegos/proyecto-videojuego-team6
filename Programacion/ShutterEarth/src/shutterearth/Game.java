@@ -154,7 +154,7 @@ public class Game extends BasicGame
         Game.yVelUp = -Game.getY()*18f/1050;
         Game.yVelDown = -Game.getY()*8f/1050;
         Game.debug = false;
-        Game.reward = 2;
+        Game.reward = 1;
         Game.step = ((Game.getY()*12)/105f);
         
         System.out.println("-----------------------");
