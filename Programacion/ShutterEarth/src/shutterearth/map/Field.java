@@ -554,6 +554,7 @@ public class Field extends Scene implements InputProviderListener
     }
     private void setup ()
     {
+        relisable = !sh.isEmpty();
         n = sh.size() + en.size() +2;
         spots = map.getSpots(n);
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
