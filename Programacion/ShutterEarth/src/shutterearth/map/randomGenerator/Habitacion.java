@@ -32,8 +32,14 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         celdas.add(celda);        
         this.id = id;
         this.first = true;
+        lado[0]=true;
+        lado[1]=true;
     }
     
+    /**
+     * @param i 1=false 2=true
+     * @param d 1=false 2=true
+     */
     public void setLado(int i, int d){
         if(i==1) lado[0] = false;
         else if(i==2) lado[0] = true;
@@ -42,7 +48,12 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     }
     
     public int getLado(){
-        
+        int aux;
+        if(lado[0]&&lado[1]) aux = 2;
+        else if(!lado[0]&&!lado[1]) aux = 3;
+        else if(lado[0]) aux = 0;
+        else aux = 1;
+        return aux;
     }
     
     public void addCelda(Celda c)

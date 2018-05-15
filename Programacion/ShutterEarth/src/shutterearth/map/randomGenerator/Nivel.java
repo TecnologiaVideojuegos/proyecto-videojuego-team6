@@ -74,10 +74,20 @@ public class Nivel
         spawn[0][2]=heroSpawn.getMaxY();//y floor
         spawn[0][3]=heroSpawn.getX();//x izq
         spawn[0][4]=heroSpawn.getMaxX();//x der
-        spawn[0][5]=;//num pared
+        spawn[0][5]=heroSpawn.getLado();//num pared
         spawn[0][6]=heroSpawn.getId();//id hab
         
+        for(int i=1;i<nivel.size();i++){
+            spawn[i][0]=nivel.get(i).getX()+20;//x spawn
+            spawn[i][1]=nivel.get(i).getY();//y spawn
+            spawn[i][2]=nivel.get(i).getMaxY();//y floor
+            spawn[i][3]=nivel.get(i).getX();//x izq
+            spawn[i][4]=nivel.get(i).getMaxX();//x der
+            spawn[i][5]=nivel.get(i).getLado();//num pared
+            spawn[i][6]=nivel.get(i).getId();//id hab
+        }
         
+        return spawn;
     }
     
     public void render(Graphics g)
@@ -283,11 +293,15 @@ public class Nivel
         for(int i=0;i<nivel.size();i++)
         {
             if(i!=0)
-                if(nivel.get(i-1).getY()==nivel.get(i).getY())
+                if(nivel.get(i-1).getY()==nivel.get(i).getY()){
                     nivel.get(i).addBulletLimits(nivel.get(i).getX());//tiene compi a la izq
+                    nivel.get(i).setLado(1, 0);
+                }
             if(i<(nivel.size()-1))
-                if(nivel.get(i+1).getY()==nivel.get(i).getY())
+                if(nivel.get(i+1).getY()==nivel.get(i).getY()){
                     nivel.get(i).addBulletLimits(nivel.get(i).getMaxX());//tiene compi a la derecha
+                    nivel.get(i).setLado(0, 1);
+                }
         }
     }
 }
