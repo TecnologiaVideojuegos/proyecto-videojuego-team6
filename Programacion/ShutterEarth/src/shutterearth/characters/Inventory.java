@@ -82,8 +82,8 @@ public class Inventory extends Scene
     {
         if (index > 0)
         {
-            this.delay = inventory.get(index).getSpeed();
             index--;
+            this.delay = inventory.get(index).getSpeed();
         }
     }
     public int getGunID()
