@@ -30,6 +30,13 @@ public class BattleMap extends Map
         this.room = new ArrayList <>();
         this.animation = new ArrayList <>();
         
+        float actualFloor = Game.getY();
+        for (int j = 0; j<8; j++)
+        {
+            actualFloor -= Game.step();
+            room.add(new Rectangle (x,actualFloor,Game.getX()-(x)*2,Game.step()));
+        }
+        
     }
     
     @Override
@@ -96,12 +103,6 @@ public class BattleMap extends Map
     public void start()
     {
         Game.addScene(this);
-        float actualFloor = Game.getY();
-        for (int j = 0; j<8; j++)
-        {
-            actualFloor -= Game.step();
-            room.add(new Rectangle (x,actualFloor,Game.getX()-(x)*2,Game.step()));
-        }
     }
 
     @Override

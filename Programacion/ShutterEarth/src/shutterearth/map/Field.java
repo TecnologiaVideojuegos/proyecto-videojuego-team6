@@ -80,6 +80,8 @@ public class Field extends Scene implements InputProviderListener
     
     private  Map map;
     private BadGuy badGuy;
+    private float [][]spots;
+    private int n;
     
     public Field (Hero hero, int stage, HUD hud)
     {
@@ -135,11 +137,7 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
-                sh.forEach((ship)->
-                {
-                    ship.activate();
-                });
-                sh.clear();
+                releaseShips();
             }
         }
         if (animationStarted)
@@ -178,7 +176,7 @@ public class Field extends Scene implements InputProviderListener
                         hs.reInventory();
                         Hero h = new Hero (hs);
                         HUD hudn = new HUD(h);
-                        Field field = new Field(h,stage+1,hudn);
+                        Field field = new Field(h,(stage+1>10?10:stage+1),hudn);
                         Game.removeSence(this);
                         hud.end();
                         map.end();
@@ -324,46 +322,19 @@ public class Field extends Scene implements InputProviderListener
     
     public void start ()
     {
-        float [][]spots;
-        this.map = new BattleMap(Game.getX()/9,hero.getH()*2);
         //this.map = new Juego (Game.getX()/9,hero.getH()*2);
-        Game.addScene(this);
-        map.start();
-        //new BattleMap(Game.getX()/10,hero.getH()*2).start();
-        spots = map.getSpots(7);
-        
-        ArrayList <Charact> h = new ArrayList <>();
-        h.add(hero);
-        hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
-        
-        this.badGuy = new BadGuy(stage,hero,this);
-        badGuy.place(spots[1][0], spots[1][1], spots[1][2], spots[1][3], spots[1][4], (int)spots[1][5], (int)spots[1][6]);
-        enemy.add(badGuy);
-        
-        //sh.add(new Ship(2,stage,hero,this));
-        //sh.add(new Ship(1,stage,hero,this));
-        //sh.add(new Ship(1,stage,hero,this));
+
+        sh.add(new Ship(2,stage,hero,this));
+        sh.add(new Ship(1,stage,hero,this));
+        sh.add(new Ship(1,stage,hero,this));
         this.shipCounter = 3500;
-        sh.forEach((ship) ->
-        {
-            enemy.add(ship);
-        });
-        
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(1,stage,hero,this));
-        //en.add(new Enemy(2,stage,hero,this));
-        //en.add(new Enemy(2,stage,hero,this));
-        for (int j = 0; j < en.size(); j++)
-        {
-            enemy.add(en.get(j));
-            en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
-        }
-        en.clear();
-        
-        
-        
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(1,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
+        en.add(new Enemy(2,stage,hero,this));
+        setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
         switch(stage)
         {
             case 0:
@@ -387,22 +358,7 @@ public class Field extends Scene implements InputProviderListener
             case 9:
                 break;
         }
-        hero.addEnemys(enemy);
-        
-        hud.start();
-        hero.setField(this);
-        enemy.forEach((enem)->
-        {
-            enem.start();
-        });
-        badGuy.start();
-        hero.start();
-        enemy.forEach((enem)->
-        {
-            enem.startI();
-        });
-        badGuy.startI();
-        hero.startI();
+        go();
     }
     
     public void setHudAlien (Charact enemy, int lastLive)
@@ -439,5 +395,68 @@ public class Field extends Scene implements InputProviderListener
     public float [] getNewBownds(int room,float x,boolean up, float w)
     {
         return map.getNextRoom(room, x, up, w);
+    }
+    
+    private void setMap(Map map)
+    {
+        if (this.map != null)
+        {
+            this.map.end();
+        }
+        this.map = map;
+        setup();
+    }
+    
+    private void releaseShips ()
+    {
+        sh.forEach((ship)->
+        {
+            ship.activate();
+        });
+    }
+    private void setup ()
+    {
+        n = sh.size() + en.size() +2;
+        spots = map.getSpots(n);
+        hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
+        sh.forEach((ship) ->
+        {
+            if (!enemy.contains(ship))
+                enemy.add(ship);
+        });
+        for (int j = 0; j < en.size(); j++)
+        {
+            if (!enemy.contains(en.get(j))) 
+                enemy.add(en.get(j));
+            en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
+        }
+    }
+    
+    private void go()
+    {
+        Game.addScene(this);
+        hero.addEnemys(enemy);
+        map.start();
+        hud.start();
+        hero.setField(this);
+        enemy.forEach((enem)->
+        {
+            enem.start();
+        });
+        hero.start();
+        enemy.forEach((enem)->
+        {
+            enem.startI();
+        });
+        hero.startI();
+    }
+    
+    private void releaseBad()
+    {
+        this.badGuy = new BadGuy(stage,hero,this);
+        badGuy.place(spots[n-1][0], spots[n-1][1], spots[n-1][2], spots[n-1][3], spots[n-1][4], (int)spots[n-1][5], (int)spots[n-1][6]);
+        enemy.add(badGuy);
+        badGuy.start();
+        badGuy.startI();
     }
 }

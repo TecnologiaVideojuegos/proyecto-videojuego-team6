@@ -39,7 +39,7 @@ public class Enemy extends Charact
         this.type = type;
         this.hero = hero;
         
-        inventory = new Inventory(new int[]{type-1,((stage-1)/2)},this,1);
+        inventory = new Inventory(new int[]{type-1,((stage-1)/2)},this,type==1?1:4);
         this.field = field;
         
         if ((Math.random()*2)==0)
