@@ -338,7 +338,7 @@ public class Field extends Scene implements InputProviderListener
         //hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
         
         
-        hero.place(890, Game.getY()-100, Game.getY(), 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
+        hero.place(890, Game.getY()-100, Game.getY()-5, 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
         
         
         //sh.add(new Ship(2,stage,hero,this));
