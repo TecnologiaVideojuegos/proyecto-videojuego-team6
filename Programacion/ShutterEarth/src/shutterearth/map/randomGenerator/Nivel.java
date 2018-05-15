@@ -106,11 +106,11 @@ public class Nivel
         }
         
         
-        aux[0] = ;//y floor
-        aux[1] = ;//x ixq
-        aux[2] = ;//x der
-        aux[3] = ;//num pared (si es hab izq, der, central, etc)
-        aux[4] = ;//id hab
+        aux[0] = hab.getMaxY();//y floor
+        aux[1] = hab.getX();//x ixq
+        aux[2] = hab.getMaxX();//x der
+        aux[3] = hab.getLado();//num pared (si es hab izq, der, central, etc)
+        aux[4] = hab.getId();//id hab
         
         return aux;
     }
