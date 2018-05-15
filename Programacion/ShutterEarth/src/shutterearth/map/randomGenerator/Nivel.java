@@ -54,13 +54,11 @@ public class Nivel
     private ArrayList<Pair> getSpawns(int diffFactor)
     {
         ArrayList<Pair> aux = new ArrayList<>();
-        int factor;
         for(Habitacion h : nivel)
         {
             if(!h.equals(heroSpawn))
             {
-                factor = ((int)(Math.random()*100))%diffFactor;
-                aux.addAll(h.spawn(((int)(Math.random()*100))%factor));
+                aux.addAll(h.spawn(((int)(Math.random()*100))%diffFactor));
             }
         }
         return aux;
@@ -88,6 +86,33 @@ public class Nivel
         }
         
         return spawn;
+    }
+    
+    public float[] getNextRoom(int id, float x, boolean up, float charW){
+        float[] aux = new float[5];
+        
+        //calculamos si puede saltar o no
+        Habitacion hab = traductor.get(id);
+        Rectangle per = new Rectangle(x, hab.getY(), charW, hab.getMaxY());//colision
+        if(up){
+            for(Salida s : hab.getSalSup()){
+                if(s.intersects(per)) hab = s.getNext();
+            }
+        }
+        else{
+            for(Salida s : hab.getSalInf()){
+                if(s.intersects(per)) hab = s.getNext();
+            }
+        }
+        
+        
+        aux[0] = ;//y floor
+        aux[1] = ;//x ixq
+        aux[2] = ;//x der
+        aux[3] = ;//num pared (si es hab izq, der, central, etc)
+        aux[4] = ;//id hab
+        
+        return aux;
     }
     
     public void render(Graphics g)
