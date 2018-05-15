@@ -141,18 +141,18 @@ public class Game extends BasicGame
     public static void main(String[] args) throws SlickException
     {
         app = new AppGameContainer(new Game ("Shutter Earth"));
-        setX(app.getScreenWidth());
-        setY(app.getScreenHeight());
+        setX(app.getScreenWidth()-500);
+        setY(app.getScreenHeight()-200);
         
         //MAC PROPORTION 1764000px
         //X 1680px
         //Y 1050px
         
-        Game.gravity = Game.getY()/1050;
         Game.gravityMax = Game.getY()*50f/1050;
         Game.xVel = Game.getX()*1.8f/1680;
         Game.yVelUp = -Game.getY()*18f/1050;
         Game.yVelDown = -Game.getY()*8f/1050;
+        Game.gravity = -yVelUp/18f;
         Game.debug = false;
         Game.reward = 1;
         Game.step = ((Game.getY()*12)/105f);
