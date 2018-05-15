@@ -88,7 +88,7 @@ public class Field extends Scene implements InputProviderListener
     private final BB bb;
     private Rectangle futureBB;
     private boolean done;
-    private boolean accessBB;
+    private boolean gameEnded;
     
     public Field (Hero hero, int stage, HUD hud, int lessHealth)
     {
@@ -108,7 +108,7 @@ public class Field extends Scene implements InputProviderListener
         en = new ArrayList <>();
         sh = new ArrayList <>();
         hero.getDamage(lessHealth);
-        accessBB = false;
+        gameEnded = false;
         done = false;
         bb = new BB();
     }
@@ -141,90 +141,86 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        if (relisable)
+        if (!gameEnded)
         {
-            if ((counter < shipCounter))
+            if (relisable)
             {
-                counter += 1*t;
-                if (deadAliens())
-                    counter = shipCounter;
-            }
-            else
-            {
-                releaseShips();
-                relisable = false;
-            }
-        }
-        if (animationStarted)
-        {
-            radix = animation.getRadius() + 5f*t;
-            animation.setRadius(radix);
-            animation.setCenterX(Game.getX()/2);
-            animation.setCenterY(Game.getY()/2);
-            if (radix > diagonal)
-            {
-                if (enemy.isEmpty() && hero.isAlive())
+                if ((counter < shipCounter))
                 {
-                    this.loadNew();
+                    counter += 1*t;
+                    if (deadAliens())
+                        counter = shipCounter;
                 }
                 else
                 {
-                    this.exit();
+                    releaseShips();
+                    relisable = false;
                 }
             }
-        }
-        else if (enemy.isEmpty() && hero.isAlive())
-        {
-            if (accessBB)
+            if (animationStarted)
             {
-                if (hero.isAlive())
+                radix = animation.getRadius() + 5f*t;
+                animation.setRadius(radix);
+                animation.setCenterX(Game.getX()/2);
+                animation.setCenterY(Game.getY()/2);
+                if (radix > diagonal)
                 {
-                    bb.setBB(futureBB);
-                    if (hero.getBox().intersects(bb.getBB()))
+                    if (enemy.isEmpty() && hero.isAlive())
                     {
-                        this.startAnimation();
+                        this.loadNew();
+                    }
+                    else
+                    {
+                        this.exit();
                     }
                 }
-                else
+            }
+            else if (enemy.isEmpty() && hero.isAlive())
+            {
+                if (done)
                 {
                     this.startAnimation();
                 }
-            }
-            else if (done)
-            {
-                this.startAnimation();
-            }
-            else
-            {
-                switch (stage)
+                else
                 {
-                    case 1:
+                    switch (stage)
+                    {
+                        case 1:
 
-                        bb.setBB(futureBB);
-                        if (hero.getBox().intersects(bb.getBB()))
-                        {
-                            bb.exit();
+                            bb.setBB(futureBB);
+                            if (hero.getBox().intersects(bb.getBB()))
+                            {
+                                bb.exit();
+                                releaseBadGuy();
+                                done = true;
+                            }
+                            break;
+                        case 5:
+                            bb.setBB(futureBB);
+                            if (hero.getBox().intersects(bb.getBB()))
+                            {
+                                bb.exit();
+                                releaseBadGuy();
+                                done = true;
+                            }
+                            break;
+                        case 10:
                             releaseBadGuy();
-                            done = true;
-                        }
-                        break;
-                    case 5:
-                        bb.setBB(futureBB);
-                        if (hero.getBox().intersects(bb.getBB()))
-                        {
-                            bb.exit();
-                            releaseBadGuy();
-                            done = true;
-                        }
-                        break;
-                    case 10:
-                        releaseBadGuy();
-                        accessBB = true;
-                        break;
-                    default:
-                        this.startAnimation();
-                        break; 
+                            break;
+                        default:
+                            this.startAnimation();
+                            break; 
+                    }
                 }
+            }
+        }
+        else
+        {
+            bb.setBB(futureBB);
+            if (hero.getBox().intersects(bb.getBB()))
+            {
+
+                this.exit();
             }
         }
     }
@@ -350,8 +346,17 @@ public class Field extends Scene implements InputProviderListener
         {
             enem.end();
         });
-        Game.addScene(new StartMenu(hero.save())); 
-        Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
+        if (gameEnded)
+        {
+            Game.addScene(new StartMenu(hero.save())); 
+            Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
+            System.out.println("END");
+        }
+        else
+        {
+            Game.addScene(new StartMenu(hero.save())); 
+            Game.getMedia().getMusic(Media.MUSIC.CANCION_MENU).loop();
+        }
     }
     
     public void start ()
@@ -504,7 +509,7 @@ public class Field extends Scene implements InputProviderListener
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
-                en.add(new Enemy(1,stage,hero,this));
+                /*en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
@@ -519,7 +524,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));*/
                 this.shipCounter = 2500;
                 setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
                 break;
@@ -669,5 +674,20 @@ public class Field extends Scene implements InputProviderListener
             enem.end();
         });
         field.start();
+    }
+    
+    public void badDead ()
+    {
+        if (stage == 10)
+        {
+            if (hero.isAlive())
+            {
+                gameEnded = true;
+            }
+            else
+            {
+                this.startAnimation();
+            }
+        }
     }
 }
