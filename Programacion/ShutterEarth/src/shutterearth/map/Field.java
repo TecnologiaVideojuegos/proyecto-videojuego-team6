@@ -341,10 +341,10 @@ public class Field extends Scene implements InputProviderListener
         //hero.place(890, Game.getY()-100, Game.getY()-5, 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
         
         
-        //sh.add(new Ship(2,stage,hero,this));
-        //sh.add(new Ship(1,stage,hero,this));
+        sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
-        this.shipCounter = 50000;
+        sh.add(new Ship(1,stage,hero,this));
+        this.shipCounter = 3500;
         sh.forEach((ship) ->
         {
             enemy.add(ship);
