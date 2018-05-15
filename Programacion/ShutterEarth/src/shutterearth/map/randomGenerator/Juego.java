@@ -17,6 +17,15 @@ public class Juego extends Map
     public Juego (float x, float y)
     {
         super (x,y);
+        try
+        {
+            nivel = new Nivel(Game.getContainer());
+            
+        }
+        catch (SlickException e)
+        {
+            System.out.println("ERROR LOADING RANDOM MAP... " +e.toString());
+        }
     }
     
     @Override
@@ -54,15 +63,7 @@ public class Juego extends Map
     @Override
     public void start()
     {
-        try
-        {
-            nivel = new Nivel(Game.getContainer());
-            Game.addScene(this);
-        }
-        catch (SlickException e)
-        {
-            System.out.println("ERROR LOADING RANDOM MAP... " +e.toString());
-        }
+        Game.addScene(this);
     }
 
     @Override

@@ -69,6 +69,7 @@ public class Field extends Scene implements InputProviderListener
     private final ArrayList <Ship> sh;
     private int shipCounter;
     private float counter;
+    private boolean relisable;
     
     private float radix;
     private final Circle animation;
@@ -96,6 +97,7 @@ public class Field extends Scene implements InputProviderListener
         animationStarted = false;
         diagonal = (Game.getX()^2+Game.getY()^2)^(1/2);
         
+        relisable = false;
         enemy = new ArrayList <>();
         en = new ArrayList <>();
         sh = new ArrayList <>();
@@ -131,13 +133,14 @@ public class Field extends Scene implements InputProviderListener
     {
         if (!sh.isEmpty())
         {
-            if (counter < shipCounter)
+            if (relisable)
             {
                 counter += 1*t;
             }
             else
             {
                 releaseShips();
+                relisable = false;
             }
         }
         if (animationStarted)
@@ -322,8 +325,8 @@ public class Field extends Scene implements InputProviderListener
     
     public void start ()
     {
-        //this.map = new Juego (Game.getX()/9,hero.getH()*2);
-
+        
+        /*
         sh.add(new Ship(2,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
         sh.add(new Ship(1,stage,hero,this));
@@ -333,17 +336,46 @@ public class Field extends Scene implements InputProviderListener
         en.add(new Enemy(1,stage,hero,this));
         en.add(new Enemy(1,stage,hero,this));
         en.add(new Enemy(2,stage,hero,this));
-        en.add(new Enemy(2,stage,hero,this));
-        setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
+        en.add(new Enemy(2,stage,hero,this));*/
+        
         switch(stage)
         {
-            case 0:
-                break;
             case 1:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 2:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 3:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 4:
                 break;
@@ -357,8 +389,11 @@ public class Field extends Scene implements InputProviderListener
                 break;
             case 9:
                 break;
+            case 10:
+                break;
         }
-        go();
+        //tsetMap(new Juego (Game.getX()/9,hero.getH()*2));
+        //setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
     }
     
     public void setHudAlien (Charact enemy, int lastLive)
@@ -430,6 +465,7 @@ public class Field extends Scene implements InputProviderListener
                 enemy.add(en.get(j));
             en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
         }
+        go();
     }
     
     private void go()
