@@ -120,11 +120,11 @@ public class Enemy extends Charact
                 switch ((int)(Math.random()*400))
                 {
                     case 0:
-                        //field.getNewBownds(true);
+                        field.getNewBownds(room,xPos,true,w);
                         this.goUp();
                         break;
                     case 1:
-                        //field.getNewBownds(false);
+                        field.getNewBownds(room,xPos,false,w);
                         this.goDown();
                         break;
                 }
@@ -227,7 +227,7 @@ public class Enemy extends Charact
     {
         if (!jumping())
         {
-            //this.boundSetter(this.field.getNewBownds(room,xPos, false,w));
+            this.boundSetter(this.field.getNewBownds(room,xPos, false,w));
             yVel = Game.getyVelDown();
             this.setY(yPos-1);
             jumpDown = true;
