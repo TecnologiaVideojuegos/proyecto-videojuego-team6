@@ -131,9 +131,9 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        if (!sh.isEmpty())
+        if (relisable)
         {
-            if (relisable)
+            if ((counter < shipCounter) || deadAliens())
             {
                 counter += 1*t;
             }
@@ -348,7 +348,6 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
-                en.add(new Enemy(1,stage,hero,this));
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 2:
@@ -357,11 +356,11 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
-                en.add(new Enemy(1,stage,hero,this));
-                en.add(new Enemy(1,stage,hero,this));
-                en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                this.shipCounter = 4500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 3:
@@ -369,7 +368,52 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                this.shipCounter = 3500;
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
+                break;
+            case 4:
                 en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 2500;
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
+                break;
+            case 5:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));
+                this.shipCounter = 1500;
+                setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
+                break;
+            case 6:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
@@ -377,19 +421,57 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
             case 7:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 8:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 9:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                en.add(new Enemy(2,stage,hero,this));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
         }
         //tsetMap(new Juego (Game.getX()/9,hero.getH()*2));
@@ -494,5 +576,14 @@ public class Field extends Scene implements InputProviderListener
         enemy.add(badGuy);
         badGuy.start();
         badGuy.startI();
+    }
+    
+    private boolean deadAliens()
+    {
+        boolean result = false;
+        
+        result = enemy.stream().map((c) -> c.isAlive()).reduce(result, (accumulator, alien) -> accumulator | alien);
+        
+        return result;
     }
 }
