@@ -437,8 +437,8 @@ public class Field extends Scene implements InputProviderListener
         return "Field "+this.hero.toString()+" "+this.stage;
     }
     
-    public float [] getNewBownds(int room,float x,boolean up)
+    public float [] getNewBownds(int room,float x,boolean up, float w)
     {
-        return map.getNextRoom(room, x, up);
+        return map.getNextRoom(room, x, up, w);
     }
 }

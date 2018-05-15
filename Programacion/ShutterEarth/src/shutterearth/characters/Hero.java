@@ -56,7 +56,7 @@ public class Hero extends Charact
     {
         if (!jumping())
         {
-            //this.boundSetter(this.field.getNewBownds(room,xPos, true));//-----------------------------------------------------------------------------------------
+            //this.boundSetter(this.field.getNewBownds(room,xPos, true, w));//-----------------------------------------------------------------------------------------
             yVel = Game.getyVelUp();
             this.setY(yPos-1);
             jumpUp = true;
@@ -77,7 +77,7 @@ public class Hero extends Charact
     {
         if (!jumping())
         {
-            //this.boundSetter(this.field.getNewBownds(room,xPos, false));//-----------------------------------------------------------------------------------------
+            //this.boundSetter(this.field.getNewBownds(room,xPos, false, w));//-----------------------------------------------------------------------------------------
             yVel = Game.getyVelDown();
             this.setY(yPos-1);
             jumpDown = true;

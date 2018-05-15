@@ -42,11 +42,11 @@ public class Juego extends Map
     @Override
     public float[][] getSpots(int n)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return nivel.getSpots(n);
     }
 
     @Override
-    public float[] getNextRoom(int room, float x, boolean up)
+    public float[] getNextRoom(int room, float x, boolean up, float w)
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
