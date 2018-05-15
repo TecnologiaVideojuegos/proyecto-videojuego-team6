@@ -22,6 +22,8 @@ public class Hero extends Charact
     private int stage;
     private int bullets;
     private int kills;
+    private final float wMax;
+    private final float wMin;
     
     public Hero(SavedHero hero)
     {
@@ -37,6 +39,8 @@ public class Hero extends Charact
         
         this.h = Game.getY()/13;
         this.w = (h*9)/15;
+        this.wMax = (h*9)/15 +20;
+        this.wMin = (h*9)/15;
         this.jumpUp = false;
         this.jumpDown = false;
         this.over = false;
@@ -164,6 +168,16 @@ public class Hero extends Charact
     {
         if (this.isAlive())
         {
+            if (this.inventory.getGunID() == 4)
+            {
+                this.w = wMax;
+                this.box.setWidth(wMax);
+            }
+            else
+            {
+                this.w = wMin;
+                this.box.setWidth(wMin);
+            }
             this.setX(this.xPos + this.xVel*t);
             if (yVel < Game.getGravityMax())
                 yVel += Game.getGravity()*t;
