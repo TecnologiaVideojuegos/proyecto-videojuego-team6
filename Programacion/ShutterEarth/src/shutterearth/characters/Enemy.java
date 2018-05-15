@@ -38,7 +38,7 @@ public class Enemy extends Charact
         this.type = type;
         this.hero = hero;
         
-        inventory = new Inventory(new int[]{type,(stage/2)-1},this,1);
+        inventory = new Inventory(new int[]{type,((stage-1)/2)},this,1);
         this.field = field;
         
         if ((Math.random()*2)==0)
@@ -237,10 +237,7 @@ public class Enemy extends Charact
     @Override
     public void shot()
     {
-        if (!jumping())
-        {
-            inventory.shot(1);
-        }
+        inventory.shot(1);
     }
 
     @Override

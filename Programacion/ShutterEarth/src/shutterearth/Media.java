@@ -30,8 +30,8 @@ public class Media extends Scene
     private final HashMap <MUSIC,Music> music;
     private final HashMap <SOUND,Sound> sound;
        
-    public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION,SHIP_SHOT,BACKGROUND_0,BACKGROUND_1,BACKGROUND_2,BACKGROUND_3,BACKGROUND_4,BACKGROUND_5,BACKGROUND_6,HERO_HEAD,BOLA_MALO};    
-    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ,HERO_4_SDE,HERO_4_SIZ,HERO_5_DER,HERO_5_IZQ,HERO_5_SDE,HERO_5_SIZ};
+    public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION,SHIP_SHOT,BACKGROUND_0,BACKGROUND_1,BACKGROUND_2,BACKGROUND_3,BACKGROUND_4,BACKGROUND_5,BACKGROUND_6,HERO_HEAD,BOLA_MALO,SHOT_ALIEN_RIGHT,SHOT_ALIEN_LEFT};    
+    public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ,HERO_4_SDE,HERO_4_SIZ,HERO_5_DER,HERO_5_IZQ,HERO_5_SDE,HERO_5_SIZ,MALO_DER,MALO_IZQ,MALO_SDE,MALO_SIZ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
     public static enum SOUND {SHOT,ALIEN1,ALIEN2,SHIP_SONG,SHIP_SONG2,CASH,BAD,HITED,HITED_ALIEN,FIRE_ALIEN};
     
@@ -109,6 +109,14 @@ public class Media extends Scene
                     {
                         switch (spt.name())
                         {
+                            case "MALO_DER":
+                            case "MALO_IZQ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",536,385),180));
+                                break;
+                            case "MALO_SDE":
+                            case "MALO_SIZ":
+                                sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",522,400),180));
+                                break;
                             case "HERO_1_DER":
                             case "HERO_1_IZQ":
                                 sprites.put(spt, new Animation(new SpriteSheet("./media/"+spt.name()+".png",312,408),180));

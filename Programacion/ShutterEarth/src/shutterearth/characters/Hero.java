@@ -87,17 +87,14 @@ public class Hero extends Charact
     @Override
     public void shot()
     {
-        if (!jumping())
+        if (bullets >= inventory.getCost())
         {
-            if (bullets >= inventory.getCost())
-            {
-                bullets -= inventory.getCost();
-                inventory.shot(1);
-            }
-            else
-            {
-                Game.getMedia().getSound(Media.SOUND.BAD).play();
-            }
+            bullets -= inventory.getCost();
+            inventory.shot(1);
+        }
+        else
+        {
+            Game.getMedia().getSound(Media.SOUND.BAD).play();
         }
     }
     

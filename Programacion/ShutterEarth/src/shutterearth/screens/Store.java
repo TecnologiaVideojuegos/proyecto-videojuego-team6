@@ -129,6 +129,7 @@ public class Store extends Scene implements InputProviderListener
                     break;
                 default:
                     Game.getMedia().getSprit(Media.SPRITE.HERO_5_DER).draw(x-20,y,w+40,h);
+                    //Game.getMedia().getSprit(Media.SPRITE.MALO_SDE).draw(x-20,y,w+40,h);
                     break;
             }
         }
