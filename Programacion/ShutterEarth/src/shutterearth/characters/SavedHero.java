@@ -115,7 +115,7 @@ public class SavedHero implements Serializable
     
     public void reInventory()
     {
-        for (int x = 0; x < (this.getStage()/2)+1; x++)
+        for (int x = 0; x < (((this.getStage()/2)+1)<5?((this.getStage()/2)+1):5); x++)
         {
             if (this.getInventory().get(x)[1]<1)
                 this.getInventory().get(x)[1] = 1;

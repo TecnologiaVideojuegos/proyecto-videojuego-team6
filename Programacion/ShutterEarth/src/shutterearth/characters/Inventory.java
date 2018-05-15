@@ -23,7 +23,7 @@ public class Inventory extends Scene
     private final ArrayList <Gun> inventory;
     private int index;
     private final ArrayList <Shot> shots;
-        private final ArrayList <Shot> count;
+    private final ArrayList <Shot> count;
     private final ArrayList <Shot> toRemoveS;
     private final ArrayList <Label> label;
     private final ArrayList <Label> toRemoveL;
@@ -135,7 +135,7 @@ public class Inventory extends Scene
                         Game.getMedia().getImage(s.getFace()?Media.IMAGE.SHIP_SHOT:Media.IMAGE.SHIP_SHOT).draw(s.getX(),s.getY(),s.getW(),s.getH());
                         break;
                     case 3:
-                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BULLET_R:Media.IMAGE.BULLET_L).draw(s.getX(),s.getY(),s.getW(),s.getH());
+                        Game.getMedia().getImage(s.getFace()?Media.IMAGE.BOLA_MALO:Media.IMAGE.BOLA_MALO).draw(s.getX(),s.getY(),s.getW(),s.getH());
                         break;
                 }
             }

@@ -171,10 +171,7 @@ public class Field extends Scene implements InputProviderListener
                         provider.unbindCommand(e);
                         provider.unbindCommand(space);
                         provider.removeListener(this);
-                        if (hero.getStage()<10)
-                        {
-                            hero.setStage(stage+1);
-                        }
+                        hero.setStage(stage);
                         SavedHero hs = hero.save();
                         hs.reInventory();
                         Hero h = new Hero (hs);
@@ -336,9 +333,6 @@ public class Field extends Scene implements InputProviderListener
         ArrayList <Charact> h = new ArrayList <>();
         h.add(hero);
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
-        
-        
-        //hero.place(890, Game.getY()-100, Game.getY()-5, 0, Game.getX(), 2, 0); //-----------------------------------------------------------------------------------------
         
         
         sh.add(new Ship(2,stage,hero,this));
