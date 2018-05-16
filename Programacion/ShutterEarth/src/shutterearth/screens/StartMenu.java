@@ -63,6 +63,7 @@ public class StartMenu extends Scene implements InputProviderListener
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         Game.getMedia().getImage(Media.IMAGE.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.TITLE).draw(Game.getX()/3, Game.getY()/6, (Game.getX())/3, Game.getY()/12);
         g.setColor(Color.yellow);
         g.fill(game);
         Game.getMedia().getImage(Media.IMAGE.PLAY).draw(game.getX(),game.getY(),game.getWidth(),game.getHeight());

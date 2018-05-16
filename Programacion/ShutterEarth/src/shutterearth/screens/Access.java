@@ -22,7 +22,6 @@ import org.newdawn.slick.gui.TextField;
 import shutterearth.Game;
 import shutterearth.Media;
 import shutterearth.characters.SavedHero;
-import shutterearth.map.randomGenerator.Juego;
 
 /**
  *
@@ -81,6 +80,7 @@ public class Access extends Scene implements InputProviderListener
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
         Game.getMedia().getImage(Media.IMAGE.MENU).draw(0, 0, Game.getX(), Game.getY());
+        Game.getMedia().getImage(Media.IMAGE.TITLE).draw(Game.getX()/3, Game.getY()/6, (Game.getX())/3, Game.getY()/12);
         g.setColor(Color.yellow);
         g.fill(exit);
         Game.getMedia().getImage(Media.IMAGE.EXIT).draw(exit.getX(),exit.getY(),exit.getWidth(),exit.getHeight());

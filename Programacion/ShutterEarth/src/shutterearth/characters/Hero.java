@@ -24,6 +24,7 @@ public class Hero extends Charact
     private int kills;
     private final float wMax;
     private final float wMin;
+    private int errorCount;
     
     public Hero(SavedHero hero)
     {
@@ -49,6 +50,7 @@ public class Hero extends Charact
         counterAnimation = 0;
         animation = false;
         this.goRight();
+        errorCount = 0;
     }
     
     @Override
@@ -169,6 +171,16 @@ public class Hero extends Charact
     {
         if (this.isAlive())
         {
+            if (this.getY() > Game.getY())
+            {
+                goUp();
+                errorCount++;
+            }
+            if (errorCount > 3)
+            {
+                this.healthCurrent = 0;
+            }
+            
             if (this.inventory.getGunID() == 4)
             {
                 this.w = wMax;

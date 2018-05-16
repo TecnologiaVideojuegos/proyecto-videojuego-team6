@@ -29,14 +29,15 @@ public class BadGuy extends Charact
         if (stage < 1)
             this.stage = 1;
         else if (stage > 10)
-            this.stage = 1;
+            this.stage = 10;
         else
             this.stage = stage;
+        
         this.field = field;
         this.inventory = new Inventory(new int[]{4,((stage-1)/2)},this,3);
         
-        this.healthMax = 50 + stage*100;
-        this.healthCurrent = 50 + stage*100;
+        this.healthMax = stage*10;
+        this.healthCurrent = stage*10;
         
         this.h = Game.getY()/11;
         this.w = h;
@@ -92,7 +93,7 @@ public class BadGuy extends Charact
     @Override
     public void shot()
     {
-        inventory.shot(stage/2);
+        inventory.shot(((stage/2) > 0?(stage/2):1));
     }
     
     public void revive ()
@@ -128,17 +129,8 @@ public class BadGuy extends Charact
         }
         else
         {
-            if (!revived)
-                Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
-            else
-            {
-                if (h<Game.getY()/6)
-                {
-                    h++;
-                    w = h;
-                }
-                Game.getMedia().getSprit(Media.SPRITE.MALO_DER).draw(xPos,yPos,w,h);
-            }
+            Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
+            field.badDead();
         }
     }
 

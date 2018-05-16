@@ -156,7 +156,7 @@ public class Game extends BasicGame
         Game.debug = false;
         Game.reward = 1;
         Game.step = ((Game.getY()*12)/105f);
-        
+        /*
         System.out.println("-----------------------");
         System.out.println(Game.X);
         System.out.println(Game.Y);
@@ -167,7 +167,7 @@ public class Game extends BasicGame
         System.out.println(Game.yVelDown);
         System.out.println(Game.step);
         System.out.println("-----------------------");
-
+        */
         app.setDisplayMode(X,Y, true);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);

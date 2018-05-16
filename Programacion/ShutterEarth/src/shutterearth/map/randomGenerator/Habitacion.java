@@ -18,7 +18,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     private final AppGameContainer g;
     private final ArrayList<Celda> celdas = new ArrayList<>();
     private final int id;
-    private boolean[] lado = new boolean[2];//indica si es una hab izq o der
+    private final boolean[] lado = new boolean[2];//indica si es una hab izq o der
     
     private  Rectangle up;
     private  Rectangle down;
@@ -130,6 +130,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     
     public void render(Graphics g)
     {
+        g.setColor(Color.white);
         if (first)
         {
             this.down = new Rectangle(this.x,this.maxY-10,this.width,10);

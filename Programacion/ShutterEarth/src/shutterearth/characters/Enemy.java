@@ -22,6 +22,7 @@ public class Enemy extends Charact
 {
     private final int type;
     private final Hero hero;
+    private int errorCount;
     
     public Enemy (int type, int stage,Hero hero,Field field)
     {
@@ -51,6 +52,7 @@ public class Enemy extends Charact
             this.goLeft();
         }
         yVel = 0;
+        errorCount = 0;
         
         this.healthCurrent = 20+10*stage*type;
         this.healthMax = 20+10*stage*type;
@@ -98,6 +100,16 @@ public class Enemy extends Charact
     {
         if (this.isAlive())
         {
+            if (this.getY() > Game.getY())
+            {
+                goUp();
+                errorCount++;
+            }
+            if (errorCount > 3)
+            {
+                this.healthCurrent = 0;
+            }
+            
             if (this.isInRoom(hero.getBox()))
             {
                 this.shot();

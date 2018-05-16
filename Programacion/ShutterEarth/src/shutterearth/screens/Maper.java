@@ -136,7 +136,7 @@ public class Maper extends Scene  implements InputProviderListener
                 provider.removeListener(this);
                 Hero h = new Hero (hero);
                 HUD hud = new HUD(h);
-                Field field = new Field(h,stage,hud);
+                Field field = new Field(h,stage,hud,0);
                 field.start();
                 Game.removeSence(this);
             }
