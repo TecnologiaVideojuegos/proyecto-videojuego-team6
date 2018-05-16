@@ -509,7 +509,7 @@ public class Field extends Scene implements InputProviderListener
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
-                /*en.add(new Enemy(1,stage,hero,this));
+                en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
@@ -524,7 +524,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));*/
+                sh.add(new Ship(2,stage,hero,this));
                 this.shipCounter = 2500;
                 setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
                 break;
@@ -632,6 +632,7 @@ public class Field extends Scene implements InputProviderListener
         enemy.add(badGuy);
         badGuy.start();
         badGuy.startI();
+        startBattle();
     }
     
     private boolean deadAliens()
