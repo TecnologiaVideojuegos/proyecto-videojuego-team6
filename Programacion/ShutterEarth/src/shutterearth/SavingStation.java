@@ -113,7 +113,7 @@ public class SavingStation
             oos.writeObject(saves);
             oos.close();
             fos.close();
-            System.out.println("DATA SAVED");
+            //System.out.println("DATA SAVED");
         } 
         catch (IOException ex)
         {
