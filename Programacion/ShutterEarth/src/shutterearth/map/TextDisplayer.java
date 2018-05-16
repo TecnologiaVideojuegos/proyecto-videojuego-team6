@@ -60,9 +60,37 @@ public class TextDisplayer extends Scene implements InputProviderListener
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        g.setColor(Color.yellow);
-        Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
-        txt.render(gc, g);
+        if ((step < 160) || (step>169))
+        {
+            g.setColor(Color.yellow);
+            Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
+            txt.render(gc, g);  
+            switch(step)
+            {
+                case 100:
+                case 102:
+                case 103:
+                case 142:
+                case 143:
+                case 150:
+                case 151:
+                case 152:
+                case 180:
+                case 181:
+                case 182:
+                    //Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
+                    break;
+                default:
+                    //Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
+                    break;
+            }
+        }
+        else
+        {
+            g.setColor(Color.yellow);
+            Game.getMedia().getImage(Media.IMAGE.MENU).draw(0,0,Game.getX(),Game.getY());
+            txt.render(gc, g); 
+        }
     }
 
     @Override
@@ -421,7 +449,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 100:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Ahora nunca podrás recuperar a tu hija\n";
+                    toShow += "Alien: Ahora nunca podrás recuperar a tu hija\n";
                     done[step%10] = true;
                 }
                 break;
@@ -435,14 +463,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 102:
                 if (!done[step%10])
                 {
-                    toShow += "-----: \tNunca podréis vencerme\n";
+                    toShow += "Alien: \tNunca podréis vencerme\n";
                     done[step%10] = true;
                 }
                 break;
             case 103:
                 if (!done[step%10])
                 {
-                    toShow += "-----: \tDile adiós a tu hija\n";
+                    toShow += "Alien: \tDile adiós a tu hija\n";
                     done[step%10] = true;
                 }
             case 104:
@@ -558,14 +586,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 142:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Me derrotaste una vez pero solo una\n";
+                    toShow += "Alien: Me derrotaste una vez pero solo una\n";
                     done[step%10] = true;
                 }
                 break;
             case 143:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Vas a aprender a hacer las cosas a lo Alien\n";
+                    toShow += "Alien: Vas a aprender a hacer las cosas a lo Alien\n";
                     done[step%10] = true;
                 }
             case 144:
@@ -579,21 +607,21 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 150:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Tú de nuevo?\n";
+                    toShow += "Alien: Tú de nuevo?\n";
                     done[step%10] = true;
                 }
                 break;
             case 151:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Pensaba que ya te babrías rendido\n";
+                    toShow += "Alien: Pensaba que ya te babrías rendido\n";
                     done[step%10] = true;
                 }
                 break;
             case 152:
                 if (!done[step%10])
                 {
-                    toShow += "-----: En fin, si quieres morir junto a tu hija me parece bien\n";
+                    toShow += "Alien: En fin, si quieres morir junto a tu hija me parece bien\n";
                     done[step%10] = true;
                 }
                 break;
@@ -703,21 +731,21 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 180:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Has caído en mi trampa\n";
+                    toShow += "Alien: Has caído en mi trampa\n";
                     done[step%10] = true;
                 }
                 break;
             case 181:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Pensabas que sería tan fácil derrotarme?\n";
+                    toShow += "Alien: Pensabas que sería tan fácil derrotarme?\n";
                     done[step%10] = true;
                 }
                 break;
             case 182:
                 if (!done[step%10])
                 {
-                    toShow += "-----: Jamás recuperarás a tu hija\n";
+                    toShow += "Alien: Jamás recuperarás a tu hija\n";
                     done[step%10] = true;
                 }
             case 183:
