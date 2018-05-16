@@ -228,8 +228,9 @@ public class Inventory extends Scene
                             }
                             if(hero.getInfo()==0 && !e.isAlive() && hero.isAlive())
                             {
-                                label.add(new Label(e.getBox().getCenterX(),e.getBox().getCenterY(),e.getFace(),(int)((e.getHealthMax()*Game.getReward())+Math.random()*5)));
-                                hero.hasKilled((int)((e.getHealthMax()*Game.getReward())+Math.random()*5));
+                                int x = (int)(Math.random()*5);
+                                label.add(new Label(e.getBox().getCenterX(),e.getBox().getCenterY(),e.getFace(),(int)((e.getHealthMax()*Game.getReward())+x)));
+                                hero.hasKilled((int)((e.getHealthMax()*Game.getReward())+x));
                             }
                         }
                     }
