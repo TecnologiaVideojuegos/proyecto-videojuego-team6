@@ -122,5 +122,11 @@ public class BattleMap extends Map
     {
         Game.removeSence(this);
     }
+
+    @Override
+    public float[] bulletControl(float x, float y)
+    {
+        return new float[]{0,Game.getX()};
+    }
     
 }

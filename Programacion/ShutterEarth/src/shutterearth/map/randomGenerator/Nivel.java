@@ -120,10 +120,10 @@ public class Nivel
     public float[] bulletControl(float x, float y){
         float[] aux = null;
         for(Habitacion h : nivel){
-            if((x>h.getX())&&(x<h.getMaxX())&&(y>h.getY())&&(y<h.getMaxY())){
+            if(h.contains(x, y)){
                 aux = new float[2];
-                aux[0] = h.getY(); //Pared izq
-                aux[1] = h.getMaxY(); //Pared derecha
+                aux[0] = h.getX(); //Pared izq
+                aux[1] = h.getMaxX(); //Pared derecha
             }
         }
         return aux;

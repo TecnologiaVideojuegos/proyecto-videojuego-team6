@@ -64,6 +64,12 @@ public class Juego extends Map
         }
         return null;
     }
+    
+    @Override
+    public float[] bulletControl (float x, float y)
+    {
+        return nivel.bulletControl(x, y);
+    }
 
     @Override
     public float[] getNextRoom(int room, float x, boolean up, float w, boolean hero)

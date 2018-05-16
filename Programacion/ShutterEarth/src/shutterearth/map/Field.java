@@ -770,4 +770,9 @@ public class Field extends Scene implements InputProviderListener
             }
         }
     }
+    
+    public float[] bulletControl(float x,float y)
+    {
+        return map.bulletControl(x, y);
+    }
 }

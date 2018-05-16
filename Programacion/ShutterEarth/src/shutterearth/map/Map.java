@@ -21,7 +21,8 @@ public abstract class Map extends Scene
         this.x = x;
         this.y = y;
     }
-
+    
+    public abstract float [] bulletControl (float x,float y);
     //Da los spawns de los personajes, (x,y,)npc (w,h,floor)habitación
     //Primero el héroe y el reto son los npc
     public abstract float [][] getSpots (int n);

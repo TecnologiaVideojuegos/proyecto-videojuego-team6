@@ -233,4 +233,9 @@ public abstract class Charact extends Scene
     {
         return borderRoom;
     }
+    
+    public float[] bulletControl (float x,float y)
+    {
+        return field.bulletControl(x, y);
+    }
 }

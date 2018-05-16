@@ -102,9 +102,23 @@ public class Shot
                     hero.doShotAnimation();
                     y = hero.getBox().getY()+offset-h/2;
                     x = hero.getBox().getCenterX();
+                    float[] bounds = hero.bulletControl(x,y);
+                    if (bounds != null)
+                    {
+                        maxR = bounds[1];
+                        maxL = bounds[0];
+                        System.out.println("------------");
+                        System.out.println("x: "+x);
+                        System.out.println("y: "+y);
+                        System.out.println("der: "+maxR);
+                        System.out.println("izq: "+maxL);
+                    }
+                    else
+                    {
+                        maxR = Game.getX();
+                        maxL = 0;
+                    }
                     borderRoom = hero.getBorder();
-                    maxR = hero.getColum().getMaxX();
-                    maxL = hero.getColum().getX();
                     face = hero.getFace();
             }
             else
@@ -142,7 +156,8 @@ public class Shot
     }
     public boolean ended ()
     {
-        switch (borderRoom)
+        return (x<maxL) || ((x+w)>maxR);
+        /*switch (borderRoom)
         {
             case 0:
                 return x<0 || x+w>maxR; 
@@ -152,6 +167,6 @@ public class Shot
                 return x<0 || x+w>Game.getX(); 
             default:
                 return x<maxL || x+w>maxR;
-        }
+        }*/
     }
 }
