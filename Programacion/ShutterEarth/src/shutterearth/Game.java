@@ -256,7 +256,7 @@ public class Game extends BasicGame
             if (hero.getPermission())
             {
                 developer = new Dev(hero);
-                developer.start();
+                //developer.start();
             }
         }
         else 
