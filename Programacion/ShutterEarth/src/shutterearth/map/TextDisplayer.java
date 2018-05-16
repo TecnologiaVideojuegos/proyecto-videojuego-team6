@@ -73,18 +73,30 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 0:
                 if (!done[step%10])
                 {
+                    toShow += "(Hit ENTER to continue reading...)\n";
+                    done[step%10] = true;
+                }
+            case 1:
+                if (!done[step%10])
+                {
+                    toShow += "(In game hit BACK to PAUSE...)\n";
+                    done[step%10] = true;
+                }
+            case 2:
+                if (!done[step%10])
+                {
                     toShow += "Diana: ...\n";
                     done[step%10] = true;
                 }
                 break;
-            case 1:
+            case 3:
                 if (!done[step%10])
                 {
                     toShow += "Diana: Esos malditos aliens\n";
                     done[step%10] = true;
                 }
                 break;
-            case 2:
+            case 4:
                 if (!done[step%10])
                 {
                     toShow += "Diana: No les bastaba con destrozar el planeta\n"
@@ -92,14 +104,12 @@ public class TextDisplayer extends Scene implements InputProviderListener
                     done[step%10] = true;
                 }
                 break;
-            case 3:
+            case 5:
                 if (!done[step%10])
                 {
                     toShow += "Diana: Voy a encontrarla cueste lo que cueste\n";
                     done[step%10] = true;
                 }
-            case 4:
-            case 5:
             case 6:
             case 7:
             case 8:
@@ -611,35 +621,35 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 161:
                 if (!done[step%10])
                 {
-                    toShow += "----------------------Team 6----------------------------\n";
+                    toShow += "----------------------Team 6-----------------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 162:
                 if (!done[step%10])
                 {
-                    toShow += "--------------Juan Casado Ballesteros------------------\n";
+                    toShow += "--------------Juan Casado Ballesteros-------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 163:
                 if (!done[step%10])
                 {
-                    toShow += "----------------Daniel Fernández Diaz-------------------\n";
+                    toShow += "---------------Daniel Fernández Diaz--------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 164:
                 if (!done[step%10])
                 {
-                    toShow += "-----------------Jorge Garcia Garcia--------------------\n";
+                    toShow += "----------------Jorge  Garcia Garcia--------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 165:
                 if (!done[step%10])
                 {
-                    toShow += "------------------Pablo Pardo García--------------------\n";
+                    toShow += "-----------------Pablo Pardo García---------------------\n";
                     done[step%10] = true;
                 }
                 break;
@@ -649,6 +659,33 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 169:
                 nextable = false;
                 break;
+            case 170:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Por fin junats\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 171:
+                if (!done[step%10])
+                {
+                    toShow += "<3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 <3 \n";
+                    done[step%10] = true;
+                }
+                break;
+            case 172:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Volvamos a casa, nuestra historia no ha hecho más que empezar\n";
+                    done[step%10] = true;
+                }
+            case 173:
+            case 174:
+            case 175:
+            case 176:
+            case 177:
+            case 178:
+            case 179:
         }
         txt.setText(toShow);
     }
@@ -656,7 +693,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.getMedia().getMusic(Media.MUSIC.CANCION_FONDO).loop();
+        if (doNext == 4)
+        {
+           Game.getMedia().getMusic(Media.MUSIC.END_SONG).loop(); 
+        }
+        else
+        {
+            Game.getMedia().getMusic(Media.MUSIC.CANCION_FONDO).loop();
+        }
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(enter, next);
@@ -680,13 +724,19 @@ public class TextDisplayer extends Scene implements InputProviderListener
             else
             {
                 field.wake();
-                if (doNext == 0)
+                switch (doNext)
                 {
-                    field.startAnimation();
-                }
-                else if (doNext == 1)
-                {
-                    field.startBattle();
+                    case 0:
+                        field.startAnimation();
+                        break;
+                    case 1:
+                        field.startBattle();
+                        break;
+                    case 4:
+                        field.exit();
+                        break;
+                    default:
+                        break;
                 }
                 Game.removeSence(this);
                 provider.clearCommand(next);

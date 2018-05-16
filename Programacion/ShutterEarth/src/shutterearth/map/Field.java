@@ -88,6 +88,7 @@ public class Field extends Scene implements InputProviderListener
     private final BB bb;
     private Rectangle futureBB;
     private boolean done;
+    private boolean dialoged;
     private boolean gameEnded;
     
     private boolean texted;
@@ -116,6 +117,7 @@ public class Field extends Scene implements InputProviderListener
         bb = new BB();
         tcount = 3;
         texted = false;
+        dialoged = false;
     }
     
     @Override
@@ -193,26 +195,38 @@ public class Field extends Scene implements InputProviderListener
                         switch (stage)
                         {
                             case 1:
-
-                                bb.setBB(futureBB);
+                                if (!dialoged)
+                                {
+                                    bb.setBB(futureBB);
+                                    Game.addScene(new TextDisplayer(this,11,3));
+                                    dialoged = true;
+                                }
                                 if (hero.getBox().intersects(bb.getBB()))
                                 {
                                     bb.exit();
                                     releaseBadGuy();
+                                    Game.addScene(new TextDisplayer(this,12,3));
                                     done = true;
                                 }
                                 break;
                             case 5:
-                                bb.setBB(futureBB);
+                                if (!dialoged)
+                                {
+                                    bb.setBB(futureBB);
+                                    Game.addScene(new TextDisplayer(this,13,3));
+                                    dialoged = true;
+                                }
                                 if (hero.getBox().intersects(bb.getBB()))
                                 {
                                     bb.exit();
                                     releaseBadGuy();
+                                    Game.addScene(new TextDisplayer(this,14,3));
                                     done = true;
                                 }
                                 break;
                             case 10:
                                 releaseBadGuy();
+                                Game.addScene(new TextDisplayer(this,15,3));
                                 break;
                             default:
                                 this.startAnimation();
@@ -223,11 +237,15 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
+                Game.addScene(new TextDisplayer(this,17,3));
                 bb.setBB(futureBB);
                 if (hero.getBox().intersects(bb.getBB()))
                 {
-
-                    this.exit();
+                    Game.addScene(new TextDisplayer(this,16,4));
+                }
+                if (!hero.isAlive())
+                {
+                    exit();
                 }
             }
         }
@@ -248,7 +266,6 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void init(GameContainer gc) throws SlickException
     {
-        Game.getMedia().getMusic(Media.MUSIC.CANCION_GAME).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         
@@ -323,6 +340,16 @@ public class Field extends Scene implements InputProviderListener
         {
             enem.pause();
         });
+        sh.forEach((ship)->
+        {
+            ship.pause();
+        });
+        en.forEach((enm)->
+        {
+            enm.pause();
+        });
+        if (badGuy!=null)
+            badGuy.pause();
     }
     
     public void wake ()
@@ -338,6 +365,16 @@ public class Field extends Scene implements InputProviderListener
         {
             enem.wake();
         });
+        sh.forEach((ship)->
+        {
+            ship.wake();
+        });
+        en.forEach((enm)->
+        {
+            enm.wake();
+        });
+        if (badGuy!=null)
+            badGuy.wake();
     }
     
     public void exit ()
@@ -454,7 +491,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 this.shipCounter = 4000;
-                setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 6:
                 en.add(new Enemy(1,stage,hero,this));
@@ -545,7 +582,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(2,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 this.shipCounter = 2500;
-                setMap(new BattleMap(Game.getX()/9,hero.getH()*2));
+                setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
         }
     }
@@ -556,7 +593,7 @@ public class Field extends Scene implements InputProviderListener
     }
     public void heroDied ()
     {
-        Game.addScene(new TextDisplayer(this,11,0));
+        Game.addScene(new TextDisplayer(this,10,0));
     }
     public void enemyDied (Charact enemy)
     {
@@ -685,7 +722,7 @@ public class Field extends Scene implements InputProviderListener
         hs.reInventory();
         Hero h = new Hero (hs);
         HUD hudn = new HUD(h);
-        Field field = new Field(h,((stage+1)>10?10:stage+1),hudn,hero.getHealthCurrent()-hero.getHealthCurrent());
+        Field field = new Field(h,((stage+1)>10?10:stage+1),hudn,hero.getHealthMax()-hero.getHealthCurrent());
         Game.removeSence(this);
         hud.end();
         map.end();
@@ -698,7 +735,8 @@ public class Field extends Scene implements InputProviderListener
     
     public void badDead ()
     {
-        if (stage == 10)
+        enemy.clear();
+        if (stage >= 10)
         {
             if (hero.isAlive())
             {

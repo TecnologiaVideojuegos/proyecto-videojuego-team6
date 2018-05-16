@@ -37,8 +37,8 @@ public class BadGuy extends Charact
         this.field = field;
         this.inventory = new Inventory(new int[]{4,((stage-1)/2)},this,3);
         
-        this.healthMax = stage*10;
-        this.healthCurrent = stage*10;
+        this.healthMax = stage*100;
+        this.healthCurrent = stage*100;
         
         this.h = Game.getY()/11;
         this.w = h;
