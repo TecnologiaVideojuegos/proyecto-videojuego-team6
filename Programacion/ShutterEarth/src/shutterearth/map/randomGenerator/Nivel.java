@@ -117,6 +117,18 @@ public class Nivel
         return aux;
     }
     
+    public float[] bulletControl(float x, float y){
+        float[] aux = null;
+        for(Habitacion h : nivel){
+            if((x>h.getX())&&(x<h.getMaxX())&&(y>h.getY())&&(y<h.getMaxY())){
+                aux = new float[2];
+                aux[0] = h.getY(); //Pared izq
+                aux[1] = h.getMaxY(); //Pared derecha
+            }
+        }
+        return aux;
+    }
+    
     public void render(Graphics g)
     {
         nivel.forEach((h) ->
