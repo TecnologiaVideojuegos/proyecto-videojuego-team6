@@ -126,7 +126,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         //el resto de la info esta contenida en la propia Habitacion
         float j;
         for(int i=0;i<n;i++){
-            j = (((float)(Math.random()*width-20))+getX());
+            j = (((float)(Math.random()*width-40))+getX());
             aux[i][0] = id;
             aux[i][1] = j;
         }        
