@@ -54,23 +54,27 @@ public class Nivel
         return aux;
     }
     
-    private ArrayList<float[]> getSpawns(int diffFactor)
+    private ArrayList<float[]> getSpawns(int numExactoMonstruos)
     {
         ArrayList<float[]> lista = new ArrayList<>();
         float[][] aux;
-        for(Habitacion h : nivel)
-        {
-            if(!h.equals(heroSpawn))
-            {
-                aux = h.spawn(((int)(Math.random()*100))%diffFactor);
+        int count = 0;
+        while(lista.size()<numExactoMonstruos){
+            if(!nivel.get(count).equals(heroSpawn)){
+                if(lista.size()<=(numExactoMonstruos-2)){
+                    aux = nivel.get(count).spawn(((int)(Math.random()*100))%3);
+                } else{
+                    aux = nivel.get(count).spawn(numExactoMonstruos-lista.size());
+                }
                 for (int i=0;i<aux.length;i++) lista.add(aux[i]);
             }
+            count = (count+1)%nivel.size();
         }
         return lista;
     }
     
     public float[][] getSpots(int num){
-        ArrayList<float[]> aux = getSpawns(num);
+        ArrayList<float[]> aux = getSpawns(num-1);
         float[][] spawn = new float[aux.size()+1][7];
         spawn[0][0]=heroSpawn.getX()+20;//x spawn
         spawn[0][1]=heroSpawn.getY();//y spawn
