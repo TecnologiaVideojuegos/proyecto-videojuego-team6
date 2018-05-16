@@ -253,8 +253,11 @@ public class Game extends BasicGame
     {
         if (developer == null)
         {
-            developer = new Dev(hero);
-            developer.start();
+            if (hero.getPermission())
+            {
+                developer = new Dev(hero);
+                developer.start();
+            }
         }
         else 
         {
