@@ -83,7 +83,7 @@ public class BattleMap extends Map
     }
 
     @Override
-    public float[] getNextRoom(int room,float x, boolean up, float w)
+    public float[] getNextRoom(int room,float x, boolean up, float w, boolean hero)
     {
         if (up && (room < (this.room.size()-1)))
         {

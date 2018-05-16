@@ -55,9 +55,9 @@ public class Juego extends Map
     }
 
     @Override
-    public float[] getNextRoom(int room, float x, boolean up, float w)
+    public float[] getNextRoom(int room, float x, boolean up, float w, boolean hero)
     {
-        return nivel.getNextRoom(room, x, up, w);
+        return nivel.getNextRoom(room, x, up, w, hero);
     }
 
     @Override

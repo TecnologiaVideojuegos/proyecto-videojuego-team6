@@ -136,11 +136,11 @@ public class Enemy extends Charact
                 switch ((int)(Math.random()*500))
                 {
                     case 0:
-                        field.getNewBownds(room,xPos,true,w);
+                        field.getNewBownds(room,xPos,true,w,false);
                         this.goUp();
                         break;
                     case 1:
-                        field.getNewBownds(room,xPos,false,w);
+                        field.getNewBownds(room,xPos,false,wfalse);
                         this.goDown();
                         break;
                 }
