@@ -762,6 +762,7 @@ public class Field extends Scene implements InputProviderListener
             gameEnded = true;
         }
         badGuy.revive();
+        Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
     }
     
     public float[] bulletControl(float x,float y)
