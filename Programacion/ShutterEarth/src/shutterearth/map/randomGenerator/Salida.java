@@ -10,8 +10,8 @@ import shutterearth.Media;
 public class Salida extends Rectangle
 {
     private Habitacion next;
-    private Rectangle salida;
-    private Image imagen;
+    private final Rectangle salida;
+    private final Image imagen;
 
     public Salida(Habitacion next, float x, float y, float width, float height) {
         super(x, y, width, height);
