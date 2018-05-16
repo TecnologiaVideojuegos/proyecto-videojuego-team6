@@ -78,10 +78,10 @@ public class TextDisplayer extends Scene implements InputProviderListener
                 case 180:
                 case 181:
                 case 182:
-                    //Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
+                    Game.getMedia().getImage(Media.IMAGE.BAD_GUY_HEAD).draw(Game.getX()-(Game.getX()/50)-Game.getY()/3,Game.getY()/3,Game.getY()/3,Game.getY()/3);
                     break;
                 default:
-                    //Game.getMedia().getImage(Media.IMAGE.GREY).draw(0,0,Game.getX(),Game.getY());
+                    Game.getMedia().getImage(Media.IMAGE.HERO_HEAD).draw(Game.getX()/50,Game.getY()/3,Game.getY()/3,Game.getY()/3);
                     break;
             }
         }
