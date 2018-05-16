@@ -51,17 +51,42 @@ public class Maper extends Scene  implements InputProviderListener
         click = new BasicCommand("click");
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         
-        this.level = new Circle [10];
-        
-        this.w = Game.getX()/20;
-        int step = Game.getX()/22;
-        int start = Game.getX()/2 - w*5 - step*4;
-        
-        for (int x = 0; x < level.length; x++)
+        if (hero.getStage() <=1)
         {
-            level [x] = new Circle(start + (w*x) + (step*x), Game.getY()/2 - w/2, w/2);
+           
+            this.level = new Circle [1];
+            this.w = Game.getX()*Game.getY();
+            int step = 0;
+            int start = Game.getX()/2 - w*5 - step*4;
+            for (int x = 0; x < level.length; x++)
+            {
+                level [x] = new Circle(0, 0, w);
+                level [x].setCenterX(Game.getX()/2);
+                level [x].setCenterY(Game.getY()/2);
+            }
         }
-        
+        else if (hero.getStage() <=5)
+        {
+            this.level = new Circle [5];
+            this.w = Game.getX()/20;
+            int step = Game.getX()/22;
+            int start = Game.getX()/2 - w*2 -w/2 - step*2;
+            for (int x = 0; x < level.length; x++)
+            {
+                level [x] = new Circle(start + (w*x) + (step*x), Game.getY()/2 - w/2, w/2);
+            }
+        }
+        else
+        {
+            this.level = new Circle [10];
+            this.w = Game.getX()/20;
+            int step = Game.getX()/22;
+            int start = Game.getX()/2 - w*5 - step*4;
+            for (int x = 0; x < level.length; x++)
+            {
+                level [x] = new Circle(start + (w*x) + (step*x), Game.getY()/2 - w/2, w/2);
+            }
+        }
         this.hero = hero;
         
         diagonal = (Game.getX()^2+Game.getY()^2)^(1/2);
@@ -103,7 +128,13 @@ public class Maper extends Scene  implements InputProviderListener
     {
         if (!animationStarted)
         {
-            if (clicked)
+            if (hero.getStage()<=1)
+            {
+                Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
+                animationStarted = true;
+                stage = 1;
+            }
+            else if (clicked)
             {
                 if (exit.contains(xMouse, yMouse))
                 {

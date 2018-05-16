@@ -12,6 +12,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.command.BasicCommand;
 import org.newdawn.slick.command.Command;
+import org.newdawn.slick.command.Control;
 import org.newdawn.slick.command.InputProvider;
 import org.newdawn.slick.command.InputProviderListener;
 import org.newdawn.slick.command.KeyControl;
@@ -28,6 +29,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
 {    
     private InputProvider provider;
     private final Command next;
+    private final Control enter = new KeyControl(Input.KEY_ENTER);
     private final Field field;
     
     private TextField txt;
@@ -46,7 +48,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
         this.doNext = doNext;
         
         this.toShow = "";
-        this.step = (stage -1)*10;
+        this.step = stage;
         this.nextable = true;
         done = new boolean [10]; 
         for (int j = 0; j < done.length; j++)
@@ -71,24 +73,31 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 0:
                 if (!done[step%10])
                 {
-                    toShow += "Hola, bienvenido \n-- Pulsa ENTER para continuar\n";
+                    toShow += "Diana: ...\n";
                     done[step%10] = true;
                 }
                 break;
             case 1:
                 if (!done[step%10])
                 {
-                    toShow += "SEGUNDO MMSS \n-- Pulsa ENTER para continuar\n";
+                    toShow += "Diana: Esos malditos aliens\n";
                     done[step%10] = true;
                 }
                 break;
             case 2:
                 if (!done[step%10])
                 {
-                    toShow += "ULTIMO MMSS \n-- Pulsa ENTER para salir\n";
+                    toShow += "Diana: No les bastaba con destrozar el planeta\n"
+                            + "       tenían tambén que raptar a mi hija...\n";
                     done[step%10] = true;
                 }
+                break;
             case 3:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Voy a encontrarla cueste lo que cueste\n";
+                    done[step%10] = true;
+                }
             case 4:
             case 5:
             case 6:
@@ -100,24 +109,23 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 10:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: he visto como se llevaban a mi hija por aquí\n";
                     done[step%10] = true;
                 }
                 break;
             case 11:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: utilizan los antiguos edificios humanos para esconderse\n";
                     done[step%10] = true;
                 }
                 break;
             case 12:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: por fin tanto entrenamiento militar está sirviendo para algo\n";
                     done[step%10] = true;
                 }
-                break;
             case 13:
             case 14:
             case 15:
@@ -130,24 +138,25 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 20:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: ese último edificio estaba plagado de aliens pero este parece\n"
+                            + "       estar vacío, con un poco de suerte encontraré a mi hija y\n"
+                            + "       acabará toda esta pesadilla.\n";
                     done[step%10] = true;
                 }
                 break;
             case 21:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: se escuchan unos extraños ruidos de fondo qué podrán ser\n";
                     done[step%10] = true;
                 }
                 break;
             case 22:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: esto está demasiado tranquilo...\n";
                     done[step%10] = true;
                 }
-                break;
             case 23:
             case 24:
             case 25:
@@ -160,24 +169,23 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 30:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Que horrible, están llenando las calles con esos trastos voladores\n";
                     done[step%10] = true;
                 }
                 break;
             case 31:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Por suerte he logrado destruirlos todos\n";
                     done[step%10] = true;
                 }
                 break;
             case 32:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Ahora nada me impedirá recupera a mi hija\n";
                     done[step%10] = true;
                 }
-                break;
             case 33:
             case 34:
             case 35:
@@ -190,25 +198,30 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 40:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Parece que su tecnología es cada vez más mortal\n";
                     done[step%10] = true;
                 }
                 break;
             case 41:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: pero yo estoy cada vez más cerca de mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 42:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: eso es todo lo que importa\n";
                     done[step%10] = true;
                 }
                 break;
             case 43:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: El mundo estrá en llamas pero nosotras estaremos juntas\n";
+                    done[step%10] = true;
+                }
             case 44:
             case 45:
             case 46:
@@ -220,24 +233,23 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 50:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: me la ha vuelto a jugar...\n";
                     done[step%10] = true;
                 }
                 break;
             case 51:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: ese Alien acabará pagando todo lo que me está haciendo sufrir\n";
                     done[step%10] = true;
                 }
                 break;
             case 52:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: pero mi hija está cerca, lo presiento\n";
                     done[step%10] = true;
                 }
-                break;
             case 53:
             case 54:
             case 55:
@@ -250,25 +262,31 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 60:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Cada vez hay más navecitas de esas...\n";
                     done[step%10] = true;
                 }
                 break;
             case 61:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: solo quiero volver a abrazar a mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 62:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: esclavizar a la humanidad entera es una cosa pero\n"
+                            + "       el dolor de una madre...\n";
                     done[step%10] = true;
                 }
                 break;
             case 63:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: ESO YA ES PASARSE!!!\n";
+                    done[step%10] = true;
+                }
             case 64:
             case 65:
             case 66:
@@ -280,25 +298,30 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 70:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: He visto al Alien entrar en este edificio\n";
                     done[step%10] = true;
                 }
                 break;
             case 71:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: puede que esta tragedia esté llegando a su fin\n";
                     done[step%10] = true;
                 }
                 break;
             case 72:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: solo de pensar en volver a estar con mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 73:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: saunque me dará pena esto de dejar de patear culos Alien\n";
+                    done[step%10] = true;
+                }
             case 74:
             case 75:
             case 76:
@@ -412,7 +435,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
         Game.getMedia().getMusic(Media.MUSIC.CANCION_FONDO).loop();
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
-        provider.bindCommand(new KeyControl(Input.KEY_ENTER), next);
+        provider.bindCommand(enter, next);
         
         this.txt = new TextField(gc, gc.getDefaultFont(), Game.getX()/2-Game.getX()/4, Game.getY()/2 - Game.getY()/4, Game.getX()/2, Game.getY()/2);
         txt.setBackgroundColor(Color.gray);
@@ -443,6 +466,8 @@ public class TextDisplayer extends Scene implements InputProviderListener
                 }
                 Game.removeSence(this);
                 provider.clearCommand(next);
+                provider.unbindCommand(enter);
+                provider.setActive(false);
             }
         }
     }
