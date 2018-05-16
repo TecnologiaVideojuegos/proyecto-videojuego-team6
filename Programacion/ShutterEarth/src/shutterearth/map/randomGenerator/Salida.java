@@ -17,7 +17,7 @@ public class Salida extends Rectangle
         super(x, y, width, height);
         this.next = next;
         this.imagen = Game.getMedia().getImage(Media.IMAGE.ESCALERA);
-        salida = new Rectangle(getX(), next.getY()-Game.getY()/32, getWidth(), (Game.step())+Game.getY()/38);//Solo se usa en salidas INF
+        salida = new Rectangle(getX(), next.getY()-Game.getY()/32, getWidth(), (Game.step())+Game.getY()/41);//Solo se usa en salidas INF
     }
 
     public Habitacion getNext() {
