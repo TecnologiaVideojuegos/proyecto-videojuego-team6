@@ -122,6 +122,24 @@ public class Nivel
         for(Habitacion h : nivel){
             if(h.contains(x, y)){
                 aux = new float[2];
+                switch(h.getLado()){
+                    case 0://izquierda
+                        aux[0] = 0; //Pared izq
+                        aux[1] = h.getMaxX(); //Pared derecha
+                        break;
+                    case 1://derecha
+                        aux[0] = h.getX(); //Pared izq
+                        aux[1] = Game.getX(); //Pared derecha
+                        break;
+                    case 2://abierto a ambos lados
+                        aux[0] = h.getX(); //Pared izq
+                        aux[1] = h.getMaxX(); //Pared derecha
+                        break;
+                    case 3://central
+                        aux[0] = h.getX(); //Pared izq
+                        aux[1] = h.getMaxX(); //Pared derecha
+                        break;
+                }
                 aux[0] = h.getX(); //Pared izq
                 aux[1] = h.getMaxX(); //Pared derecha
             }
