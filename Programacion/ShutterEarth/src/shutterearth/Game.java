@@ -31,7 +31,7 @@ public class Game extends BasicGame
     private static boolean debug;
     private float delta;
     private static float step;
-    private static int reward;
+    private static float reward;
     
     public static AppGameContainer getContainer ()
     {
@@ -53,7 +53,7 @@ public class Game extends BasicGame
         return Game.step;
     }
     
-    public static int getReward()
+    public static float getReward()
     {
         return reward;
     }
@@ -154,7 +154,7 @@ public class Game extends BasicGame
         Game.yVelDown = -Game.getY()*8f/1050;
         Game.gravity = -yVelUp/18f;
         Game.debug = false;
-        Game.reward = 1;
+        Game.reward = 1.1f;
         Game.step = ((Game.getY()*12)/105f);
         /*
         System.out.println("-----------------------");
