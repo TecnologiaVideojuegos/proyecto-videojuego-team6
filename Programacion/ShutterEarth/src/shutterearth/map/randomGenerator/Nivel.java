@@ -53,9 +53,9 @@ public class Nivel
         return aux;
     }
     
-    private ArrayList<Pair> getSpawns(int diffFactor)
+    private ArrayList<Pair<Habitacion, Float>> getSpawns(int diffFactor)
     {
-        ArrayList<Pair> aux = new ArrayList<>();
+        ArrayList<Pair<Habitacion, Float>> aux = new ArrayList<>();
         for(Habitacion h : nivel)
         {
             if(!h.equals(heroSpawn))
@@ -67,7 +67,7 @@ public class Nivel
     }
     
     public float[][] getSpots(int num){
-        ArrayList<Pair> aux = getSpawns(num);
+        ArrayList<Pair<Habitacion, Float>> aux = getSpawns(num);
         float[][] spawn = new float[aux.size()+1][7];
         spawn[0][0]=heroSpawn.getX()+20;//x spawn
         spawn[0][1]=heroSpawn.getY();//y spawn
@@ -78,13 +78,13 @@ public class Nivel
         spawn[0][6]=heroSpawn.getId();//id hab
         
         for(int i=0;i<aux.size();i++){
-            spawn[i+1][0]=((Habitacion)aux.get(i).getKey()).getX()+20;//x spawn
-            spawn[i+1][1]=((Habitacion)aux.get(i).getKey()).getY();//y spawn
-            spawn[i+1][2]=((Habitacion)aux.get(i).getKey()).getMaxY();//y floor
-            spawn[i+1][3]=((Habitacion)aux.get(i).getKey()).getX();//x izq
-            spawn[i+1][4]=((Habitacion)aux.get(i).getKey()).getMaxX();//x der
-            spawn[i+1][5]=((Habitacion)aux.get(i).getKey()).getLado();//num pared
-            spawn[i+1][6]=((Habitacion)aux.get(i).getKey()).getId();//id hab
+            spawn[i+1][0]=aux.get(i).getValue();//x spawn
+            spawn[i+1][1]=aux.get(i).getKey().getY();//y spawn
+            spawn[i+1][2]=aux.get(i).getKey().getMaxY();//y floor
+            spawn[i+1][3]=aux.get(i).getKey().getX();//x izq
+            spawn[i+1][4]=aux.get(i).getKey().getMaxX();//x der
+            spawn[i+1][5]=aux.get(i).getKey().getLado();//num pared
+            spawn[i+1][6]=aux.get(i).getKey().getId();//id hab
         }
         
         return spawn;
