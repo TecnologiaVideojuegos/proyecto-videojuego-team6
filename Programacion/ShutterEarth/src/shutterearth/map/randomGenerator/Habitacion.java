@@ -22,7 +22,6 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     
     private  Rectangle up;
     private  Rectangle down;
-    private boolean first;
     
     public Habitacion(AppGameContainer g, Celda celda, int id)
     {
@@ -31,7 +30,10 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         cellCount = 1;
         celdas.add(celda);        
         this.id = id;
-        this.first = true;
+        
+        this.down = new Rectangle(this.x,this.maxY-10,this.width,10);
+        this.up =new Rectangle(this.x,this.y,this.width,5);
+        
         lado[0]=true;
         lado[1]=true;
     }
@@ -128,30 +130,26 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         return aux;
     }
     
-    public void render(Graphics g)
-    {
-        g.setColor(Color.white);
-        if (first)
-        {
-            this.down = new Rectangle(this.x,this.maxY-10,this.width,10);
-            this.up =new Rectangle(this.x,this.y,this.width,10);
-            first = false;
-        }
+    public void renderBack(Graphics g){
         //Primero dibujamos los fondos
         celdas.forEach((c) ->
         {
             c.render(g);
         });
-        
+    }
+    
+    public void renderFloor(Graphics g){
         //BORDES
-        g.setColor(Color.darkGray);
-        g.fill(down);
-        //g.fill(up);
-        //A continuacion dibujamos el contorno de la habitacion
-        //g.drawString(toString(), getCenterX(), getCenterY()); //for testing
         g.setColor(Color.black);
         g.draw(this);
         
+        g.setColor(Color.darkGray);//SUELO
+        g.fill(down);
+        //g.drawString(toString(), getCenterX(), getCenterY()); //for testing
+        g.setColor(Color.white);
+    }
+    
+    public void renderExits(Graphics g){
         //Despues dibujamos las marcas de las salidas y de las paredes internas
         salidasInf.forEach((s) ->
         {
@@ -165,6 +163,13 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
             //g.drawString(s.getNext().toString(), s.getCenterX(), s.getCenterY());
             s.render(g, true);
         });
+    }
+    
+    public void renderWalls(Graphics g){
+        //TECHO
+        g.setColor(Color.black);
+        g.fill(up);
+        
         g.setColor(Color.darkGray);
         bulletLimits.forEach((r) ->
         {

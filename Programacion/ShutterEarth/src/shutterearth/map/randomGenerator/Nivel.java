@@ -149,7 +149,19 @@ public class Nivel
     {
         nivel.forEach((h) ->
         {
-            h.render(g);
+            h.renderBack(g);
+        });
+        nivel.forEach((h) ->
+        {
+            h.renderFloor(g);
+        });
+        nivel.forEach((h) ->
+        {
+            h.renderExits(g);
+        });
+        nivel.forEach((h) ->
+        {
+            h.renderWalls(g);
         });
     }
     
