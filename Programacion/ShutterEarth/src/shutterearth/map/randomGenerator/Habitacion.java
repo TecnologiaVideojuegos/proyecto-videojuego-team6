@@ -22,6 +22,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     
     private  Rectangle up;
     private  Rectangle down;
+    private boolean first;
     
     public Habitacion(AppGameContainer g, Celda celda, int id)
     {
@@ -31,8 +32,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         celdas.add(celda);        
         this.id = id;
         
-        this.down = new Rectangle(this.x,this.maxY-10,this.width,10);
-        this.up =new Rectangle(this.x,this.y,this.width,5);
+        this.first = true;
         
         lado[0]=true;
         lado[1]=true;
@@ -131,6 +131,13 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     }
     
     public void renderBack(Graphics g){
+        g.setColor(Color.white);
+        if (first)
+        {
+            this.down = new Rectangle(this.x,this.maxY-10,this.width,10);
+            this.up =new Rectangle(this.x,this.y,this.width,5);
+            first = false;
+        }
         //Primero dibujamos los fondos
         celdas.forEach((c) ->
         {
