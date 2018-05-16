@@ -113,18 +113,27 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 2:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: ...\n";
+                    toShow += "(To move use WASD or the arrow keys)\n"
+                            + "(Change your wearpong using Q and E)\n"
+                            + "(Shot with space and KILL THEM ALL)\n";
                     done[step%10] = true;
                 }
                 break;
             case 3:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: Esos malditos aliens\n";
+                    toShow += "Diana: ...\n";
                     done[step%10] = true;
                 }
                 break;
             case 4:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Esos malditos aliens\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 5:
                 if (!done[step%10])
                 {
                     toShow += "Diana: No les bastaba con destrozar el planeta\n"
@@ -132,13 +141,12 @@ public class TextDisplayer extends Scene implements InputProviderListener
                     done[step%10] = true;
                 }
                 break;
-            case 5:
+            case 6:
                 if (!done[step%10])
                 {
                     toShow += "Diana: Voy a encontrarla cueste lo que cueste\n";
                     done[step%10] = true;
                 }
-            case 6:
             case 7:
             case 8:
             case 9:
