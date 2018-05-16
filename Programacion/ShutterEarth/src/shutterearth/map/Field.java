@@ -687,6 +687,9 @@ public class Field extends Scene implements InputProviderListener
             System.out.println(spots[j+1][1]);
         }
         System.out.println("---------");
+        System.out.println("PIDO: "+n);
+        System.out.println("ME DA:"+spots.length);
+        System.out.println("---------");
         go();
     }
     
