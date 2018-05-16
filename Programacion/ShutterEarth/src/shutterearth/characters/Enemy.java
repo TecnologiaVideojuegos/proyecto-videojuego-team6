@@ -140,7 +140,7 @@ public class Enemy extends Charact
                         this.goUp();
                         break;
                     case 1:
-                        field.getNewBownds(room,xPos,false,wfalse);
+                        field.getNewBownds(room,xPos,false,w,false);
                         this.goDown();
                         break;
                 }
