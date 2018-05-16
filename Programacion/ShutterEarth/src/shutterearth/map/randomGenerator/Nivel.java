@@ -27,10 +27,10 @@ public class Nivel
         
         generacion();
         heroSpawn = nivel.get(0);
-        ArrayList<Habitacion> aux = new ArrayList<>(nivel);
+        //ArrayList<Habitacion> aux = new ArrayList<>(nivel);
         nivel.sort(null);
         paredes();
-        nivel = new ArrayList<>(aux);
+        //nivel = new ArrayList<>(aux);
     }
     
     public ArrayList<Habitacion> getNv()
@@ -68,7 +68,7 @@ public class Nivel
     
     public float[][] getSpots(int num){
         ArrayList<Pair> aux = getSpawns(num);
-        float[][] spawn = new float[aux.size()][7];
+        float[][] spawn = new float[aux.size()+1][7];
         spawn[0][0]=heroSpawn.getX()+20;//x spawn
         spawn[0][1]=heroSpawn.getY();//y spawn
         spawn[0][2]=heroSpawn.getMaxY();//y floor
@@ -77,14 +77,14 @@ public class Nivel
         spawn[0][5]=heroSpawn.getLado();//num pared
         spawn[0][6]=heroSpawn.getId();//id hab
         
-        for(int i=1;i<nivel.size();i++){
-            spawn[i][0]=nivel.get(i).getX()+20;//x spawn
-            spawn[i][1]=nivel.get(i).getY();//y spawn
-            spawn[i][2]=nivel.get(i).getMaxY();//y floor
-            spawn[i][3]=nivel.get(i).getX();//x izq
-            spawn[i][4]=nivel.get(i).getMaxX();//x der
-            spawn[i][5]=nivel.get(i).getLado();//num pared
-            spawn[i][6]=nivel.get(i).getId();//id hab
+        for(int i=0;i<aux.size();i++){
+            spawn[i+1][0]=((Habitacion)aux.get(i).getKey()).getX()+20;//x spawn
+            spawn[i+1][1]=((Habitacion)aux.get(i).getKey()).getY();//y spawn
+            spawn[i+1][2]=((Habitacion)aux.get(i).getKey()).getMaxY();//y floor
+            spawn[i+1][3]=((Habitacion)aux.get(i).getKey()).getX();//x izq
+            spawn[i+1][4]=((Habitacion)aux.get(i).getKey()).getMaxX();//x der
+            spawn[i+1][5]=((Habitacion)aux.get(i).getKey()).getLado();//num pared
+            spawn[i+1][6]=((Habitacion)aux.get(i).getKey()).getId();//id hab
         }
         
         return spawn;
