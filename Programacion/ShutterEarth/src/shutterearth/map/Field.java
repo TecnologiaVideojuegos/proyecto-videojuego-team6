@@ -744,7 +744,7 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
-                this.startAnimation();
+                Game.addScene(new TextDisplayer(this,18,1));
             }
         }
     }

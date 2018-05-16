@@ -628,33 +628,45 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 162:
                 if (!done[step%10])
                 {
-                    toShow += "--------------Juan Casado Ballesteros-------------------\n";
+                    toShow += "--------------------------------------------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 163:
                 if (!done[step%10])
                 {
-                    toShow += "---------------Daniel Fernández Diaz--------------------\n";
+                    toShow += "--------------Juan Casado Ballesteros-------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 164:
                 if (!done[step%10])
                 {
-                    toShow += "----------------Jorge  Garcia Garcia--------------------\n";
+                    toShow += "---------------Daniel Fernández Diaz--------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 165:
                 if (!done[step%10])
                 {
-                    toShow += "-----------------Pablo Pardo García---------------------\n";
+                    toShow += "----------------Jorge  Garcia Garcia--------------------\n";
                     done[step%10] = true;
                 }
                 break;
             case 166:
+                if (!done[step%10])
+                {
+                    toShow += "-----------------Pablo Pardo García---------------------\n";
+                    done[step%10] = true;
+                }
+                break;
             case 167:
+                if (!done[step%10])
+                {
+                    toShow += "--------------------------------------------------------\n";
+                    done[step%10] = true;
+                }
+                break;
             case 168:
             case 169:
                 nextable = false;
@@ -686,6 +698,37 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 177:
             case 178:
             case 179:
+                nextable = false;
+                break;
+            case 180:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Has caído en mi trampa\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 181:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Pensabas que sería tan fácil derrotarme?\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 182:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Jamás recuperarás a tu hija\n";
+                    done[step%10] = true;
+                }
+            case 183:
+            case 184:
+            case 185:
+            case 186:
+            case 187:
+            case 188:
+            case 189:
+                nextable = false;
+                break;
         }
         txt.setText(toShow);
     }
