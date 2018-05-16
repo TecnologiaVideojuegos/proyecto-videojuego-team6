@@ -100,6 +100,11 @@ public class Enemy extends Charact
     {
         if (this.isAlive())
         {
+            switch ((int)(Math.random()*2000))
+            {
+                case 0:
+                    Game.getMedia().getSound(Media.SOUND.ALIEN2).play();
+            }
             if (this.getY() > Game.getY())
             {
                 goUp();

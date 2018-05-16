@@ -188,7 +188,7 @@ public class Field extends Scene implements InputProviderListener
                 {
                     if (done)
                     {
-                        this.startAnimation();
+                        Game.addScene(new TextDisplayer(this,18,0));
                     }
                     else
                     {
@@ -759,19 +759,18 @@ public class Field extends Scene implements InputProviderListener
         enemy.clear();
         if (stage >= 10)
         {
-            if (hero.isAlive())
-            {
-                gameEnded = true;
-            }
-            else
-            {
-                Game.addScene(new TextDisplayer(this,18,1));
-            }
+            gameEnded = true;
         }
+        badGuy.revive();
     }
     
     public float[] bulletControl(float x,float y)
     {
         return map.bulletControl(x, y);
+    }
+    
+    public void setGameEnded ()
+    {
+        gameEnded = true;
     }
 }

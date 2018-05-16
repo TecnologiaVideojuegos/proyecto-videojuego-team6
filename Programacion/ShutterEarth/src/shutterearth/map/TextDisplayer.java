@@ -814,6 +814,9 @@ public class TextDisplayer extends Scene implements InputProviderListener
                     case 4:
                         field.exit();
                         break;
+                    case 5:
+                        field.setGameEnded();
+                        break;    
                     default:
                         break;
                 }

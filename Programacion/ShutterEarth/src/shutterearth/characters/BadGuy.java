@@ -137,7 +137,7 @@ public class BadGuy extends Charact
             }
             else
             {
-                Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
+                Game.getMedia().getSprit(xVel > 0? Media.SPRITE.MALO_DER : Media.SPRITE.MALO_IZQ).draw(xPos,yPos,w,h);
             }
         }
     }
