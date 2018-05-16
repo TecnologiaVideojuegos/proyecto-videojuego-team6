@@ -6,4 +6,4 @@ está combatiendo, lleva armadura y evidentemente va cubierta. Se aprecia sobre 
 en los pixel art: ahí pierde resolución y no es más que un soldadito dorado. Es el
 jugador, a través de la historia el que sabe que es una mujer, no es necesario más.
 
-No se, lo pongo para dar ideas.
+No se, lo pongo para dar ideas. 
