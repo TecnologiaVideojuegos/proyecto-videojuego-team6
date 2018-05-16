@@ -13,6 +13,7 @@ public class Juego extends Map
 {
 
     private Nivel nivel;
+    private int errorCount;
 
     public Juego (float x, float y)
     {
@@ -26,6 +27,7 @@ public class Juego extends Map
         {
             System.out.println("ERROR LOADING RANDOM MAP... " +e.toString());
         }
+        errorCount = 5;
     }
     
     @Override
@@ -38,9 +40,7 @@ public class Juego extends Map
     }
 
     @Override
-    public void Update(GameContainer gc, float t) throws SlickException
-    {
-    }
+    public void Update(GameContainer gc, float t) throws SlickException{}
 
     @Override
     public String toString()
@@ -51,13 +51,35 @@ public class Juego extends Map
     @Override
     public float[][] getSpots(int n)
     {
-        return nivel.getSpots(n);
+        while (errorCount > 0)
+        {
+            try
+            {
+                return nivel.getSpots(n);
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                errorCount --;
+            }
+        }
+        return null;
     }
 
     @Override
     public float[] getNextRoom(int room, float x, boolean up, float w, boolean hero)
     {
-        return nivel.getNextRoom(room, x, up, w, hero);
+        while (errorCount > 0)
+        {
+            try
+            {
+                return nivel.getNextRoom(room, x, up, w, hero);
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                errorCount --;
+            }
+        }
+        return null;
     }
 
     @Override

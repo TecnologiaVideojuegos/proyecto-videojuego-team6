@@ -620,7 +620,14 @@ public class Field extends Scene implements InputProviderListener
     
     public float [] getNewBownds(int room,float x,boolean up, float w, boolean hero)
     {
-        return map.getNextRoom(room, x, up, w, hero);
+        float [] result = map.getNextRoom(room, x, up, w, hero);
+        if (result != null)
+            return map.getNextRoom(room, x, up, w, hero);
+        else
+        {
+            this.exit();
+            return new float []{0,0,0,0,0,0,0,0,0,0,0,0,0};
+        }
     }
     
     private void setMap(Map map)
@@ -645,7 +652,18 @@ public class Field extends Scene implements InputProviderListener
     {
         relisable = !sh.isEmpty();
         n = sh.size() + en.size() +3;
-        spots = map.getSpots(n);
+        float [][] result = map.getSpots(n);
+        if (result != null)
+            spots = result;
+        else
+        {
+            this.exit();
+            result = new float [n+1][10];
+            for (int i = 0; i < result.length; i++)
+                for (int j = 0; j < result[0].length; j++)
+                    result[i][j] = 0;
+            spots = result;
+        }
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
         futureBB = new Rectangle(spots[n-1][0], spots[n-1][1] + Game.step() - hero.getH()/2 - 5,hero.getW(),hero.getH()/2);
         sh.forEach((ship) ->
