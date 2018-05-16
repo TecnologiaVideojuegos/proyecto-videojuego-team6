@@ -659,9 +659,13 @@ public class Field extends Scene implements InputProviderListener
         {
             this.exit();
             result = new float [n+1][10];
-            for (int i = 0; i < result.length; i++)
+            for (float[] result1 : result)
+            {
                 for (int j = 0; j < result[0].length; j++)
-                    result[i][j] = 0;
+                {
+                    result1[j] = 0;
+                }
+            }
             spots = result;
         }
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);

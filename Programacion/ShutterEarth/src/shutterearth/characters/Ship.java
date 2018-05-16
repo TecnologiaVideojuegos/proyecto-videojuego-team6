@@ -119,12 +119,12 @@ public class Ship extends Charact
                             Game.getMedia().getSound(Media.SOUND.SHIP_SONG2).play();
                             break;
                         case 1: //GO RIGTH                  
-                            if (yPos < 0 -(type==1?0:h+10))
+                            if (yPos < 0 -(type==1?0:h+15))
                             {
                                 xVel = 0;
                                 this.goDown();
                             }
-                            else if (yPos > 15-(type==1?0:h+10))
+                            else if (yPos > 15-(type==1?0:h+15))
                             {
                                 xVel = 0;
                                 this.goUp();
@@ -148,12 +148,12 @@ public class Ship extends Charact
                             }
                             break;
                         case 2: //GO LEFT
-                            if (yPos < 0-(type==1?0:h+10))
+                            if (yPos < 0-(type==1?0:h+15))
                             {
                                 xVel = 0;
                                 this.goDown();
                             }
-                            else if (yPos > 15-(type==1?0:h+10))
+                            else if (yPos > 15-(type==1?0:h+15))
                             {
                                 xVel = 0;
                                 this.goUp();
