@@ -122,7 +122,7 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         ArrayList<Pair<Habitacion, Float>> aux = new ArrayList<>();
         //Seleccionamos una x dentro de la habitacion como pto de spawn,
         //el resto de la info esta contenida en la propia Habitacion
-        float j = ((float)(Math.random()*(getMaxX()-getX()))+getX());
+        float j = (((float)(Math.random()*(getMaxX()-getX())))+getX());
         for(int i=0;i<n;i++) aux.add(new Pair(this, j));
         
         return aux;
