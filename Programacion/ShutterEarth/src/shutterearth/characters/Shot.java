@@ -144,8 +144,11 @@ public class Shot
             bounds = hero.bulletControl(x,y);
             if (bounds != null)
             {
-                maxR = bounds[1];
-                maxL = bounds[0];
+                if (!(x<maxL) || ((x+w)>maxR))
+                {
+                    maxR = bounds[1];
+                    maxL = bounds[0];
+                }
             }
             else
             {
