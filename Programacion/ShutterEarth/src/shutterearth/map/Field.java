@@ -454,7 +454,6 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                sh.add(new Ship(1,stage,hero,this));
                 this.shipCounter = 5000;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
@@ -470,7 +469,7 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
                 this.shipCounter = 4500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
@@ -489,7 +488,7 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
                 this.shipCounter = 4000;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
@@ -505,7 +504,7 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(2,stage,hero,this));
                 this.shipCounter = 3500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
@@ -570,7 +569,6 @@ public class Field extends Scene implements InputProviderListener
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
-                en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
                 en.add(new Enemy(2,stage,hero,this));
