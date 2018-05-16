@@ -48,7 +48,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
         this.doNext = doNext;
         
         this.toShow = "";
-        this.step = stage;
+        this.step = stage*10;
         this.nextable = true;
         done = new boolean [10]; 
         for (int j = 0; j < done.length; j++)
@@ -109,21 +109,21 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 10:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: he visto como se llevaban a mi hija por aquí\n";
+                    toShow += "Diana: He visto como se llevaban a mi hija por aquí\n";
                     done[step%10] = true;
                 }
                 break;
             case 11:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: utilizan los antiguos edificios humanos para esconderse\n";
+                    toShow += "Diana: Utilizan los antiguos edificios humanos para esconderse\n";
                     done[step%10] = true;
                 }
                 break;
             case 12:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: por fin tanto entrenamiento militar está sirviendo para algo\n";
+                    toShow += "Diana: Por fin tanto entrenamiento militar está sirviendo para algo\n";
                     done[step%10] = true;
                 }
             case 13:
@@ -138,7 +138,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 20:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: ese último edificio estaba plagado de aliens pero este parece\n"
+                    toShow += "Diana: Ese último edificio estaba plagado de aliens pero este parece\n"
                             + "       estar vacío, con un poco de suerte encontraré a mi hija y\n"
                             + "       acabará toda esta pesadilla.\n";
                     done[step%10] = true;
@@ -147,14 +147,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 21:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: se escuchan unos extraños ruidos de fondo qué podrán ser\n";
+                    toShow += "Diana: Se escuchan unos extraños ruidos de fondo qué podrán ser\n";
                     done[step%10] = true;
                 }
                 break;
             case 22:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: esto está demasiado tranquilo...\n";
+                    toShow += "Diana: Esto está demasiado tranquilo...\n";
                     done[step%10] = true;
                 }
             case 23:
@@ -205,14 +205,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 41:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: pero yo estoy cada vez más cerca de mi hija\n";
+                    toShow += "Diana: Pero yo estoy cada vez más cerca de mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 42:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: eso es todo lo que importa\n";
+                    toShow += "Diana: Eso es todo lo que importa\n";
                     done[step%10] = true;
                 }
                 break;
@@ -233,7 +233,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 50:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: me la ha vuelto a jugar...\n";
+                    toShow += "Diana: Me la ha vuelto a jugar...\n";
                     done[step%10] = true;
                 }
                 break;
@@ -247,7 +247,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 52:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: pero mi hija está cerca, lo presiento\n";
+                    toShow += "Diana: Pero mi hija está cerca, lo presiento\n";
                     done[step%10] = true;
                 }
             case 53:
@@ -269,14 +269,14 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 61:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: solo quiero volver a abrazar a mi hija\n";
+                    toShow += "Diana: Solo quiero volver a abrazar a mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 62:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: esclavizar a la humanidad entera es una cosa pero\n"
+                    toShow += "Diana: Esclavizar a la humanidad entera es una cosa pero\n"
                             + "       el dolor de una madre...\n";
                     done[step%10] = true;
                 }
@@ -305,21 +305,21 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 71:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: puede que esta tragedia esté llegando a su fin\n";
+                    toShow += "Diana: Puede que esta tragedia esté llegando a su fin\n";
                     done[step%10] = true;
                 }
                 break;
             case 72:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: solo de pensar en volver a estar con mi hija\n";
+                    toShow += "Diana: Solo de pensar en volver a estar con mi hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 73:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: saunque me dará pena esto de dejar de patear culos Alien\n";
+                    toShow += "Diana: Aunque me dará pena esto de dejar de patear culos Alien\n";
                     done[step%10] = true;
                 }
             case 74:
@@ -333,24 +333,24 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 80:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Casi no salgo de esa, pero yo por mi hija MA-TO \n";
                     done[step%10] = true;
                 }
                 break;
             case 81:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Se oye demasiado ruido, deben de estar sacando\n"
+                            + "       la maquinaria pesada\n";
                     done[step%10] = true;
                 }
                 break;
             case 82:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Pero no hay nada que pueda con el amor de una madre\n";
                     done[step%10] = true;
                 }
-                break;
             case 83:
             case 84:
             case 85:
@@ -363,27 +363,45 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 90:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Ese escurridizo Alien acaba de entrar aquí\n";
                     done[step%10] = true;
                 }
                 break;
             case 91:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Pero no va a salir\n";
                     done[step%10] = true;
                 }
                 break;
             case 92:
                 if (!done[step%10])
                 {
-                    toShow += "";
+                    toShow += "Diana: Al menos no con vida\n";
                     done[step%10] = true;
                 }
                 break;
             case 93:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: HIJAAAA, HE VENIDO A SALVARTE!!!\n";
+                    done[step%10] = true;
+                }
+                break;
             case 94:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: He estado tan ocupada salvándola que no me ha\n"
+                            + "       tanto tiempo ni a ponerla nombre\n";
+                    done[step%10] = true;
+                }
+                break;
             case 95:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Menudo rollo que son los críos\n";
+                    done[step%10] = true;
+                }
             case 96:
             case 97:
             case 98:
@@ -393,28 +411,28 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 100:
                 if (!done[step%10])
                 {
-                    toShow += "-- \tAhora nunca podrás recuperar a tu hija\n";
+                    toShow += "-----: Ahora nunca podrás recuperar a tu hija\n";
                     done[step%10] = true;
                 }
                 break;
             case 101:
                 if (!done[step%10])
                 {
-                    toShow += "Diana: \tpienso volver a por ti,\n\tLa humanidad no descansará hasta haber acabado contigo\n";
+                    toShow += "Diana: Pienso volver a por ti, La humanidad no descansará hasta haber acabado contigo\n";
                     done[step%10] = true;
                 }
                 break;
             case 102:
                 if (!done[step%10])
                 {
-                    toShow += "-- \tNunca podréis vencerme\n";
+                    toShow += "-----: \tNunca podréis vencerme\n";
                     done[step%10] = true;
                 }
                 break;
             case 103:
                 if (!done[step%10])
                 {
-                    toShow += "-- \tDile adiós a tu hija\n";
+                    toShow += "-----: \tDile adiós a tu hija\n";
                     done[step%10] = true;
                 }
             case 104:
@@ -423,6 +441,212 @@ public class TextDisplayer extends Scene implements InputProviderListener
             case 107:
             case 108:
             case 109:
+                nextable = false;
+                break;
+            case 110:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: MI HIJAAAA!!!!\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 111:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Todo lo que he sufrido por recuperarla...\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 112:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: El esfuerzo por fin ha merecido la pena\n"
+                            + "       juntas de nuevo, que bonito final\n";
+                    done[step%10] = true;
+                }
+            case 113:
+            case 114:
+            case 115:
+            case 116:
+            case 117:
+            case 118:
+            case 119:
+                nextable = false;
+                break;
+            case 120:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Mi hija, DÓNDE ESTÁ!?!?!?!\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 121:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: HA DESAPARECIDO!!!!!\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 122:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Ese!!!! es el alien que se la llevó\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 123:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Esto no va a quedar así\n";
+                    done[step%10] = true;
+                }
+            case 124:
+            case 125:
+            case 126:
+            case 127:
+            case 128:
+            case 129:
+                nextable = false;
+                break;
+            case 130:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Por fin, esta vez de verdad, junto a mi hija de nuevo\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 131:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Te he echado tanto de menos pequeña\n";
+                    done[step%10] = true;
+                }
+            case 132:
+            case 133:
+            case 134:
+            case 135:
+            case 136:
+            case 137:
+            case 138:
+            case 139:
+                nextable = false;
+                break;
+            case 140:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: SERÁ UNA BROMA!!!!\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 141:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Tú de nuevo\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 142:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Me derrotaste una vez pero solo una\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 143:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Vas a aprender a hacer las cosas a lo Alien\n";
+                    done[step%10] = true;
+                }
+            case 144:
+            case 145:
+            case 146:
+            case 147:
+            case 148:
+            case 149:
+                nextable = false;
+                break;
+            case 150:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Tú de nuevo?\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 151:
+                if (!done[step%10])
+                {
+                    toShow += "-----: Pensaba que ya te babrías rendido\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 152:
+                if (!done[step%10])
+                {
+                    toShow += "-----: En fin, si quieres morir junto a tu hija me parece bien\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 153:
+                if (!done[step%10])
+                {
+                    toShow += "Diana: Vas a morder el polvo\n";
+                    done[step%10] = true;
+                }
+            case 154:
+            case 155:
+            case 156:
+            case 157:
+            case 158:
+            case 159:
+                nextable = false;
+                break;
+            case 160:
+                if (!done[step%10])
+                {
+                    toShow += "------------------Shutter Earth-------------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 161:
+                if (!done[step%10])
+                {
+                    toShow += "----------------------Team 6----------------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 162:
+                if (!done[step%10])
+                {
+                    toShow += "--------------Juan Casado Ballesteros------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 163:
+                if (!done[step%10])
+                {
+                    toShow += "----------------Daniel Fernández Diaz-------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 164:
+                if (!done[step%10])
+                {
+                    toShow += "-----------------Jorge Garcia Garcia--------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 165:
+                if (!done[step%10])
+                {
+                    toShow += "------------------Pablo Pardo García--------------------\n";
+                    done[step%10] = true;
+                }
+                break;
+            case 166:
+            case 167:
+            case 168:
+            case 169:
                 nextable = false;
                 break;
         }

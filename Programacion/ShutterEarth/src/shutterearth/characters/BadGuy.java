@@ -23,6 +23,7 @@ public class BadGuy extends Charact
     private final Hero hero;
     private final int stage;
     private boolean revived;
+    private boolean done;
     
     public BadGuy (int stage, Hero hero, Field field)
     {
@@ -49,6 +50,7 @@ public class BadGuy extends Charact
         counterAnimation = 0;
         animation = false;
         revived = false;
+        done = false;
         this.goRight();
         
         this.hero = hero;
@@ -129,8 +131,14 @@ public class BadGuy extends Charact
         }
         else
         {
-            Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
-            field.badDead();
+            if (!revived)
+            {
+                Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
+            }
+            else
+            {
+                Game.getMedia().getImage(Media.IMAGE.GRAVE).draw(xPos,yPos,w,h);
+            }
         }
     }
 
@@ -255,6 +263,22 @@ public class BadGuy extends Charact
                     counterAnimation = 0;
                 }
                 counterAnimation+=1*t;
+            }
+        }
+        else
+        {
+            if (!done)
+            {
+                field.badDead();
+                done = true;
+            }
+        }
+        if (revived)
+        {
+            if (w < Game.getY()/8)
+            {
+                w++;
+                h = w;
             }
         }
     }

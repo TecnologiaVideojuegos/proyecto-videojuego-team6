@@ -168,7 +168,7 @@ public class Game extends BasicGame
         System.out.println(Game.step);
         System.out.println("-----------------------");
         */
-        app.setDisplayMode(X,Y, true);
+        app.setDisplayMode(X,Y, false);
         app.setShowFPS(false);
         app.setTargetFrameRate(45);
         app.start();
