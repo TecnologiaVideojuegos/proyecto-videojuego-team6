@@ -49,10 +49,10 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
     
     public int getLado(){
         int aux;
-        if(lado[0]&&lado[1]) aux = 2;
-        else if(!lado[0]&&!lado[1]) aux = 3;
-        else if(lado[0]) aux = 0;
-        else aux = 1;
+        if(lado[0]&&lado[1]) aux = 2; //abierto a ambos lados
+        else if(!lado[0]&&!lado[1]) aux = 3; //central
+        else if(lado[0]) aux = 0;//izquierda
+        else aux = 1;//derecha
         return aux;
     }
     
