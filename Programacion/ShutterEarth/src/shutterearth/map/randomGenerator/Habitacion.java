@@ -145,8 +145,8 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         
         //BORDES
         g.setColor(Color.darkGray);
-        g.fill(down);
-        g.fill(up);
+        //g.fill(down);
+        //g.fill(up);
         //A continuacion dibujamos el contorno de la habitacion
         //g.drawString(toString(), getCenterX(), getCenterY()); //for testing
         g.setColor(Color.black);
