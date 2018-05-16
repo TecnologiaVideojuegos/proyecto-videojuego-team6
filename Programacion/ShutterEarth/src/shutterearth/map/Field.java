@@ -673,20 +673,12 @@ public class Field extends Scene implements InputProviderListener
             if (!enemy.contains(ship))
                 enemy.add(ship);
         });
-        System.out.println("---------");
-        for (int j = 0; j < spots.length; j++)
-        {
-            System.out.println(spots[j][0]);
-        }
-        System.out.println("---------");
         for (int j = 0; j < en.size(); j++)
         {
             if (!enemy.contains(en.get(j))) 
                 enemy.add(en.get(j));
             en.get(j).place(spots[j+1][0],spots[j+1][1],spots[j+1][2], spots[j+1][3], spots[j+1][4],(int)spots[j+1][5],(int)spots[j+1][6]);
-            System.out.println(spots[j+1][0]);
         }
-        System.out.println("---------");
         go();
     }
     
