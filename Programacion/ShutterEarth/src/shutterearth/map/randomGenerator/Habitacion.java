@@ -119,14 +119,16 @@ public class Habitacion extends Rectangle implements Comparable<Habitacion>
         return bulletLimits;
     }
     
-    public ArrayList<Pair<Habitacion, Float>> spawn(int n)
+    public float[][] spawn(int n)
     {
-        ArrayList<Pair<Habitacion, Float>> aux = new ArrayList<>();
+        float[][] aux = new float[n][2];
         //Seleccionamos una x dentro de la habitacion como pto de spawn,
         //el resto de la info esta contenida en la propia Habitacion
-        float j = (((float)(Math.random()*(getMaxX()-getX())))+getX());
-        for(int i=0;i<n;i++) aux.add(new Pair(this, j));
-        
+        float j = (((float)(Math.random()*width-20))+getX());
+        for(int i=0;i<n;i++){
+            aux[i][0] = id;
+            aux[i][1] = j;
+        }        
         return aux;
     }
     

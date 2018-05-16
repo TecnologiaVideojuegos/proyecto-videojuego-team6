@@ -53,21 +53,23 @@ public class Nivel
         return aux;
     }
     
-    private ArrayList<Pair<Habitacion, Float>> getSpawns(int diffFactor)
+    private ArrayList<float[]> getSpawns(int diffFactor)
     {
-        ArrayList<Pair<Habitacion, Float>> aux = new ArrayList<>();
+        ArrayList<float[]> lista = new ArrayList<>();
+        float[][] aux;
         for(Habitacion h : nivel)
         {
             if(!h.equals(heroSpawn))
             {
-                aux.addAll(h.spawn(((int)(Math.random()*100))%diffFactor));
+                aux = h.spawn(((int)(Math.random()*100))%diffFactor);
+                for (int i=0;i<aux.length;i++) lista.add(aux[i]);
             }
         }
-        return aux;
+        return lista;
     }
     
     public float[][] getSpots(int num){
-        ArrayList<Pair<Habitacion, Float>> aux = getSpawns(num);
+        ArrayList<float[]> aux = getSpawns(num);
         float[][] spawn = new float[aux.size()+1][7];
         spawn[0][0]=heroSpawn.getX()+20;//x spawn
         spawn[0][1]=heroSpawn.getY();//y spawn
@@ -78,13 +80,13 @@ public class Nivel
         spawn[0][6]=heroSpawn.getId();//id hab
         
         for(int i=0;i<aux.size();i++){
-            spawn[i+1][0]=aux.get(i).getValue();//x spawn
-            spawn[i+1][1]=aux.get(i).getKey().getY();//y spawn
-            spawn[i+1][2]=aux.get(i).getKey().getMaxY();//y floor
-            spawn[i+1][3]=aux.get(i).getKey().getX();//x izq
-            spawn[i+1][4]=aux.get(i).getKey().getMaxX();//x der
-            spawn[i+1][5]=aux.get(i).getKey().getLado();//num pared
-            spawn[i+1][6]=aux.get(i).getKey().getId();//id hab
+            spawn[i+1][0]=aux.get(i)[1];//x spawn
+            spawn[i+1][1]=traductor.get((int)aux.get(i)[0]).getY();//y spawn
+            spawn[i+1][2]=traductor.get((int)aux.get(i)[0]).getMaxY();//y floor
+            spawn[i+1][3]=traductor.get((int)aux.get(i)[0]).getX();//x izq
+            spawn[i+1][4]=traductor.get((int)aux.get(i)[0]).getMaxX();//x der
+            spawn[i+1][5]=traductor.get((int)aux.get(i)[0]).getLado();//num pared
+            spawn[i+1][6]=traductor.get((int)aux.get(i)[0]).getId();//id hab
         }
         
         return spawn;
