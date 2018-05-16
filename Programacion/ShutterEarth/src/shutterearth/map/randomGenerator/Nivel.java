@@ -132,16 +132,14 @@ public class Nivel
                         aux[1] = Game.getX(); //Pared derecha
                         break;
                     case 2://abierto a ambos lados
-                        aux[0] = h.getX(); //Pared izq
-                        aux[1] = h.getMaxX(); //Pared derecha
+                        aux[0] = 0; //Pared izq
+                        aux[1] = Game.getX(); //Pared derecha
                         break;
                     case 3://central
                         aux[0] = h.getX(); //Pared izq
                         aux[1] = h.getMaxX(); //Pared derecha
                         break;
                 }
-                aux[0] = h.getX(); //Pared izq
-                aux[1] = h.getMaxX(); //Pared derecha
             }
         }
         return aux;
