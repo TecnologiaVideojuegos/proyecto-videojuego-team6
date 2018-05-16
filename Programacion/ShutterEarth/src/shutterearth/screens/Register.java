@@ -40,11 +40,13 @@ public class Register extends Scene implements InputProviderListener
     private InputProvider provider;
     private final Command click;
     private final Command tab;
+    private final Command next;
+    private final Control enter = new KeyControl(Input.KEY_ENTER);
     private final Control mouse = new MouseButtonControl(0);
     private final Control tb = new KeyControl(Input.KEY_TAB);
     private boolean clicked;
-    private int xMouse;
-    private int yMouse;
+    private float xMouse;
+    private float yMouse;
     private Input input;
     private final Rectangle exit;
     private final Rectangle go;
@@ -63,6 +65,7 @@ public class Register extends Scene implements InputProviderListener
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
         tab = new BasicCommand("tab");
+        next = new BasicCommand("enter");
         clicked = false;
         ok = null;
         focus = true;
@@ -122,6 +125,7 @@ public class Register extends Scene implements InputProviderListener
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 provider.unbindCommand(mouse);
                 provider.unbindCommand(tb);
+                provider.unbindCommand(enter);
                 provider.removeListener(this);
                 Game.removeSence(this);
                 Game.addScene(new Access());
@@ -139,6 +143,7 @@ public class Register extends Scene implements InputProviderListener
         provider.addListener(this);
         provider.bindCommand(mouse, click);
         provider.bindCommand(tb, tab);
+        provider.bindCommand(enter, next);
         input = gc.getInput();  
         this.newUser = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 23);
         this.newPswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 23);
@@ -170,6 +175,12 @@ public class Register extends Scene implements InputProviderListener
         else if (cmnd.equals(tab))
         {
             focus = !focus;
+        }
+        else if (cmnd.equals(next))
+        {
+            xMouse = go.getCenterX();
+            yMouse = go.getCenterY();
+            clicked = true;
         }
         newUser.setFocus(focus);
         newPswd.setFocus(!focus);
