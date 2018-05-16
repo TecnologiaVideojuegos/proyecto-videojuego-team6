@@ -219,7 +219,7 @@ public class Enemy extends Charact
     {
         if (!jumping())
         {
-            this.boundSetter(this.field.getNewBownds(room,xPos, true, w));
+            this.boundSetter(this.field.getNewBownds(room,xPos, true, w, false));
             yVel = Game.getyVelUp();
             this.setY(yPos-1);
             jumpUp = true;
@@ -243,7 +243,7 @@ public class Enemy extends Charact
     {
         if (!jumping())
         {
-            this.boundSetter(this.field.getNewBownds(room,xPos, false,w));
+            this.boundSetter(this.field.getNewBownds(room,xPos,false,w,false));
             yVel = Game.getyVelDown();
             this.setY(yPos-1);
             jumpDown = true;

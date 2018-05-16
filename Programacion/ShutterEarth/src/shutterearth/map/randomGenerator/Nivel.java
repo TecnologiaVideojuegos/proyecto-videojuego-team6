@@ -27,8 +27,10 @@ public class Nivel
         
         generacion();
         heroSpawn = nivel.get(0);
+        ArrayList<Habitacion> aux = new ArrayList<>(nivel);
         nivel.sort(null);
         paredes();
+        nivel = new ArrayList<>(aux);
     }
     
     public ArrayList<Habitacion> getNv()
@@ -88,7 +90,7 @@ public class Nivel
         return spawn;
     }
     
-    public float[] getNextRoom(int id, float x, boolean up, float charW){
+    public float[] getNextRoom(int id, float x, boolean up, float charW, boolean hero){
         float[] aux = new float[5];
         
         //calculamos si puede saltar o no
@@ -101,7 +103,7 @@ public class Nivel
         }
         else{
             for(Salida s : hab.getSalInf()){
-                if(s.intersects(per)) hab = s.getNext();
+                if((s.intersects(per))&&!((s.getNext().equals(heroSpawn))&&(!hero))) hab = s.getNext();
             }
         }
         
