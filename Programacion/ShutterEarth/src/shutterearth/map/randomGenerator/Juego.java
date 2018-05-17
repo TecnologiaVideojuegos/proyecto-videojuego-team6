@@ -8,10 +8,14 @@ import org.newdawn.slick.SlickException;
 import shutterearth.Game;
 import shutterearth.map.Map;
 
-
+/**
+ * Clase intermedia. Instancia un nivel y proporciona los métodos necesarios
+ * para que el resto del programa obtenga de él la información necesaria. 
+ * Permite también incorporar el nivel al game loop.
+ */
 public class Juego extends Map
 {
-
+    /**Almacena el nivel instanciado*/
     private Nivel nivel;
     private int errorCount;
 
