@@ -8,16 +8,31 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import shutterearth.Game;
 
+/**
+ * Clase central de la generacion procedural de niveles. En su constructor se
+ * encarga de llamar a los metodos con los algoritmos necesarios para generar un
+ * nuevo nivel de juego
+ */
 public class Nivel 
 {
+    /**Atributo que almacena las haitaciones que componen el nivel*/
     private ArrayList<Habitacion> nivel;
+    /**Almacena la que sera la habitacion segura donde spawneara el heroe*/
     private final Habitacion heroSpawn;
+    /**HashMap utilizado para la traduccion de id a Habitaciones*/
     private HashMap<Integer, Habitacion> traductor;
     
+    /**Variables necesarias para el escalado del juego*/
     private final AppGameContainer g;
     private final int gW;
     private final int gH;
     
+    /**
+     * Constructor. Crea un nuevo nivel de juego, almacenando en el arraylist
+     * las habitaciones generadas
+     * @param g
+     * @throws SlickException 
+     */
     public Nivel(AppGameContainer g) throws SlickException
     {
         this.g = g;
@@ -32,16 +47,29 @@ public class Nivel
         //nivel = new ArrayList<>(aux);
     }
     
+    /**
+     * Devuelve la lista de habitaciones que conforman el nivel
+     * @return 
+     */
     public ArrayList<Habitacion> getNv()
     {
         return nivel;
     }
     
+    /**
+     * Devuelve la habitacion segura designada para que spawnee el heroe
+     * @return Habitacion
+     */
     public Habitacion getHeroSpawn()
     {
         return heroSpawn;
     }
     
+    /**
+     * Devuelve los rectangulos generados como paredes internas para calcular
+     * la colision de las balas en estas
+     * @return 
+     */
     public ArrayList<Rectangle> getBulleytLimits()
     {
         ArrayList<Rectangle> aux = new ArrayList<>();
@@ -52,6 +80,15 @@ public class Nivel
         return aux;
     }
     
+    /**
+     * Retorna un ArrayList con parejas float[] formadas por un id de una
+     * Habitacion y una coordenada x en su interior donde podrá spawnear un
+     * personaje. Para un numero de puntos solicitados, devuelve tantas parejas
+     * de spawn como indique dicho numero repartidas aleatoriamente entre todas
+     * las habitaciones excepto la del heroe.
+     * @param numExactoMonstruos Num de puntos solicitados.
+     * @return 
+     */
     private ArrayList<float[]> getSpawns(int numExactoMonstruos)
     {
         ArrayList<float[]> lista = new ArrayList<>();
@@ -71,6 +108,14 @@ public class Nivel
         return lista;
     }
     
+    /**
+     * Metodo traductor entre el nivel generado y el resto del programa. Devuelve
+     * el numero solicitado de coordenadas de spawn incluyendo las del heroe mediante
+     * un doble array float[][]. El primer elemento float[] seran dichas coordenadas
+     * del heroe
+     * @param num Num de coordenadas solicitado
+     * @return 
+     */
     public float[][] getSpots(int num){
         ArrayList<float[]> aux = getSpawns(num-1);
         float[][] spawn = new float[aux.size()+1][7];
@@ -95,6 +140,19 @@ public class Nivel
         return spawn;
     }
     
+    /**
+     * Devuelve al personaje que lo solicita los parametros de la nueva Habitacion
+     * a la que se dirije siempre que este colisionando con la salida adecuada. Si no, 
+     * retorna los aprametros iniciales, con lo que el personaje no cambia de Habitacion
+     * <p> La colision se calcula mediante la intersecccion de rectangulos a partir
+     * de las coordenadas del personaje y el rectangulo Salida concreto
+     * @param id Id de la Habitacion actual del personaje
+     * @param x Posicion del personaje
+     * @param up Indica si el personaje quiere dirigirse arriba o abajo
+     * @param charW Ancho del personaje
+     * @param hero Indica si el personaje es o no el heroe
+     * @return 
+     */
     public float[] getNextRoom(int id, float x, boolean up, float charW, boolean hero){
         float[] aux = new float[5];
         
@@ -122,6 +180,15 @@ public class Nivel
         return aux;
     }
     
+    /**
+     * Devuelve, dadas las posiciones x e y de una bala, los margenes o limites
+     * izquierdo o derecho de la Habitacion con la que esta alineada. en caso de
+     * la habitacion tenga alguna pared abierta al exterior, los margenes corespondientes
+     * seran 0 en el caso de la izquierda y la x máxima de la pantalla en el caso de la derecha
+     * @param x Posicion x de la bala
+     * @param y Posicion y de la bala
+     * @return 
+     */
     public float[] bulletControl(float x, float y){
         float[] aux = null;
         for(Habitacion h : nivel){
@@ -150,6 +217,12 @@ public class Nivel
         return aux;
     }
     
+    /**
+     * Metodo de renderizado por fases del nivel. renderiza en orden cada una de
+     * las partes de cada una de las habitaciones. De esta forma el orden de las
+     * capas es el adecuado y todo se visualiza correctamente
+     * @param g Controlador grafico. Se encarga del renderizado
+     */
     public void render(Graphics g)
     {
         nivel.forEach((h) ->
@@ -170,6 +243,12 @@ public class Nivel
         });
     }
     
+    /**
+     * Metodo que instancia un array doble de celdas, una "cuadricula"
+     * @param celdas Array que se quiere inicializar
+     * @param filasCount Array de enteros que controla el num de Habitaciones visitadas por piso
+     * @throws SlickException 
+     */
     private void resetCeldas(Celda[][] celdas, int[] filasCount) throws SlickException
     {
         for(int i=0;i<celdas.length;i++)
@@ -178,6 +257,13 @@ public class Nivel
         for(int i=0;i<filasCount.length;i++) filasCount[i] = celdas.length;
     }
     
+    /**
+     * Metodo principal de la generacion procedural. El algoritmo se compone
+     * internamente de tres fases
+     * <p>Fase 1: Se inicializan las variables y las estructuras necesarias. Se
+     * marca como celda inicial la inferior izquierda, la Celda[0][7]
+     * @throws SlickException 
+     */
     private void generacion() throws SlickException
     {
         int cellCount=1, cellNum = 32;
