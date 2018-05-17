@@ -41,10 +41,10 @@ public class PowerUp extends Scene
             Game.addScene(this);
             go = true;
         }
-        this.circles = new Circle[4];
+        this.circles = new Circle[3];
         for (int x = 0; x < circles.length; x++)
         {
-            circles[x] = new Circle (0,0,Game.getY()/(x+2));
+            circles[x] = new Circle (0,0,Game.getY()/(x+3));
             circles[x].setCenterX(bb.getCenterX());
             circles[x].setCenterY(bb.getCenterY());
         }
