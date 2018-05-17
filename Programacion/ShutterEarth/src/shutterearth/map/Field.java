@@ -794,7 +794,10 @@ public class Field extends Scene implements InputProviderListener
         {
             badGuy.revive();
         }
-        gameEnded = true;
+        else
+        {
+            gameEnded = true;
+        }
         Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
     }
     

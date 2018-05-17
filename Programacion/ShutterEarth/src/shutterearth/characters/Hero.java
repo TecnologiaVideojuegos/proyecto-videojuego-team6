@@ -367,6 +367,10 @@ public class Hero extends Charact
         return kills;
     }
     
+    /**
+     * GUARDA AL HEROE
+     * @return 
+     */
     public SavedHero save()
     {
         SavedHero saved = new SavedHero(this);
