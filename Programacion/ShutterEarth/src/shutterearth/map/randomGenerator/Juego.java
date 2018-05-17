@@ -52,6 +52,13 @@ public class Juego extends Map
         return "RANDOM GENERATOR";
     }
 
+    /**
+     * Permite invocar el metodo getSpots() de Nivel con los parametros adecuados
+     * para su integracion con el resto del progrma.
+     * <p> Consultar Nivel.getSpots() javadoc
+     * @param n Num de arrays de coordenadas solicitado
+     * @return 
+     */
     @Override
     public float[][] getSpots(int n)
     {
@@ -69,12 +76,31 @@ public class Juego extends Map
         return null;
     }
     
+    /**
+     * Permite invocar el metodo bulletControl() de Nivel con los parametros adecuados
+     * para su integracion con el resto del progrma.
+     * <p> Consultar Nivel.bulletControl() javadoc
+     * @param x
+     * @param y
+     * @return 
+     */
     @Override
     public float[] bulletControl (float x, float y)
     {
         return nivel.bulletControl(x, y);
     }
 
+    /**
+     * Permite invocar el metodo getNextRoom() de Nivel con los parametros adecuados
+     * para su integracion con el resto del progrma.
+     * <p> Consultar Nivel.getNextRoom() javadoc
+     * @param room
+     * @param x
+     * @param up
+     * @param w
+     * @param hero
+     * @return 
+     */
     @Override
     public float[] getNextRoom(int room, float x, boolean up, float w, boolean hero)
     {

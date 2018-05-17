@@ -113,7 +113,7 @@ public class Nivel
      * el numero solicitado de coordenadas de spawn incluyendo las del heroe mediante
      * un doble array float[][]. El primer elemento float[] seran dichas coordenadas
      * del heroe
-     * @param num Num de coordenadas solicitado
+     * @param num Num de arrays de coordenadas solicitado
      * @return 
      */
     public float[][] getSpots(int num){
@@ -261,105 +261,142 @@ public class Nivel
      * Metodo principal de la generacion procedural. El algoritmo se compone
      * internamente de tres fases
      * <p>Fase 1: Se inicializan las variables y las estructuras necesarias. Se
-     * marca como celda inicial la inferior izquierda, la Celda[0][7]
+     * marca como celda inicial la inferior izquierda, la Celda[0][7] y se crea
+     * con ella la primera Habitacion
+     * <p>Fase 2: Dentro del bucle do-while distinguimos dos zonas. En la
+     * primera se decide aleatoriamente si el algoritmo irá a la derecha, a la
+     * izquierda, hacia arriba o hacia abajo dentro de la tabla de Celdas. Esta
+     * decisión puede ser totalmente aleatoria o estar limitada al movimiento
+     * horizontal o vertical solamente en función del número de celdas que
+     * formen ya parte de la habitación y el número de celdas ya visitadas en
+     * ese “piso” del edificio.
+     * <p>En la segunda zona, tenemos un switch, el cual contiene las acciones
+     * a realizar en función del movimiento que finalmente se ha decidido hacer.
+     * <ul>En movimientos horizontales, la nueva celda que se visita se añade a
+     * la habitación de la celda anterior.
+     * <p>Los movimientos verticales en este algoritmo implican la creación de
+     * una nueva Habitación si la celda siguiente no ha sido visitada y se añaden
+     * a esta y a la Habitacion de la que venimos las correspondientes salidas
+     * superior e inferior con las referencias a su vecina.</ul>
+
+     * <p>Fase 3: Se toma el doble array de Celdas y se recorre de arriba a abajo
+     * y de izquierda a derecha, , intentando preferentemente combinar las
+     * Habitaciones de una Celda vecinas. Si la Habitación en cuestión no tiene
+     * ninguna vecina con la misma casuística, se combina aleatoriamente con la
+     * de su izquierda o su derecha.
+     * <p>Por último que se efectúa también un cambio de todas las referencias
+     * de las Salidas implicadas con esta Habitacion unitaria que desaparece y
+     * se combina con la otra.
      * @throws SlickException 
      */
     private void generacion() throws SlickException
     {
-        int cellCount=1, cellNum = 32;
-        int r=0, c=7;
-        int rand;
-        int id=0;
-        
-        Celda[][] celdas = new Celda[8][8];
-        int[] filasCount = new int[8];
-        resetCeldas(celdas, filasCount);
-        
-        nivel = new ArrayList<>();//reset del nivel
-        traductor = new HashMap<>();
-        
-        celdas[r][c].setVisited(true);
-        Habitacion hab = new Habitacion(g,celdas[r][c],id);
-        celdas[r][c].setHab(hab);
-        this.nivel.add(hab);
-        this.traductor.put(id, hab);
-        id++;
-        filasCount[c]--;
-        
-        do
-        {
-            if((celdas[r][c].getHab().getCount()<3)&&(filasCount[c]>0)) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
-            else if(celdas[r][c].getHab().getCount()==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
-            else rand = ((int)(Math.random()*400))%4;
-            try
-            {
-                switch(rand)
+        boolean repeat = true;
+        Celda[][] celdas = null;
+        int count;
+        while(repeat){
+            try{
+                count = 0;
+                int cellCount=1, cellNum = 32;
+                int r=0, c=7;
+                int rand;
+                int id=0;
+
+                celdas = new Celda[8][8];
+                int[] filasCount = new int[8];
+                resetCeldas(celdas, filasCount);
+
+                nivel = new ArrayList<>();//reset del nivel
+                traductor = new HashMap<>();
+
+                celdas[r][c].setVisited(true);
+                Habitacion hab = new Habitacion(g,celdas[r][c],id);
+                celdas[r][c].setHab(hab);
+                this.nivel.add(hab);
+                this.traductor.put(id, hab);
+                id++;
+                filasCount[c]--;
+
+                do
                 {
-                    case 0:
-                        if(!celdas[r+1][c].isVisited())
-                        {//derecha
-                            cellCount++;
-                            celdas[r+1][c].setVisited(true);
-                            celdas[r+1][c].setHab(celdas[r][c].getHab());
-                            celdas[r][c].getHab().addCelda(celdas[r+1][c]);
-                            filasCount[c]--;
-                        }
-                        r = r+1;
-                        break;
-                    case 1:
-                        if(!celdas[r-1][c].isVisited())
-                        {//izquierda
-                            cellCount++;
-                            celdas[r-1][c].setVisited(true);
-                            celdas[r-1][c].setHab(celdas[r][c].getHab());
-                            celdas[r][c].getHab().addCelda(celdas[r-1][c]);
-                            filasCount[c]--;
-                        }
-                        r = r-1;
-                        break;
-                    case 2:
-                        if(!((!celdas[r][c-1].isVisited())&&(filasCount[c-1]<=1)))
+                    if((celdas[r][c].getHab().getCount()<3)&&(filasCount[c]>0)) rand = ((int)(Math.random()*400))%2;//restringido a izquierda o derecha
+                    else if(celdas[r][c].getHab().getCount()==4) rand = (((int)(Math.random()*400))%2)+2;//restringido a arriba o abajo
+                    else rand = ((int)(Math.random()*400))%4;
+                    try
+                    {
+                        switch(rand)
                         {
-                            if(!celdas[r][c-1].isVisited())
-                            {//arriba
-                                cellCount++;
-                                celdas[r][c-1].setVisited(true);
-                                hab = new Habitacion(g, celdas[r][c-1],id);
-                                nivel.add(hab);
-                                traductor.put(id, hab);
-                                id++;
-                                celdas[r][c-1].setHab(hab);
-                                celdas[r][c].getHab().addSalidaSup(celdas[r][c], celdas[r][c-1].getHab());
-                                celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
-                                filasCount[c-1]--;
-                            }
-                            c = c-1;
+                            case 0:
+                                if(!celdas[r+1][c].isVisited())
+                                {//derecha
+                                    cellCount++;
+                                    celdas[r+1][c].setVisited(true);
+                                    celdas[r+1][c].setHab(celdas[r][c].getHab());
+                                    celdas[r][c].getHab().addCelda(celdas[r+1][c]);
+                                    filasCount[c]--;
+                                }
+                                r = r+1;
+                                break;
+                            case 1:
+                                if(!celdas[r-1][c].isVisited())
+                                {//izquierda
+                                    cellCount++;
+                                    celdas[r-1][c].setVisited(true);
+                                    celdas[r-1][c].setHab(celdas[r][c].getHab());
+                                    celdas[r][c].getHab().addCelda(celdas[r-1][c]);
+                                    filasCount[c]--;
+                                }
+                                r = r-1;
+                                break;
+                            case 2:
+                                if(!((!celdas[r][c-1].isVisited())&&(filasCount[c-1]<=1)))
+                                {
+                                    if(!celdas[r][c-1].isVisited())
+                                    {//arriba
+                                        cellCount++;
+                                        celdas[r][c-1].setVisited(true);
+                                        hab = new Habitacion(g, celdas[r][c-1],id);
+                                        nivel.add(hab);
+                                        traductor.put(id, hab);
+                                        id++;
+                                        celdas[r][c-1].setHab(hab);
+                                        celdas[r][c].getHab().addSalidaSup(celdas[r][c], celdas[r][c-1].getHab());
+                                        celdas[r][c-1].getHab().addSalidaInf(celdas[r][c-1], celdas[r][c].getHab());
+                                        filasCount[c-1]--;
+                                    }
+                                    c = c-1;
+                                }
+                                break;
+                            case 3:
+                                if(!((!celdas[r][c+1].isVisited())&&(filasCount[c+1]<=1)))
+                                {
+                                    if(!celdas[r][c+1].isVisited())
+                                    {//abajo
+                                        cellCount++;
+                                        celdas[r][c+1].setVisited(true);
+                                        hab = new Habitacion(g, celdas[r][c+1],id);
+                                        nivel.add(hab);
+                                        traductor.put(id, hab);
+                                        id++;
+                                        celdas[r][c+1].setHab(hab);
+                                        celdas[r][c].getHab().addSalidaInf(celdas[r][c], celdas[r][c+1].getHab());
+                                        celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
+                                        filasCount[c+1]--;
+                                    }
+                                    c = c+1;
+                                }
+                                break;
                         }
-                        break;
-                    case 3:
-                        if(!((!celdas[r][c+1].isVisited())&&(filasCount[c+1]<=1)))
-                        {
-                            if(!celdas[r][c+1].isVisited())
-                            {//abajo
-                                cellCount++;
-                                celdas[r][c+1].setVisited(true);
-                                hab = new Habitacion(g, celdas[r][c+1],id);
-                                nivel.add(hab);
-                                traductor.put(id, hab);
-                                id++;
-                                celdas[r][c+1].setHab(hab);
-                                celdas[r][c].getHab().addSalidaInf(celdas[r][c], celdas[r][c+1].getHab());
-                                celdas[r][c+1].getHab().addSalidaSup(celdas[r][c+1],celdas[r][c].getHab());
-                                filasCount[c+1]--;
-                            }
-                            c = c+1;
-                        }
-                        break;
+                    } 
+                    catch (IndexOutOfBoundsException e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
+                    count++;
+                    if(count>999) throw new Exception();
                 }
-            } 
-            catch (IndexOutOfBoundsException e){}//Captura el IndexOutOfBoundsException y lo vuelve a intentar
+                while((cellCount<cellNum)||(celdas[r][c].getHab().getCount()==1));
+                repeat = false;
+            } catch(Exception e){}//Si por un error no converge, comienza de nuevo
         }
-        while((cellCount<cellNum)||(celdas[r][c].getHab().getCount()==1));
+        
         
         //Eliminamos las habitaciones de una celda
         int aux = 2;
@@ -446,6 +483,11 @@ public class Nivel
         }
     }
     
+    /**
+     * Genera las paredes interiores de las Habitaciones del nivel y determina
+     * si estas estan a la izquierda, a la derecha o en el centro con o sin vecinas
+     * a los lados.
+     */
     private void paredes()
     {
         for(int i=0;i<nivel.size();i++)

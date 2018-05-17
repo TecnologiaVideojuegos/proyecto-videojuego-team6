@@ -1,6 +1,11 @@
 
 package shutterearth.map.randomGenerator;
 
+/**
+ * Clase que contiene variables static con los factores de proporcionalidad
+ * utilizados para la creacion de las celdas y demas elementos geometricos en la
+ * generacion del nivel
+ */
 public class Prop 
 {
     /**Alto del espacio del HUB*/
