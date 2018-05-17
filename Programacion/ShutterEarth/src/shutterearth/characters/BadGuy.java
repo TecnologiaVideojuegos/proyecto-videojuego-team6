@@ -73,12 +73,12 @@ public class BadGuy extends Charact
     @Override
     public void goLeft()
     {
-        xVel = -Game.getxVel();
+        xVel = -Game.getxVel()*1.2f;
     }
     @Override
     public void goRight()
     {
-        xVel = Game.getxVel();
+        xVel = Game.getxVel()*1.2f;
     }
     @Override
     public void goDown()
