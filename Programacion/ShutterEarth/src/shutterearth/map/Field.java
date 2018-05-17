@@ -97,6 +97,7 @@ public class Field extends Scene implements InputProviderListener
     
     private boolean texted;
     private int tcount;
+    private boolean endDone;
     
     
     public Field (Hero hero, int stage, HUD hud, int lessHealth)
@@ -130,6 +131,7 @@ public class Field extends Scene implements InputProviderListener
         tcount = 3;
         texted = false;
         dialoged = false;
+        endDone = false;
     }
     
     @Override
@@ -259,8 +261,12 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
-                Game.addScene(new TextDisplayer(this,17,3));
-                bb.setBB(futureBB);
+                if (!endDone)
+                {
+                    Game.addScene(new TextDisplayer(this,17,3));
+                    bb.setBB(futureBB);
+                    endDone = true;
+                }
                 if (hero.getBox().intersects(bb.getBB()))
                 {
                     Game.addScene(new TextDisplayer(this,16,4));
@@ -587,7 +593,7 @@ public class Field extends Scene implements InputProviderListener
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
                 break;
             case 10:
-                en.add(new Enemy(1,stage,hero,this));
+                /*en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
                 en.add(new Enemy(1,stage,hero,this));
@@ -599,7 +605,7 @@ public class Field extends Scene implements InputProviderListener
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
                 sh.add(new Ship(1,stage,hero,this));
-                sh.add(new Ship(2,stage,hero,this));
+                sh.add(new Ship(2,stage,hero,this));*/
                 sh.add(new Ship(2,stage,hero,this));
                 this.shipCounter = 2500;
                 setMap(new Juego (Game.getX()/9,hero.getH()*2));
@@ -784,11 +790,11 @@ public class Field extends Scene implements InputProviderListener
     public void badDead ()
     {
         enemy.clear();
-        if (stage >= 10)
+        if (stage < 10)
         {
-            gameEnded = true;
+            badGuy.revive();
         }
-        badGuy.revive();
+        gameEnded = true;
         Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
     }
     
