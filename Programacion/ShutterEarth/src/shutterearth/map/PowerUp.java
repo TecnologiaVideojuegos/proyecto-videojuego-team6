@@ -71,7 +71,7 @@ public class PowerUp extends Scene
             g.setColor(Color.magenta);
         else 
             g.setColor(Color.green);
-        g.setLineWidth(5);
+        g.setLineWidth(3);
         if (go)
         {
             for (Circle circle : circles)
