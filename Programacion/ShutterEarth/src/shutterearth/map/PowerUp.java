@@ -60,7 +60,10 @@ public class PowerUp extends Scene implements Deployable
     {
         return pwup!=null;
     }
-    
+    /**
+     * MEJORA TEMPORAL APLICADA AL HEROE
+     * @return 
+     */
     public int getPower ()
     {
         return power;

@@ -121,13 +121,19 @@ public class HUD extends Scene
         Game.addScene(heroHealth);
         Game.addScene(badHealth);
     }
-    
+    /**
+     * NUEVO ALIEN A MOSTRAR
+     * @param bad
+     * @param lastLive 
+     */
     public void addBadGuy (Charact bad,int lastLive)
     {
         badHealth.setHealth(lastLive, false);
         this.bad = bad;
     }
-    
+    /**
+     * FINALIZA EL HUD
+     */
     public void end ()
     {
         Game.removeSence(this);
@@ -135,12 +141,16 @@ public class HUD extends Scene
         Game.removeSence(badHealth);
         hero.end();
     }
-    
+    /**
+     * INICIA EL HUD
+     */
     public void start ()
     {
         Game.addScene(this);
     }
-    
+    /**
+     * PARA EL HUD
+     */
     public void pause ()
     {
         this.setState(STATE.FREEZE);
@@ -148,7 +158,9 @@ public class HUD extends Scene
         badHealth.setState(Scene.STATE.FREEZE);
         hero.pause();
     }
-    
+    /**
+     * DESPIERTA AL HUD
+     */
     public void wake ()
     {
         this.setState(STATE.ON);

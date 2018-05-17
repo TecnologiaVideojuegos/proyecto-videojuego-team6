@@ -40,6 +40,10 @@ public class Pause extends Scene implements InputProviderListener
     private final Rectangle resume;
     private final Rectangle exit;
     
+    /**
+     * MENU DE PAUSA, PERMITE CONTINUAR O SALIR DEL JUEGO
+     * @param field 
+     */
     public Pause (Field field)
     {
         this.field = field;

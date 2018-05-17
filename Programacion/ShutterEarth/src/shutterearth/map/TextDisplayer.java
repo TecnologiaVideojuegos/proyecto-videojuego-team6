@@ -96,6 +96,12 @@ public class TextDisplayer extends Scene implements InputProviderListener
         g.drawString("HIT ENTER OR SHIFT TO CONTINUE", txt.getX()+5, txt.getY()+txt.getHeight()-20);
     }
 
+    /**
+     * MUESTRA LOS DIÁLOGOS
+     * @param gc
+     * @param t
+     * @throws SlickException 
+     */
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {

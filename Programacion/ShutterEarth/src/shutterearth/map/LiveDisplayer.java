@@ -29,6 +29,15 @@ public class LiveDisplayer extends Scene
     private final int maxRow;
     private boolean display;
     
+    /**
+     * ESTA CLASE MUESTRA LA SALUD EN FORMA DE BOLITAS
+     * SE USA EN LA TIENDA Y EL HUD
+     * @param x
+     * @param y
+     * @param radix
+     * @param maxRow
+     * @param health 
+     */
     public LiveDisplayer (int x, int y, int radix, int maxRow, int health)
     {
         this.displayingHealth = health;
@@ -41,12 +50,19 @@ public class LiveDisplayer extends Scene
         this.maxRow = maxRow;
         this.display = true;
     }
-    
+    /**
+     * DEJA DE MOSTRAR
+     * @param on 
+     */
     public void setDisplay(boolean on)
     {
         this.display = on;
     }
-    
+    /**
+     * PONE SALUD
+     * @param health
+     * @param animation CON O SIN ANIMACION
+     */
     public void setHealth (int health, boolean animation)
     {
         this.actualHealth = health;
@@ -61,7 +77,9 @@ public class LiveDisplayer extends Scene
         full = health/10;
         other = (health - full*10);
     }
-    
+    /**
+     * MUESTRA EN LA Y DADA PERO CENTRADA EN X
+     */
     public void center ()
     {
         x = Game.getX()/2 - (radix*((full>maxRow?maxRow:full)+(other<2?0:1))+space*(full>maxRow?maxRow:full))/2;
