@@ -94,9 +94,9 @@ public class Hero extends Charact
     @Override
     public void shot()
     {
-        if (bullets >= inventory.getCost())
+        if (bullets >= (inventory.getCost()/power))
         {
-            bullets -= inventory.getCost();
+            bullets -= (inventory.getCost()/power);
             inventory.shot(power);
         }
         else
@@ -164,7 +164,7 @@ public class Hero extends Charact
             {
                 Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
             }
-            if (bullets < inventory.getCost())
+            if (bullets < (inventory.getCost()/power))
             {
                 g.drawString("NO AMMO", xPos-20, yPos-10);
             }
@@ -421,5 +421,7 @@ public class Hero extends Charact
     {
         power = n;
         this.healthCurrent += n*10;
+        this.bullets += n*50;
+        powerCount = 0;
     }
 }

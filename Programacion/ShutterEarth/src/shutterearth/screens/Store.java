@@ -54,22 +54,22 @@ public class Store extends Scene implements InputProviderListener
         this.prices = new int[][]
         {
             {
-                100,200,300,400,500,700,800,900,1000,1100,1200,1300,1500,1750,2000,0            //HEALTH
+                100,200,300,400,500,750,900,1200,1400,1700,1900,2000,2300,2500,3000,0            //HEALTH
             },
             {
-                100,150,300,400,0                                                               //Arma Minima
+                100,200,300,400,0                                                               //Arma Minima
             },
             {
-                350,450,550,700,0                                                               //Arma Base
+                500,600,700,800,0                                                               //Arma Base
             },
             {
-                650,800,900,1000,0                                                              //Arma Fuerte
+                750,850,950,1100,0                                                              //Arma Fuerte
             },
             {
-                950,1100,1200,1300,0                                                            //Arma Rápida
+                1200,1300,1400,1500,0                                                            //Arma Rápida
             },
             {
-                1400,1500,1800,2000,0                                                           //Arma Final
+                1600,1800,2000,2500,0                                                           //Arma Final
             },
         };
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
