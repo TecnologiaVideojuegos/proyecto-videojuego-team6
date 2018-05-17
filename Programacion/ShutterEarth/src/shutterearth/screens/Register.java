@@ -51,6 +51,9 @@ public class Register extends Scene implements InputProviderListener
     private Boolean ok;
     private boolean focus;
     
+    /**
+     * PERMITE REGISTRAR NUEVOS USUARIOS
+     */
     public Register ()
     {
         this.w = Game.getX()/5;

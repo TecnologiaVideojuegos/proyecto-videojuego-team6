@@ -21,6 +21,11 @@ public class Dev extends Thread
     private final AtomicBoolean control;
     private SavedHero hero;
     
+    /**
+     * DEBUGGER
+     * SOLO DESARROLLADORES
+     * @param hero 
+     */
     public Dev (SavedHero hero)
     {
         input = new DataInputStream(System.in);
@@ -28,6 +33,11 @@ public class Dev extends Thread
         this.hero = hero;
     }
     
+    /**
+     * DEBUGGER
+     * SOLO DESARROLLADORES
+     * CIERRA EL HILO Y EL STREAM
+     */
     public void end ()
     {
         control.set(false);

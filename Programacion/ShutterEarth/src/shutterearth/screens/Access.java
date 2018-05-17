@@ -55,6 +55,9 @@ public class Access extends Scene implements InputProviderListener
     private boolean focus;
     private Boolean ok;
     
+    /**
+     * PERMITE ENTRAR AL JUEGO
+     */
     public Access ()
     {
         this.w = Game.getX()/5;

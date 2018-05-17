@@ -49,6 +49,10 @@ public class Store extends Scene implements InputProviderListener
     private final int[][] prices;
     private final LiveDisplayer lives;
     
+    /**
+     * TIENDA
+     * @param hero 
+     */
     public Store (SavedHero hero)
     {
         this.prices = new int[][]
@@ -100,6 +104,7 @@ public class Store extends Scene implements InputProviderListener
         this.lives.center();
     }
     
+    // SI TENEMOS DINERO NOS DEJA COMPRAR LO SELECCIONADO
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {

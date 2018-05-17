@@ -43,6 +43,11 @@ public class StartMenu extends Scene implements InputProviderListener
     private Input input;
     private final SavedHero hero;
     
+    /**
+     * IR A JUGAR O TIENDA
+     * CONTROLA EL GUARDADO DE USUARIOS AL PASAR POR ESTA ESCENA
+     * @param hero 
+     */
     public StartMenu (SavedHero hero)
     {
         int step = Game.getY()/6;

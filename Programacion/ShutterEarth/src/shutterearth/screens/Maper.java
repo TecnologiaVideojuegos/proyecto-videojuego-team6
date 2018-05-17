@@ -46,6 +46,10 @@ public class Maper extends Scene  implements InputProviderListener
     private final int diagonal;
     private float radix;
     
+    /**
+     * PERMITE SELECCIONAR MAPAS Y GENERA ANIMACIONES
+     * @param hero 
+     */
     public Maper (SavedHero hero)
     {
         click = new BasicCommand("click");
