@@ -20,6 +20,7 @@ public class Label
     protected final float yVel;
     protected final String label;
     
+    //MUESTRAN EL DINERO (BALAS) QUE NOS DA CADA ENEMIGO AL MORIR
     protected Label (float x, float y, boolean face, int money)
     {
         this.counterDamage = 350;

@@ -78,7 +78,10 @@ public class Shot
     {
         return h;
     }
-    
+    /**
+     * CUENTA EL TIEMPO DE INICIO DE UNA BALA
+     * @param delta 
+     */
     public void count (float delta)
     {
         this.counter -= 1*delta;
@@ -88,6 +91,10 @@ public class Shot
         return counter <0;
     }
     
+    /**
+     * ACTUALIZA LA POSICION DE LA BALA
+     * @param delta 
+     */
     public void update (float delta)
     {
         if (delay > 0)
@@ -115,7 +122,10 @@ public class Shot
         box.setX(x);
         box.setY(y);
     }
-    
+    /**
+     * HIT-BOX
+     * @return 
+     */
     public Rectangle getBox ()
     {
         return box;
@@ -129,6 +139,10 @@ public class Shot
     {
         return y;
     }
+    /**
+     * DIRECCION DE LA BALA
+     * @return TRUE = DERECHA
+     */
     public boolean getFace()
     {
         return face;
@@ -137,6 +151,10 @@ public class Shot
     {
         return (delay <= 0) && !first;
     }
+    /**
+     * INDICA SI PODEMOS BORRAR LA BALA
+     * @return 
+     */
     public boolean ended ()
     {
         if ((hero.getInfo() <=2) || (hero.getInfo()>=5))

@@ -22,7 +22,7 @@ public class SavedHero implements Serializable
     private final AtomicInteger numberOfGuns;
     private final ArrayList <int[]> inventory;
     
-    public SavedHero(String user, String pswd, Boolean permission)
+    public SavedHero(String user, String pswd, Boolean permission)  //CREA UN HÉROE DE 0
     {
         this.user = user;
         this.pswd = pswd;
@@ -39,7 +39,7 @@ public class SavedHero implements Serializable
         inventory.add(new int[]{3,0});
         inventory.add(new int[]{4,0});
     }
-    public SavedHero(Hero hero)
+    public SavedHero(Hero hero) //GENERA UNA VERSIN SIMPLIFICADA DEL HÉROE QUE PUEDE GUARDARSE EN DISCO
     {
         this.user = hero.getUser();
         this.pswd = hero.getPswd();
@@ -113,6 +113,9 @@ public class SavedHero implements Serializable
         this.stage.set(stage);
     }
     
+    /**
+     * NOS DA EL ARMA CORRESPONDIENTE AL PASAR CIERTOS NIVELES
+     */
     public void reInventory()
     {
         for (int x = 0; x < (((this.getStage()/2)+1)<5?((this.getStage()/2)+1):5); x++)

@@ -69,7 +69,9 @@ public class Inventory extends Scene
         this.counter = 0;
         this.from = from;
     }
-    
+    /**
+     * CAMBIO AL ARMA DERECHA
+     */
     public void rightGun()
     {
         if (index < inventory.size()-1)
@@ -78,6 +80,9 @@ public class Inventory extends Scene
             this.delay = inventory.get(index).getSpeed();
         }
     }
+    /**
+     * CAMBIO AL ARMA IZQUIERDA
+     */
     public void lefttGun()
     {
         if (index > 0)
@@ -94,7 +99,10 @@ public class Inventory extends Scene
     {
         return inventory.get(index).getConsume();
     }
-    
+    /**
+     * DISPARA UNA BALA SI PUEDE HACERLO
+     * @param n 
+     */
     public void shot(int n)
     {
         if (hero.isAlive())
@@ -110,7 +118,9 @@ public class Inventory extends Scene
             }
         }
     }
-    
+    /**
+     * DEJA DE MOSTRAR EL INVENTARIO
+     */
     public void end ()
     {
         Game.removeSence(this);
@@ -119,7 +129,7 @@ public class Inventory extends Scene
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
-        shots.forEach((s) ->
+        shots.forEach((s) ->    //DIBUJA BALAS
         {
             if (s.isDwable())
             {
@@ -143,7 +153,7 @@ public class Inventory extends Scene
                 }
             }
         });
-        label.forEach((lab)->
+        label.forEach((lab)->   //DIBUJA LABELS
         {
             if (lab.isAlive())
                 g.drawString(lab.getLabel(), lab.getX(), lab.getY());
@@ -168,7 +178,7 @@ public class Inventory extends Scene
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
-        shots.forEach((s) ->
+        shots.forEach((s) ->    //BORRA LOS SHOTS QUE SE SALEN DE LA ZONA DE ACCION
         {
             s.update(t);
             if (s.isDwable()&&s.ended())
@@ -187,7 +197,7 @@ public class Inventory extends Scene
         });
         toRemoveS.clear();
         
-        label.forEach((lab)->
+        label.forEach((lab)->   //ACTUALIZA LABELS
         {
             if (!lab.isAlive())
                 toRemoveL.add(lab);
@@ -200,7 +210,7 @@ public class Inventory extends Scene
         });
         toRemoveL.clear();
         
-        shots.forEach((s) ->
+        shots.forEach((s) ->    //COLISIONES CON ENEMIGOS
         {
             if (s.isDwable())
             {
