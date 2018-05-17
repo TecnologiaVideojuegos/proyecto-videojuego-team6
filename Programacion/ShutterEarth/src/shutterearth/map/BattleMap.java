@@ -24,6 +24,11 @@ public class BattleMap extends Map
     private final ArrayList <Rectangle> room;
     private final ArrayList <Circle> animation;
     
+    /**
+     * MAPA DE PRUEBA PARA TESTEO
+     * @param x
+     * @param y 
+     */
     public BattleMap (float x, float y)
     {
         super (x,y);

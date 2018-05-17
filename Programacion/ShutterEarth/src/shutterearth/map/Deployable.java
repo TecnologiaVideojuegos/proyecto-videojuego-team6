@@ -13,7 +13,18 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public interface Deployable
 {
+    /**
+     * DA UN SPAWN AL DEPLOYABLE
+     * @param rect 
+     */
     public void setRect (Rectangle rect);
+    /**
+     * DEVUELDE EL DEPLOYABLE PARA COMPROBAR COLISIONES
+     * @return 
+     */
     public Rectangle getRect ();
+    /**
+     * FINALIZA EL DEPLOYABLE
+     */
     public void exit ();
 }

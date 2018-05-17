@@ -172,11 +172,11 @@ public class Field extends Scene implements InputProviderListener
             hero.setPowerUp(powerUp3.getPower());
             powerUp3.exit();
         }
-        if (texted)
+        if (texted) // HA MOSTRADO EL TEXTO INICIAL
         {
-            if (!gameEnded)
+            if (!gameEnded) //HAS SUPERADO EL NIVEL FINAL
             {
-                if (relisable)
+                if (relisable) // CONTADOR PARA LANZAR LAS NAVES
                 {
                     if ((counter < shipCounter))
                     {
@@ -190,7 +190,7 @@ public class Field extends Scene implements InputProviderListener
                         relisable = false;
                     }
                 }
-                if (animationStarted)
+                if (animationStarted) //ANIMACIÓN DE CIERRE, EL JUEGO HA ACABADO
                 {
                     radix = animation.getRadius() + 5f*t;
                     animation.setRadius(radix);
@@ -208,15 +208,15 @@ public class Field extends Scene implements InputProviderListener
                         }
                     }
                 }
-                else if (enemy.isEmpty() && hero.isAlive())
+                else if (enemy.isEmpty() && hero.isAlive()) //HAS GANADO
                 {
-                    if (done)
+                    if (done) //HAS DERROTADO AL BOSS FALSO
                     {
                         Game.addScene(new TextDisplayer(this,18,0));
                     }
                     else
                     {
-                        switch (stage)
+                        switch (stage) //INICIA LOS BOSS
                         {
                             case 1:
                                 if (!dialoged)
@@ -261,7 +261,7 @@ public class Field extends Scene implements InputProviderListener
             }
             else
             {
-                if (!endDone)
+                if (!endDone) //LIBERA LA HIJA
                 {
                     Game.addScene(new TextDisplayer(this,17,3));
                     bb.setRect(futureBB);
@@ -277,7 +277,7 @@ public class Field extends Scene implements InputProviderListener
                 }
             }
         }
-        else
+        else    //REALIZA LA ANIMACIÓN
         {
             if (tcount > 0)
             {
@@ -359,6 +359,9 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void controlReleased(Command cmnd) {}
  
+    /**
+     * PARA EL JUEGO
+     */
     public void pause ()
     {
         this.setState(STATE.FREEZE);
@@ -380,6 +383,9 @@ public class Field extends Scene implements InputProviderListener
             badGuy.pause();
     }
     
+    /**
+     * SACA AL JUEGO DE PARADO
+     */
     public void wake ()
     {
         if (battle)
@@ -405,6 +411,9 @@ public class Field extends Scene implements InputProviderListener
             badGuy.wake();
     }
     
+    /**
+     * CIERRA Y SALVA EL JUEGO
+     */
     public void exit ()
     {
         hero.save();
@@ -427,6 +436,8 @@ public class Field extends Scene implements InputProviderListener
         hud.end();
         map.end();
         bb.exit();
+        powerUp2.exit();
+        powerUp3.exit();
         enemy.forEach((enem)->
         {
             enem.end();
@@ -444,6 +455,9 @@ public class Field extends Scene implements InputProviderListener
         }
     }
     
+    /**
+     * CARGA UN JUEGO NUEVO
+     */
     public void start ()
     {        
         switch(stage)
@@ -612,26 +626,41 @@ public class Field extends Scene implements InputProviderListener
                 break;
         }
     }
-    
+    /**
+     * PONE UN ALIEN EN EL HUD
+     * @param enemy
+     * @param lastLive 
+     */
     public void setHudAlien (Charact enemy, int lastLive)
     {
         hud.addBadGuy(enemy, lastLive);
     }
+    /**
+     * HEROE MUERE
+     */
     public void heroDied ()
     {
         Game.addScene(new TextDisplayer(this,10,0));
     }
+    /**
+     * ENEMIGO MUERE
+     * @param enemy 
+     */
     public void enemyDied (Charact enemy)
     {
         this.enemy.remove(enemy);
     }
-    
+    /**
+     * INICIA LA ANIMACION
+     */
     public void startAnimation ()
     {
         Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
         this.animationStarted = true;
     }
-    
+    /**
+     * INICIA EL ESTADO DE BATALLA
+     */
     public void startBattle ()
     {
         Game.getMedia().getMusic(Media.MUSIC.BATTLE_SONG).loop();
@@ -643,7 +672,15 @@ public class Field extends Scene implements InputProviderListener
     {
         return "Field "+this.hero.toString()+" "+this.stage;
     }
-    
+    /**
+     * OBTIENE SPAWNS
+     * @param room
+     * @param x
+     * @param up
+     * @param w
+     * @param hero
+     * @return 
+     */
     public float [] getNewBownds(int room,float x,boolean up, float w, boolean hero)
     {
         float [] result = map.getNextRoom(room, x, up, w, hero);
@@ -655,7 +692,10 @@ public class Field extends Scene implements InputProviderListener
             return new float []{0,0,0,0,0,0,0,0,0,0,0,0,0};
         }
     }
-    
+    /**
+     * CAMBIA DE TIPO DE MAPA
+     * @param map 
+     */
     private void setMap(Map map)
     {
         if (this.map != null)
@@ -665,7 +705,9 @@ public class Field extends Scene implements InputProviderListener
         this.map = map;
         setup();
     }
-    
+    /**
+     * LIBERA LAS NAVES
+     */
     private void releaseShips ()
     {
         sh.forEach((ship)->
@@ -677,6 +719,9 @@ public class Field extends Scene implements InputProviderListener
         if (stage > 5)
             powerUp3.setRect(this.futurePoweUp3);
     }
+    /**
+     * APLICA SPAWNS
+     */
     private void setup ()
     {
         relisable = !sh.isEmpty();
@@ -715,7 +760,9 @@ public class Field extends Scene implements InputProviderListener
         }
         go();
     }
-    
+    /**
+     * INICIA EL RENDERIZADO DE LOS PERSONAJES
+     */
     private void go()
     {
         Game.addScene(this);
@@ -734,7 +781,9 @@ public class Field extends Scene implements InputProviderListener
         });
         hero.startI();
     }
-    
+    /**
+     * LIBERA AL BOSS
+     */
     private void releaseBadGuy()
     {
         this.badGuy = new BadGuy(stage,hero,this);
@@ -744,16 +793,21 @@ public class Field extends Scene implements InputProviderListener
         badGuy.startI();
         startBattle();
     }
-    
+    /**
+     * DICE SI LOS ALIENS HAN MUERTO
+     * @return 
+     */
     private boolean deadAliens()
     {
         boolean result = false;
         
-        result = en.stream().map((c) -> c.isAlive()).reduce(result, (accumulator, _item) -> accumulator | _item);
+        result = en.stream().map((c) -> c.isAlive()).reduce(result, (accumulator, alien) -> accumulator | alien);
         
         return !result;
     }
-    
+    /**
+     * CARAGA EL SIGUIENTE NIVEL DE LA PARTIDA
+     */
     private void loadNew()
     {
         hero.save();
@@ -786,7 +840,9 @@ public class Field extends Scene implements InputProviderListener
         });
         field.start();
     }
-    
+    /**
+     * MALO MUERE
+     */
     public void badDead ()
     {
         enemy.clear();
@@ -800,12 +856,19 @@ public class Field extends Scene implements InputProviderListener
         }
         Game.getMedia().getSound(Media.SOUND.ALIEN1).play();
     }
-    
+    /**
+     * ALICA ESTADOS A LAS BALAS
+     * @param x
+     * @param y
+     * @return 
+     */
     public float[] bulletControl(float x,float y)
     {
         return map.bulletControl(x, y);
     }
-    
+    /**
+     * MALO HA MUERTO EN STAGE 10
+     */
     public void setGameEnded ()
     {
         gameEnded = true;
