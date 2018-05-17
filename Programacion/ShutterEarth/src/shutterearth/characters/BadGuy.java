@@ -98,6 +98,9 @@ public class BadGuy extends Charact
         inventory.shot(((stage/2) > 0?(stage/2):1));
     }
     
+    /**
+     * ACTIVA LA ANIMACIÓN DE REVIVIR
+     */
     public void revive ()
     {
         revived = true;

@@ -100,6 +100,7 @@ public class Enemy extends Charact
     {
         if (this.isAlive())
         {
+            //AI
             switch ((int)(Math.random()*2000))
             {
                 case 0:
@@ -151,6 +152,7 @@ public class Enemy extends Charact
                 }
             }
             
+            //CONTROL
             this.setX(this.xPos + this.xVel*t);
             if (yVel < Game.getGravityMax())
                 yVel += Game.getGravity()*t;
@@ -206,7 +208,7 @@ public class Enemy extends Charact
         }
         else
         {
-
+            //DEAD
             if (!called)
             {
                 Game.removeSence(this);

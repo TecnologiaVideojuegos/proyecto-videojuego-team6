@@ -30,6 +30,7 @@ public class Media extends Scene
     private final HashMap <MUSIC,Music> music;
     private final HashMap <SOUND,Sound> sound;
        
+    //MEDIA ACCESIBLE
     public static enum IMAGE {MENU,BULLET_R,BULLET_L,GUN1,GUN0,HERO_DER,HERO_IZQ,GUN2,GUN3,GUN4,FULL_LIVE,TQUARTERS_LIVE,HALF_LIVE,QUARTER_LIVE,LOG_IN,EXIT,NEW,REGISTER,BACK,PLAY,STORE,FORWARD,UPGRADE,RESUME,END_GAME,GREY,GAME,BATTLE,FIRE_L,FIRE_R,BB,SHIP_RIGHT,SHIP_LEFT,GRAVE,SHIP_F_DER,SHIP_F_IZQ,BLOOD,EXPLOSION,SHIP_SHOT,BACKGROUND_0,BACKGROUND_1,BACKGROUND_2,BACKGROUND_3,BACKGROUND_4,BACKGROUND_5,BACKGROUND_6,HERO_HEAD,BOLA_MALO,SHOT_ALIEN_RIGHT,SHOT_ALIEN_LEFT,BAD_GUY,SHOT_FALIEN_RIGHT,SHOT_FALIEN_LEFT,TITLE,ESCALERA,SALIDA,BAD_GUY_HEAD,PWUP,PWUP2};    
     public static enum SPRITE {BASE_DER,BASE_IZQ,BASE_SDE,BASE_SIZ,FUERTE_DER,FUERTE_IZQ,FUERTE_SDE,FUERTE_SIZ,HERO_1_DER,HERO_1_IZQ,HERO_1_SDE,HERO_1_SIZ,HERO_2_DER,HERO_2_IZQ,HERO_2_SDE,HERO_2_SIZ,HERO_3_DER,HERO_3_IZQ,HERO_3_SDE,HERO_3_SIZ,HERO_4_DER,HERO_4_IZQ,HERO_4_SDE,HERO_4_SIZ,HERO_5_DER,HERO_5_IZQ,HERO_5_SDE,HERO_5_SIZ,MALO_DER,MALO_IZQ,MALO_SDE,MALO_SIZ};
     public static enum MUSIC {CANCION_MENU,CANCION_GAME,CANCION_FONDO,BATTLE_SONG,END_SONG};
@@ -68,7 +69,12 @@ public class Media extends Scene
         this.source = "";
     }
     
-
+    /**
+     * DIBUJA EL PROCESO DE CARGA
+     * @param gc
+     * @param g
+     * @throws SlickException 
+     */
     @Override
     public void Render(GameContainer gc, Graphics g) throws SlickException
     {
@@ -80,6 +86,12 @@ public class Media extends Scene
         g.drawString(source, black.getX(), black.getY()+black.getHeight()+20);
     }
 
+    /**
+     * CARGA MEDIA DE FORMA VISUAL
+     * @param gc
+     * @param t
+     * @throws SlickException 
+     */
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
@@ -207,23 +219,47 @@ public class Media extends Scene
 
     @Override
     public void init(GameContainer gc) throws SlickException{}
-
+    /**
+     * DA EL SPRITE SOLICITADO
+     * @param n
+     * @return 
+     */
     public Animation getSprit (SPRITE n)
     {
         return sprites.get(n);
     }
+    /**
+     * DA LA IMAGEN SOLICITADA
+     * @param n
+     * @return 
+     */
     public Image getImage (IMAGE n)
     {
         return images.get(n);
     }
+    /**
+     * DA LA MUSICA SOLICITADA
+     * @param n
+     * @return 
+     */
     public Music getMusic (MUSIC n)
     {
         return music.get(n);
     }
+    /**
+     * DA EL SOUND SOLICITADO
+     * @param n
+     * @return 
+     */
     public Sound getSound (SOUND n)
     {
         return sound.get(n);
     }
+    /**
+     * Simplifica la pertición de las imágenes de las armas del personaje
+     * @param id
+     * @return 
+     */
     public static IMAGE getGun (int id)
     {
         switch (id)
@@ -242,6 +278,11 @@ public class Media extends Scene
                 return null;
         }
     }
+    /**
+     * Simplifica la petición de las imágenes al mapa aleatorio
+     * @param id
+     * @return 
+     */
     public static IMAGE getBackGround (int id)
     {
         switch (id)

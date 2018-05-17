@@ -38,6 +38,10 @@ public class Game extends BasicGame
         return app;
     }
     
+    /**
+     * Activa el modo debug
+     * @param debug 
+     */
     public synchronized static void setDebug (boolean debug)
     {
         Game.debug = debug;
@@ -53,6 +57,10 @@ public class Game extends BasicGame
         return Game.step;
     }
     
+    /**
+     * Porcentaje de incremento del dinero ganado
+     * @return 
+     */
     public static float getReward()
     {
         return reward;
@@ -66,7 +74,10 @@ public class Game extends BasicGame
         developer = null;
     }
     
-    // Add a scene to the list and call the init method
+    /**
+     * Añade una Scene y llama a su init
+     * @param scene 
+     */
     public static void addScene (Scene scene)
     {
         if (!scenes.contains(scene))
@@ -82,7 +93,10 @@ public class Game extends BasicGame
         Collections.sort(scenes);
     }
 
-    // Removes a scene
+    /**
+     * Elimina una Scene
+     * @param scene 
+     */
     public static void removeSence (Scene scene)
     {
         scenes.remove(scene);
@@ -103,7 +117,7 @@ public class Game extends BasicGame
     @Override
     public void update(GameContainer gc, int c) throws SlickException 
     {
-        delta = c * 0.1f;
+        delta = c * 0.1f;   //REDUCE EL DELTA DE FORMA PROPORCIONAL PARA LIMITAR SU ESCALADO AL USARLO
         for( int i = 0 ; i < scenes.size() ; i++ )
         {
             scenes.get(i).update(gc,delta);
@@ -119,21 +133,28 @@ public class Game extends BasicGame
         }
     }
     
+    /**
+     * Alto de la pantalla
+     * @return 
+     */
     public static int getX()
     {
         return X;
     }
     
+    /**
+     * Ancho de la pantalla
+     * @return 
+     */
     public static int getY()
     {
         return Y;
     }
-    public static void setX(int x)
+    private static void setX(int x)
     {
         X =x;
     }
-    
-    public static void setY( int y)
+    private static void setY( int y)
     {
         Y = y;
     }
@@ -173,40 +194,72 @@ public class Game extends BasicGame
         app.setTargetFrameRate(45);
         app.start();
     }
-
+    /**
+     * Obtiene un usuario guardado
+     * @param user
+     * @param pswd
+     * @return 
+     */
     public static SavedHero load(String user, String pswd)
     {
+       
         return savingStation.load(user, pswd);
     }
+    /**
+     * USADO PARA DEBUGGER
+     * Obtiene usuarios sin su contraseña
+     * @param user
+     * @return 
+     */
     public static SavedHero load(String user)
     {
         return savingStation.load(user);
     }
-
+    /**
+     * Guarda un Heroe NUEVO
+     * @param hero
+     * @return 
+     */
     public static boolean add(SavedHero hero)
     {
         return savingStation.add(hero);
     }
-    
+    /**
+     * Guarda un Heroe
+     * @param hero 
+     */
     public static void save (Hero hero)
     {
         savingStation.save(hero);
     }
-    
+    /**
+     * Guarda un Heroe
+     * @param hero 
+     */
     public static void save (SavedHero hero)
     {
         savingStation.save(hero);
     }
-    
+    /**
+     * Accedemos a MEDIA
+     * @return 
+     */
     public static Media getMedia ()
     {
         return media;
     }
-    
+    /**
+     * GRAVEDAD
+     * @return 
+     */
     public static float getGravity ()
     {
         return gravity;
     }
+    /**
+     * GRAVEDAD MAXIMA
+     * @return 
+     */
     public static float getGravityMax ()
     {
         return gravityMax;
@@ -223,7 +276,9 @@ public class Game extends BasicGame
     {
         return yVelUp;
     }
-    
+    /**
+     * CIERRA EL MODO DEBUGG
+     */
     private static void resetDeveloper()
     {
         if (developer != null)
@@ -240,7 +295,9 @@ public class Game extends BasicGame
             developer = null;
         }
     }
-
+    /**
+     * CIERRA EL JUEGO
+     */
     public static void exit()
     {
         resetDeveloper();
@@ -248,7 +305,10 @@ public class Game extends BasicGame
         AL.destroy();
         System.exit(0);
     }
-    
+    /**
+     * ACTIVA EL MODO DEBUGG
+     * @param hero 
+     */
     public static void develop(SavedHero hero)
     {
         if (developer == null)
@@ -256,7 +316,7 @@ public class Game extends BasicGame
             if (hero.getPermission())
             {
                 developer = new Dev(hero);
-                //developer.start();
+                //developer.start();    -- Solo desarrolladores
             }
         }
         else 
@@ -269,7 +329,9 @@ public class Game extends BasicGame
     {
         return scenes.size();
     }
-    
+    /**
+     * DEBUGG SCENES
+     */
     public synchronized static void sceneLog()
     {
         scenes.forEach((s) ->

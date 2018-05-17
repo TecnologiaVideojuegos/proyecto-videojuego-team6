@@ -116,26 +116,51 @@ public class Gun
         System.out.println("Consume: "+consume);*/
     }
     
+    /**
+     * DAÑO
+     * @return 
+     */
     public int getDamage()
     {
         return damage;
     }
+    /**
+     * VELOCIDAD
+     * Tiempo en poder volver a disparar
+     * @return 
+     */
     public int getSpeed()
     {
         return speed;
     }
+    /**
+     * Tiempo en aparecer la bala
+     * @return 
+     */
     public int getDelay()
     {
         return delay;
     }
+    /**
+     * CONSUMO DE BALAS
+     * @return 
+     */
     public int getConsume()
     {
         return consume;
     }
+    /**
+     * ID DEL ARMA
+     * @return 
+     */
     public int getID()
     {
         return id;
     }
+    /**
+     * NIVEL DEL ARMA
+     * @return 
+     */
     public int getLevel()
     {
         return level;

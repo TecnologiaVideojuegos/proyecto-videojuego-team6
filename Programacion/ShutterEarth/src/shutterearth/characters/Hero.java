@@ -378,6 +378,10 @@ public class Hero extends Charact
     {
         return permission;
     }
+    /**
+     * GUARDA EL INVENTARIO
+     * @return 
+     */
     public ArrayList<int[]> saveInventory()
     {
         return inventory.save();
@@ -417,6 +421,10 @@ public class Hero extends Charact
         return "Hero "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
     }
     
+    /**
+     * APLICA UN POWER UP
+     * @param n 
+     */
     public void setPowerUp(int n)
     {
         power = n;

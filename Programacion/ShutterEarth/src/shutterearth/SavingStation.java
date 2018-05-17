@@ -52,7 +52,12 @@ public class SavingStation
             });
         }
     }
-    
+    /**
+     * CARGA UN HEROE
+     * @param user
+     * @param pswd
+     * @return 
+     */
     public SavedHero load (String user, String pswd)
     { 
         SavedHero hero = null;
@@ -64,7 +69,11 @@ public class SavingStation
         
         return hero;
     }
-    
+    /**
+     * DEBUGG SOLO DESARROLLADORES
+     * @param user
+     * @return 
+     */
     public SavedHero load (String user)
     { 
         SavedHero hero = null;
@@ -76,7 +85,11 @@ public class SavingStation
         
         return hero;
     }
-    
+    /**
+     * AÑADE UN NUEVO HEROE
+     * @param hero
+     * @return FALSO SI NO SE PUDO AÑADIR
+     */
     public boolean add (SavedHero hero)
     {
         if (!saves.containsKey(hero.getUser()))
@@ -88,20 +101,29 @@ public class SavingStation
         return false;
     }
     
+    /**
+     * GUARDA UN HEROE
+     * @param hero 
+     */
     public void save (Hero hero)
     {
         saves.remove(hero.getUser());
         saves.put(hero.getUser(), hero.save());
         this.save();
     }
-    
+    /**
+     * GUARDA UN HEROE
+     * @param hero 
+     */
     public void save (SavedHero hero)
     {
         saves.remove(hero.getUser());
         saves.put(hero.getUser(), hero);
         this.save();
     }
-    
+    /**
+     * GUARDA TODOS LOS REGISTROS
+     */
     public void save ()
     {
         try
