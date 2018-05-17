@@ -1,9 +1,7 @@
 package shutterearth.map.randomGenerator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import javafx.util.Pair;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

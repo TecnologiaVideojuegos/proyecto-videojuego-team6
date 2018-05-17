@@ -2,7 +2,6 @@
 package shutterearth.map.randomGenerator;
 
 import java.util.ArrayList;
-import javafx.util.Pair;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
