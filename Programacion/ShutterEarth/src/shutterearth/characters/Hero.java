@@ -25,6 +25,8 @@ public class Hero extends Charact
     private final float wMax;
     private final float wMin;
     private int errorCount;
+    private int power;
+    private int powerCount;
     
     public Hero(SavedHero hero)
     {
@@ -51,6 +53,9 @@ public class Hero extends Charact
         animation = false;
         this.goRight();
         errorCount = 0;
+        
+        this.power = 1;
+        this.powerCount = 0;
     }
     
     @Override
@@ -92,7 +97,7 @@ public class Hero extends Charact
         if (bullets >= inventory.getCost())
         {
             bullets -= inventory.getCost();
-            inventory.shot(1);
+            inventory.shot(power);
         }
         else
         {
@@ -155,9 +160,13 @@ public class Hero extends Charact
                 }
             }
             
-            if (animation)
+            if (animation || power!=1)
             {
                 Game.getMedia().getImage(this.getFace()?Media.IMAGE.FIRE_R:Media.IMAGE.FIRE_L).draw(xPos+(this.getFace()?-10:0),yPos,w+10,h);
+            }
+            if (bullets < inventory.getCost())
+            {
+                g.drawString("NO AMMO", xPos-20, yPos-10);
             }
         }
         else
@@ -171,6 +180,19 @@ public class Hero extends Charact
     {
         if (this.isAlive())
         {
+            if (power != 1)
+            {
+                if (powerCount < ((6-power)*100))
+                {
+                    powerCount += 1*t;
+                }
+                else
+                {
+                    powerCount = 0;
+                    power = 1;
+                }
+            }
+            
             if (this.getY() > Game.getY())
             {
                 goUp();
@@ -393,5 +415,11 @@ public class Hero extends Charact
     public String toString()
     {
         return "Hero "+this.healthCurrent+" "+this.xPos+" "+this.xPos;
+    }
+    
+    public void setPowerUp(int n)
+    {
+        power = n;
+        this.healthCurrent += n*10;
     }
 }

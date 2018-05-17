@@ -87,12 +87,17 @@ public class Field extends Scene implements InputProviderListener
     
     private final BB bb;
     private Rectangle futureBB;
+    private Rectangle futurePoweUp2;
+    private final PowerUp powerUp2;
+    private Rectangle futurePoweUp3;
+    private final PowerUp powerUp3;
     private boolean done;
     private boolean dialoged;
     private boolean gameEnded;
     
     private boolean texted;
     private int tcount;
+    
     
     public Field (Hero hero, int stage, HUD hud, int lessHealth)
     {
@@ -120,6 +125,8 @@ public class Field extends Scene implements InputProviderListener
         gameEnded = false;
         done = false;
         bb = new BB();
+        powerUp2 = new PowerUp(2);
+        powerUp3 = new PowerUp(3);
         tcount = 3;
         texted = false;
         dialoged = false;
@@ -153,6 +160,16 @@ public class Field extends Scene implements InputProviderListener
     @Override
     public void Update(GameContainer gc, float t) throws SlickException
     {
+        if (powerUp2.available() && hero.getBox().intersects(powerUp2.getRect()))
+        {
+            hero.setPowerUp(powerUp2.getPower());
+            powerUp2.exit();
+        }
+        if (powerUp3.available() && hero.getBox().intersects(powerUp3.getRect()))
+        {
+            hero.setPowerUp(powerUp3.getPower());
+            powerUp3.exit();
+        }
         if (texted)
         {
             if (!gameEnded)
@@ -650,11 +667,14 @@ public class Field extends Scene implements InputProviderListener
             ship.activate();
         });
         startBattle ();
+        powerUp2.setBB(this.futurePoweUp2);
+        if (stage > 5)
+            powerUp3.setBB(this.futurePoweUp3);
     }
     private void setup ()
     {
         relisable = !sh.isEmpty();
-        n = sh.size() + en.size() +3;
+        n = sh.size() + en.size() +5;
         float [][] result = map.getSpots(n);
         if (result != null)
             spots = result;
@@ -672,7 +692,9 @@ public class Field extends Scene implements InputProviderListener
             spots = result;
         }
         hero.place(spots[0][0], spots[0][1], spots[0][2], spots[0][3], spots[0][4], (int)spots[0][5], (int)spots[0][6]);
-        futureBB = new Rectangle(spots[n-1][0], spots[n-1][1] + Game.step() - hero.getH()/2 - 5,hero.getW(),hero.getH()/2);
+        futureBB = new Rectangle(spots[n-2][0], spots[n-2][1] + Game.step() - hero.getH()/2 - 6,hero.getW(),hero.getH()/2);
+        futurePoweUp2 = new Rectangle(spots[n-1][0], spots[n-1][1] + Game.step() - hero.getH()/2 - 6,hero.getW(),hero.getH()/2);
+        futurePoweUp3 = new Rectangle(spots[n-3][0], spots[n-3][1] + Game.step() - hero.getH()/2 - 6,hero.getW(),hero.getH()/2);
         sh.forEach((ship) ->
         {
             if (!enemy.contains(ship))
