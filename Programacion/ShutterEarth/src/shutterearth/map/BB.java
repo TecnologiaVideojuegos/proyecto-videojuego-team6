@@ -18,7 +18,7 @@ import shutterearth.screens.Scene;
  *
  * @author mr.blissfulgrin
  */
-public class BB extends Scene
+public class BB extends Scene implements Deployable
 {
     private Rectangle bb;
     private boolean go;
@@ -30,11 +30,12 @@ public class BB extends Scene
         go = false;
     }
     
-    public void setBB (Rectangle bb)
+    @Override
+    public void setRect (Rectangle rect)
     {
         if (this.bb == null)
         {
-            this.bb = bb;
+            this.bb = rect;
             Game.addScene(this);
             go = true;
         }
@@ -42,11 +43,12 @@ public class BB extends Scene
         for (int x = 0; x < circles.length; x++)
         {
             circles[x] = new Circle (0,0,Game.getY()/(x+2));
-            circles[x].setCenterX(bb.getCenterX());
-            circles[x].setCenterY(bb.getCenterY());
+            circles[x].setCenterX(rect.getCenterX());
+            circles[x].setCenterY(rect.getCenterY());
         }
     }
-    public Rectangle getBB ()
+    @Override
+    public Rectangle getRect ()
     {
         return bb;
     }
@@ -88,6 +90,7 @@ public class BB extends Scene
     {
         return "BB";
     }
+    @Override
     public void exit ()
     {
         Game.removeSence(this);

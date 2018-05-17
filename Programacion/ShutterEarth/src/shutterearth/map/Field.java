@@ -221,11 +221,11 @@ public class Field extends Scene implements InputProviderListener
                             case 1:
                                 if (!dialoged)
                                 {
-                                    bb.setBB(futureBB);
+                                    bb.setRect(futureBB);
                                     Game.addScene(new TextDisplayer(this,11,3));
                                     dialoged = true;
                                 }
-                                if (hero.getBox().intersects(bb.getBB()))
+                                if (hero.getBox().intersects(bb.getRect()))
                                 {
                                     bb.exit();
                                     releaseBadGuy();
@@ -236,11 +236,11 @@ public class Field extends Scene implements InputProviderListener
                             case 5:
                                 if (!dialoged)
                                 {
-                                    bb.setBB(futureBB);
+                                    bb.setRect(futureBB);
                                     Game.addScene(new TextDisplayer(this,13,3));
                                     dialoged = true;
                                 }
-                                if (hero.getBox().intersects(bb.getBB()))
+                                if (hero.getBox().intersects(bb.getRect()))
                                 {
                                     bb.exit();
                                     releaseBadGuy();
@@ -264,10 +264,10 @@ public class Field extends Scene implements InputProviderListener
                 if (!endDone)
                 {
                     Game.addScene(new TextDisplayer(this,17,3));
-                    bb.setBB(futureBB);
+                    bb.setRect(futureBB);
                     endDone = true;
                 }
-                if (hero.getBox().intersects(bb.getBB()))
+                if (hero.getBox().intersects(bb.getRect()))
                 {
                     Game.addScene(new TextDisplayer(this,16,4));
                 }
@@ -673,9 +673,9 @@ public class Field extends Scene implements InputProviderListener
             ship.activate();
         });
         startBattle ();
-        powerUp2.setBB(this.futurePoweUp2);
+        powerUp2.setRect(this.futurePoweUp2);
         if (stage > 5)
-            powerUp3.setBB(this.futurePoweUp3);
+            powerUp3.setRect(this.futurePoweUp3);
     }
     private void setup ()
     {

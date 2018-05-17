@@ -19,7 +19,7 @@ import shutterearth.screens.Scene;
  *
  * @author mr.blissfulgrin
  */
-public class PowerUp extends Scene
+public class PowerUp extends Scene implements Deployable
 {
     private Rectangle pwup;
     private boolean go;
@@ -33,11 +33,12 @@ public class PowerUp extends Scene
         go = false;
     }
     
-    public void setBB (Rectangle bb)
+    @Override
+    public void setRect (Rectangle rect)
     {
         if (this.pwup == null)
         {
-            this.pwup = bb;
+            this.pwup = rect;
             Game.addScene(this);
             go = true;
         }
@@ -45,10 +46,11 @@ public class PowerUp extends Scene
         for (int x = 0; x < circles.length; x++)
         {
             circles[x] = new Circle (0,0,Game.getY()/(x+3));
-            circles[x].setCenterX(bb.getCenterX());
-            circles[x].setCenterY(bb.getCenterY());
+            circles[x].setCenterX(rect.getCenterX());
+            circles[x].setCenterY(rect.getCenterY());
         }
     }
+    @Override
     public Rectangle getRect ()
     {
         return pwup;
@@ -109,6 +111,7 @@ public class PowerUp extends Scene
     {
         return "Power UP";
     }
+    @Override
     public void exit ()
     {
         Game.removeSence(this);
