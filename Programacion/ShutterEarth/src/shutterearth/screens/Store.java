@@ -54,22 +54,22 @@ public class Store extends Scene implements InputProviderListener
         this.prices = new int[][]
         {
             {
-                100,200,300,400,500,700,900,1100,1200,1500,0        //HEALTH
+                100,200,300,400,500,700,800,900,1000,1100,1200,1300,1500,1750,2000,0            //HEALTH
             },
             {
-                100,150,300,400,0                                   //Arma Minima
+                100,150,300,400,0                                                               //Arma Minima
             },
             {
-                350,450,550,700,0                                   //Arma Base
+                350,450,550,700,0                                                               //Arma Base
             },
             {
-                650,800,900,1000,0                                  //Arma Fuerte
+                650,800,900,1000,0                                                              //Arma Fuerte
             },
             {
-                950,1100,1200,1300,0                                //Arma Rápida
+                950,1100,1200,1300,0                                                            //Arma Rápida
             },
             {
-                1400,1500,1800,2000,0                               //Arma Final
+                1400,1500,1800,2000,0                                                           //Arma Final
             },
         };
         exit = new Rectangle (Game.getX()/14,Game.getY()/14,Game.getX()/16,Game.getY()/20);
@@ -90,7 +90,7 @@ public class Store extends Scene implements InputProviderListener
         int step = Game.getY()/60;
         int wr = Game.getX()/20;
         int hr = Game.getY()/18;
-        int yr = Game.getY() - hr*3;
+        int yr = Game.getY() - hr*3 -hr/2;
         int xr = Game.getX()/2 - ((wr*5)/2) - step*2;
         for (int j = 0; j < status.length; j++)
         {
@@ -143,7 +143,7 @@ public class Store extends Scene implements InputProviderListener
             g.setColor(Color.yellow);
                     g.fill(upgrade);
             Game.getMedia().getImage(Media.IMAGE.UPGRADE).draw(upgrade.getX(),upgrade.getY(),upgrade.getWidth(),upgrade.getHeight());
-            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<11?hero.getHealthMax()/20:10)], upgrade.getX(), upgrade.getMaxY()+15);
+            g.drawString("Cost: "+prices[index][index>0?(hero.getInventory().get(index-1)[1]>0?hero.getInventory().get(index-1)[1]-1:0):(hero.getHealthMax()/20<16?hero.getHealthMax()/20:15)], upgrade.getX(), upgrade.getMaxY()+15);
         }
         else
         {
@@ -227,7 +227,7 @@ public class Store extends Scene implements InputProviderListener
                 }
                 else
                 {
-                    if ((hero.getHealthMax() < 200) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
+                    if ((hero.getHealthMax() < 300) && (hero.getBullets() >= prices[index][hero.getHealthMax()/20]))
                     {
                         Game.getMedia().getSound(Media.SOUND.CASH).play();
                         hero.sold(prices[index][hero.getHealthMax()/20]);

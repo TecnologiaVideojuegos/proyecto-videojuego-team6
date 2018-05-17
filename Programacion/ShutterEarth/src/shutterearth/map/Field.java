@@ -97,7 +97,12 @@ public class Field extends Scene implements InputProviderListener
     public Field (Hero hero, int stage, HUD hud, int lessHealth)
     {
         this.xt = 10;
-        this.yt = 15 + Game.getX()/30 + Game.getX()/300;
+        if (hero.getHealthMax()<=100)
+            this.yt = 15 + Game.getX()/60 + Game.getX()/600;
+        else if (hero.getHealthMax()<=200)
+            this.yt = 15 + Game.getX()/30 + Game.getX()/300;
+        else
+            this.yt = 15 + Game.getX()/15 + Game.getX()/150;
         this.stage = stage;
         this.hero = hero;
         this.hud = hud;
