@@ -41,8 +41,6 @@ public class Access extends Scene implements InputProviderListener
     private final int ty;
     private InputProvider provider;
     private final Command click;
-    private final Command next;
-    private final Control enter = new KeyControl(Input.KEY_ENTER);
     private final Control mouse = new MouseButtonControl(0);
     private final Control tb = new KeyControl(Input.KEY_TAB);
     private final Command tab;
@@ -71,7 +69,6 @@ public class Access extends Scene implements InputProviderListener
         register = new Rectangle (Game.getX()-Game.getX()/14-Game.getX()/16,Game.getY()/14,Game.getX()/16,Game.getY()/20);
         go = new Rectangle (x,y+(Game.getY()/14)*4,w,h);
         click = new BasicCommand("click");
-        next = new BasicCommand("enter");
         tab = new BasicCommand("tab");
         clicked = false;
         this.pass = "";
@@ -116,7 +113,6 @@ public class Access extends Scene implements InputProviderListener
                     Game.getMedia().getSound(Media.SOUND.SHOT).play();
                     provider.unbindCommand(mouse);
                     provider.unbindCommand(tb);
-                    provider.unbindCommand(enter);
                     provider.removeListener(this);
                     StartMenu startMenu = new StartMenu(hero);
                     Game.addScene(startMenu);
@@ -135,7 +131,6 @@ public class Access extends Scene implements InputProviderListener
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 provider.unbindCommand(mouse);
                 provider.unbindCommand(tb);
-                provider.unbindCommand(enter);
                 provider.removeListener(this);
                 Game.addScene(new Register());
                 Game.removeSence(this);
@@ -145,7 +140,6 @@ public class Access extends Scene implements InputProviderListener
                 Game.getMedia().getSound(Media.SOUND.SHOT).play();
                 provider.unbindCommand(mouse);
                 provider.unbindCommand(tb);
-                provider.unbindCommand(enter);
                 provider.removeListener(this);
                 Game.removeSence(this);
                 Game.exit();
@@ -172,7 +166,6 @@ public class Access extends Scene implements InputProviderListener
         provider.addListener(this);       
         provider.bindCommand(mouse, click);
         provider.bindCommand(tb, tab);
-        provider.bindCommand(enter, next);
         input = gc.getInput();  
         this.user = new TextField(gc, gc.getDefaultFont(), x-rx, ry, w, 23);
         this.pswd = new TextField(gc, gc.getDefaultFont(), x+rx, ry, w, 23);
@@ -204,12 +197,6 @@ public class Access extends Scene implements InputProviderListener
         else if (cmnd.equals(tab))
         {
             focus = !focus;
-        }
-        else if (cmnd.equals(next))
-        {
-            xMouse = go.getCenterX();
-            yMouse = go.getCenterY();
-            clicked = true;
         }
         user.setFocus(focus);
         pswd.setFocus(!focus);

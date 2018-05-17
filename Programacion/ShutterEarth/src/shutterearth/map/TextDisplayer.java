@@ -30,6 +30,8 @@ public class TextDisplayer extends Scene implements InputProviderListener
     private InputProvider provider;
     private final Command next;
     private final Control enter = new KeyControl(Input.KEY_ENTER);
+    private final Control shl = new KeyControl(Input.KEY_LSHIFT);
+    private final Control shr = new KeyControl(Input.KEY_RSHIFT);
     private final Field field;
     
     private TextField txt;
@@ -91,6 +93,7 @@ public class TextDisplayer extends Scene implements InputProviderListener
             Game.getMedia().getImage(Media.IMAGE.MENU).draw(0,0,Game.getX(),Game.getY());
             txt.render(gc, g); 
         }
+        g.drawString("HIT ENTER OR SHIFT TO CONTINUE", txt.getX()+5, txt.getY()+txt.getHeight()-20);
     }
 
     @Override
@@ -783,6 +786,8 @@ public class TextDisplayer extends Scene implements InputProviderListener
         provider = new InputProvider(gc.getInput());
         provider.addListener(this);
         provider.bindCommand(enter, next);
+        provider.bindCommand(shr, next);
+        provider.bindCommand(shl, next);
         
         this.txt = new TextField(gc, gc.getDefaultFont(), Game.getX()/2-Game.getX()/4, Game.getY()/2 - Game.getY()/4, Game.getX()/2, Game.getY()/2);
         txt.setBackgroundColor(Color.gray);
@@ -823,6 +828,8 @@ public class TextDisplayer extends Scene implements InputProviderListener
                 Game.removeSence(this);
                 provider.clearCommand(next);
                 provider.unbindCommand(enter);
+                provider.unbindCommand(shr);
+                provider.unbindCommand(shl);
                 provider.setActive(false);
             }
         }
