@@ -165,17 +165,14 @@ public class BadGuy extends Charact
                         break;
                 }
             }
-            else
+            switch((int)(Math.random()*350))
             {
-                switch((int)(Math.random()*350))
-                {
-                    case 0:
-                        this.goDown();
-                        break;
-                    case 1:
-                        this.goUp();
-                        break;
-                }
+                case 0:
+                    this.goDown();
+                    break;
+                case 1:
+                    this.goUp();
+                    break;
             }
             if (this.xPos > (hero.getX()+hero.getW()))
             {
@@ -195,17 +192,15 @@ public class BadGuy extends Charact
                         break;
                 }
             }
-            else
+
+            switch((int)(Math.random()*350))
             {
-                switch((int)(Math.random()*300))
-                {
-                    case 0:
-                        this.goRight();
-                        break;
-                    case 1:
-                        this.goLeft();
-                        break;
-                }
+                case 0:
+                    this.goRight();
+                    break;
+                case 1:
+                    this.goLeft();
+                    break;
             }
             if (this.isInRoom(hero.box))
             {
