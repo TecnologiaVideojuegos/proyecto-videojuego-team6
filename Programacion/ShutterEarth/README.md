@@ -7,6 +7,7 @@ Juego hecho por el equipo 6 para la asignatura de videojuegos en la UAH
 * Disparo con espacio.
 * Enter o Shift para avenzar por los diálogos.
 * Back (<-) para pausar.
+* **Tab para cambiar de cuadro de inserción de texto**
 
 **Según se avanza en el juego y se desbloquean los niveles aparecen más y más características**
 
